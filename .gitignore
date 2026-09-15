@@ -1,0 +1,24 @@
+# ---- 编译沙盒与产物（可由 kernel 树 + patches/ 重建）----
+/build/
+/userspace/build/
+*.o
+*.d
+
+# ---- analysis/ 实验记录：只入库文本与源码，数据不入 ----
+/analysis/*
+!/analysis/*.c
+!/analysis/*.h
+!/analysis/*.sh
+!/analysis/*.py
+!/analysis/*.txt
+!/analysis/*.md
+!/analysis/libisp-offsets/
+
+# ---- 媒体与大数据文件一律不入库 ----
+*.h264
+*.h265
+*.mp4
+*.raw
+*.yuv
+*.bgr
+*.pgm

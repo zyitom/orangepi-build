@@ -1,0 +1,11 @@
+[Unit]
+Description=AR0234 camera 3A (libisp AE/AWB) for every sunxi-vin stream
+After=systemd-modules-load.service
+
+[Service]
+ExecStart=/usr/local/bin/ar0234-3ad
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

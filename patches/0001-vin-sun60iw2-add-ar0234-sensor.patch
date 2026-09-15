@@ -1,0 +1,1360 @@
+--- a/bsp/drivers/vin/modules/sensor/Kconfig
++++ b/bsp/drivers/vin/modules/sensor/Kconfig
+@@ -128,6 +128,10 @@
+ 	tristate "use imx219 driver"
+ 	default n
+ 
++config SENSOR_AR0234
++	tristate "use ar0234 driver"
++	default n
++
+ config SENSOR_IMX274_SLVDS
+ 	tristate "use imx274_slvds driver"
+ 	default n
+--- a/bsp/drivers/vin/modules/sensor/Makefile
++++ b/bsp/drivers/vin/modules/sensor/Makefile
+@@ -30,6 +30,7 @@
+ obj-$(CONFIG_SENSOR_SP5409)			+= sp5409_mipi.o
+ obj-$(CONFIG_SENSOR_IMX214)			+= imx214.o
+ obj-$(CONFIG_SENSOR_IMX219)			+= imx219.o
++obj-$(CONFIG_SENSOR_AR0234)			+= ar0234_mipi.o
+ obj-$(CONFIG_SENSOR_IMX274_SLVDS)		+= imx274_slvds.o
+ obj-$(CONFIG_SENSOR_IMX291_DVP)			+= imx291_dvp.o
+ obj-$(CONFIG_SENSOR_IMX291)			+= imx291_mipi.o
+--- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+@@ -3775,7 +3775,7 @@
+ 
+ 	sensor0:sensor@5812000 {
+ 		device_type = "sensor0";
+-		sensor0_mname = "imx219";
++		sensor0_mname = "ar0234_mipi";
+ 		sensor0_twi_cci_id = <11>;
+ 		sensor0_twi_addr = <0x20>;
+ 		sensor0_mclk_id = <1>;
+@@ -3846,7 +3846,8 @@
+ 		sensor2_power_en = <>;
+ 		sensor2_reset = <>;
+ 		sensor2_pwdn = <&pio PE 10 GPIO_ACTIVE_HIGH>;
+-		status	= "okay";
++		/* MIPI-B unused: probing a missing imx219 only spams dmesg */
++		status	= "disabled";
+ 	};
+ 
+ 	vinc00:vinc@5830000 {
+--- /dev/null
++++ b/bsp/drivers/vin/modules/sensor/ar0234_mipi.c
+@@ -0,0 +1,1313 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Copyright(c) 2020 - 2026 Allwinner Technology Co.,Ltd. All rights reserved. */
++/*
++ * A V4L2 driver for onsemi AR0234 global shutter Raw cameras.
++ *
++ * 4-lane MIPI CSI-2, 10-bit RAW (GRBG), 24MHz MCLK.
++ * Register sequences ported from the Raspberry Pi/Kurokesu ar0234 driver:
++ * PLL 24MHz -> 450MHz link (900Mbps/lane), 90MHz VT pixel clock.
++ *
++ * NOTE: AR0234 registers are 16-bit address / 16-bit data, EXCEPT the 8-bit
++ * pairs 0x301C/0x301D (MODE_SELECT/IMAGE_ORIENTATION) and 0x3022/0x3023
++ * (GROUPED_PARAMETER_HOLD/-). They are accessed as one 16-bit register: the
++ * high byte lands in the first address, the low byte in the second.
++ */
++#include "../../utility/vin_log.h"
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/i2c.h>
++#include <linux/delay.h>
++#include <linux/videodev2.h>
++#include <linux/clk.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-mediabus.h>
++#include <linux/io.h>
++
++#include "camera.h"
++#include "sensor_helper.h"
++
++MODULE_AUTHOR("Orange Pi");
++MODULE_DESCRIPTION("A low-level driver for AR0234 sensors");
++MODULE_LICENSE("GPL");
++
++#define MCLK              (24 * 1000 * 1000)
++#define V4L2_IDENT_SENSOR 0x0A56
++#define V4L2_IDENT_MONO   0x1A56
++
++/*
++ * The AR0234 sits on i2c with 7-bit ID 0x10 (0x20 in 8-bit form)
++ */
++#define I2C_ADDR 0x20
++#define SENSOR_NUM 0x2
++#define SENSOR_NAME "ar0234_mipi"
++#define SENSOR_NAME_2 "ar0234_mipi_2"
++
++/*
++ * Defaults for newly probed sensors; frame_rate can also be changed per
++ * sensor at runtime (V4L2_CID_FRAME_RATE, VIDIOC_VIN_SENSOR_SET_FPS,
++ * VIDIOC_S_PARM), trigger/flash are applied at the next stream start.
++ */
++static int frame_rate;
++module_param(frame_rate, int, 0644);
++MODULE_PARM_DESC(frame_rate, "default max frame rate in fps, 0 = native");
++
++static int trigger_mode;
++module_param(trigger_mode, int, 0644);
++MODULE_PARM_DESC(trigger_mode, "0 = free running, 1 = external trigger (pulsed/automatic), 2 = slave sync");
++
++static bool flash_enable;
++module_param(flash_enable, bool, 0644);
++MODULE_PARM_DESC(flash_enable, "drive the FLASH pin high during exposure");
++
++static int flash_delay;
++module_param(flash_delay, int, 0644);
++MODULE_PARM_DESC(flash_delay, "flash lead (<0) / lag (>0) in ~3.4us steps, -128..127");
++
++/* AR0234 registers (16-bit address, 16-bit data) */
++#define AR0234_REG_CHIP_ID             0x3000
++#define AR0234_REG_Y_ADDR_START        0x3002
++#define AR0234_REG_X_ADDR_START        0x3004
++#define AR0234_REG_Y_ADDR_END          0x3006
++#define AR0234_REG_X_ADDR_END          0x3008
++#define AR0234_REG_FRAME_LENGTH_LINES  0x300A
++#define AR0234_REG_EXPOSURE_COARSE     0x3012
++#define AR0234_REG_RESET               0x301A
++#define AR0234_REG_MODE_ORIENT         0x301C /* 8-bit pair: mode + orientation */
++#define AR0234_REG_GROUPED_HOLD        0x3022 /* 8-bit pair: hold + reserved */
++#define AR0234_REG_VT_PIX_CLK_DIV      0x302A
++#define AR0234_REG_VT_SYS_CLK_DIV      0x302C
++#define AR0234_REG_PRE_PLL_CLK_DIV     0x302E
++#define AR0234_REG_PLL_MULTIPLIER      0x3030
++#define AR0234_REG_OP_PIX_CLK_DIV      0x3036
++#define AR0234_REG_OP_SYS_CLK_DIV      0x3038
++#define AR0234_REG_READ_MODE           0x3040
++#define AR0234_REG_DIGITAL_GAIN        0x305E
++#define AR0234_REG_ANALOG_GAIN         0x3060
++#define AR0234_REG_SMIA_TEST           0x3064
++#define AR0234_REG_DATAPATH_SELECT     0x306E
++#define AR0234_REG_TEST_PATTERN_MODE   0x3070
++#define AR0234_REG_OPERATION_MODE_CTRL 0x3082
++#define AR0234_REG_SEQ_DATA_PORT       0x3086
++#define AR0234_REG_SEQ_CTRL_PORT       0x3088
++#define AR0234_REG_X_ODD_INC           0x30A2
++#define AR0234_REG_Y_ODD_INC           0x30A6
++#define AR0234_REG_DIGITAL_TEST        0x30B0
++#define AR0234_REG_TEMPSENS_DATA       0x30B2
++#define AR0234_REG_TEMPSENS_CTRL       0x30B4
++#define AR0234_REG_MFR_30BA            0x30BA
++#define AR0234_REG_TEMPSENS_CALIB1     0x30C6
++#define AR0234_REG_TEMPSENS_CALIB2     0x30C8
++#define AR0234_REG_GRR_CONTROL1        0x30CE
++#define AR0234_REG_AE_LUMA_TARGET      0x3102
++#define AR0234_REG_DELTA_DK_CONTROL    0x3180
++#define AR0234_REG_DATA_FORMAT_BITS    0x31AC
++#define AR0234_REG_SERIAL_FORMAT       0x31AE
++#define AR0234_REG_FRAME_PREAMBLE      0x31B0
++#define AR0234_REG_LINE_PREAMBLE       0x31B2
++#define AR0234_REG_MIPI_TIMING_0       0x31B4
++#define AR0234_REG_MIPI_TIMING_1       0x31B6
++#define AR0234_REG_MIPI_TIMING_2       0x31B8
++#define AR0234_REG_MIPI_TIMING_3       0x31BA
++#define AR0234_REG_MIPI_TIMING_4       0x31BC
++#define AR0234_REG_COMPANDING          0x31D0
++#define AR0234_REG_PIX_DEF_ID          0x31E0
++#define AR0234_REG_LED_FLASH_CONTROL   0x3270
++#define AR0234_REG_MIPI_CNTRL          0x3354
++
++/* 0x301A reset register */
++#define AR0234_RESET_DEFAULT      0x2058
++#define AR0234_RESET_STREAM       BIT(2)
++#define AR0234_RESET_GPI_EN       BIT(8)
++#define AR0234_RESET_FORCED_PLL_ON BIT(11)
++
++/* 0x30CE */
++#define AR0234_GRR_SLAVE_SH_SYNC  BIT(8)
++
++/* 0x3270 */
++#define AR0234_FLASH_ENABLE       BIT(8)
++
++/* sunxi private range, well above the ids sunxi_camera_v2.h uses (<= +23) */
++#define V4L2_CID_AR0234_TEMPERATURE    (V4L2_CID_USER_SUNXI_CAMERA_BASE + 0x70)
++
++#define AR0234_TRIGGER_MODE_OFF        0
++#define AR0234_TRIGGER_MODE_EXTERNAL   1
++#define AR0234_TRIGGER_MODE_SLAVE_SYNC 2
++
++/*
++ * 0x3060 analog gain: coarse s = bits[6:4], fine t = bits[3:0]
++ *   s = 0, 2: 2^s * 32 / (32 - t)
++ *   s = 1, 3: 2^s * 16 / (16 - t / 2)
++ *   s = 4:    2^s *  8 / ( 8 - t / 4)
++ * 0x0D (1.68x) is the recommended minimum, 0x40 (16x) the maximum.
++ */
++#define AR0234_ANA_GAIN_MIN_REG 0x0D
++#define AR0234_ANA_GAIN_MAX_REG 0x40
++
++/* 0x305E digital gain: 0x80 = 1.0x, linear, max 0x7FF */
++#define AR0234_DIG_GAIN_1X  0x0080
++#define AR0234_DIG_GAIN_MAX 0x07FF
++
++/* 0x30BA value right after reset (4-lane, 90MHz pixclk, gain < 0x20) */
++#define AR0234_MFR_30BA_DEFAULT 0x7622
++
++/* Exposure lower limit in lines */
++#define AR0234_EXPOSURE_MIN 2
++
++/* Lines the sensor adds to FRAME_LENGTH_LINES (measured: fps = pclk / (hts * (fll + 5))) */
++#define AR0234_FLL_OVERHEAD 5
++
++/*
++ * Analog gain lookup: index = register value - AR0234_ANA_GAIN_MIN_REG,
++ * value = sensor gain in 1/16 units, rounded.
++ */
++static const unsigned short ar0234_agc_table[] = {
++	27, 28, 30, 32, 32, 34, 34, 37, 37, 39,			/* 0x0D-0x16 */
++	39, 43, 43, 47, 47, 51, 51, 57, 57, 64,			/* 0x17-0x20 */
++	66, 68, 71, 73, 76, 79, 82, 85, 89, 93,			/* 0x21-0x2A */
++	98, 102, 108, 114, 120, 128, 128, 137, 137, 146,	/* 0x2B-0x34 */
++	146, 158, 158, 171, 171, 186, 186, 205, 205, 228,	/* 0x35-0x3E */
++	228, 256						/* 0x3F-0x40 */
++};
++
++static const char * const ar0234_test_pattern_menu[] = {
++	"Disabled",
++	"Solid Color",
++	"Vertical Color Bars",
++	"Fade to Grey Color Bars",
++	"Walking 1s",
++};
++
++static const unsigned short ar0234_test_pattern_val[] = {
++	0, 1, 2, 3, 256,
++};
++
++struct ar0234 {
++	struct sensor_info info;	/* must stay first: freed via to_state() */
++	bool streaming;
++	bool mono;
++	unsigned short mfr_30ba;
++	int test_pattern;
++	int fps;		/* frame_rate control, 0 = native / S_PARM / module default */
++	int isp_fps;		/* libisp VIDIOC_VIN_SENSOR_SET_FPS, cleared at stream off */
++	unsigned int fll;	/* FRAME_LENGTH_LINES in use */
++};
++
++static inline struct ar0234 *to_ar0234(struct v4l2_subdev *sd)
++{
++	return container_of(to_state(sd), struct ar0234, info);
++}
++
++/*
++ * The default register settings
++ * 24MHz extclk -> 450MHz link (900Mbps/lane, 4 data lanes), 10-bit RAW
++ */
++
++static struct regval_list sensor_default_regs[] = {
++	/* soft reset */
++	{AR0234_REG_RESET, 0x0001},
++	{REG_DLY, 0xd0}, /* 200ms */
++	{AR0234_REG_RESET, AR0234_RESET_DEFAULT},
++	{REG_DLY, 0x64},
++
++	/* PLL: VT pixclk 90MHz, link 450MHz */
++	{AR0234_REG_VT_PIX_CLK_DIV, 0x0005},
++	{AR0234_REG_VT_SYS_CLK_DIV, 0x0001},
++	{AR0234_REG_PRE_PLL_CLK_DIV, 0x0008},
++	{AR0234_REG_PLL_MULTIPLIER, 0x0096},
++	{AR0234_REG_OP_PIX_CLK_DIV, 0x000A},
++	{AR0234_REG_OP_SYS_CLK_DIV, 0x0001},
++
++	/* MIPI timing for 900Mbps/lane */
++	{AR0234_REG_FRAME_PREAMBLE, 0x0082},
++	{AR0234_REG_LINE_PREAMBLE, 0x005C},
++	{AR0234_REG_MIPI_TIMING_0, 0x4248},
++	{AR0234_REG_MIPI_TIMING_1, 0x4258},
++	{AR0234_REG_MIPI_TIMING_2, 0x904B},
++	{AR0234_REG_MIPI_TIMING_3, 0x030B},
++	{AR0234_REG_MIPI_TIMING_4, 0x0D89},
++	{AR0234_REG_MIPI_CNTRL, 0x002B},
++
++	/* 10-bit in/out */
++	{AR0234_REG_DATA_FORMAT_BITS, 0x0A0A},
++
++	/* serial format: 4 data lanes */
++	{AR0234_REG_SERIAL_FORMAT, 0x0204},
++
++	/* common manufacturer settings */
++	{AR0234_REG_DIGITAL_TEST, 0x0028},
++	{AR0234_REG_DATAPATH_SELECT, 0x9010},
++	{AR0234_REG_OPERATION_MODE_CTRL, 0x0003},
++	{AR0234_REG_COMPANDING, 0x0000},
++	{AR0234_REG_SEQ_CTRL_PORT, 0x8050},
++	{AR0234_REG_SEQ_DATA_PORT, 0x9237},
++	{0x3096, 0x0280},
++	{AR0234_REG_PIX_DEF_ID, 0x0003},
++	{0x3F4C, 0x121F},
++	{0x3F4E, 0x121F},
++	{0x3F50, 0x0B81},
++	{0x3ED2, 0xFA96},
++	{AR0234_REG_DELTA_DK_CONTROL, 0x824F},
++	{0x3ECC, 0x0C42},
++	{0x3ECC, 0x0C42},
++	{0x30F0, 0x2283},
++	{AR0234_REG_AE_LUMA_TARGET, 0x5000},
++	{AR0234_REG_TEMPSENS_CTRL, 0x0011},
++	{AR0234_REG_SMIA_TEST, 0x1982},
++};
++
++static struct regval_list sensor_fmt_raw[] = {
++
++};
++
++/* Full resolution 1920x1200 */
++static struct regval_list sensor_1920x1200_regs[] = {
++	{AR0234_REG_Y_ADDR_START, 0x0008},
++	{AR0234_REG_X_ADDR_START, 0x0008},
++	{AR0234_REG_Y_ADDR_END, 0x04B7},
++	{AR0234_REG_X_ADDR_END, 0x0787},
++	{AR0234_REG_X_ODD_INC, 0x0001},
++	{AR0234_REG_Y_ODD_INC, 0x0001},
++};
++
++/* 1080p crop 1920x1080 */
++static struct regval_list sensor_1920x1080_regs[] = {
++	{AR0234_REG_Y_ADDR_START, 0x0044},
++	{AR0234_REG_X_ADDR_START, 0x0008},
++	{AR0234_REG_Y_ADDR_END, 0x047B},
++	{AR0234_REG_X_ADDR_END, 0x0787},
++	{AR0234_REG_X_ODD_INC, 0x0001},
++	{AR0234_REG_Y_ODD_INC, 0x0001},
++};
++
++/* 720p crop 1280x720 */
++static struct regval_list sensor_1280x720_regs[] = {
++	{AR0234_REG_Y_ADDR_START, 0x00F8},
++	{AR0234_REG_X_ADDR_START, 0x0148},
++	{AR0234_REG_Y_ADDR_END, 0x03C7},
++	{AR0234_REG_X_ADDR_END, 0x0647},
++	{AR0234_REG_X_ODD_INC, 0x0001},
++	{AR0234_REG_Y_ODD_INC, 0x0001},
++};
++
++/* 2x2 binned 960x600 */
++static struct regval_list sensor_960x600_regs[] = {
++	{AR0234_REG_Y_ADDR_START, 0x0008},
++	{AR0234_REG_X_ADDR_START, 0x0008},
++	{AR0234_REG_Y_ADDR_END, 0x04B7},
++	{AR0234_REG_X_ADDR_END, 0x0787},
++	{AR0234_REG_X_ODD_INC, 0x0003},
++	{AR0234_REG_Y_ODD_INC, 0x0003},
++	{AR0234_REG_READ_MODE, 0x3000},
++};
++
++/* write the high byte of an 8-bit register pair, keeping the low byte */
++static void ar0234_write_pair_hi(struct v4l2_subdev *sd, unsigned short reg,
++				 unsigned short hi)
++{
++	unsigned short val = 0;
++
++	sensor_read(sd, reg, &val);
++	sensor_write(sd, reg, (hi << 8) | (val & 0xff));
++}
++
++/*
++ * Write 0x301C/0x301D through one 16-bit access: high byte -> 0x301C
++ * (mode select: 1 = streaming), low byte -> 0x301D (bit0 hflip, bit1 vflip).
++ * The sensor shifts its readout on flip, so the Bayer order stays GRBG.
++ */
++static void ar0234_set_mode_orient(struct v4l2_subdev *sd, bool mode_select)
++{
++	struct sensor_info *info = to_state(sd);
++
++	sensor_write(sd, AR0234_REG_MODE_ORIENT,
++		     (mode_select << 8) | (info->vflip << 1) | info->hflip);
++}
++
++/* FRAME_LENGTH_LINES for the current window at the requested frame rate */
++static unsigned int ar0234_calc_fll(struct v4l2_subdev *sd)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	struct sensor_info *info = &sensor->info;
++	struct sensor_win_size *ws = info->current_wins;
++	unsigned int fps = sensor->isp_fps ? sensor->isp_fps : sensor->fps, fll;
++
++	if (!ws)
++		return 0;
++	if (!fps && info->tpf.numerator && info->tpf.denominator)
++		fps = info->tpf.denominator / info->tpf.numerator;
++	if (!fps)
++		fps = frame_rate;
++	if (!fps)
++		return ws->vts;
++
++	fll = ws->pclk / (ws->hts * fps);
++	fll = fll > AR0234_FLL_OVERHEAD ? fll - AR0234_FLL_OVERHEAD : 0;
++	if (fll < ws->vts)
++		fll = ws->vts;
++	if (fll > 0xffff)
++		fll = 0xffff;
++	return fll;
++}
++
++/* true when an application asked for a frame rate that exposure must not break */
++static bool ar0234_fps_requested(struct v4l2_subdev *sd)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++
++	return sensor->isp_fps || sensor->fps || frame_rate ||
++	       (sensor->info.tpf.numerator && sensor->info.tpf.denominator);
++}
++
++static unsigned int ar0234_fll_to_fps(struct sensor_win_size *ws, unsigned int fll)
++{
++	return ws->pclk / (ws->hts * (fll + AR0234_FLL_OVERHEAD));
++}
++
++/*
++ * Exposure in lines. With a requested frame rate the exposure is capped to
++ * the frame length (AE then raises gain), otherwise a long exposure
++ * stretches the frame.
++ */
++static unsigned short ar0234_exp_lines(struct v4l2_subdev *sd, unsigned int exp_val)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	unsigned int shutter = exp_val >> 4;
++
++	if (ar0234_fps_requested(sd) && sensor->fll > 4 && shutter > sensor->fll - 4)
++		shutter = sensor->fll - 4;
++	if (shutter < AR0234_EXPOSURE_MIN)
++		shutter = AR0234_EXPOSURE_MIN;
++	if (shutter > 0xffff)
++		shutter = 0xffff;
++	return shutter;
++}
++
++static void ar0234_apply_fll(struct v4l2_subdev *sd)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	unsigned int fll = ar0234_calc_fll(sd);
++
++	if (!fll)
++		return;
++	sensor->fll = fll;
++	if (sensor->streaming) {
++		unsigned int shutter = ar0234_exp_lines(sd, sensor->info.exp);
++
++		if (!sensor->info.exp) {
++			/* nothing set yet: keep the sensor's default exposure */
++			sensor_write(sd, AR0234_REG_FRAME_LENGTH_LINES, fll);
++			return;
++		}
++		sensor_write(sd, AR0234_REG_FRAME_LENGTH_LINES, max(fll, shutter + 4U));
++		sensor_write(sd, AR0234_REG_EXPOSURE_COARSE, shutter);
++	}
++}
++
++static void ar0234_write_gain(struct v4l2_subdev *sd, int gain_val)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	unsigned short ana_reg = AR0234_ANA_GAIN_MIN_REG;
++	unsigned short ana_gain, mfr_30ba;
++	unsigned int dig_gain;
++	int i;
++
++	/* largest register value with analog gain <= requested gain */
++	for (i = AR0234_ANA_GAIN_MIN_REG; i <= AR0234_ANA_GAIN_MAX_REG; i++) {
++		if (ar0234_agc_table[i - AR0234_ANA_GAIN_MIN_REG] > gain_val)
++			break;
++		ana_reg = i;
++	}
++	ana_gain = ar0234_agc_table[ana_reg - AR0234_ANA_GAIN_MIN_REG];
++
++	/*
++	 * remainder as digital gain, 0x80 = 1.0x. Requests below the 1.68x
++	 * analog minimum clamp to 1.0x digital, i.e. the image is brighter.
++	 */
++	dig_gain = (unsigned int)gain_val * 128 / ana_gain;
++	dig_gain = clamp_t(unsigned int, dig_gain, AR0234_DIG_GAIN_1X, AR0234_DIG_GAIN_MAX);
++
++	/*
++	 * 0x30BA mfr bits depend on pixclk (90MHz for 4-lane) and analog
++	 * gain level, per the Kurokesu/RPi driver.
++	 */
++	if (ana_reg < 0x20)
++		mfr_30ba = 0x7622;
++	else if (ana_reg < 0x3A)
++		mfr_30ba = 0x7621;
++	else
++		mfr_30ba = 0x7620;
++
++	if (mfr_30ba != sensor->mfr_30ba) {
++		sensor_write(sd, AR0234_REG_MFR_30BA, mfr_30ba);
++		sensor->mfr_30ba = mfr_30ba;
++	}
++
++	sensor_write(sd, AR0234_REG_ANALOG_GAIN, ana_reg);
++	sensor_write(sd, AR0234_REG_DIGITAL_GAIN, dig_gain);
++}
++
++static int sensor_s_exp(struct v4l2_subdev *sd, unsigned int exp_val)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++
++	if (exp_val > 0xfffff)
++		exp_val = 0xfffff;
++	sensor->info.exp = exp_val;
++	/* registers are lost on the soft reset at stream on, see sensor_reg_init */
++	if (!sensor->streaming)
++		return 0;
++
++	sensor_write(sd, AR0234_REG_EXPOSURE_COARSE, ar0234_exp_lines(sd, exp_val));
++	return 0;
++}
++
++static int sensor_s_gain(struct v4l2_subdev *sd, int gain_val)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++
++	gain_val = clamp(gain_val, 1 * 16, 256 * 16);
++	sensor->info.gain = gain_val;
++	if (!sensor->streaming)
++		return 0;
++
++	ar0234_write_gain(sd, gain_val);
++	return 0;
++}
++
++/*
++ * ISP AE entry point: frame length, exposure and gain land on the same
++ * frame thanks to the grouped parameter hold.
++ */
++static int sensor_s_exp_gain(struct v4l2_subdev *sd,
++			     struct sensor_exp_gain *exp_gain)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	struct sensor_info *info = &sensor->info;
++	unsigned int exp_val, shutter;
++	int gain_val;
++
++	exp_val = min_t(unsigned int, exp_gain->exp_val, 0xfffff);
++	gain_val = clamp(exp_gain->gain_val, 1 * 16, 256 * 16 - 1);
++	info->exp = exp_val;
++	info->gain = gain_val;
++	if (!sensor->streaming)
++		return 0;
++
++	shutter = ar0234_exp_lines(sd, exp_val);
++	ar0234_write_pair_hi(sd, AR0234_REG_GROUPED_HOLD, 1);
++	sensor_write(sd, AR0234_REG_FRAME_LENGTH_LINES,
++		     max(sensor->fll, shutter + 4));
++	sensor_write(sd, AR0234_REG_EXPOSURE_COARSE, shutter);
++	ar0234_write_gain(sd, gain_val);
++	ar0234_write_pair_hi(sd, AR0234_REG_GROUPED_HOLD, 0);
++	return 0;
++}
++
++static int sensor_g_exp(struct v4l2_subdev *sd, __s32 *value)
++{
++	struct sensor_info *info = to_state(sd);
++
++	*value = info->exp;
++	sensor_dbg("sensor_get_exposure = %d\n", info->exp);
++	return 0;
++}
++
++static int sensor_g_gain(struct v4l2_subdev *sd, __s32 *value)
++{
++	struct sensor_info *info = to_state(sd);
++
++	*value = info->gain;
++	sensor_dbg("sensor_get_gain = %d\n", info->gain);
++	return 0;
++}
++
++/*
++ * On-die temperature sensor, powered and converting since init
++ * (TEMPSENS_CTRL = 0x0011). Approximate: uses the 0.7 degC/LSB slope and
++ * 55 degC calibration point of the Aptina AR01xx family, AR0234 datasheet
++ * values are not public.
++ */
++static int ar0234_get_temp(struct v4l2_subdev *sd, int *temp)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	unsigned short data = 0, calib = 0;
++
++	if (!sensor->streaming)
++		return -EBUSY;
++
++	sensor_read(sd, AR0234_REG_TEMPSENS_DATA, &data);
++	sensor_read(sd, AR0234_REG_TEMPSENS_CALIB2, &calib);
++	if (!calib)
++		sensor_read(sd, AR0234_REG_TEMPSENS_CALIB1, &calib);
++	if (!calib)
++		return -ENODATA;
++
++	*temp = 55 + ((int)(data & 0x7ff) - (int)calib) * 7 / 10;
++	return 0;
++}
++
++/*
++ * Stuff that knows about the sensor.
++ */
++
++static int sensor_power(struct v4l2_subdev *sd, int on)
++{
++	switch (on) {
++	case STBY_ON:
++		sensor_dbg("STBY_ON!\n");
++		cci_lock(sd);
++		vin_gpio_write(sd, RESET, CSI_GPIO_LOW);
++		cci_unlock(sd);
++		vin_set_mclk(sd, OFF);
++		break;
++	case STBY_OFF:
++		sensor_dbg("STBY_OFF!\n");
++		cci_lock(sd);
++		vin_set_mclk_freq(sd, MCLK);
++		vin_set_mclk(sd, ON);
++		msleep(20);
++		cci_unlock(sd);
++		vin_gpio_write(sd, RESET, CSI_GPIO_HIGH);
++		break;
++	case PWR_ON:
++		sensor_dbg("PWR_ON!\n");
++		cci_lock(sd);
++		vin_gpio_set_status(sd, PWDN, 1);
++		vin_gpio_set_status(sd, RESET, 1);
++		vin_gpio_write(sd, PWDN, CSI_GPIO_LOW);
++		vin_gpio_write(sd, RESET, CSI_GPIO_LOW);
++		usleep_range(1000, 1200);
++		vin_set_mclk_freq(sd, MCLK);
++		vin_set_mclk(sd, ON);
++		usleep_range(10000, 12000);
++		vin_gpio_write(sd, POWER_EN, CSI_GPIO_HIGH);
++		vin_set_pmu_channel(sd, IOVDD, ON);
++		vin_set_pmu_channel(sd, AVDD, ON);
++		vin_set_pmu_channel(sd, DVDD, ON);
++		usleep_range(10000, 12000);
++		vin_gpio_write(sd, PWDN, CSI_GPIO_HIGH);
++		vin_gpio_write(sd, RESET, CSI_GPIO_HIGH);
++		usleep_range(30000, 31000);
++		cci_unlock(sd);
++		break;
++	case PWR_OFF:
++		sensor_dbg("PWR_OFF!\n");
++		cci_lock(sd);
++		vin_set_mclk(sd, OFF);
++		vin_gpio_write(sd, POWER_EN, CSI_GPIO_LOW);
++		vin_set_pmu_channel(sd, DVDD, OFF);
++		vin_set_pmu_channel(sd, AVDD, OFF);
++		vin_set_pmu_channel(sd, IOVDD, OFF);
++		usleep_range(10000, 12000);
++		vin_gpio_write(sd, PWDN, CSI_GPIO_LOW);
++		vin_gpio_write(sd, RESET, CSI_GPIO_LOW);
++
++		vin_gpio_set_status(sd, RESET, 0);
++		vin_gpio_set_status(sd, PWDN, 0);
++		cci_unlock(sd);
++		break;
++	default:
++		return -EINVAL;
++	}
++	return 0;
++}
++
++static int sensor_reset(struct v4l2_subdev *sd, u32 val)
++{
++	switch (val) {
++	case 0:
++		vin_gpio_write(sd, RESET, CSI_GPIO_HIGH);
++		usleep_range(10000, 12000);
++		break;
++	case 1:
++		vin_gpio_write(sd, RESET, CSI_GPIO_LOW);
++		usleep_range(10000, 12000);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int sensor_detect(struct v4l2_subdev *sd)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	unsigned short rdval = 0;
++	int cnt = 0;
++
++	sensor_read(sd, AR0234_REG_CHIP_ID, &rdval);
++	sensor_print("V4L2_IDENT_SENSOR = 0x%x\n", rdval);
++
++	while ((rdval != V4L2_IDENT_SENSOR) && (rdval != V4L2_IDENT_MONO) &&
++	       (cnt < 5)) {
++		sensor_read(sd, AR0234_REG_CHIP_ID, &rdval);
++		sensor_print("retry = %d, V4L2_IDENT_SENSOR = %x\n", cnt, rdval);
++		cnt++;
++	}
++
++	if ((rdval != V4L2_IDENT_SENSOR) && (rdval != V4L2_IDENT_MONO))
++		return -ENODEV;
++
++	sensor->mono = rdval == V4L2_IDENT_MONO;
++	/*
++	 * sunxi-vin has no Y10 capture format: the monochrome part is still
++	 * exposed as SGRBG10, every pixel carries luminance.
++	 */
++	sensor_print("find the onsemi AR0234%s ***********\n",
++		     sensor->mono ? " (monochrome)" : "");
++	return 0;
++}
++
++static int sensor_init(struct v4l2_subdev *sd, u32 val)
++{
++	int ret;
++	struct sensor_info *info = to_state(sd);
++
++	sensor_dbg("sensor_init\n");
++
++	/* Make sure it is a target sensor */
++	ret = sensor_detect(sd);
++	if (ret) {
++		sensor_err("chip found is not an target chip.\n");
++		return ret;
++	}
++
++	info->focus_status = 0;
++	info->low_speed = 0;
++	info->width = 1920;
++	info->height = 1200;
++	/* hflip/vflip keep the value of their V4L2 controls across opens */
++
++	/*
++	 * No frame rate requested until VIDIOC_S_PARM: a real value here
++	 * would make sensor_find_frame_size() prefer windows by fps.
++	 */
++	info->tpf.numerator = 1;
++	info->tpf.denominator = 0;
++
++	info->preview_first_flag = 1;
++
++	return 0;
++}
++
++static long sensor_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	struct sensor_info *info = &sensor->info;
++	struct sensor_win_size *ws = info->current_wins;
++	int ret = 0;
++
++	switch (cmd) {
++	case GET_CURRENT_WIN_CFG:
++		if (ws != NULL) {
++			struct sensor_win_size *out = arg;
++			unsigned int fll = ar0234_calc_fll(sd);
++
++			memcpy(out, ws, sizeof(*ws));
++			/* report the frame rate and exposure range really in use */
++			out->vts = fll;
++			out->fps_fixed = ar0234_fll_to_fps(ws, fll);
++			out->intg_max = (fll - 4) << 4;
++			ret = 0;
++		} else {
++			sensor_err("empty wins!\n");
++			ret = -1;
++		}
++		break;
++	case SET_FPS:
++		break;
++	case VIDIOC_VIN_SENSOR_EXP_GAIN:
++		sensor_s_exp_gain(sd, (struct sensor_exp_gain *)arg);
++		break;
++	case VIDIOC_VIN_SENSOR_SET_FPS:
++		/*
++		 * libisp (ispSetFpsRanage) sets the rate of its own stream only;
++		 * keeping it would override the next stream's VIDIOC_S_PARM.
++		 */
++		sensor->isp_fps = max(((struct sensor_fps *)arg)->fps, 0);
++		ar0234_apply_fll(sd);
++		break;
++#ifdef VIDIOC_VIN_SENSOR_GET_FPS
++	case VIDIOC_VIN_SENSOR_GET_FPS:
++		if (!ws)
++			return -EINVAL;
++		((struct sensor_fps *)arg)->fps =
++			ar0234_fll_to_fps(ws, ar0234_calc_fll(sd));
++		break;
++#endif
++	case VIDIOC_VIN_SENSOR_GET_TEMP:
++		ret = ar0234_get_temp(sd, &((struct sensor_temp *)arg)->temp);
++		break;
++	case VIDIOC_VIN_SENSOR_GET_FLIP:
++		((struct sensor_flip *)arg)->hflip = info->hflip;
++		((struct sensor_flip *)arg)->vflip = info->vflip;
++		break;
++	case VIDIOC_VIN_SENSOR_CFG_REQ:
++		sensor_cfg_req(sd, (struct sensor_config *)arg);
++		if (ws) {
++			struct sensor_config *cfg = arg;
++			unsigned int fll = ar0234_calc_fll(sd);
++
++			/* libisp AE plans with these: report what is really in use */
++			cfg->vts = fll;
++			cfg->fps_fixed = ar0234_fll_to_fps(ws, fll);
++			cfg->intg_max = (fll - 4) << 4;
++		}
++		break;
++	default:
++		return -EINVAL;
++	}
++	return ret;
++}
++
++/*
++ * Store information about the video data format.
++ */
++static struct sensor_format_struct sensor_formats[] = {
++	{
++		.desc = "Raw RGB Bayer GRBG 10-bit",
++		.mbus_code = MEDIA_BUS_FMT_SGRBG10_1X10,
++		.regs = sensor_fmt_raw,
++		.regs_size = ARRAY_SIZE(sensor_fmt_raw),
++		.bpp = 1
++	},
++};
++#define N_FMTS ARRAY_SIZE(sensor_formats)
++
++/*
++ * Then there is the issue of window sizes.  Try to capture the info here.
++ * vts is FRAME_LENGTH_LINES, fps_fixed the measured native rate
++ * pclk / (hts * (vts + 5)).
++ */
++
++static struct sensor_win_size sensor_win_sizes[] = {
++	/* 1920x1200 @ 120fps 4lane 900Mbps/lane */
++	{
++	 .width = 1920,
++	 .height = 1200,
++	 .hoffset = 0,
++	 .voffset = 0,
++	 .hts = 612,
++	 .vts = 1216,
++	 .pclk = (90 * 1000 * 1000),
++	 .mipi_bps = 900 * 1000 * 1000,
++	 .fps_fixed = 120,
++	 .bin_factor = 1,
++	 .intg_min = 1 << 4,
++	 .intg_max = (1216 - 4) << 4,
++	 .gain_min = 1 << 4,
++	 .gain_max = 256 << 4,
++	 .regs = sensor_1920x1200_regs,
++	 .regs_size = ARRAY_SIZE(sensor_1920x1200_regs),
++	 .set_size = NULL,
++	 },
++	/* 1920x1080 @ 133fps */
++	{
++	 .width = 1920,
++	 .height = 1080,
++	 .hoffset = 0,
++	 .voffset = 0,
++	 .hts = 612,
++	 .vts = 1096,
++	 .pclk = (90 * 1000 * 1000),
++	 .mipi_bps = 900 * 1000 * 1000,
++	 .fps_fixed = 133,
++	 .bin_factor = 1,
++	 .intg_min = 1 << 4,
++	 .intg_max = (1096 - 4) << 4,
++	 .gain_min = 1 << 4,
++	 .gain_max = 256 << 4,
++	 .regs = sensor_1920x1080_regs,
++	 .regs_size = ARRAY_SIZE(sensor_1920x1080_regs),
++	 .set_size = NULL,
++	 },
++	/* 1280x720 @ 198fps */
++	{
++	 .width = 1280,
++	 .height = 720,
++	 .hoffset = 0,
++	 .voffset = 0,
++	 .hts = 612,
++	 .vts = 736,
++	 .pclk = (90 * 1000 * 1000),
++	 .mipi_bps = 900 * 1000 * 1000,
++	 .fps_fixed = 198,
++	 .bin_factor = 1,
++	 .intg_min = 1 << 4,
++	 .intg_max = (736 - 4) << 4,
++	 .gain_min = 1 << 4,
++	 .gain_max = 256 << 4,
++	 .regs = sensor_1280x720_regs,
++	 .regs_size = ARRAY_SIZE(sensor_1280x720_regs),
++	 .set_size = NULL,
++	 },
++	/* 960x600 2x2 binned @ 235fps */
++	{
++	 .width = 960,
++	 .height = 600,
++	 .hoffset = 0,
++	 .voffset = 0,
++	 .hts = 612,
++	 /* 616 (RPi default) delivers no frames on sunxi-vin, 620 is the minimum that works */
++	 .vts = 620,
++	 .pclk = (90 * 1000 * 1000),
++	 .mipi_bps = 900 * 1000 * 1000,
++	 .fps_fixed = 235,
++	 .bin_factor = 2,
++	 .intg_min = 1 << 4,
++	 .intg_max = (620 - 4) << 4,
++	 .gain_min = 1 << 4,
++	 .gain_max = 256 << 4,
++	 .regs = sensor_960x600_regs,
++	 .regs_size = ARRAY_SIZE(sensor_960x600_regs),
++	 .set_size = NULL,
++	 },
++};
++
++#define N_WIN_SIZES (ARRAY_SIZE(sensor_win_sizes))
++
++static void ar0234_start_stream(struct v4l2_subdev *sd)
++{
++	int tm = trigger_mode;
++
++	if (flash_enable)
++		sensor_write(sd, AR0234_REG_LED_FLASH_CONTROL,
++			     AR0234_FLASH_ENABLE |
++			     (u8)clamp(flash_delay, -128, 127));
++
++	if (tm == AR0234_TRIGGER_MODE_OFF) {
++		ar0234_set_mode_orient(sd, true);
++		return;
++	}
++
++	/* orientation only: the TRIGGER pin starts each exposure */
++	ar0234_set_mode_orient(sd, false);
++	if (tm == AR0234_TRIGGER_MODE_SLAVE_SYNC) {
++		sensor_write(sd, AR0234_REG_GRR_CONTROL1, AR0234_GRR_SLAVE_SH_SYNC);
++		sensor_write(sd, AR0234_REG_RESET,
++			     AR0234_RESET_DEFAULT | AR0234_RESET_GPI_EN |
++			     AR0234_RESET_FORCED_PLL_ON | AR0234_RESET_STREAM);
++	} else {
++		sensor_write(sd, AR0234_REG_RESET,
++			     AR0234_RESET_DEFAULT | AR0234_RESET_GPI_EN |
++			     AR0234_RESET_FORCED_PLL_ON);
++	}
++	sensor_print("trigger mode %d, flash %d\n", tm, flash_enable);
++}
++
++static int sensor_reg_init(struct sensor_info *info)
++{
++	int ret = 0;
++	struct v4l2_subdev *sd = &info->sd;
++	struct ar0234 *sensor = to_ar0234(sd);
++	struct sensor_format_struct *sensor_fmt = info->fmt;
++	struct sensor_win_size *wsize = info->current_wins;
++
++	ret = sensor_write_array(sd, sensor_default_regs,
++				 ARRAY_SIZE(sensor_default_regs));
++	if (ret < 0) {
++		sensor_err("write sensor_default_regs error\n");
++		return ret;
++	}
++
++	sensor_write_array(sd, sensor_fmt->regs, sensor_fmt->regs_size);
++
++	if (wsize->regs)
++		sensor_write_array(sd, wsize->regs, wsize->regs_size);
++
++	if (wsize->set_size)
++		wsize->set_size(sd);
++
++	info->width = wsize->width;
++	info->height = wsize->height;
++
++	/*
++	 * The soft reset above dropped every sensor register: resync the
++	 * 0x30BA cache and re-apply controls set before streaming.
++	 */
++	sensor->mfr_30ba = AR0234_MFR_30BA_DEFAULT;
++	sensor->streaming = true;
++	ar0234_apply_fll(sd);
++	if (info->exp)
++		sensor_s_exp(sd, info->exp);
++	if (info->gain)
++		sensor_s_gain(sd, info->gain);
++	if (sensor->test_pattern)
++		sensor_write(sd, AR0234_REG_TEST_PATTERN_MODE,
++			     ar0234_test_pattern_val[sensor->test_pattern]);
++
++	ar0234_start_stream(sd);
++
++	sensor_print("s_fmt set width = %d, height = %d, fll = %d (%d fps)\n",
++		     wsize->width, wsize->height, sensor->fll,
++		     ar0234_fll_to_fps(wsize, sensor->fll));
++
++	return 0;
++}
++
++static int sensor_s_stream(struct v4l2_subdev *sd, int enable)
++{
++	struct ar0234 *sensor = to_ar0234(sd);
++	struct sensor_info *info = &sensor->info;
++
++	sensor_print("%s on = %d, %d*%d %x\n", __func__, enable,
++		     info->current_wins->width,
++		     info->current_wins->height, info->fmt->mbus_code);
++
++	if (!enable) {
++		/* standby: streaming, trigger input and forced PLL off */
++		sensor_write(sd, AR0234_REG_RESET, AR0234_RESET_DEFAULT);
++		ar0234_set_mode_orient(sd, false);
++		sensor->streaming = false;
++		sensor->isp_fps = 0;
++		return 0;
++	}
++	return sensor_reg_init(info);
++}
++
++/*
++ * sensor_find_frame_size() prefers windows whose fps_fixed equals the
++ * VIDIOC_S_PARM rate, so 1280x720 @ 120fps picked the 1920x1200 (120fps)
++ * window and made the scaler downsize it. Every window can run slower via
++ * FRAME_LENGTH_LINES, so always choose by resolution.
++ */
++static int ar0234_set_fmt(struct v4l2_subdev *sd,
++			  struct v4l2_subdev_state *state,
++			  struct v4l2_subdev_format *fmt)
++{
++	struct sensor_info *info = to_state(sd);
++	__u32 den = info->tpf.denominator;
++	int ret;
++
++	info->tpf.denominator = 0;
++	ret = sensor_set_fmt(sd, state, fmt);
++	info->tpf.denominator = den;
++	return ret;
++}
++
++static int sensor_g_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
++				struct v4l2_mbus_config *cfg)
++{
++	cfg->type = V4L2_MBUS_CSI2_DPHY;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
++	cfg->bus.mipi_csi2.num_data_lanes = 0 | V4L2_MBUS_CSI2_4_LANE |
++					    V4L2_MBUS_CSI2_CHANNEL_0;
++#else
++	cfg->flags = 0 | V4L2_MBUS_CSI2_4_LANE | V4L2_MBUS_CSI2_CHANNEL_0;
++#endif
++
++	return 0;
++}
++
++static int sensor_g_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct sensor_info *info =
++			container_of(ctrl->handler, struct sensor_info, handler);
++	struct v4l2_subdev *sd = &info->sd;
++
++	switch (ctrl->id) {
++	case V4L2_CID_GAIN:
++		/* info->gain is 1/16 (libisp AE writes it too), the control 1/1600 */
++		sensor_g_gain(sd, &ctrl->val);
++		ctrl->val = clamp(ctrl->val * 100, ctrl->minimum, ctrl->maximum);
++		return 0;
++	case V4L2_CID_EXPOSURE:
++		return sensor_g_exp(sd, &ctrl->val);
++	case V4L2_CID_AR0234_TEMPERATURE:
++		if (ar0234_get_temp(sd, &ctrl->val))
++			ctrl->val = 0;
++		return 0;
++	}
++	return -EINVAL;
++}
++
++static int sensor_s_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct sensor_info *info =
++			container_of(ctrl->handler, struct sensor_info, handler);
++	struct v4l2_subdev *sd = &info->sd;
++	struct ar0234 *sensor = to_ar0234(sd);
++
++	switch (ctrl->id) {
++	case V4L2_CID_GAIN:
++		/* BSP gain ctrl unit is 1/1600, sensor_s_gain takes 1/16 */
++		return sensor_s_gain(sd, ctrl->val / 100);
++	case V4L2_CID_EXPOSURE:
++		return sensor_s_exp(sd, ctrl->val);
++	case V4L2_CID_HFLIP:
++		info->hflip = ctrl->val;
++		ar0234_set_mode_orient(sd, sensor->streaming &&
++				       trigger_mode == AR0234_TRIGGER_MODE_OFF);
++		return 0;
++	case V4L2_CID_VFLIP:
++		info->vflip = ctrl->val;
++		ar0234_set_mode_orient(sd, sensor->streaming &&
++				       trigger_mode == AR0234_TRIGGER_MODE_OFF);
++		return 0;
++	case V4L2_CID_TEST_PATTERN:
++		sensor->test_pattern = ctrl->val;
++		if (sensor->streaming)
++			sensor_write(sd, AR0234_REG_TEST_PATTERN_MODE,
++				     ar0234_test_pattern_val[ctrl->val]);
++		return 0;
++	case V4L2_CID_FRAME_RATE:
++		sensor->fps = ctrl->val;
++		ar0234_apply_fll(sd);
++		return 0;
++	}
++	return -EINVAL;
++}
++
++/* ----------------------------------------------------------------------- */
++
++static const struct v4l2_ctrl_ops sensor_ctrl_ops = {
++	.g_volatile_ctrl = sensor_g_ctrl,
++	.s_ctrl = sensor_s_ctrl,
++};
++
++static const struct v4l2_subdev_core_ops sensor_core_ops = {
++	.reset = sensor_reset,
++	.init = sensor_init,
++	.s_power = sensor_power,
++	.ioctl = sensor_ioctl,
++#if IS_ENABLED(CONFIG_COMPAT)
++	.compat_ioctl32 = sensor_compat_ioctl32,
++#endif
++};
++
++static const struct v4l2_subdev_video_ops sensor_video_ops = {
++	.s_stream = sensor_s_stream,
++};
++
++static const struct v4l2_subdev_pad_ops sensor_pad_ops = {
++	.enum_mbus_code = sensor_enum_mbus_code,
++	.enum_frame_size = sensor_enum_frame_size,
++	.enum_frame_interval = sensor_enum_frame_interval,
++	.get_fmt = sensor_get_fmt,
++	.set_fmt = ar0234_set_fmt,
++	.get_mbus_config = sensor_g_mbus_config,
++};
++
++static const struct v4l2_subdev_ops sensor_ops = {
++	.core = &sensor_core_ops,
++	.video = &sensor_video_ops,
++	.pad = &sensor_pad_ops,
++};
++
++/* ----------------------------------------------------------------------- */
++static struct cci_driver cci_drv[] = {
++	{
++		.name = SENSOR_NAME,
++		.addr_width = CCI_BITS_16,
++		.data_width = CCI_BITS_16,
++	}, {
++		.name = SENSOR_NAME_2,
++		.addr_width = CCI_BITS_16,
++		.data_width = CCI_BITS_16,
++	},
++};
++
++static const struct v4l2_ctrl_config sensor_custom_ctrls[] = {
++	{
++		.ops = &sensor_ctrl_ops,
++		.id = V4L2_CID_AR0234_TEMPERATURE,
++		.name = "temperature (approx degC)",
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.min = -40,
++		.max = 150,
++		.step = 1,
++		.def = 0,
++		.flags = V4L2_CTRL_FLAG_VOLATILE | V4L2_CTRL_FLAG_READ_ONLY,
++	}, {
++		.ops = &sensor_ctrl_ops,
++		.id = V4L2_CID_FRAME_RATE,
++		.name = "frame rate",
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.min = 0,	/* 0 = native rate of the window */
++		.max = 240,
++		.step = 1,
++		.def = 0,
++	},
++};
++
++static int sensor_init_controls(struct v4l2_subdev *sd, const struct v4l2_ctrl_ops *ops)
++{
++	struct sensor_info *info = to_state(sd);
++	struct v4l2_ctrl_handler *handler = &info->handler;
++	struct v4l2_ctrl *ctrl;
++	int i;
++	int ret = 0;
++
++	v4l2_ctrl_handler_init(handler, 5 + ARRAY_SIZE(sensor_custom_ctrls));
++
++	ctrl = v4l2_ctrl_new_std(handler, ops, V4L2_CID_EXPOSURE, 0,
++			      65536 * 16, 1, 0);
++	/*
++	 * Exposure and gain are also written by libisp AE (sensor_s_exp_gain),
++	 * so both are VOLATILE to report the value in use. The v4l2 core never
++	 * calls s_ctrl for a VOLATILE control unless it is also EXECUTE_ON_WRITE:
++	 * without it writes are dropped, and a cached gain equal to the new
++	 * value would skip the write as well.
++	 */
++	if (ctrl != NULL)
++		ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE |
++			       V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
++	ctrl = v4l2_ctrl_new_std(handler, ops, V4L2_CID_GAIN, 1 * 1600,
++				 256 * 1600, 1, 1 * 1600);
++	if (ctrl != NULL)
++		ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE |
++			       V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
++	v4l2_ctrl_new_std(handler, ops, V4L2_CID_HFLIP, 0, 1, 1, 0);
++	v4l2_ctrl_new_std(handler, ops, V4L2_CID_VFLIP, 0, 1, 1, 0);
++	v4l2_ctrl_new_std_menu_items(handler, ops, V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(ar0234_test_pattern_menu) - 1,
++				     0, 0, ar0234_test_pattern_menu);
++	for (i = 0; i < ARRAY_SIZE(sensor_custom_ctrls); i++)
++		v4l2_ctrl_new_custom(handler, &sensor_custom_ctrls[i], NULL);
++
++	if (handler->error) {
++		ret = handler->error;
++		v4l2_ctrl_handler_free(handler);
++	}
++
++	sd->ctrl_handler = handler;
++
++	return ret;
++}
++
++static int sensor_dev_id;
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 6, 0)
++static int sensor_probe(struct i2c_client *client)
++#else
++static int sensor_probe(struct i2c_client *client,
++			const struct i2c_device_id *id)
++#endif
++{
++	struct v4l2_subdev *sd;
++	struct ar0234 *sensor;
++	struct sensor_info *info;
++	int i;
++
++	sensor = kzalloc(sizeof(*sensor), GFP_KERNEL);
++	if (sensor == NULL)
++		return -ENOMEM;
++	info = &sensor->info;
++	sd = &info->sd;
++
++	if (client) {
++		for (i = 0; i < SENSOR_NUM; i++) {
++			if (!strcmp(cci_drv[i].name, client->name))
++				break;
++		}
++		if (i == SENSOR_NUM)
++			i = 0;
++		cci_dev_probe_helper(sd, client, &sensor_ops, &cci_drv[i]);
++	} else {
++		cci_dev_probe_helper(sd, client, &sensor_ops, &cci_drv[sensor_dev_id++]);
++	}
++
++	sensor_init_controls(sd, &sensor_ctrl_ops);
++	mutex_init(&info->lock);
++
++#if IS_ENABLED(CONFIG_SAME_I2C)
++	info->sensor_i2c_addr = I2C_ADDR >> 1;
++#endif
++	info->fmt = &sensor_formats[0];
++	info->fmt_pt = &sensor_formats[0];
++	info->win_pt = &sensor_win_sizes[0];
++	info->fmt_num = N_FMTS;
++	info->win_size_num = N_WIN_SIZES;
++	info->sensor_field = V4L2_FIELD_NONE;
++	info->af_first_flag = 1;
++	sensor->mfr_30ba = AR0234_MFR_30BA_DEFAULT;
++
++	return 0;
++}
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
++static int sensor_remove(struct i2c_client *client)
++#else
++static void sensor_remove(struct i2c_client *client)
++#endif
++{
++	struct v4l2_subdev *sd;
++	int i;
++
++	if (client) {
++		for (i = 0; i < SENSOR_NUM; i++) {
++			if (!strcmp(cci_drv[i].name, client->name))
++				break;
++		}
++		if (i == SENSOR_NUM)
++			i = 0;
++		sd = cci_dev_remove_helper(client, &cci_drv[i]);
++	} else {
++		sd = cci_dev_remove_helper(client, &cci_drv[sensor_dev_id++]);
++	}
++	/* struct sensor_info is the first member of struct ar0234 */
++	kfree(to_state(sd));
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
++	return 0;
++#endif
++}
++
++static const struct i2c_device_id sensor_id[] = {
++	{SENSOR_NAME, 0},
++	{}
++};
++
++static const struct i2c_device_id sensor_id_2[] = {
++	{SENSOR_NAME_2, 0},
++	{}
++};
++
++MODULE_DEVICE_TABLE(i2c, sensor_id);
++MODULE_DEVICE_TABLE(i2c, sensor_id_2);
++
++static struct i2c_driver sensor_driver[] = {
++	{
++		.driver = {
++			   .owner = THIS_MODULE,
++			   .name = SENSOR_NAME,
++			   },
++		.probe = sensor_probe,
++		.remove = sensor_remove,
++		.id_table = sensor_id,
++	}, {
++		.driver = {
++			   .owner = THIS_MODULE,
++			   .name = SENSOR_NAME_2,
++			   },
++		.probe = sensor_probe,
++		.remove = sensor_remove,
++		.id_table = sensor_id_2,
++	},
++};
++
++static __init int init_sensor(void)
++{
++	int i, ret = 0;
++
++	sensor_dev_id = 0;
++
++	for (i = 0; i < SENSOR_NUM; i++)
++		ret = cci_dev_init_helper(&sensor_driver[i]);
++
++	return ret;
++}
++
++static __exit void exit_sensor(void)
++{
++	int i;
++
++	sensor_dev_id = 0;
++
++	for (i = 0; i < SENSOR_NUM; i++)
++		cci_dev_exit_helper(&sensor_driver[i]);
++}
++
++VIN_INIT_DRIVERS(init_sensor);
++module_exit(exit_sensor);

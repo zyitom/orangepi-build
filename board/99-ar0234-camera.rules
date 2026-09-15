@@ -1,0 +1,2 @@
+# AR0234 camera stack: A733 VE2 (H.264/H.265 encoder core) for the video group
+KERNEL=="cedar_dev_ve2", GROUP="video", MODE="0660"

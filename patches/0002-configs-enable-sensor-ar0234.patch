@@ -1,0 +1,30 @@
+--- a/external/config/kernel/linux-sun60iw2-current.config
++++ b/external/config/kernel/linux-sun60iw2-current.config
+@@ -332,6 +332,7 @@
+ # CONFIG_SENSOR_SP5409 is not set
+ # CONFIG_SENSOR_IMX214 is not set
+ CONFIG_SENSOR_IMX219=m
++CONFIG_SENSOR_AR0234=m
+ # CONFIG_SENSOR_IMX274_SLVDS is not set
+ # CONFIG_SENSOR_IMX291_DVP is not set
+ # CONFIG_SENSOR_IMX291 is not set
+--- a/external/config/kernel/linux-sun60iw2-legacy-a733.config
++++ b/external/config/kernel/linux-sun60iw2-legacy-a733.config
+@@ -346,6 +346,7 @@
+ # CONFIG_SENSOR_SP5409 is not set
+ # CONFIG_SENSOR_IMX214 is not set
+ CONFIG_SENSOR_IMX219=m
++CONFIG_SENSOR_AR0234=m
+ # CONFIG_SENSOR_IMX274_SLVDS is not set
+ # CONFIG_SENSOR_IMX291_DVP is not set
+ # CONFIG_SENSOR_IMX291 is not set
+--- a/output/config/linux-sun60iw2-current-a733.config
++++ b/output/config/linux-sun60iw2-current-a733.config
+@@ -346,6 +346,7 @@
+ # CONFIG_SENSOR_SP5409 is not set
+ # CONFIG_SENSOR_IMX214 is not set
+ CONFIG_SENSOR_IMX219=m
++CONFIG_SENSOR_AR0234=m
+ # CONFIG_SENSOR_IMX274_SLVDS is not set
+ # CONFIG_SENSOR_IMX291_DVP is not set
+ # CONFIG_SENSOR_IMX291 is not set

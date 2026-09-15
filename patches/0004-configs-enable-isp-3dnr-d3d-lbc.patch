@@ -1,0 +1,43 @@
+--- a/external/config/kernel/linux-sun60iw2-current.config
++++ b/external/config/kernel/linux-sun60iw2-current.config
+@@ -293,8 +293,8 @@
+ CONFIG_D3D=y
+ # CONFIG_D3D_LTF_EN is not set
+ # CONFIG_D3D_COMPRESS_EN is not set
+-CONFIG_D3D_PKG_MODE=y
+-# CONFIG_D3D_LBC_MODE is not set
++# CONFIG_D3D_PKG_MODE is not set
++CONFIG_D3D_LBC_MODE=y
+ # CONFIG_WDR is not set
+ # CONFIG_SAME_I2C is not set
+ # CONFIG_VIN_SDRAM_DFS is not set
+--- a/external/config/kernel/linux-sun60iw2-legacy-a733.config
++++ b/external/config/kernel/linux-sun60iw2-legacy-a733.config
+@@ -308,7 +308,11 @@
+ # CONFIG_MULTI_FRM_MERGE_INT is not set
+ # CONFIG_DISPPLAY_SYNC is not set
+ CONFIG_VIN_IOMMU=y
+-# CONFIG_D3D is not set
++CONFIG_D3D=y
++# CONFIG_D3D_LTF_EN is not set
++# CONFIG_D3D_COMPRESS_EN is not set
++# CONFIG_D3D_PKG_MODE is not set
++CONFIG_D3D_LBC_MODE=y
+ # CONFIG_WDR is not set
+ CONFIG_SAME_I2C=y
+ # CONFIG_VIN_SDRAM_DFS is not set
+--- a/output/config/linux-sun60iw2-current-a733.config
++++ b/output/config/linux-sun60iw2-current-a733.config
+@@ -308,7 +308,11 @@
+ # CONFIG_MULTI_FRM_MERGE_INT is not set
+ # CONFIG_DISPPLAY_SYNC is not set
+ CONFIG_VIN_IOMMU=y
+-# CONFIG_D3D is not set
++CONFIG_D3D=y
++# CONFIG_D3D_LTF_EN is not set
++# CONFIG_D3D_COMPRESS_EN is not set
++# CONFIG_D3D_PKG_MODE is not set
++CONFIG_D3D_LBC_MODE=y
+ # CONFIG_WDR is not set
+ CONFIG_SAME_I2C=y
+ # CONFIG_VIN_SDRAM_DFS is not set

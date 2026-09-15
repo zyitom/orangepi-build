@@ -1,0 +1,1187 @@
+{
+"set_isp_test_mode": [
+null,
+null,
+false
+],
+"set_isp_test_exptime": [
+4,
+4,
+false
+],
+"set_exp_line_start": [
+8,
+4,
+false
+],
+"set_exp_line_step": [
+12,
+4,
+false
+],
+"set_exp_line_end": [
+16,
+4,
+false
+],
+"set_exp_change_interval": [
+20,
+1,
+false
+],
+"set_isp_test_gain": [
+24,
+4,
+false
+],
+"set_gain_start": [
+28,
+4,
+false
+],
+"set_gain_step": [
+32,
+4,
+false
+],
+"set_gain_end": [
+36,
+4,
+false
+],
+"set_gain_change_interval": [
+40,
+1,
+false
+],
+"set_isp_test_focus": [
+44,
+4,
+false
+],
+"set_focus_start": [
+48,
+4,
+false
+],
+"set_focus_step": [
+52,
+4,
+false
+],
+"set_focus_end": [
+56,
+4,
+false
+],
+"set_focus_change_interval": [
+60,
+1,
+false
+],
+"set_isp_log_param": [
+64,
+4,
+false
+],
+"set_isp_gain": [
+68,
+4,
+false
+],
+"set_isp_exp_line": [
+72,
+4,
+false
+],
+"set_isp_color_temp": [
+76,
+4,
+false
+],
+"set_ae_forced": [
+80,
+4,
+false
+],
+"set_lum_forced": [
+84,
+4,
+false
+],
+"set_manual_en": [
+88,
+1,
+false
+],
+"set_afs_en": [
+89,
+1,
+false
+],
+"set_ae_en": [
+90,
+1,
+false
+],
+"set_af_en": [
+91,
+1,
+false
+],
+"set_awb_en": [
+92,
+1,
+false
+],
+"set_hist_en": [
+93,
+1,
+false
+],
+"set_wdr_split_en": [
+94,
+1,
+false
+],
+"set_wdr_stitch_en": [
+95,
+1,
+false
+],
+"set_otf_dpc_en": [
+96,
+1,
+false
+],
+"set_ctc_en": [
+97,
+1,
+false
+],
+"set_gca_en": [
+98,
+1,
+false
+],
+"set_nrp_en": [
+99,
+1,
+false
+],
+"set_denoise_en": [
+100,
+1,
+false
+],
+"set_tdf_en": [
+101,
+1,
+false
+],
+"set_blc_en": [
+102,
+1,
+false
+],
+"set_wb_en": [
+103,
+1,
+false
+],
+"set_dig_gain_en": [
+104,
+1,
+false
+],
+"set_lsc_en": [
+105,
+1,
+false
+],
+"set_msc_en": [
+106,
+1,
+false
+],
+"set_pltm_en": [
+107,
+1,
+false
+],
+"set_cfa_en": [
+108,
+1,
+false
+],
+"set_lca_en": [
+109,
+1,
+false
+],
+"set_sharp_en": [
+110,
+1,
+false
+],
+"set_ccm_en": [
+111,
+1,
+false
+],
+"set_defog_en": [
+112,
+1,
+false
+],
+"set_cnr_en": [
+113,
+1,
+false
+],
+"set_drc_en": [
+114,
+1,
+false
+],
+"set_gtm_en": [
+115,
+1,
+false
+],
+"set_gamma_en": [
+116,
+1,
+false
+],
+"set_cem_en": [
+117,
+1,
+false
+],
+"set_encpp_en": [
+118,
+1,
+false
+],
+"set_enc_3dnr_en": [
+119,
+1,
+false
+],
+"set_enc_2dnr_en": [
+120,
+1,
+false
+],
+"set_define_ae_table": [
+124,
+1,
+false
+],
+"set_ae_max_lv": [
+126,
+2,
+false
+],
+"set_ae_table_preview_length": [
+128,
+1,
+false
+],
+"set_ae_table_capture_length": [
+129,
+1,
+false
+],
+"set_ae_table_video_length": [
+130,
+1,
+false
+],
+"set_ae_hist_mod_en": [
+928,
+1,
+false
+],
+"set_ae_hist0_sel": [
+929,
+1,
+false
+],
+"set_ae_hist1_sel": [
+930,
+1,
+false
+],
+"set_ae_stat_sel": [
+931,
+1,
+false
+],
+"set_ae_ev_step": [
+932,
+1,
+false
+],
+"set_ae_ConvDataIndex": [
+933,
+1,
+false
+],
+"set_ae_blowout_pre_en": [
+934,
+1,
+false
+],
+"set_ae_blowout_attr": [
+935,
+1,
+false
+],
+"set_ae_reserve_0": [
+936,
+1,
+false
+],
+"set_ae_reserve_1": [
+937,
+1,
+false
+],
+"set_ae_reserve_2": [
+938,
+1,
+false
+],
+"set_ae_reserve_3": [
+939,
+1,
+false
+],
+"set_ae_reserve_4": [
+940,
+1,
+false
+],
+"set_ae_delay_frame": [
+941,
+1,
+false
+],
+"set_exp_delay_frame": [
+942,
+1,
+false
+],
+"set_gain_delay_frame": [
+943,
+1,
+false
+],
+"set_exp_comp_step": [
+944,
+1,
+false
+],
+"set_ae_touch_dist_ind": [
+945,
+1,
+false
+],
+"set_ae_iso2gain_ratio": [
+946,
+1,
+false
+],
+"set_awb_interval": [
+1084,
+1,
+false
+],
+"set_awb_speed": [
+1085,
+1,
+false
+],
+"set_awb_stat_sel": [
+1086,
+1,
+false
+],
+"set_awb_color_temper_low": [
+1088,
+2,
+false
+],
+"set_awb_color_temper_high": [
+1090,
+2,
+false
+],
+"set_awb_base_temper": [
+1092,
+2,
+false
+],
+"set_awb_green_zone_dist": [
+1094,
+2,
+false
+],
+"set_awb_blue_sky_dist": [
+1096,
+2,
+false
+],
+"set_local_wb_coef": [
+2632,
+2,
+false
+],
+"set_awb_reserve_0": [
+2634,
+2,
+false
+],
+"set_awb_reserve_1": [
+2636,
+2,
+false
+],
+"set_awb_reserve_2": [
+2638,
+2,
+false
+],
+"set_awb_light_num": [
+1098,
+1,
+false
+],
+"set_awb_ext_light_num": [
+1099,
+1,
+false
+],
+"set_awb_skin_color_num": [
+1100,
+1,
+false
+],
+"set_awb_special_color_num": [
+1101,
+1,
+false
+],
+"set_af_use_otp": [
+2640,
+1,
+false
+],
+"set_vcm_min_code": [
+2642,
+2,
+false
+],
+"set_vcm_max_code": [
+2644,
+2,
+false
+],
+"set_af_interval_time": [
+2646,
+2,
+false
+],
+"set_af_speed_ind": [
+2648,
+2,
+false
+],
+"set_af_auto_fine_en": [
+2650,
+1,
+false
+],
+"set_af_single_fine_en": [
+2651,
+1,
+false
+],
+"set_af_fine_step": [
+2652,
+1,
+false
+],
+"set_af_reserve_0": [
+2653,
+1,
+false
+],
+"set_af_reserve_1": [
+2654,
+1,
+false
+],
+"set_af_reserve_2": [
+2655,
+1,
+false
+],
+"set_af_reserve_3": [
+2656,
+1,
+false
+],
+"set_af_move_cnt": [
+2657,
+1,
+false
+],
+"set_af_still_cnt": [
+2658,
+1,
+false
+],
+"set_af_move_monitor_cnt": [
+2659,
+1,
+false
+],
+"set_af_still_monitor_cnt": [
+2660,
+1,
+false
+],
+"set_af_stable_min": [
+2662,
+2,
+false
+],
+"set_af_stable_max": [
+2664,
+2,
+false
+],
+"set_af_low_light_lv": [
+2666,
+2,
+false
+],
+"set_af_near_tolerance": [
+2668,
+1,
+false
+],
+"set_af_far_tolerance": [
+2669,
+1,
+false
+],
+"set_af_tolerance_off": [
+2670,
+1,
+false
+],
+"set_af_peak_th": [
+2672,
+2,
+false
+],
+"set_af_dir_th": [
+2674,
+2,
+false
+],
+"set_af_change_ratio": [
+2676,
+2,
+false
+],
+"set_af_move_minus": [
+2678,
+2,
+false
+],
+"set_af_still_minus": [
+2680,
+2,
+false
+],
+"set_af_scene_motion_th": [
+2682,
+2,
+false
+],
+"set_af_tolerance_tbl_len": [
+2684,
+1,
+false
+],
+"set_flash_gain": [
+2848,
+4,
+false
+],
+"set_flash_delay_frame": [
+2852,
+4,
+false
+],
+"set_flicker_type": [
+2856,
+4,
+false
+],
+"set_flicker_ratio": [
+2860,
+4,
+false
+],
+"set_hor_visual_angle": [
+2864,
+4,
+false
+],
+"set_ver_visual_angle": [
+2868,
+4,
+false
+],
+"set_focus_length": [
+2872,
+4,
+false
+],
+"set_gamma_num": [
+2876,
+4,
+false
+],
+"set_rolloff_ratio": [
+2880,
+4,
+false
+],
+"set_gtm_hist_sel": [
+2884,
+1,
+false
+],
+"set_gtm_type": [
+2888,
+4,
+false
+],
+"set_gamma_type": [
+2892,
+4,
+false
+],
+"set_auto_alpha_en": [
+2896,
+4,
+false
+],
+"set_hist_pix_cnt": [
+2900,
+4,
+false
+],
+"set_dark_minval": [
+2904,
+4,
+false
+],
+"set_bright_minval": [
+2908,
+4,
+false
+],
+"set_grad_th": [
+3074,
+2,
+false
+],
+"set_dir_v_th": [
+3076,
+2,
+false
+],
+"set_dir_h_th": [
+3078,
+2,
+false
+],
+"set_res_smth_high": [
+3080,
+2,
+false
+],
+"set_res_smth_low": [
+3082,
+2,
+false
+],
+"set_res_high_th": [
+3084,
+2,
+false
+],
+"set_res_low_th": [
+3086,
+2,
+false
+],
+"set_res_dir_a": [
+3088,
+2,
+false
+],
+"set_res_dir_d": [
+3090,
+2,
+false
+],
+"set_res_dir_v": [
+3092,
+2,
+false
+],
+"set_res_dir_h": [
+3094,
+2,
+false
+],
+"set_dpc_remove_mode": [
+3096,
+1,
+false
+],
+"set_dpc_sup_twinkle_en": [
+3097,
+1,
+false
+],
+"set_ctc_th_max": [
+3098,
+2,
+false
+],
+"set_ctc_th_min": [
+3100,
+2,
+false
+],
+"set_ctc_th_slope": [
+3102,
+2,
+false
+],
+"set_ctc_dir_wt": [
+3104,
+2,
+false
+],
+"set_ctc_dir_th": [
+3106,
+2,
+false
+],
+"set_ff_mod": [
+3125,
+1,
+false
+],
+"set_lsc_mode": [
+3124,
+1,
+false
+],
+"set_lsc_center_x": [
+3126,
+2,
+false
+],
+"set_lsc_center_y": [
+3128,
+2,
+false
+],
+"set_mff_mod": [
+1095,
+1,
+false
+],
+"set_msc_mode": [
+1094,
+1,
+false
+],
+"set_ae_table_preview": [
+132,
+4,
+true
+],
+"set_ae_table_capture": [
+300,
+4,
+true
+],
+"set_ae_table_video": [
+468,
+4,
+true
+],
+"set_ae_win_weight": [
+636,
+4,
+true
+],
+"set_ae_fno_step": [
+948,
+4,
+true
+],
+"set_wdr_split_cfg": [
+1012,
+2,
+true
+],
+"set_wdr_comm_cfg": [
+1054,
+2,
+true
+],
+"set_awb_light_info": [
+1104,
+4,
+true
+],
+"set_awb_ext_light_info": [
+1744,
+4,
+true
+],
+"set_awb_skin_color_info": [
+2064,
+4,
+true
+],
+"set_awb_special_color_info": [
+2224,
+4,
+true
+],
+"set_awb_preset_gain": [
+2544,
+4,
+true
+],
+"set_af_std_code_tbl": [
+2688,
+4,
+true
+],
+"set_af_tolerance_value_tbl": [
+2768,
+4,
+true
+],
+"set_bayer_gain": [
+3108,
+4,
+true
+],
+"set_lsc_trig_cfg": [
+null,
+null,
+false
+],
+"set_msc_trig_cfg": [
+null,
+null,
+false
+],
+"set_msc_blw_lut": [
+null,
+null,
+false
+],
+"set_msc_blh_lut": [
+null,
+null,
+false
+],
+"set_gamma_trig_cfg": [
+87200,
+2,
+true
+],
+"set_ccm_trig_cfg": [
+87282,
+2,
+true
+],
+"set_gca_cfg": [
+87288,
+2,
+true
+],
+"set_pltm_cfg": [
+87308,
+4,
+true
+],
+"set_sharp_comm_cfg": [
+87488,
+2,
+true
+],
+"set_denoise_comm_cfg": [
+87508,
+2,
+true
+],
+"set_tdf_comm_cfg": [
+87574,
+2,
+true
+],
+"set_encpp_sharp_comm_cfg": [
+87664,
+2,
+true
+],
+"set_sensor_temp": [
+87684,
+2,
+true
+],
+"set_isp_tdnf_df_shape": [
+88076,
+1,
+true
+],
+"set_isp_tdnf_ratio_amp": [
+88093,
+1,
+true
+],
+"set_isp_tdnf_k_dlt_bk": [
+88110,
+1,
+true
+],
+"set_isp_tdnf_ct_rt_bk": [
+88127,
+1,
+true
+],
+"set_isp_tdnf_dtc_hf_bk": [
+88144,
+1,
+true
+],
+"set_isp_tdnf_dtc_mf_bk": [
+88161,
+1,
+true
+],
+"set_isp_tdnf_lay0_d2d0_rt_br": [
+88178,
+1,
+true
+],
+"set_isp_tdnf_lay1_d2d0_rt_br": [
+88195,
+1,
+true
+],
+"set_isp_tdnf_lay0_nrd_rt_br": [
+88212,
+1,
+true
+],
+"set_isp_tdnf_lay1_nrd_rt_br": [
+88229,
+1,
+true
+],
+"set_lca_pf_satu_lut": [
+88246,
+1,
+true
+],
+"set_lca_gf_satu_lut": [
+88279,
+1,
+true
+],
+"set_isp_sharp_ss_value": [
+88312,
+2,
+true
+],
+"set_isp_sharp_ls_value": [
+88378,
+2,
+true
+],
+"set_isp_sharp_hsv": [
+88444,
+2,
+true
+],
+"set_encpp_sharp_ss_value": [
+88536,
+2,
+true
+],
+"set_encpp_sharp_ls_value": [
+88602,
+2,
+true
+],
+"set_encpp_sharp_hsv": [
+88668,
+2,
+true
+],
+"set_isp_wdr_de_purpl_hsv_tbl": [
+88760,
+1,
+true
+],
+"set_isp_pltm_gtm_tbl": [
+101264,
+2,
+true
+],
+"set_isp_dynamic_cfg_0": [
+102480,
+2,
+true
+],
+"set_isp_dynamic_cfg_1": [
+103466,
+2,
+true
+],
+"set_isp_dynamic_cfg_2": [
+104452,
+2,
+true
+],
+"set_isp_dynamic_cfg_3": [
+105438,
+2,
+true
+],
+"set_isp_dynamic_cfg_4": [
+106424,
+2,
+true
+],
+"set_isp_dynamic_cfg_5": [
+107410,
+2,
+true
+],
+"set_isp_dynamic_cfg_6": [
+108396,
+2,
+true
+],
+"set_isp_dynamic_cfg_7": [
+109382,
+2,
+true
+],
+"set_isp_dynamic_cfg_8": [
+110368,
+2,
+true
+],
+"set_isp_dynamic_cfg_9": [
+111354,
+2,
+true
+],
+"set_isp_dynamic_cfg_10": [
+112340,
+2,
+true
+],
+"set_isp_dynamic_cfg_11": [
+113326,
+2,
+true
+],
+"set_isp_dynamic_cfg_12": [
+114312,
+2,
+true
+],
+"set_isp_dynamic_cfg_13": [
+115298,
+2,
+true
+],
+"set_isp_color_matrix0": [
+170,
+2,
+false
+],
+"set_isp_color_matrix1": [
+194,
+2,
+false
+],
+"set_isp_color_matrix2": [
+218,
+2,
+false
+],
+"set_triger": [
+null,
+null,
+false
+],
+"set_isp_lum_mapping_point": [
+null,
+null,
+false
+],
+"set_isp_gain_mapping_point": [
+null,
+null,
+false
+],
+"set_plum_var": [
+2912,
+2,
+true
+],
+"set_isp_pltm_stat_gd_cv": [
+88784,
+1,
+true
+],
+"set_isp_pltm_df_cv": [
+88844,
+1,
+true
+],
+"set_isp_pltm_lum_map_cv": [
+100752,
+1,
+true
+],
+"set_ae_gain_favor": [
+892,
+4,
+false
+]
+}
