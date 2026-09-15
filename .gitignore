@@ -22,3 +22,6 @@
 *.yuv
 *.bgr
 *.pgm
+
+# ---- 打包产物 ----
+packaging/*.deb

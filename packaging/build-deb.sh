@@ -1,0 +1,33 @@
+#!/bin/bash
+# Build the ar0234-camera .deb from the repo on the host. One command:
+#   bash packaging/build-deb.sh
+# Output: ar0234-camera_<ver>_arm64.deb next to this script.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+KV=6.6.98-sun60iw2
+VER=0.1.0
+STAGE=$(mktemp -d)
+trap 'rm -rf "$STAGE"' EXIT
+
+# --- payload in target filesystem layout ------------------------------------
+install -D -m 644 prebuilt/vin_v4l2.ko    "$STAGE/lib/modules/$KV/updates/vin_v4l2.ko"
+install -D -m 644 prebuilt/ar0234_mipi.ko "$STAGE/lib/modules/$KV/updates/ar0234_mipi.ko"
+install -D -m 755 packaging/payload/usr/local/bin/ar0234-3ad "$STAGE/usr/local/bin/ar0234-3ad"
+install -D -m 755 packaging/payload/usr/local/bin/ar0234-rec "$STAGE/usr/local/bin/ar0234-rec"
+install -D -m 644 userspace/systemd/ar0234-3ad.service "$STAGE/etc/systemd/system/ar0234-3ad.service"
+install -D -m 644 board/99-ar0234-camera.rules "$STAGE/etc/udev/rules.d/99-ar0234-camera.rules"
+install -d "$STAGE/etc/modules-load.d" "$STAGE/mnt/extsd/ar0234"
+printf '# AR0234 camera on MIPI-A\nvin_v4l2\n' > "$STAGE/etc/modules-load.d/ar0234.conf"
+install -m 644 isp/isp_param_3dnr.bin isp/isp_param_no3dnr.bin "$STAGE/mnt/extsd/ar0234/"
+
+# --- control + maintainer scripts -------------------------------------------
+mkdir -p "$STAGE/DEBIAN"
+install -m 644 packaging/control  "$STAGE/DEBIAN/control"
+install -m 755 packaging/postinst "$STAGE/DEBIAN/postinst"
+install -m 755 packaging/prerm    "$STAGE/DEBIAN/prerm"
+install -m 755 packaging/postrm   "$STAGE/DEBIAN/postrm"
+
+dpkg-deb --build --root-owner-group "$STAGE" "packaging/ar0234-camera_${VER}_arm64.deb" >/dev/null
+echo "== built packaging/ar0234-camera_${VER}_arm64.deb =="
+dpkg-deb --contents "packaging/ar0234-camera_${VER}_arm64.deb"

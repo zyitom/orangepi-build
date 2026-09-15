@@ -108,6 +108,11 @@ BSP 基线：orangepi-build `bdba421`；内核 github `orangepi-xunlong/linux-or
 - `Depends: linux-image-current-sun60iw2 (= 1.0.0)`。
 - 验收：干净的板子装包、重启、相机正常；卸载、重启，恢复到原装 imx219 设备树和原装模块。
 
+> **2026-09-16 部分完成**：`packaging/` 已建——`build-deb.sh`（主机一条命令）+ control
+> （Depends 锁 1.0.0，与板上实查一致）+ postinst/prerm/postrm + README（部署清单）+
+> 板上编译取回并 strip 的两个二进制（各 44K）；deb 已打出（156K），**尚未装板验证**。
+> 剩：`updates/` 优先级验证、干净板装/卸载回归、内核升级时的重打包流程。
+
 #### T6 查清 BGR 1920x1200@120 偶发一帧不出
 - 现象：十几次里有 1 次开流后持续 `isp0 frame lost`（当时 3A 服务已经正确选了 no3dnr），之后复现不了。
 - 猜测：开流时内核沿用上一次 libisp 的寄存器表（`sunxi_isp.c` 里 `load_flag` 时 memcpy `load_shadow`），其中还开着 D3D。
