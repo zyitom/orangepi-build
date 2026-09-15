@@ -85,6 +85,10 @@ int main()
 		return 1;
 	}
 	auto &src = bufs[fr->index()];
+	/* stop streaming BEFORE using other capture buffers as G2D dst:
+	 * while queued, vin keeps DMA-writing new frames into them and the
+	 * copy races with live frames (this was the "5% drift") */
+	cap.stop();
 
 	/* use the second capture buffer as dst (already a DMA-BUF with mapping) */
 	int dstfd = bufs[1].dmabuf.get();

@@ -24,7 +24,7 @@
 | 3A | ✅ `ar0234-3ad`（C++，systemd 开机自启）：按 ISP 事件为每路流启动 libisp，按帧率限制 AE 曝光，1200p120 自动关 3DNR |
 | 硬件编码 | ✅ `ar0234-rec`（C++）H.264/H.265，零拷贝，`-e/-g` 手动曝光增益 |
 | 硬件 JPEG | ✅ 2026-09-16 实测：`VideoEncCreate(VENC_CODEC_JPEG)` 走 VE2 零拷贝，`tools/jpeg_test.cpp` 出有效 1080p JPEG（33KB） |
-| G2D | ⚠️ 2026-09-16 部分打通：`modprobe g2d_sunxi` 后 fd→fd BITBLT 能执行、2x 缩放输出正确，但 **src/dst 都要 `bbuff=1`**（否则读到全黑），且仍有 ~5% 像素逐次漂移（vb2 导出缓冲的缓存同步协议，T7 集成时解决）。测试 `tools/g2d_test.cpp` |
+| G2D | ✅ 2026-09-16 **完全打通**：`modprobe g2d_sunxi` + fd→fd BITBLT（NV12）**字节级精确（0 差异）**、2x 缩放输出正确。两个关键点：① src/dst 都要 `bbuff=1`（否则读全黑）；② **测试时先停流**——之前"5% 漂移"是 vin 持续往还在队列里的缓冲写新帧导致的竞争，不是 G2D 的问题。T7 剩余：modules-load + udev + C++ 封装。测试 `tools/g2d_test.cpp` |
 | 硬件解码 | ⚠️ 2026-09-16：**解码本身可用**——厂商 `/usr/bin/vdecoderdemo -i t30.h264 -codFmat 1 -o /tmp/dec.out -n 5 -sn 5 -outFmat 1` 实测解出 1080p。关键：必须先 `AddVDPlugin()`（加载 libaw*.so，链接 -lvideoengine），否则报 unsupported format。**自研精简封装会把内核挂死（串口/网全断，需断电）**——demo 是喂流/取图双线程模式，集成时照抄其结构 |
 | ISP 参数 | ⚠️ 初版：gc05a2 模板 + Kurokesu CCM/AWB；LSC/MSC 没做；`isp/isp_param_3dnr.bin`、`isp_param_no3dnr.bin` |
 | 板子安装状态 | 模块、dtb（fdtput）、参数、服务都已装；内核和 dtb 包 apt-mark hold；备份 `vin_v4l2.ko.bak-pre-d3d`、`ar0234_mipi.ko.bak-pre-cpp`、`*.dtb.orig` |
@@ -140,8 +140,8 @@ BSP 基线：orangepi-build `bdba421`；内核 github `orangepi-xunlong/linux-or
 | T10 | MP4 封装和 JPEG 抓图 | 板上有 libavformat 58 运行库，要装 `libavformat-dev`；另做 `ar0234-snap`，用 `AWJpecEnc` 硬件 JPEG。验收：MP4 时间戳正确、能正常播放；JPEG 能正常打开 |
 | T11 | 长时间稳定性 | 分两组各连续 4 小时：① 1200p110 BGR 采集（T2 的程序）；② 1200p110 NV12 + VE 录像（`ar0234-rec -n 0`）。video0 同一时间只能输出一种格式，所以不能同时跑。记录：记录传感器温度（`temperature_approx_degc`）、SoC 温度、丢帧、内存、dmesg。输出一份报告 |
 | T12 | 实时性基线 | 装 `rt-tests`，带相机满负载跑 `cyclictest`；再试 `isolcpus` + `SCHED_FIFO` + 中断绑核。报告最坏延迟。RT 内核暂缓（见 `../rt-check/`） |
-| T13 | GPU OpenCL | 只装头文件（`opencl-c-headers`），**不要装替换厂商 libOpenCL 的 ICD 加载器包**；列出扩展，查有没有 DMA-BUF 导入；写一个 RAW 去马赛克 kernel 测性能 |
-| T14 | ISP 双路输出 | 设备树 `vinc10`（同一个 ISP，第二个缩放器）用 fdtput 打开（先备份），重启；测试 video0 输出 1920x1200、另一个节点同时输出 640x400 |
+| T13 | GPU OpenCL | ✅ 2026-09-16 实测：PowerVR BXM-4-64 / OpenCL 3.0 可用；设备级 EXTENSIONS 查询是坏的（返回 4 字节二进制），改查 `CL_PLATFORM_EXTENSIONS`(0x0904)。**DMA-BUF 导入确认**：`cl_khr_external_memory_dma_buf`、`cl_arm_import_memory_dma_buf`、`cl_khr_external_memory`，另有 `cl_img_yuv_image`（NV12 直处理）、`cl_khr_fp16`、`cl_khr_integer_dot_product`。测试 `tools/cltest2.c`。剩：装 opencl-c-headers 写去马赛克 kernel 测性能 |
+| T14 | ISP 双路输出 | ❌ **2026-09-16 实测：双流会挂死内核**。fdtput 启用 vinc10 后 /dev/video4 出现、开机单流正常，但 video0 + video4 同时出流 → 内核整体挂死（串口/网全断，断电恢复）。**恢复命令**：`fdtput -t s /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb /soc@3000000/vind@5800800/vinc@5831000 status disabled`（重启前先跑）。要第二路输出改走双相机（T9b，独立 ISP01 路径）或查 vin 多输出驱动 |
 | T15 | dmesg 噪声 | 开流、停流时偶发 `isp0 configuration error/height error`、`video0 has already stream off`：查清来源，确认无害或者修掉 |
 | T16 | vin 重载后 ISP 坏 | 加载时 `Get isp reset control fail`：查 DTS 里 isp 节点有没有 `resets`，或者在 probe 里强制复位 ISP。验收：出流后 rmmod/modprobe 能继续出流 |
 | T17 | 单元测试和集成测试 | 给 `IspParamSets::needs_3dnr_off`、帧率取整、参数原子替换写单元测试；把各模式、各格式的回归测试写成脚本 |
