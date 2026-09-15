@@ -36,8 +36,8 @@
 ## deb 打包路线（两步走）
 
 **第一步 T5 —— 附加包 `ar0234-camera`**（适配当前手工部署的内核；**2026-09-16 已实现**：
-`packaging/build-deb.sh` 一条命令打出 `ar0234-camera_0.1.0_arm64.deb`，安装/还原脚本与
-部署清单见 `packaging/README.md`；板上装包验证待做）：
+`packaging/build-deb.sh` 一条命令打出 `ar0234-camera_0.1.0_arm64.deb`，装/卸载回归
+已于 2026-09-16 板上验证通过，见 `packaging/README.md`）：
 
 - 内容：2×.ko → `/lib/modules/<kver>/updates/`、2 程序 → `/usr/local/bin/`、
   systemd unit、udev 规则、modules-load、ISP 参数文件。

@@ -108,10 +108,13 @@ BSP 基线：orangepi-build `bdba421`；内核 github `orangepi-xunlong/linux-or
 - `Depends: linux-image-current-sun60iw2 (= 1.0.0)`。
 - 验收：干净的板子装包、重启、相机正常；卸载、重启，恢复到原装 imx219 设备树和原装模块。
 
-> **2026-09-16 部分完成**：`packaging/` 已建——`build-deb.sh`（主机一条命令）+ control
-> （Depends 锁 1.0.0，与板上实查一致）+ postinst/prerm/postrm + README（部署清单）+
-> 板上编译取回并 strip 的两个二进制（各 44K）；deb 已打出（156K），**尚未装板验证**。
-> 剩：`updates/` 优先级验证、干净板装/卸载回归、内核升级时的重打包流程。
+> **2026-09-16 完成**：`packaging/` 一条命令出包（必须 `-Zxz`——板上 dpkg 太老不认
+> zstd 的 control 归档）；板上全流程回归通过：先 apt 本地重装官方 1.0.0 包还原出厂态
+> （apt 源里下不到这两个包，官方 deb 在主机 `output/debs/`）→ 装 deb 重启 → `modinfo -n`
+> 解析到 `updates/`（kmod 默认优先级成立，无需 depmod.d）、模块自启、`ar0234-3ad` active、
+> cap 实测 1920x1200@120fps 出流 → 卸载重启 → dtb/模块/服务/参数全部还原。
+> 板上现为 deb 安装态（deb 副本在 `~/ar0234test/`）。剩：内核升级时需重编模块出新包
+> （`Depends (= 1.0.0)` 会挡 apt 升级，属预期行为）。
 
 #### T6 查清 BGR 1920x1200@120 偶发一帧不出
 - 现象：十几次里有 1 次开流后持续 `isp0 frame lost`（当时 3A 服务已经正确选了 no3dnr），之后复现不了。

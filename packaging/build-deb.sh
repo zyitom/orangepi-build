@@ -28,6 +28,7 @@ install -m 755 packaging/postinst "$STAGE/DEBIAN/postinst"
 install -m 755 packaging/prerm    "$STAGE/DEBIAN/prerm"
 install -m 755 packaging/postrm   "$STAGE/DEBIAN/postrm"
 
-dpkg-deb --build --root-owner-group "$STAGE" "packaging/ar0234-camera_${VER}_arm64.deb" >/dev/null
+# -Zxz: the board's dpkg predates zstd support in control.tar
+dpkg-deb --build --root-owner-group -Zxz "$STAGE" "packaging/ar0234-camera_${VER}_arm64.deb" >/dev/null
 echo "== built packaging/ar0234-camera_${VER}_arm64.deb =="
 dpkg-deb --contents "packaging/ar0234-camera_${VER}_arm64.deb"

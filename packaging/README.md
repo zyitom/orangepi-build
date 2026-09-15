@@ -35,9 +35,11 @@ ISP 直连、关 MIPI-B）、`systemctl enable`、`apt-mark hold` 两个内核�
   install -m 755 /tmp/f/ar0234-* packaging/payload/usr/local/bin/
   ```
 
-## 待验证（下次装板时）
+## 验证记录（2026-09-16，板上实测）
 
-1. `updates/` 目录的模块确实优先于原装模块加载（kmod 默认搜索顺序，板上无 depmod.d 覆盖）。
-2. 干净系统装包 → 重启 → 相机可用；卸载 → 重启 → 完全回到 imx219。
-3. 版本联动：`linux-image` 升级时 deb 因 `Depends (= 1.0.0)` 会被 apt 拒绝升级，
-   需要先重编模块、改 control 版本再出新包。
+1. `updates/` 优先级 ✅：`modinfo -n` 解析到 updates/（kmod 默认搜索顺序，无需 depmod.d）。
+2. 装包 → 重启 → 模块自启、`ar0234-3ad` active、cap 实测 1920x1200 RAW10 120fps ✅；
+   卸载 → 重启 → dtb/模块/服务/参数完全还原到 imx219 出厂态 ✅。
+3. 打包必须 `-Zxz`：板上 dpkg 较老，不认 zstd 压缩的 control 归档（build-deb.sh 已内置）。
+4. 版本联动：`linux-image` 升级时 deb 因 `Depends (= 1.0.0)` 会被 apt 拒绝升级，
+   需要先重编模块、改 control 版本再出新包（预期行为）。
