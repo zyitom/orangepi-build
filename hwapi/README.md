@@ -157,19 +157,28 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 - H.265 的 `nGopSize` 大于 63 时，库会静默改成 2。
 - 实测吞吐：1080p H.264 约 8.7ms/帧，所以 1200p120 最多约 115fps。
 
-### 其他接口（⚠️ 未测）
+### 其他接口
 
-- `AWJpecEnc(JpegEncInfo*, EXIFInfo*, ...)`：硬件 JPEG 抓图
-- `AWCropYuv` / `AWCropYuvAndRotate`：YUV 裁剪和旋转
-- `VideoEncIspCreate` / `VideoEncIspFunction`、`GetIspPhyAddrByFd`：编码器与 ISP 联动
+- `AWJpecEnc(JpegEncInfo*, EXIFInfo*, ...)`：⚠️ 未测（但 JPEG 已走标准编码器路径打通，见下）
+- `AWCropYuv` / `AWCropYuvAndRotate`：YUV 裁剪和旋转 ⚠️
+- `VideoEncIspCreate` / `VideoEncIspFunction`、`GetIspPhyAddrByFd`：编码器与 ISP 联动 ⚠️
 
-### 解码 libvdecoder（`board-include/vdecoder.h`，⚠️ 未测）
+### JPEG 编码（✅ 2026-09-16 实测，`../tools/jpeg_test.cpp`）
 
-`CreateVideoDecoder` → `InitializeVideoDecoder` → `RequestVideoStreamBuffer` / `SubmitVideoStreamData`
-→ `DecodeVideoStream` → `RequestPicture` / `ReturnPicture` → `DestroyVideoDecoder`
+`VideoEncCreate(VENC_CODEC_JPEG)` + `VideoEncSetParameter(VENC_IndexParamJpegQuality, &int)` +
+`VideoEncInit(YUV420SP)`，零拷贝流程与 H.264 相同（GetVeIommuAddr/nShareBufFd=-1），
+`GetOneBitstreamFrame` 直接出完整 JPEG（无独立码流头）。实测 1080p 单帧 33KB，走 **VE2**
+（`/dev/cedar_dev_ve2`）。无 SPS/PPS 调用。
 
-内核接口 `kernel-uapi/cedar_ve_uapi.h`（`IOCTL_ENGINE_REQ`、`IOCTL_WAIT_VE_EN`、`IOCTL_GET_IOMMU_ADDR`、
-`IOCTL_MAP_DMA_BUF` ……）是给 libVE 用的，应用程序不要直接调用。
+### 解码 libvdecoder（⚠️→✅ 2026-09-16，`../tools/dec_test.cpp` + 厂商 demo）
+
+**解码可用，但有三个坑（2026-09-16 实测）：**
+1. 必须先 `AddVDPlugin()`（加载 libawh264/libawh265 等插件），链接 **`-lvideoengine`**；
+   否则 `VideoEngineCreate` 报 `unsupported format H264`（= 没有插件注册该格式）。
+2. 厂商验证：`/usr/bin/vdecoderdemo -i t30.h264 -codFmat 1 -o /tmp/dec.out -n 5 -sn 5 -outFmat 1`
+   解码 1920x1088 H.264 成功（decode 7 帧 / display 5 帧）。
+3. **警告**：按 vdecoder.h 单线程直调的自研封装曾把内核整体挂死（2026-09-16，断电恢复）。
+   demo 是「喂流线程 + displayPicture 线程」双线程结构——集成时先照抄 demo 结构，不要单线程直调。
 
 ---
 
@@ -178,6 +187,12 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 - 没有用户态库，直接对 `/dev/g2d` 发 ioctl。
 - ✅ 驱动能响应：`G2D_CMD_QUERY_VERSION` 返回 `g2d_version = 0x10112114`（`vendor-samples/probe_accel.c`）
 - ⚠️ 模块 `g2d_sunxi` **默认不自动加载**，`/dev/g2d` 只有 root 能访问 → 要在 `/etc/modules-load.d/` 加上模块，再加一条 udev 规则
+- ⚠️→部分打通（2026-09-16，`../tools/g2d_test.cpp`）：`modprobe g2d_sunxi` 后 fd→fd BITBLT 可执行、
+  2x 缩放输出尺寸正确。**两个关键发现**：
+  1. `src_image_h.bbuff` 必须设 **1**（fd 缓冲标志），否则 G2D 把源读成全黑（输出 Y=16 的有限色域黑帧）；
+  2. NV12→NV12 全屏拷贝仍有 ~5% 像素逐次漂移（幅度 >8，缓存同步协议问题：DMA_BUF_IOCTL_SYNC 无效，
+     疑似 vb2 导出缓冲的 begin/end_cpu_access 没实现），T7 集成时要么换 uncached 分配、要么自己 flush。
+  NV12 格式值 = `G2D_FORMAT_YUV420UVC_U1V1U0V0`（0x29）。
 
 | 命令 | 结构体 | 用途 |
 |---|---|---|

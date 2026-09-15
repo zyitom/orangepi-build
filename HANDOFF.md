@@ -23,6 +23,9 @@
 | ISP | ✅ NV12 / **BGR（硬件转换，请求 RGB3 或 BGR3 都得到 B,G,R 顺序）** / RAW BA10；ISP 硬件缩放直接输出 640x400 等小尺寸 BGR @120fps |
 | 3A | ✅ `ar0234-3ad`（C++，systemd 开机自启）：按 ISP 事件为每路流启动 libisp，按帧率限制 AE 曝光，1200p120 自动关 3DNR |
 | 硬件编码 | ✅ `ar0234-rec`（C++）H.264/H.265，零拷贝，`-e/-g` 手动曝光增益 |
+| 硬件 JPEG | ✅ 2026-09-16 实测：`VideoEncCreate(VENC_CODEC_JPEG)` 走 VE2 零拷贝，`tools/jpeg_test.cpp` 出有效 1080p JPEG（33KB） |
+| G2D | ⚠️ 2026-09-16 部分打通：`modprobe g2d_sunxi` 后 fd→fd BITBLT 能执行、2x 缩放输出正确，但 **src/dst 都要 `bbuff=1`**（否则读到全黑），且仍有 ~5% 像素逐次漂移（vb2 导出缓冲的缓存同步协议，T7 集成时解决）。测试 `tools/g2d_test.cpp` |
+| 硬件解码 | ⚠️ 2026-09-16：**解码本身可用**——厂商 `/usr/bin/vdecoderdemo -i t30.h264 -codFmat 1 -o /tmp/dec.out -n 5 -sn 5 -outFmat 1` 实测解出 1080p。关键：必须先 `AddVDPlugin()`（加载 libaw*.so，链接 -lvideoengine），否则报 unsupported format。**自研精简封装会把内核挂死（串口/网全断，需断电）**——demo 是喂流/取图双线程模式，集成时照抄其结构 |
 | ISP 参数 | ⚠️ 初版：gc05a2 模板 + Kurokesu CCM/AWB；LSC/MSC 没做；`isp/isp_param_3dnr.bin`、`isp_param_no3dnr.bin` |
 | 板子安装状态 | 模块、dtb（fdtput）、参数、服务都已装；内核和 dtb 包 apt-mark hold；备份 `vin_v4l2.ko.bak-pre-d3d`、`ar0234_mipi.ko.bak-pre-cpp`、`*.dtb.orig` |
 | 补丁 | `patches/0001`（驱动 + Kconfig + Makefile + DTS）、`0002`（配置加 SENSOR_AR0234）、`0003`（vin 自动 S_INPUT 等）、`0004`（配置开 D3D LBC）；**都还没打进内核树** |
@@ -133,6 +136,7 @@ BSP 基线：orangepi-build `bdba421`；内核 github `orangepi-xunlong/linux-or
 |---|---|---|
 | T8 | orangepi-build 正式集成 | 0001、0003 放 `userpatches/kernel/sun60iw2-current/`；配置放 `userpatches/linux-sun60iw2-current-a733.config`（包含 0002、0004 的改动）；`./build.sh BOARD=orangepizero3w BRANCH=current BUILD_OPT=kernel REVISION=1.0.1`。**装板前先准备回退方案**（备份 /boot，确认串口能救）。验收：新 deb 装好后不用 fdtput、不用 prebuilt 模块，相机就正常 |
 | T9 | 驱动 ROI 裁剪（AOI） | 传感器窗口寄存器（0x3002–0x3008）+ sunxi-vin 动态窗口，或者用 V4L2 selection 接口。窗口越小帧率越高。验收：比如 1920x400 实测帧率和计算值一致，画面位置正确 |
+| T9b | 双相机 | 2026-09-16 拓扑已查明：第二相机走 sensor1（MIPI-B，DTS 默认 mname=ov13850，twi9 addr 0x20）→ csi1 → tdm_rx1 → **isp01（独立 ISP，参数文件互不干扰）** → vinc01（→ /dev/video1，dtsi 里 status=disabled）。启用步骤：fdtput/改 DTS 打开 csi1+mipi1+isp01+vinc01，`sensor1_mname` 改 ar0234_mipi（驱动按 i2c 实例化，双实例没问题），I2C 地址或总线要与 sensor0 错开；`ar0234-3ad` 要扩展成 per-ISP 会话（video1→isp1）；双流带宽要实测（ISP 标称 4K30，两路 1080p 需验证） |
 | T10 | MP4 封装和 JPEG 抓图 | 板上有 libavformat 58 运行库，要装 `libavformat-dev`；另做 `ar0234-snap`，用 `AWJpecEnc` 硬件 JPEG。验收：MP4 时间戳正确、能正常播放；JPEG 能正常打开 |
 | T11 | 长时间稳定性 | 分两组各连续 4 小时：① 1200p110 BGR 采集（T2 的程序）；② 1200p110 NV12 + VE 录像（`ar0234-rec -n 0`）。video0 同一时间只能输出一种格式，所以不能同时跑。记录：记录传感器温度（`temperature_approx_degc`）、SoC 温度、丢帧、内存、dmesg。输出一份报告 |
 | T12 | 实时性基线 | 装 `rt-tests`，带相机满负载跑 `cyclictest`；再试 `isolcpus` + `SCHED_FIFO` + 中断绑核。报告最坏延迟。RT 内核暂缓（见 `../rt-check/`） |
