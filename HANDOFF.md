@@ -148,7 +148,7 @@ BSP 基线：orangepi-build `bdba421`；内核 github `orangepi-xunlong/linux-or
 |---|---|---|
 | T18 | 外部触发、从机同步、闪光灯实测；vin 对不定时帧的处理；配合手动曝光 | 用户接线（TRIG 是 **1.8V** 电平，要电平转换）；40pin 的 PWM 引脚映射要查设备树和原理图（pwmchip0/10/20 各 10 路） |
 | T19 | NPU：ISP 640x400 BGR → `vip_create_buffer_from_fd` → 推理（比如 YOLO） | 厂商 NPU SDK（`libVIPlite.so` + 模型转换工具，版本要和驱动 1.13.0 匹配） |
-| T20 | ISP 标定：LSC/MSC 暗角表、AWB 光源表、CCM、降噪 | 先对焦；需要平场白板、灰卡、24 色卡、标准光源，或者全志 ISP Tuning Tool；ISP602 参数里 LSC/MSC 表的偏移还要逆向 |
+| T20 | ISP 标定：LSC/MSC 暗角表、AWB 光源表、CCM、降噪 | **2026-09-16 重大进展：LSC/MSC 表偏移已逆向完成**（无需 Tuning Tool）——参数体 = 内核 `isp_tuning_priv.h` 布局 + bayer_gain 前插 2848 字节；LSC 表 @3130（u16[12][768]，3 通道×256 点径向，Q10，1.0=1024）、触发色温 @21562、MSC @21574/21632，全部经 setter 反汇编 + 数据特征双重验证，详见 `analysis/libisp-offsets/offs.txt`。工具链已就绪：`tools/calibrate_lsc.py`（平场 RAW → 增益表，合成数据验证通过）+ `make_isp_bin.py --lsc-json`（注入，回路验证通过）。**剩：实拍平场标定 + 上板开关 LSC 对比验证**（注意 channel 顺序 R/G/B 和中心坐标 2048,2048 的假设要用实拍确认）。CCM/AWB 已可标定（偏移早就知道）。仍缺：对焦、标定器材 |
 | T21 | 黑白版 AR0234（芯片 ID 0x1A56）：Y8/Y10 格式，ISP 旁路 | 需要黑白模组 |
 | T22 | 图像外传：USB UVC gadget（内核已支持）或 USB 网卡 | 用户决定方案；USB 2.0 带宽下，全分辨率不压缩最多约 15fps |
 | T23 | 对照模组原理图核对电源和复位引脚（现在沿用 imx219 的 PE6 pwdn，reset 注释掉了） | 模组原理图 |

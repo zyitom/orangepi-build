@@ -49,3 +49,21 @@ sz_dyncfg 982
 sz_iso 13936
 sz_test 124
 sz_tune 99384
+
+== 2026-09-16 LSC/MSC reverse (libisp_ini.so disasm, see lsc_offs.c) ==
+payload = [u32 size=116284][20B time][50B notes][struct 116284]; deployed
+isp_param_*.bin carry the 74B header, template blob is the raw struct.
+Layout = kernel isp_tuning_priv.h with +2848 bytes before bayer_gain and
+iso triger block removed. All verified against make_isp_bin.py anchors
+(CCM 87210) and data signatures (color-temp triggers, Q10 radial curves).
+
+LSC_MODE      3124  u8 (1=on; module enable bit also needed: EN lsc=105)
+LSC_CENTER    3126  2 x s16 (2048,2048 = image center in ISP coords)
+LSC_TBL       3130  u16[12][768] = 6 color temps x 2 halves,
+                    row = R[256] G[256] B[256] radial curve, Q10 (1.0=1024)
+LSC_TRIG      21562 u16[6] color temps K (template: 2200..6500)
+MSC_MODE      21574 u8   MSC_BLW 21576 s16[11]   MSC_BLH 21598 s16[11]
+MSC_TRIG      21620 u16[6]   MSC_TBL 21632 u16[12][1452] (3ch x 22x22 mesh)
+GAMMA_TBL     56480 u16[5][3072]   GAMMA_TRIG 87200 u16[5] (LV, descending)
+setter base trick: offsets >4095 use add x0,#0x5<<12 then imm (old
+setters.json missed the 20480 base; lsc_mode 3124 is a direct store).
