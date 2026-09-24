@@ -62,7 +62,8 @@ e902/
 - GINTC（GIC → E902 中断转发）的基址，手册和源码里都没有，所以大核外设的中断还转不到 E902。
 - 让 orangepi-build 打包镜像时直接用 `vendor-scp` 的产物（目前还是
   `external/packages/pack-uboot/sun60iw2/bin/scp.fex` 出厂件）。
-- RT 内核树（`~/rt-kernel-test`）与厂商内核树合并，把 amp_timestamp 编进内核。
+- 用 orangepi-build 重新编一版内核并装到板上：amp_timestamp、RT、AR0234 现在都在 `userpatches/kernel/sun60iw2-current/`
+  （0014 是 amp_timestamp；2026-09-24 已在厂商最新基线上确认能打上、能编译），装好之后就不再需要树外模块和 overlay 了。
 
 ## 第一次看这些文档，建议顺序
 

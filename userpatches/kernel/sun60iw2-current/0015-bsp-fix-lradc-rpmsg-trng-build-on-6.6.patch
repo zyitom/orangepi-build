@@ -1,0 +1,117 @@
+From: zyi
+Subject: [PATCH] bsp: fix lradc, rpmsg and trng build on Linux 6.6
+
+- lradc: iio_dev->mlock is gone in 6.6, use iio_device_claim_direct_mode()
+- rpmsg: class_create() lost its owner argument; rpmsg_chrdev_register_device
+  is rpmsg_ctrldev_register_device in 6.6
+- trng: sunxi_trng.c includes <sunxi-trng.h>, which the BSP never shipped
+
+Without these, enabling CONFIG_AW_LRADC / AW_RPMSG_* / AW_TRNG breaks the build.
+
+---
+diff --git a/bsp/drivers/lradc/sunxi-lradc.c b/bsp/drivers/lradc/sunxi-lradc.c
+index 925fe6c9f..fb21f09f9 100644
+--- a/bsp/drivers/lradc/sunxi-lradc.c
++++ b/bsp/drivers/lradc/sunxi-lradc.c
+@@ -750,7 +750,9 @@ static int sunxi_lradc_read_raw(struct iio_dev *indio_dev,
+ 	struct sunxi_lradc *chip = info->chip;
+ 	struct sunxi_lradc_hw_data *hw_data = chip->hw_data;
+ 
+-	mutex_lock(&indio_dev->mlock);
++	/* Linux 6.6 removed iio_dev->mlock; use the official claim/release API. */
++	if (iio_device_claim_direct_mode(indio_dev))
++		return -EBUSY;
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+ 		key_val = readl(chip->reg_base + SUNXI_LRADC_DATA0) & 0x3f;
+@@ -760,7 +762,7 @@ static int sunxi_lradc_read_raw(struct iio_dev *indio_dev,
+ 	default:
+ 		ret = -EINVAL;
+ 	}
+-	mutex_unlock(&indio_dev->mlock);
++	iio_device_release_direct_mode(indio_dev);
+ 
+ 	return ret;
+ }
+diff --git a/bsp/drivers/rpmsg/aw_virtio_rpmsg_bus.c b/bsp/drivers/rpmsg/aw_virtio_rpmsg_bus.c
+index 7aa55445f..550c0db3b 100644
+--- a/bsp/drivers/rpmsg/aw_virtio_rpmsg_bus.c
++++ b/bsp/drivers/rpmsg/aw_virtio_rpmsg_bus.c
+@@ -950,7 +950,7 @@ static struct rpmsg_device *rpmsg_virtio_add_ctrl_dev(struct virtio_device *vdev
+ 	rpdev_ctrl->dev.release = virtio_rpmsg_release_device;
+ 	rpdev_ctrl->little_endian = virtio_is_little_endian(vrp->vdev);
+ 
+-	err = rpmsg_chrdev_register_device(rpdev_ctrl);
++	err = rpmsg_ctrldev_register_device(rpdev_ctrl);
+ 	if (err) {
+ 		/* vch will be free in virtio_rpmsg_release_device() */
+ 		return ERR_PTR(err);
+diff --git a/bsp/drivers/rpmsg/rpmsg_heartbeat.c b/bsp/drivers/rpmsg/rpmsg_heartbeat.c
+index b0544862c..29b3feb8a 100644
+--- a/bsp/drivers/rpmsg/rpmsg_heartbeat.c
++++ b/bsp/drivers/rpmsg/rpmsg_heartbeat.c
+@@ -218,7 +218,7 @@ static int rpmsg_heartbeat_platform_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Create a path: sys/class/rpmsg_heartbeat */
+-	rpmsg_heartbeat_class = class_create(THIS_MODULE, "rpmsg_heartbeat");
++	rpmsg_heartbeat_class = class_create("rpmsg_heartbeat");
+ 	if (IS_ERR(rpmsg_heartbeat_class)) {
+ 		dev_err(&pdev->dev, "Error:rpmsg_heartbeat class_create fail\n");
+ 		return -1;
+diff --git a/bsp/drivers/rpmsg/rpmsg_master.c b/bsp/drivers/rpmsg/rpmsg_master.c
+index 3c4083290..4a0519a68 100644
+--- a/bsp/drivers/rpmsg/rpmsg_master.c
++++ b/bsp/drivers/rpmsg/rpmsg_master.c
+@@ -1003,7 +1003,7 @@ static int rpmsg_ctrldev_init(void)
+ 	}
+ 
+ #ifdef CONFIG_AW_RPMSG_CLASS
+-	g_aw_rpmsg_class = class_create(THIS_MODULE, AW_RPMSG_CLASS_NAME);
++	g_aw_rpmsg_class = class_create(AW_RPMSG_CLASS_NAME);
+ 	if (IS_ERR(g_aw_rpmsg_class)) {
+ 		pr_err("failed to create aw rpmsg class\n");
+ 		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+diff --git a/include/sunxi-trng.h b/include/sunxi-trng.h
+new file mode 100644
+index 000000000..8dee4c32a
+--- /dev/null
++++ b/include/sunxi-trng.h
+@@ -0,0 +1,37 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Allwinner TRNG (true random number generator) - missing header.
++ *
++ * bsp/drivers/ce/sunxi_trng/sunxi_trng.c includes <sunxi-trng.h>, but the file
++ * was not shipped in this tree, which is why CONFIG_AW_TRNG could not build.
++ * All register offsets and bit fields are defined locally in the .c, so the
++ * only genuinely missing piece is the driver's private struct.
++ *
++ * NOTE: wait_field_equ(), which the .c also calls, already exists in
++ * bsp/include/sunxi-bitops.h -- we include it rather than redefining it.
++ */
++#ifndef _SUNXI_TRNG_H
++#define _SUNXI_TRNG_H
++
++#include <linux/types.h>
++#include <linux/io.h>
++#include <linux/clk.h>
++#include <linux/reset.h>
++#include <linux/hw_random.h>
++#include <linux/platform_device.h>
++
++#include <sunxi-bitops.h>
++
++struct sunxi_trng {
++	struct device		*dev;
++	struct platform_device	*pdev;
++	struct resource		*res;
++	struct clk		*clk;
++	struct reset_control	*reset;
++	struct hwrng		*hwrng;
++};
++
++/* exported by sunxi_trng.c */
++int sunxi_trng_exstract_random(u8 *trng_buf, u32 trng_len);
++
++#endif /* _SUNXI_TRNG_H */

@@ -1,0 +1,53 @@
+From: AR0234 port <local>
+Subject: [PATCH 0005] vin: bind pipeline before sunxi_isp_sensor_type() in __vin_s_input
+
+Fixes kernel panic (NULL deref) when a second vinc shares the same CSI.
+
+Mechanism: with two vincs on one csi (csi_sel equal), the second vinc's
+S_INPUT hits the early return in __csi_isp_setup_link()
+  if (csi_dev->stream_count >= 1) return 0;
+so its own pipeline is never bound; pipe.sd[VIN_IND_ISP] stays NULL and
+sunxi_isp_sensor_type() dereferences it:
+
+  pc : sunxi_isp_sensor_type+0x0/0x18 [vin_v4l2]
+  lr : __vin_s_input+0xb8/0x3dc [vin_v4l2]
+  Call trace: vidioc_s_fmt_vid_cap_mplane ...
+  Kernel panic - not syncing: Oops: Fatal exception
+
+Fix: run vin_pipeline_call(open) (which walks the media graph and fills
+pipe.sd[]) BEFORE sunxi_isp_sensor_type(), and guard the call. Same order
+the vendor already uses in vin_s_input_special().
+
+Also requires (DTS): the second vinc must use a distinct isp_tx_ch
+(vinc10/vinc4: vinc4_isp_tx_ch = <1>), both default to channel 0.
+---
+--- a/bsp/drivers/vin/vin-video/vin_video.c
++++ b/bsp/drivers/vin/vin-video/vin_video.c
+@@ -2444,9 +2447,11 @@
+ 	}
+ 	inst = &module->sensors.inst[valid_idx];
+ 
+-	sunxi_isp_sensor_type(cap->pipe.sd[VIN_IND_ISP], inst->is_isp_used);
+-	vinc->support_raw = inst->is_isp_used;
+-
++	/* sunxi_isp_sensor_type() dereferences pipe.sd[VIN_IND_ISP], which is
++	 * only bound by the pipeline open below. With a second vinc sharing
++	 * this csi (stream_count >= 1), __csi_isp_setup_link() returns early
++	 * and the binding must happen here - order swapped accordingly.
++	 * (matches vin_s_input_special(), lines ~4597) */
+ 	mutex_lock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
+ 	ret = vin_pipeline_call(vinc, open, &cap->pipe, &cap->vdev.entity, true);
+ 	if (ret < 0) {
+@@ -2456,6 +2461,10 @@
+ 	}
+ 	mutex_unlock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
+ 
++	if (cap->pipe.sd[VIN_IND_ISP] != NULL)
++		sunxi_isp_sensor_type(cap->pipe.sd[VIN_IND_ISP], inst->is_isp_used);
++	vinc->support_raw = inst->is_isp_used;
++
+ 	if (module->modules.act[valid_idx].sd != NULL) {
+ 		cap->pipe.sd[VIN_IND_ACTUATOR] = module->modules.act[valid_idx].sd;
+ 		ret = __vin_actuator_set_power(cap->pipe.sd[VIN_IND_ACTUATOR], 1);
+-- 
+2.43.0

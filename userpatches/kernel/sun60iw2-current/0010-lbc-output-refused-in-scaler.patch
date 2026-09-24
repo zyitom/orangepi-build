@@ -1,0 +1,104 @@
+From: AR0234 port <local>
+Subject: [PATCH 0010] vin: reject LBC output formats in the scaler instead of
+ silently producing 0 frames
+
+S_FMT with an LBC fourcc (LC21/LBC_2X and friends) succeeds, the pipeline is
+configured, and then the capture node delivers no frame at all while dmesg
+stays completely silent -- measured on this board as
+
+  vi0 output fmt: LBC_2X, frame cnt 0
+  vfr -t 5: frames=0 wall=5.006s timeouts=5
+  dmesg: 0 lines
+
+The reason is that the VIPP scaler has no LBC output on this SoC: vipp100 and
+vipp200 contain no LBC register write at all (LBC exists only on the ISP 3DNR
+path, i.e. CONFIG_D3D/CONFIG_D3D_LBC_MODE), and sunxi_scaler_subdev_s_stream()
+folds every LBC fourcc into a plain YUV420 configuration, so the hardware is
+never told to pack anything and the frame-done interrupt never fires.
+
+Refuse the four LBC output formats at S_FMT with -EINVAL and a vin_err that
+says why, so "not supported" stops looking like "broken".  Only the capture
+node's output format is examined; the ISP LBC/3DNR path is untouched.
+
+Signed-off-by: AR0234 port <local>
+---
+
+--- a/bsp/drivers/vin/vin-vipp/sunxi_scaler.c
++++ b/bsp/drivers/vin/vin-vipp/sunxi_scaler.c
+@@ -185,6 +185,46 @@
+ 	}
+ }
+ 
++/*
++ * The LBC ("load image block compression") fourccs are listed in the capture
++ * node's format table and are accepted by the pipeline, but the VIPP scaler of
++ * this SoC has no LBC output at all: there is not a single LBC register write
++ * in vipp100/vipp200 (LBC exists only on the ISP 3DNR path, which is what
++ * CONFIG_D3D / CONFIG_D3D_LBC_MODE are for), and
++ * sunxi_scaler_subdev_s_stream() below folds every LBC fourcc into a plain
++ * YUV420 configuration.  The stream then starts happily and never produces a
++ * frame -- measured on this board as
++ *
++ *   v4l2-ctl --set-fmt-video=width=1920,height=1200,pixelformat=LC21  -> OK
++ *   vi0 output fmt: LBC_2X, frame cnt 0
++ *   vfr -t 5: frames=0 wall=5.006s timeouts=5
++ *   dmesg: not one line
++ *
++ * so a caller cannot tell "not supported" from "broken".  Refuse it at S_FMT
++ * with an explanation instead.  Only the *capture node's* output format is
++ * looked at, so the ISP-side LBC/3DNR path is unaffected.
++ */
++static int __scaler_reject_lbc_output(struct scaler_dev *scaler,
++				     struct v4l2_subdev_format *fmt)
++{
++	struct mbus_framefmt_res *res = (void *)fmt->format.reserved;
++
++	switch (res->res_pix_fmt) {
++	case V4L2_PIX_FMT_LBC_2_0X:
++	case V4L2_PIX_FMT_LBC_2_5X:
++	case V4L2_PIX_FMT_LBC_1_5X:
++	case V4L2_PIX_FMT_LBC_1_0X:
++		break;
++	default:
++		return 0;
++	}
++
++	vin_err("vipp%d: output pixelformat 0x%08x (LBC) is not implemented on this SoC; the VIPP scaler has no LBC packing output (LBC exists only on the ISP 3DNR path), so the stream would run and silently produce 0 frames. Use NV12/YUV420 instead.\n",
++		scaler->id, res->res_pix_fmt);
++
++	return -EINVAL;
++}
++
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 15, 0)
+ static int sunxi_scaler_subdev_get_fmt(struct v4l2_subdev *sd,
+ 				       struct v4l2_subdev_state *state,
+@@ -203,6 +243,14 @@
+ {
+ 	struct scaler_dev *scaler = v4l2_get_subdevdata(sd);
+ 	struct v4l2_mbus_framefmt *format = &scaler->formats[fmt->pad];
++
++	if (fmt->pad == SCALER_PAD_SOURCE) {
++		int ret = __scaler_reject_lbc_output(scaler, fmt);
++
++		if (ret)
++			return ret;
++	}
++
+ 
+ 	vin_log(VIN_LOG_FMT, "%s %d*%d %x %d\n", __func__, fmt->format.width,
+ 		  fmt->format.height, fmt->format.code, fmt->format.field);
+@@ -437,6 +485,14 @@
+ {
+ 	struct scaler_dev *scaler = v4l2_get_subdevdata(sd);
+ 	struct v4l2_mbus_framefmt *format = &scaler->formats[fmt->pad];
++
++	if (fmt->pad == SCALER_PAD_SOURCE) {
++		int ret = __scaler_reject_lbc_output(scaler, fmt);
++
++		if (ret)
++			return ret;
++	}
++
+ 
+ 	vin_log(VIN_LOG_FMT, "%s %d*%d %x %d\n", __func__, fmt->format.width,
+ 		  fmt->format.height, fmt->format.code, fmt->format.field);

@@ -1,0 +1,411 @@
+From: AR0234 port <local>
+Subject: [PATCH 0008] vin: make the second VI channel work, and stop silent
+ pipeline corruption
+
+All of these were found while bringing up the vendor's "one sensor, two video
+nodes" topology (/dev/video0 = vinc0/vipp0, /dev/video4 = vinc4/vipp1, both on
+the same mipi0/csi0/tdm_rx0/isp0) on the Orange Pi Zero 3W, and while preparing
+the second physical camera.
+
+1) vin_core.c - vinc%d_isp_tx_ch != 0 silently kills the video node
+
+   isp_tx_ch is what csic_vipp_input_select() puts into CSIC_VIPPx_IN, i.e. it
+   names the ISP output channel feeding this VIPP. The ISP602 here has a single
+   output channel, so any other value points the VIPP at a source that is never
+   driven: scaler and DMA are programmed correctly, nothing is logged and the
+   node just never delivers a frame.
+
+   Measured (2026-09-16, module 0007, /dev/video4 with vinc4_isp_tx_ch = <1>):
+     CSIC_VIPP1_IN (0x58008a4) = 1 -> 0 frames in 12 s, dmesg completely silent
+     same run, 0x58008a4 written back to 0 by hand -> 119.07 fps median
+     (8.398 ms, 0 outliers), and it kept running next to /dev/video0.
+   So force the only channel this SoC has, and say so at ERR level.
+
+2) vin_video.c - a second node's S_FMT rewrote the *running* uplink
+
+   vin_pipeline_try_format() walks the media graph from the capture subdev with
+   which = ACTIVE and calls set_fmt() on sensor/mipi/csi/tdm_rx/isp. With two
+   vincs on one CSI (or just a stale S_FMT from the other node) that changes the
+   format the first stream is running with. Measured:
+     * sensor switched to 960x600 while scaler.0 still expected 1920x1080
+       -> vi0 lost_cnt 647 of 648 frames, capture process stuck until killed;
+     * the earlier IOMMU fault of the same family:
+       "Bug is in CSI module, invalid address: 0x0, id:0x2"  (master 2 = ISP).
+   Now: S_FMT/STREAMON refuse loudly (-EBUSY, with a message naming both nodes)
+   instead of corrupting a running stream. The pre-flight check runs before
+   vin_auto_s_input() powers anything up, so a rejected S_FMT leaves no
+   half-open video node behind (that state alone degraded the other camera to
+   18 fps - reproduced with the 3A service stopped as well, so it is not 3A).
+
+3) vin.c - a capture node with no sensor was dropped silently
+
+   Enabling vinc20 (device_id 8, the vendor's second camera path at
+   mipi1/csi1/isp0) without a sensor in slot 2 produced no /dev/video8 and not a
+   single log line. Now it says which vinc, which sensor slot and why.
+
+4) sunxi_isp.c - refuse the virtual ISP instances
+
+   isp@58ffffc & friends are aliases of the same ISP602 (the reg windows of
+   isp00/isp01/isp02/isp03 all end at 0x5901300) and the driver used to register
+   them as empty media entities while the logic ISP works in online mode. Keep
+   the node disabled: with `status = "okay"` the *first* camera stops delivering
+   frames with no error at all (measured twice). The probe now fails with an
+   explicit message instead of registering a dead entity.
+
+   NB: this is a loud failure, not a cure - the breakage is caused by the
+   device tree node being enabled, not by the subdev being registered: with the
+   probe refused (no sunxi_isp.1, no extra media entity, identical media graph)
+   /dev/video0 still streamed 0 frames in 30 s.
+
+5) sunxi_scaler.c / vin_video.c - G_SELECTION noise
+
+   sunxi_scaler_subdev_get_selection() answered -EINVAL for every target except
+   CROP/CROP_BOUNDS, and vin_video.c printed that at ERR level, so every
+   v4l2-ctl --all / libisp start left "v4l2 sub device scaler get_selection
+   error!" in dmesg on a healthy board. Report the sink rectangle instead.
+   Same for the three messages that only mean "the node was used after its
+   sensor went away" ("is not used, videoN cannot be close", "has already
+   stream off"): downgraded to warnings.
+--- a/bsp/drivers/vin/vin.c
++++ b/bsp/drivers/vin/vin.c
+@@ -1883,6 +1883,19 @@
+ 		module = &vind->modules[vind->vinc[i]->rear_sensor];
+ 
+ 		if (module->sensors.valid_idx == NO_VALID_SENSOR) {
++			/*
++			 * This capture node is dropped because the sensor slot it
++			 * points at has no sensor bound - the sensor driver did
++			 * not probe (not wired, not powered, or not there at
++			 * all).  The vendor code only does vind->vinc[i] = NULL
++			 * here, so the failure is invisible: no /dev/videoN, no
++			 * message, nothing at all in dmesg.  Say it out loud.
++			 */
++			vin_err("vinc%d (device_id %d) needs sensor%d (vinc%d_rear_sensor_sel = %d) but no sensor is bound to that slot, so no /dev/video%d will be created\n",
++				vind->vinc[i]->id, vind->vinc[i]->id,
++				vind->vinc[i]->rear_sensor,
++				vind->vinc[i]->id, vind->vinc[i]->rear_sensor,
++				vind->vinc[i]->id);
+ 			vind->vinc[i] = NULL;
+ 			continue;
+ 		}
+--- a/bsp/drivers/vin/vin-video/vin_core.c
++++ b/bsp/drivers/vin/vin-video/vin_core.c
+@@ -2164,6 +2164,30 @@
+ 	if (of_property_read_u32(np, property_name, &vinc->isp_tx_ch))
+ 		vinc->isp_tx_ch = 0;
+ 
++	/*
++	 * isp_tx_ch ends up in csic_vipp_input_select() as
++	 *     vipp_input[vipp_virtual_find_sel[vipp_sel]][isp_virtual_find_sel[isp_sel]][isp_tx_ch]
++	 * (top_reg.c), i.e. it names the ISP output channel that feeds this
++	 * VIPP; on sun60iw2 that table is the identity one (isp * 4 + ch).
++	 * The ISP602 of this SoC has a single output channel, so any value != 0
++	 * points the VIPP at a source that is never driven: the scaler and its
++	 * DMA are programmed correctly, nothing is logged, and the video node
++	 * simply never receives a frame.
++	 *
++	 * Measured on the board 2026-09-16 (/dev/video4 = vinc4, vipp1):
++	 *   vinc4_isp_tx_ch = <1> -> CSIC_VIPP1_IN (0x58008a4) = 1
++	 *                            0 frames in 12 s, dmesg completely silent
++	 *   same run, 0x58008a4 written back to 0 by hand
++	 *                            119.07 fps median (8.398 ms), 0 outliers,
++	 *                            and it kept streaming next to /dev/video0.
++	 * Keep only channels the ISP really has, and say so.
++	 */
++	if (vinc->isp_tx_ch != 0) {
++		vin_err("vinc%d_isp_tx_ch = %u, but isp%d has a single output channel on this SoC; forcing 0 (video%d would otherwise silently never receive a frame)\n",
++			pdev->id, vinc->isp_tx_ch, vinc->isp_sel, pdev->id);
++		vinc->isp_tx_ch = 0;
++	}
++
+ 	sprintf(property_name, "vinc%d_tdm_rx_sel", pdev->id);
+ 	if (of_property_read_u32(np, property_name, &vinc->tdm_rx_sel))
+ 		vinc->tdm_rx_sel = 0;
+--- a/bsp/drivers/vin/vin-video/vin_video.c
++++ b/bsp/drivers/vin/vin-video/vin_video.c
+@@ -827,6 +827,70 @@
+ 	return 0;
+ }
+ 
++/*
++ * Is this subdev currently driven by *another* capture node that is
++ * streaming?  The sensor / mipi / csi / tdm_rx / isp path is shared between
++ * all the vincs that hang off one CSI, so whoever calls set_fmt on it with
++ * which = ACTIVE is also changing the format the *running* stream sees.
++ * (Kernel 6.1 removed media_entity.stream_count, and the vendor never calls
++ * media_pipeline_start(), so ask the capture nodes themselves.)
++ */
++static bool vin_sd_used_by_other_stream(struct vin_core *vinc,
++					struct v4l2_subdev *sd, int sd_ind)
++{
++	int i;
++
++	for (i = 0; i < VIN_MAX_DEV; i++) {
++		struct vin_core *vd = vin_core_gbl[i];
++
++		if (vd == NULL || vd == vinc)
++			continue;
++		if (!vin_streaming(&vd->vid_cap))
++			continue;
++		if (vd->vid_cap.pipe.sd[sd_ind] == sd)
++			return true;
++	}
++	return false;
++}
++
++/*
++ * S_FMT on a second capture node must not resize the sensor/mipi/csi/isp path
++ * that another, already streaming node is using.  Doing so is what produced
++ *   "Bug is in CSI module, invalid address: 0x0, id:0x2"  (IOMMU master 2 = ISP)
++ * and, more often, a permanent "input lines ... frame lost!" state where one
++ * scaler expects 1920x1080 while the parser only delivers 960x600.
++ *
++ * This is the cheap, side-effect-free version of the check (it compares the
++ * other capture node's idea of the sensor window), used before anything is
++ * powered up; vin_pipeline_try_format() repeats it on the real subdevs.
++ */
++static int vin_check_shared_uplink(struct vin_core *vinc, unsigned int w,
++				   unsigned int h)
++{
++	int i;
++
++	for (i = 0; i < VIN_MAX_DEV; i++) {
++		struct vin_core *vd = vin_core_gbl[i];
++
++		if (vd == NULL || vd == vinc)
++			continue;
++		if (!vin_streaming(&vd->vid_cap))
++			continue;
++		if (vd->csi_sel != vinc->csi_sel || vd->mipi_sel != vinc->mipi_sel)
++			continue;
++		if (!vd->vin_status.width || !vd->vin_status.height)
++			continue;
++		if (vd->vin_status.width == w && vd->vin_status.height == h)
++			continue;
++
++		vin_err("video%d is streaming %ux%u from the same sensor, refusing the %ux%u S_FMT on video%d (the uplink cannot serve two sizes at once)\n",
++			vd->id, vd->vin_status.width, vd->vin_status.height,
++			w, h, vinc->id);
++		return -EBUSY;
++	}
++	return 0;
++}
++
+ static int vin_pipeline_try_format(struct vin_core *vinc,
+ 				    struct v4l2_mbus_framefmt *tfmt,
+ 				    struct vin_fmt **fmt_id,
+@@ -936,6 +1000,52 @@
+ 					sfmt.reserved[0] = ch_id;
+ 			}
+ 
++			/*
++			 * The sensor/mipi/csi/tdm_rx/isp path is shared by every
++			 * vinc that hangs off the same CSI, and this walk runs
++			 * with which = ACTIVE, so a second video node's S_FMT
++			 * silently rewrites the *running* uplink of the first
++			 * one: measured on this board, a 960x600 S_FMT on
++			 * /dev/video4 changed the sensor to 960x600 while
++			 * scaler.0 was still programmed for 1920x1080, which
++			 * made the ISP DMA run at a null address
++			 *   "Bug is in CSI module, invalid address: 0x0, id:0x2"
++			 *   (IOMMU master 2 = the ISP on sun60iw2)
++			 * and wedged both capture nodes forever in DQBUF.
++			 * Refuse loudly instead of corrupting a live stream.
++			 */
++			if (set &&
++			    (sd->grp_id == VIN_GRP_ID_SENSOR ||
++			     sd->grp_id == VIN_GRP_ID_MIPI ||
++			     sd->grp_id == VIN_GRP_ID_CSI ||
++			     sd->grp_id == VIN_GRP_ID_TDM_RX ||
++			     sd->grp_id == VIN_GRP_ID_ISP) &&
++			    vin_sd_used_by_other_stream(vinc, sd, sd_ind)) {
++				struct v4l2_subdev_format cur;
++
++				memset(&cur, 0, sizeof(cur));
++				cur.which = V4L2_SUBDEV_FORMAT_ACTIVE;
++				cur.pad = 0;
++				/*
++				 * Only the geometry is compared: the first pass of
++				 * the loop above still carries the *requested* mbus
++				 * code (the sensor turns it into its own RAW code
++				 * and the loop repeats), so comparing codes here
++				 * rejected even a plain "same size" S_FMT.
++				 */
++				if (v4l2_subdev_call(sd, pad, get_fmt, NULL, &cur) == 0 &&
++				    (cur.format.width != sfmt.format.width ||
++				     cur.format.height != sfmt.format.height)) {
++					vin_err("%s is already streaming %ux%u, refusing to change it to %ux%u for video%d: stop that stream (or ask for the same size) first\n",
++						sd->name, cur.format.width, cur.format.height,
++						sfmt.format.width, sfmt.format.height,
++						vinc->id);
++					mutex_unlock(&vinc->vid_cap.vdev.entity.graph_obj.mdev->graph_mutex);
++					media_graph_walk_cleanup(&graph);
++					return -EBUSY;
++				}
++			}
++
+ 			sfmt.pad = 0;
+ 			ret = v4l2_subdev_call(sd, pad, set_fmt, NULL, &sfmt);
+ 			if (ret) {
+@@ -1310,6 +1420,18 @@
+ 	int ret;
+ 	__maybe_unused struct vin_core *vinc_bind = NULL;
+ 
++	/*
++	 * Check the shared uplink *before* vin_auto_s_input() powers this node
++	 * up: a rejected S_FMT must not leave the video node half-open, because
++	 * that state (sensor powered for this node, pipeline never bound)
++	 * already degraded the *other* camera's stream on this board.
++	 * See vin_pipeline_try_format() for why the size may not change while
++	 * another capture node is streaming from the same CSI.
++	 */
++	ret = vin_check_shared_uplink(vinc, f->fmt.pix_mp.width, f->fmt.pix_mp.height);
++	if (ret < 0)
++		return ret;
++
+ 	ret = vin_auto_s_input(vinc);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1382,7 +1504,7 @@
+ 	ret = v4l2_subdev_call(vinc->vid_cap.pipe.sd[VIN_IND_SCALER], pad,
+ 				get_selection, NULL, &sel);
+ 	if (ret < 0)
+-		vin_err("v4l2 sub device scaler get_selection error!\n");
++		vin_warn("v4l2 sub device scaler get_selection error!\n");
+ 	else
+ 		s->r = sel.r;
+ 	return ret;
+@@ -2266,6 +2388,37 @@
+ 	mutex_lock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
+ 	vin_timer_init(cap->vinc);
+ 
++	/*
++	 * The shared uplink (sensor/mipi/csi/isp) is programmed by whichever
++	 * capture node did its S_FMT last, so this node can be left with a
++	 * window that no longer matches what the uplink really produces.
++	 * Streaming in that state is what corrupts the ISP DMA: the scaler
++	 * requests more lines than the ISP sends and the ISP ends up writing
++	 * to a null address ("Bug is in CSI module, invalid address: 0x0,
++	 * id:0x2", IOMMU master 2 = the ISP on sun60iw2), after which both
++	 * capture nodes spin in DQBUF.  Compare what we were configured for
++	 * against what the sensor is actually running and fail early.
++	 */
++	if (vinc->vin_status.width && vinc->vin_status.height &&
++	    cap->pipe.sd[VIN_IND_SENSOR]) {
++		struct sensor_win_size win_cfg;
++
++		memset(&win_cfg, 0, sizeof(win_cfg));
++		if (v4l2_subdev_call(cap->pipe.sd[VIN_IND_SENSOR], core, ioctl,
++				     GET_CURRENT_WIN_CFG, &win_cfg) == 0 &&
++		    win_cfg.width && win_cfg.height &&
++		    (win_cfg.width != vinc->vin_status.width ||
++		     win_cfg.height != vinc->vin_status.height)) {
++			vin_err("video%d was configured for %ux%u but the shared sensor is now running %ux%u (another video node did an S_FMT in between); refusing to start - run VIDIOC_S_FMT on this node again\n",
++				vinc->id, vinc->vin_status.width, vinc->vin_status.height,
++				win_cfg.width, win_cfg.height);
++			vin_timer_del(cap->vinc);
++			mutex_unlock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
++			vb2_ioctl_streamoff(file, priv, i);
++			return -EBUSY;
++		}
++	}
++
+ 	if (vinc->dma_merge_mode == 1) {
+ 		vin_set_next_buf_addr(cap->vinc);
+ 		if (vinc->id % 4 == 1 && vin_core_gbl[vinc->id - 1]) {
+@@ -2350,7 +2503,7 @@
+ 	int ret = 0;
+ 	__maybe_unused struct vin_core *vinc_bind = NULL;
+ 	if (!vin_streaming(cap)) {
+-		vin_err("video%d has already stream off\n", vinc->id);
++		vin_warn("video%d has already stream off\n", vinc->id);
+ 		goto streamoff_error;
+ 	}
+ 	vin_timer_del(vinc);
+@@ -3869,7 +4022,7 @@
+ 		clear_bit(VIN_BUSY, &cap->state);
+ 		clear_bit(VIN_STREAM, &cap->state);
+ 		if (cap->pipe.sd[VIN_IND_SENSOR])
+-			vin_err("%s is not used, video%d cannot be close!\n", cap->pipe.sd[VIN_IND_SENSOR]->name, vinc->id);
++			vin_warn("%s is not used, video%d cannot be close!\n", cap->pipe.sd[VIN_IND_SENSOR]->name, vinc->id);
+ 		return -1;
+ 	}
+ 
+@@ -4773,7 +4926,7 @@
+ 	mutex_lock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
+ 	if (!cap->pipe.sd[VIN_IND_SENSOR] || !cap->pipe.sd[VIN_IND_SENSOR]->entity.use_count) {
+ 		clear_bit(VIN_BUSY, &cap->state);
+-		vin_err("%s is not used, video%d cannot be close!\n", cap->pipe.sd[VIN_IND_SENSOR]->name, vinc->id);
++		vin_warn("%s is not used, video%d cannot be close!\n", cap->pipe.sd[VIN_IND_SENSOR]->name, vinc->id);
+ 		mutex_unlock(&cap->vdev.entity.graph_obj.mdev->graph_mutex);
+ 		return -1;
+ 	}
+--- a/bsp/drivers/vin/vin-vipp/sunxi_scaler.c
++++ b/bsp/drivers/vin/vin-vipp/sunxi_scaler.c
+@@ -265,7 +265,20 @@
+ 		sel->r = scaler->crop.request;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		/*
++		 * A target this subdev does not implement is not an error in
++		 * itself: G_SELECTION(COMPOSE) on the sink pad is what every
++		 * generic V4L2 client asks for (v4l2-ctl --all, libisp), and
++		 * answering -EINVAL for it made vin_video.c print
++		 * "v4l2 sub device scaler get_selection error!" at ERR level,
++		 * which makes a perfectly healthy board look broken in dmesg.
++		 * Report the sink rectangle instead.
++		 */
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = format_sink->width;
++		sel->r.height = format_sink->height;
++		break;
+ 	}
+ 
+ 	return 0;
+@@ -484,7 +497,12 @@
+ 		sel->r = scaler->crop.request;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		/* same as the state-based helper above - see the comment there */
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = format_sink->width;
++		sel->r.height = format_sink->height;
++		break;
+ 	}
+ 
+ 	return 0;
+--- a/bsp/drivers/vin/vin-isp/sunxi_isp.c
++++ b/bsp/drivers/vin/vin-isp/sunxi_isp.c
+@@ -3374,9 +3374,25 @@
+ 		} else if (isp->work_mode == 0xff) {
+ 			logic_isp = glb_isp[isp_virtual_find_logic[isp->id]];
+ 			if (logic_isp->work_mode == ISP_ONLINE) { /*logic isp work in online*/
+-				vin_log(VIN_LOG_VIDEO, "isp%d work in online mode, isp%d cannot to work!\n", logic_isp->id, isp->id);
+-				isp->is_empty = 1;
+-				goto init;
++				/*
++				 * This device tree node is a *virtual* instance of the
++				 * very same ISP602 that isp%d is already running in
++				 * online mode: it has no register window of its own
++				 * (the reg ranges of isp00/isp01/isp02/isp03 all end at
++				 * 0x5901300) and nothing in the driver can use it.
++				 * Registering it as an empty media entity is not
++				 * harmless: measured on this board (2026-09-16) setting
++				 * `status = "okay"` on isp@58ffffc made the *first*
++				 * camera deliver 0 frames - VIDIOC_S_INPUT returned an
++				 * empty device name, vin0 prs_in.y stayed 0 and the
++				 * kernel logged nothing at all.
++				 * Refuse the probe, so a misconfigured device tree fails
++				 * loudly instead of quietly killing a working stream.
++				 */
++				vin_err("isp%d@%pOF: refusing to register, it is a virtual instance of isp%d which already works in online mode; keep this node disabled in the device tree, enabling it makes the running camera stop delivering frames with no error at all\n",
++					isp->id, np, logic_isp->id);
++				ret = -ENODEV;
++				goto freedev;
+ 			}
+ 		}
+ 	}

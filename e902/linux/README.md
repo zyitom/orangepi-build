@@ -6,6 +6,10 @@ A733 有一个 64 位自由运行计数器（`TIMESTAMP_STA` @ `0x08010000`）�
 
 ## 现状（2026-09-23，已在板上验证）
 
+> 2026-09-24：驱动已经写成内核补丁 `userpatches/kernel/sun60iw2-current/0014-misc-add-amp-timestamp-driver.patch`
+> （配置 `CONFIG_AW_AMP_TIMESTAMP=y`，DT 节点在 dtsi 里）。下次用 orangepi-build 编内核就会直接编进去，
+> 下面的树外模块 + overlay 方式只在旧内核上需要。
+
 | 项 | 结果 |
 |---|---|
 | 运行内核 | `6.6.98-rt58-sun60iw2`（PREEMPT_RT），**内核镜像与主 DTB 未改动** |

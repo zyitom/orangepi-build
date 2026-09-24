@@ -1,0 +1,390 @@
+From: zyi
+Subject: [PATCH] misc: add Allwinner AMP shared timestamp driver (A733)
+
+Expose the 64-bit TIMESTAMP counter at 0x08010000 that both the big cores
+and the CPUS/E902 read, via sysfs (counter/freqid/usec) and an in-kernel
+API (include/linux/amp_timestamp.h). FREQID reads 0 on the A733, so the
+node carries clock-frequency = 24 MHz (measured). See e902/linux/README.md.
+
+---
+diff --git a/arch/arm64/boot/dts/allwinner/sun60iw2p1.dtsi b/arch/arm64/boot/dts/allwinner/sun60iw2p1.dtsi
+index 544a97b68..1d645270f 100644
+--- a/arch/arm64/boot/dts/allwinner/sun60iw2p1.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun60iw2p1.dtsi
+@@ -1371,6 +1371,17 @@ test_pins_b: test_pins@1 {
+ 			};
+ 		};
+ 
++		amp_timestamp: amp-timestamp@8010000 {
++			compatible = "allwinner,amp-timestamp";
++			/* TIMESTAMP_STA (live counter) + TIMESTAMP_CTRL (enable/freqid) */
++			reg = <0x0 0x08010000 0x0 0x1000>,
++			      <0x0 0x08020000 0x0 0x1000>;
++			reg-names = "sta", "ctrl";
++			/* FREQID register reads 0; measured 24.000 MHz */
++			clock-frequency = <24000000>;
++			status = "okay";
++		};
++
+ 		r_pio: pinctrl@7025000 {
+ 			#address-cells = <1>;
+ 			compatible = "allwinner,sun60iw2-r-pinctrl";
+diff --git a/bsp/drivers/misc/Kconfig b/bsp/drivers/misc/Kconfig
+index 59c1d68ef..52ea840db 100644
+--- a/bsp/drivers/misc/Kconfig
++++ b/bsp/drivers/misc/Kconfig
+@@ -15,4 +15,14 @@ source "bsp/drivers/misc/sunxi-bootevent/Kconfig"
+ source "bsp/drivers/misc/sunxi-tvutils/Kconfig"
+ source "bsp/drivers/misc/leds/Kconfig"
+ 
++config AW_AMP_TIMESTAMP
++	tristate "Allwinner AMP shared timestamp"
++	depends on AW_BSP
++	default n
++	help
++	  Say Y to expose the A733's cross-core shared 64-bit timestamp counter.
++	  The big core (CPUX) and the little core (CPUS/E902) can both read the
++	  same counter, which makes cross-core timestamps comparable with only a
++	  constant offset. Exposes counter, freqid and usec in sysfs.
++
+ endmenu
+diff --git a/bsp/drivers/misc/Makefile b/bsp/drivers/misc/Makefile
+index 0d4928f4d..9bb814a04 100644
+--- a/bsp/drivers/misc/Makefile
++++ b/bsp/drivers/misc/Makefile
+@@ -9,3 +9,4 @@ obj-$(CONFIG_AW_BOOTEVENT)   += sunxi-bootevent/
+ obj-$(CONFIG_SUNXI_DIRECT_GPIO) += sunxi-direct-gpio.o
+ obj-$(CONFIG_SUNXI_TVUTILS_SCRIPTS)   += sunxi-tvutils/
+ obj-$(CONFIG_SUNXI_LED_BCT)   += leds/
++obj-$(CONFIG_AW_AMP_TIMESTAMP)  += amp_timestamp.o
+diff --git a/bsp/drivers/misc/amp_timestamp.c b/bsp/drivers/misc/amp_timestamp.c
+new file mode 100644
+index 000000000..38e964dde
+--- /dev/null
++++ b/bsp/drivers/misc/amp_timestamp.c
+@@ -0,0 +1,251 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Allwinner A733 AMP shared timestamp driver.
++ *
++ * Why this exists: the kernel tree shipped by the vendor references
++ * <linux/amp_timestamp.h> from bsp/drivers/rpmsg/{rpmsg_perf,aw_virtio_rpmsg_bus}.c
++ * and has a Kconfig symbol AW_AMP_TIMESTAMP selected by AW_RPMSG_PERF_TRACE, but
++ * neither the header nor any implementation is present in this tree. That is why
++ * AW_RPMSG_PERF_TRACE cannot be enabled (it fails to compile).
++ *
++ * This provides the missing piece, and it is useful well beyond rpmsg: the
++ * counter it exposes is the SoC's cross-core time base, so a driver (or
++ * userspace via the sysfs attributes below) can timestamp events on the big core
++ * with the same clock the E902 uses for its IMU samples.
++ *
++ * Register layout: see the user manual section 5.1.5 (also documented in
++ * <linux/amp_timestamp.h>). The live counter is TIMESTAMP_STA.CNT_LOW/HI; the
++ * CTRL block carries the enable bit and the base-frequency id.
++ */
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/io.h>
++#include <linux/delay.h>
++#include <linux/slab.h>
++#include <linux/mutex.h>
++#include <linux/device.h>
++#include <linux/kobject.h>
++#include <linux/sysfs.h>
++#include <linux/amp_timestamp.h>
++
++#define AMP_TS_STA_CNT_LOW	0x00
++#define AMP_TS_STA_CNT_HI	0x04
++
++#define AMP_TS_CTRL_CTRL	0x00	/* bit0 = enable */
++#define AMP_TS_CTRL_CNT_LOW	0x08
++#define AMP_TS_CTRL_CNT_HI	0x0C
++#define AMP_TS_CTRL_FREQID	0x20
++
++#define AMP_TS_ENABLE_BIT	BIT(0)
++
++struct amp_ts_dev {
++	struct device *dev;
++	void __iomem *sta;
++	void __iomem *ctrl;
++	u32 freqid;
++	bool claimed;
++};
++
++static struct amp_ts_dev *g_ts[AMP_TS_MAX_DEV];
++static DEFINE_MUTEX(g_ts_lock);
++
++/*
++ * 64-bit read that cannot tear: read HI, LO, HI and retry while the high word
++ * changes. (A raw single-shot read of the two halves can straddle a carry.)
++ */
++static u64 amp_ts_read64(struct amp_ts_dev *t)
++{
++	u32 lo, hi, hi2;
++
++	do {
++		hi = readl(t->sta + AMP_TS_STA_CNT_HI);
++		lo = readl(t->sta + AMP_TS_STA_CNT_LOW);
++		hi2 = readl(t->sta + AMP_TS_STA_CNT_HI);
++	} while (hi != hi2);
++
++	return ((u64)hi << 32) | lo;
++}
++
++int amp_ts_get_dev(int dev_id, void **dev)
++{
++	if (!dev)
++		return -EINVAL;
++	*dev = NULL;
++	if (dev_id < 0 || dev_id >= AMP_TS_MAX_DEV)
++		return -EINVAL;
++
++	mutex_lock(&g_ts_lock);
++	if (!g_ts[dev_id]) {
++		mutex_unlock(&g_ts_lock);
++		return -ENODEV;
++	}
++	g_ts[dev_id]->claimed = true;
++	*dev = g_ts[dev_id];
++	mutex_unlock(&g_ts_lock);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(amp_ts_get_dev);
++
++int amp_ts_get_timestamp(void *dev, u64 *ts)
++{
++	struct amp_ts_dev *t = dev;
++
++	if (!t || !ts)
++		return -EINVAL;
++	*ts = amp_ts_read64(t);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(amp_ts_get_timestamp);
++
++int amp_ts_get_freqid(void *dev, u32 *freqid)
++{
++	struct amp_ts_dev *t = dev;
++
++	if (!t || !freqid)
++		return -EINVAL;
++	*freqid = t->freqid;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(amp_ts_get_freqid);
++
++/* ---- sysfs: let userspace read the shared counter too ---- */
++
++static ssize_t counter_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct amp_ts_dev *t = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%llu\n", amp_ts_read64(t));
++}
++static DEVICE_ATTR_RO(counter);
++
++static ssize_t freqid_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct amp_ts_dev *t = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%u\n", t->freqid);
++}
++static DEVICE_ATTR_RO(freqid);
++
++/*
++ * Microseconds since the counter started. Integer-only: the kernel is built
++ * with -mgeneral-regs-only, so no floating point is allowed here.
++ * us = counter / (freqid / 1e6); requires freqid to be a multiple of 1e6
++ * (24 MHz on this SoC), otherwise we fall back to reporting the raw counter.
++ */
++static ssize_t usec_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct amp_ts_dev *t = dev_get_drvdata(dev);
++	u64 c = amp_ts_read64(t);
++	u64 us = 0;
++
++	if (t->freqid && (t->freqid % 1000000u) == 0)
++		us = div_u64(c, t->freqid / 1000000u);
++
++	return sysfs_emit(buf, "%llu\n", us);
++}
++static DEVICE_ATTR_RO(usec);
++
++static struct attribute *amp_ts_attrs[] = {
++	&dev_attr_counter.attr,
++	&dev_attr_freqid.attr,
++	&dev_attr_usec.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(amp_ts);
++
++static int amp_ts_probe(struct platform_device *pdev)
++{
++	struct amp_ts_dev *t;
++	void __iomem *sta, *ctrl;
++	int ret;
++	int id = pdev->id < 0 ? 0 : pdev->id;
++
++	if (id >= AMP_TS_MAX_DEV)
++		return -EINVAL;
++
++	sta = devm_platform_ioremap_resource_byname(pdev, "sta");
++	if (IS_ERR(sta)) {
++		dev_err(&pdev->dev, "ioremap 'sta' failed: %ld\n", PTR_ERR(sta));
++		return PTR_ERR(sta);
++	}
++	ctrl = devm_platform_ioremap_resource_byname(pdev, "ctrl");
++	if (IS_ERR(ctrl)) {
++		dev_err(&pdev->dev, "ioremap 'ctrl' failed: %ld\n", PTR_ERR(ctrl));
++		return PTR_ERR(ctrl);
++	}
++
++	t = devm_kzalloc(&pdev->dev, sizeof(*t), GFP_KERNEL);
++	if (!t)
++		return -ENOMEM;
++	t->dev = &pdev->dev;
++	t->sta = sta;
++	t->ctrl = ctrl;
++
++	/* Make sure the counter runs (bl31/the SCP normally leaves it enabled). */
++	writel(readl(ctrl + AMP_TS_CTRL_CTRL) | AMP_TS_ENABLE_BIT,
++	       ctrl + AMP_TS_CTRL_CTRL);
++
++	t->freqid = readl(ctrl + AMP_TS_CTRL_FREQID);
++	if (!t->freqid) {
++		u32 hz;
++
++		/* FREQID reads 0 on the A733 from both the ARM and the E902;
++		 * the counter itself runs at 24.000 MHz (measured against
++		 * CLOCK_MONOTONIC), so take the rate from the DT instead. */
++		if (!of_property_read_u32(pdev->dev.of_node, "clock-frequency",
++					  &hz))
++			t->freqid = hz;
++	}
++
++	/* Touch it once so a dead/unclocked block fails loudly here. */
++	(void)amp_ts_read64(t);
++
++	platform_set_drvdata(pdev, t);
++	mutex_lock(&g_ts_lock);
++	g_ts[id] = t;
++	mutex_unlock(&g_ts_lock);
++
++	ret = device_add_groups(&pdev->dev, amp_ts_groups);
++	if (ret)
++		dev_warn(&pdev->dev, "sysfs attributes not added: %d\n", ret);
++
++	dev_info(&pdev->dev,
++		 "A733 AMP timestamp ready: counter=%llu freqid=%u (%u.%03u MHz)\n",
++		 amp_ts_read64(t), t->freqid,
++		 t->freqid / 1000000u, (t->freqid % 1000000u) / 1000u);
++	return 0;
++}
++
++static int amp_ts_remove(struct platform_device *pdev)
++{
++	struct amp_ts_dev *t = platform_get_drvdata(pdev);
++	int i;
++
++	mutex_lock(&g_ts_lock);
++	for (i = 0; i < AMP_TS_MAX_DEV; i++)
++		if (g_ts[i] == t)
++			g_ts[i] = NULL;
++	mutex_unlock(&g_ts_lock);
++	return 0;
++}
++
++static const struct of_device_id amp_ts_of_match[] = {
++	{ .compatible = "allwinner,amp-timestamp" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, amp_ts_of_match);
++
++static struct platform_driver amp_ts_driver = {
++	.probe	= amp_ts_probe,
++	.remove	= amp_ts_remove,
++	.driver	= {
++		.name		= "amp-timestamp",
++		.of_match_table	= amp_ts_of_match,
++	},
++};
++module_platform_driver(amp_ts_driver);
++
++MODULE_DESCRIPTION("Allwinner A733 AMP shared timestamp");
++MODULE_LICENSE("GPL v2");
+diff --git a/include/linux/amp_timestamp.h b/include/linux/amp_timestamp.h
+new file mode 100644
+index 000000000..94b18d908
+--- /dev/null
++++ b/include/linux/amp_timestamp.h
+@@ -0,0 +1,68 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Allwinner A733 AMP shared timestamp.
++ *
++ * The A733 exposes one 64-bit free-running counter that BOTH the big core
++ * (CPUX/Linux) and the little core (CPUS/E902) can read, which is what makes
++ * cross-core timestamps comparable without any clock-sync protocol.
++ *
++ * Register blocks (A733 user manual v0.91, section 5.1.5):
++ *   TIMESTAMP_STA  @ 0x08010000  CNT_LOW_REG  +0x00
++ *                                CNT_HI_REG    +0x04     <- the live counter
++ *   TIMESTAMP_CTRL @ 0x08020000  TSTAMP_CTRL_REG +0x00    bit0 = enable
++ *                                CNT_CTRL_LOW_REG +0x08  (second copy)
++ *                                CNT_CTRL_HI_REG  +0x0C
++ *                                CNT_FREQID_REG   +0x20  base frequency id
++ *
++ * Measured on this board (2026-09-23): enable bit set, but CNT_FREQID_REG
++ * reads 0 from both cores; the counter runs at 24.000 MHz against
++ * CLOCK_MONOTONIC (zero drift), so the driver takes the rate from the DT
++ * "clock-frequency" property when FREQID is 0.
++ */
++#ifndef _LINUX_AMP_TIMESTAMP_H
++#define _LINUX_AMP_TIMESTAMP_H
++
++#include <linux/types.h>
++
++#define AMP_TS_MAX_DEV		4
++
++#if IS_ENABLED(CONFIG_AW_AMP_TIMESTAMP)
++
++/* Get a handle to the shared timestamp unit (dev_id 0..AMP_TS_MAX_DEV-1). */
++int amp_ts_get_dev(int dev_id, void **dev);
++
++/* Read the raw 64-bit counter. */
++int amp_ts_get_timestamp(void *dev, u64 *ts);
++
++/* Read the base-frequency id (bytes/sec; 0x016E3600 == 24 MHz on this SoC). */
++int amp_ts_get_freqid(void *dev, u32 *freqid);
++
++#else /* stubs so callers link without the driver */
++
++static inline int amp_ts_get_dev(int dev_id, void **dev)
++{
++	(void)dev_id;
++	if (dev)
++		*dev = NULL;
++	return -ENODEV;
++}
++
++static inline int amp_ts_get_timestamp(void *dev, u64 *ts)
++{
++	(void)dev;
++	if (ts)
++		*ts = 0;
++	return -ENODEV;
++}
++
++static inline int amp_ts_get_freqid(void *dev, u32 *freqid)
++{
++	(void)dev;
++	if (freqid)
++		*freqid = 0;
++	return -ENODEV;
++}
++
++#endif /* CONFIG_AW_AMP_TIMESTAMP */
++
++#endif /* _LINUX_AMP_TIMESTAMP_H */

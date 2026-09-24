@@ -22,7 +22,13 @@ kernel
 output
 u-boot
 toolchains
-userpatches
+/userpatches/*
+# our board config, kernel config override and kernel patch series are tracked
+!/userpatches/config-a733.conf
+!/userpatches/linux-sun60iw2-current-a733.config
+!/userpatches/customize-image.sh
+!/userpatches/kernel/
+!/userpatches/kernel/**/*.patch
 
 mkimage.sh
 
