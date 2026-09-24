@@ -62,7 +62,6 @@ external/cache/debs/arm64/balena-etcher-electron_1.7.9+5945ab1f_arm64.deb
 external/packages/bsp/overlays_cix/opt/make_bios_image/bios_flash/bios*.bin
 
 # local work next to the build system (e902/ has its own .gitignore)
-/ar0234-port/
 /ar0234-rpi-driver/
 /doc/
 /.ignore_changes

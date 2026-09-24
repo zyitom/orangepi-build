@@ -1,0 +1,97 @@
+
+===== uboot_cmd start =====
+
+>>> part list mmc 0
+part list mmc 0
+
+Partition Map for MMC device 0  --   Partition Type: DOS
+
+Part	Start Sector	Num Sectors	UUID		Type
+  1	65536     	60391424  	d2f81ca4-01	83
+=> 
+>>> fstype mmc 0:1
+fstype mmc 0:1
+ext4
+=> 
+>>> ls mmc 0:1 /boot
+ls mmc 0:1 /boot
+<DIR>       4096 .
+<DIR>       4096 ..
+<SYM>         19 dtb
+          230456 boot.bmp
+               0 .next
+             169 orangepiEnv.txt
+            2566 boot.cmd
+         3755211 System.map-6.6.98-sun60iw2
+            2638 boot.scr
+         1152056 logo.bmp
+<SYM>         23 uInitrd
+          210888 config-6.6.98-sun60iw2
+        26486856 uImage
+        26486792 vmlinux-6.6.98-sun60iw2
+            1542 orangepi_first_run.txt.template
+        12690249 uInitrd-6.6.98-sun60iw2
+        12690185 initrd.img-6.6.98-sun60iw2
+<DIR>       4096 dtb-6.6.98-sun60iw2
+=> 
+>>> ls mmc 0:1 /boot/dtb/allwinner
+ls mmc 0:1 /boot/dtb/allwinner
+<DIR>       4096 .
+<DIR>       4096 ..
+<DIR>       4096 overlay
+           40166 sun50i-a64-amarula-relic.dtb
+           40527 sun50i-a64-bananapi-m64.dtb
+           39391 sun50i-a64-nanopi-a64.dtb
+           38822 sun50i-a64-oceanic-5205-5inmfd.dtb
+           40543 sun50i-a64-olinuxino-emmc.dtb
+           40414 sun50i-a64-olinuxino.dtb
+           41174 sun50i-a64-orangepi-win.dtb
+           39827 sun50i-a64-pine64-lts.dtb
+           39317 sun50i-a64-pine64-plus.dtb
+           39195 sun50i-a64-pine64.dtb
+           42088 sun50i-a64-pinebook.dtb
+           42964 sun50i-a64-pinephone-1.0.dtb
+           43150 sun50i-a64-pinephone-1.1.dtb
+           43300 sun50i-a64-pinephone-1.2.dtb
+           42290 sun50i-a64-pinetab-early-adopter.dtb
+           42314 sun50i-a64-pinetab.dtb
+           39695 sun50i-a64-sopine-baseboard.dtb
+           41263 sun50i-a64-teres-i.dtb
+           31984 sun50i-h5-bananapi-m2-plus-v1.2.dtb
+           30545 sun50i-h5-bananapi-m2-plus.dtb
+           30194 sun50i-h5-emlid-neutis-n5-devboard.dtb
+           30411 sun50i-h5-libretech-all-h3-cc.dtb
+           29069 sun50i-h5-libretech-all-h3-it.dtb
+           31006 sun50i-h5-libretech-all-h5-cc.dtb
+           28834 sun50i-h5-nanopi-neo-plus2.dtb
+           28143 sun50i-h5-nanopi-neo2.dtb
+           30535 sun50i-h5-nanopi-r1s-h5.dtb
+           30224 sun50i-h5-orangepi-pc2.dtb
+           28948 sun50i-h5-orangepi-prime.dtb
+           28261 sun50i-h5-orangepi-zero-plus.dtb
+           28182 sun50i-h5-orangepi-zero-plus2.dtb
+           32977 sun50i-h6-beelink-gs1.dtb
+           32134 sun50i-h6-orangepi-3.dtb
+           30360 sun50i-h6-orangepi-lite2.dtb
+           30143 sun50i-h6-orangepi-one-plus.dtb
+           32742 sun50i-h6-pine-h64-model-b.dtb
+           32228 sun50i-h6-pine-h64.dtb
+           29203 sun50i-h6-tanix-tx6-mini.dtb
+           29442 sun50i-h6-tanix-tx6.dtb
+           19741 sun50i-h616-orangepi-zero2.dtb
+           18866 sun50i-h616-x96-mate.dtb
+           18993 sun50i-h618-orangepi-zero3.dtb
+          208782 sun60i-a733-orangepi-4-pro.dtb
+          213624 sun60i-a733-orangepi-zero3w.dtb
+          213628 sun60i-a733-orangepi-zero3w.dtb.orig-ar0234-camera
+          213628 sun60i-a733-orangepi-zero3w.dtb.t14-vinc4on-txch1
+          213628 sun60i-a733-orangepi-zero3w.dtb.dual-bak-1789540054
+          213628 sun60i-a733-orangepi-zero3w.dtb.dual-bak-1789540194
+          213628 sun60i-a733-orangepi-zero3w.dtb.pre-0008
+          213628 sun60i-a733-orangepi-zero3w.dtb.bak-1789547036
+          213624 sun60i-a733-orangepi-zero3w.dtb.bak-1789547241
+           13936 sun50i-a100-allwinner-perf1.dtb
+          213628 sun60i-a733-orangepi-zero3w.dtb.bak-1789547242
+          213628 sun60i-a733-orangepi-zero3w.dtb.bak-1789547410
+=> 
+===== uboot_cmd end =====

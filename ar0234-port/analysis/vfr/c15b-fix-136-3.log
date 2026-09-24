@@ -1,0 +1,51 @@
+===================== c15b-fix-136-3 =====================
+date   : 2026-09-17T02:08:16+08:00
+uptime : 873.54 s
+module : BA48201D23BA4260923B53E 375f6f4f5c15f72b2d2323f32e7af087  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 6 -d /dev/video0 -w 1920 -h 1080 -f NV12 -p 1/136  (vi0)
+marker : VFRMARK-c15b-fix-136-3-2472137-1789582092
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 477, hs: 1724
+frame => cnt: 1, lost_cnt: 1, error_cnt: 0
+internal => avg: 7(ms), max: 8(ms), min: 7(ms)
+--- vfr output ---
+input 0: 
+requested 1/136 -> got 1/136
+fmt NV12 1920x1080 planes=1 sizeimage=3110400 bytesperline=2880
+  [0.1s] no frame for >1s (frames=9)
+  [1.1s] no frame for >1s (frames=9)
+  [2.1s] no frame for >1s (frames=9)
+  [3.1s] no frame for >1s (frames=9)
+  [4.1s] no frame for >1s (frames=9)
+  [5.1s] no frame for >1s (frames=9)
+RESULT dev=/dev/video0 1920x1080 NV12 frames=9 wall=6.077s fps=1.48 timeouts=6
+GAPS n=8 median=0.007509s (133.18 fps) min=0.007427 max=0.007565 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 478, hs: 1723
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 7(ms), max: 8(ms), min: 7(ms)
+--- dmesg since marker ---
+frame lost               401
+sunxi_isp_reset          401
+vblank                   2
+3DNR forced off          1
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+[  875.908380] VFRMARK-c15b-fix-136-3-2472137-1789582092
+[  876.817946] sunxi:vin:[INFO]: isp0 sensor 1920x1080 vts 1096 fps 133: vblank 109 us, 3DNR off (limit 500 us)
+[  876.823786] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 109 us < 500 us
+

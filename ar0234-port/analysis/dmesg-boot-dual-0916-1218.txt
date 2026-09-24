@@ -1,0 +1,1798 @@
+[28202.601119] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.601123] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.605081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.605343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.605348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.605358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.609331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.609594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.609599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.609609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.613581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.613843] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.613848] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.613858] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.617831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.618096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.618100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.618110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.622081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.622344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.622348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.622358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.626331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.626595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.626599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.626609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.630581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.630845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.630849] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.630860] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.634831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.635094] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.635098] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.635108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.639081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.639344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.639349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.639359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.643331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.643596] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.643600] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.643610] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.647582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.647845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.647849] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.647859] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.651831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.652095] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.652099] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.652109] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.656081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.656344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.656349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.656359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.660330] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.660594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.660598] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.660608] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.664581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.664859] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.664864] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.664874] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.668833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.669143] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.669151] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.669164] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.673083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.673366] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.673372] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.673385] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.677333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.677604] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.677609] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.677622] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.681582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.681856] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.681861] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.681872] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.685831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.686097] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.686102] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.686112] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.690081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.690347] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.690351] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.690362] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.694331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.694596] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.694600] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.694611] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.698581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.698845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.698850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.698861] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.702831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.703098] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.703102] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.703113] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.707081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.707345] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.707349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.707359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.711331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.711594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.711599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.711608] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.715581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.715846] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.715851] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.715860] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.719831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.720093] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.720098] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.720107] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.724081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.724343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.724348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.724358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.728330] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.728596] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.728601] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.728611] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.732581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.732857] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.732863] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.732873] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.736830] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.737103] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.737109] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.737123] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.741081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.741343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.741349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.741359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.745331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.745595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.745599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.745609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.749581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.749845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.749850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.749860] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.753832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.754096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.754100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.754111] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.758081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.758345] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.758350] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.758360] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.762331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.762593] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.762598] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.762607] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.766581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.766844] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.766849] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.766859] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.770831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.771092] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.771096] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.771106] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.775081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.775343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.775348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.775358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.779331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.779593] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.779597] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.779606] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.783581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.783843] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.783848] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.783857] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.787831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.788094] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.788099] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.788109] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.792081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.792344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.792348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.792358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.796331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.796594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.796598] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.796608] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.800581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.800856] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.800862] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.800872] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.804831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.805108] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.805114] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.805124] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.809081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.809344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.809349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.809360] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.813331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.813596] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.813600] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.813610] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.817582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.817847] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.817852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.817862] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.821831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.822095] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.822099] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.822109] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.826085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.826381] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.826386] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.826398] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.830335] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.830611] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.830616] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.830628] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.834583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.834861] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.834867] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.834879] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.838835] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.839124] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.839129] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.839141] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.843082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.843352] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.843357] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.843368] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.847332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.847601] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.847605] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.847616] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.851582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.851850] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.851855] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.851865] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.855832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.856099] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.856104] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.856114] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.860082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.860349] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.860355] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.860365] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.864331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.864599] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.864603] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.864613] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.868584] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.868883] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.868891] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.868907] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.872836] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.873137] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.873146] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.873160] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.877083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.877356] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.877362] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.877375] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.881333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.881604] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.881609] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.881622] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.885581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.885850] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.885855] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.885867] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.889831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.890099] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.890103] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.890114] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.894081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.894346] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.894351] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.894361] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.898332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.898602] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.898607] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.898618] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.902580] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.902842] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.902847] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.902856] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.906830] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.907089] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.907094] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.907103] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.911080] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.911341] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.911346] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.911355] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.915330] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.915595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.915599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.915607] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.919583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.919851] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.919856] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.919867] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.923831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.924094] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.924098] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.924108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.928081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.928342] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.928346] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.928355] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.932333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.932602] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.932607] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.932618] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.936581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.936852] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.936857] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.936871] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.940832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.941123] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.941131] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.941136] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.945082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.945349] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.945354] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.945364] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.949332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.949600] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.949605] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.949615] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.953583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.953852] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.953857] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.953867] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.957833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.958113] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.958118] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.958128] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.962083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.962355] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.962360] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.962370] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.966332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.966603] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.966608] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.966618] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.970582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.970852] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.970857] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.970868] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.974833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.975104] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.975110] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.975121] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.979082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.979353] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.979359] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.979369] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.983333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.983605] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.983610] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.983621] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.987583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.987854] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.987859] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.987869] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.991833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.992102] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.992107] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.992117] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28202.996083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28202.996353] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28202.996359] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28202.996370] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.000333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.000603] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.000609] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.000619] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.004582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.004873] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.004879] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.004890] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.008832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.009117] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.009124] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.009138] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.013085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.013373] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.013380] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.013396] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.017336] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.017620] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.017626] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.017643] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.021583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.021853] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.021860] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.021873] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.025834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.026105] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.026110] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.026123] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.030083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.030348] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.030353] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.030364] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.034333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.034604] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.034609] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.034620] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.038582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.038859] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.038865] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.038876] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.042833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.043109] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.043115] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.043127] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.047082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.047363] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.047368] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.047380] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.051335] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.051658] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.051664] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.051678] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.055583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.055900] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.055906] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.055920] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.059836] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.060165] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.060171] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.060185] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.064085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.064409] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.064415] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.064429] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.068333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.068656] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.068662] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.068675] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.072583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.072927] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.072936] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.072957] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.076834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.077203] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.077213] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.077234] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.081083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.081399] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.081405] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.081427] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.085334] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.085665] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.085670] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.085684] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.089583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.089901] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.089908] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.089921] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.093833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.094153] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.094159] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.094172] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.098084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.098403] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.098409] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.098424] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.102334] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.102648] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.102654] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.102668] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.106585] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.106904] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.106910] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.106925] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.110834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.111154] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.111161] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.111175] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.115084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.115408] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.115413] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.115427] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.119336] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.119668] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.119675] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.119689] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.123585] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.123864] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.123869] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.123883] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.127833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.128105] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.128110] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.128122] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.132082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.132350] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.132355] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.132366] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.136331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.136598] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.136603] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.136613] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.140582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.140863] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.140869] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.140882] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.144831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.145108] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.145115] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.145132] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.149082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.149348] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.149353] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.149364] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.153332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.153595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.153599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.153610] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.157582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.157851] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.157856] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.157866] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.161832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.162096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.162101] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.162110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.166082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.166343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.166348] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.166358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.170332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.170595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.170599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.170609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.174582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.174846] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.174851] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.174861] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.178832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.179097] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.179101] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.179111] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.183083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.183345] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.183350] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.183360] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.187332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.187597] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.187602] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.187612] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.191582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.191847] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.191852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.191862] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.195832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.196096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.196101] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.196110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.200081] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.200344] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.200349] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.200358] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.204332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.204594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.204599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.204609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.208581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.208843] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.208848] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.208870] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.212831] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.213105] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.213110] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.213120] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.217082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.217354] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.217359] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.217373] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.221340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.221664] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.221672] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.221689] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.225589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.225888] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.225894] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.225910] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.229839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.230174] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.230182] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.230199] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.234088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.234379] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.234385] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.234400] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.238338] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.238625] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.238632] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.238647] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.242582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.242848] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.242852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.242863] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.246832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.247095] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.247100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.247110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.251082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.251342] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.251347] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.251357] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.255331] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.255592] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.255595] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.255605] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.259581] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.259841] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.259845] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.259855] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.263839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.264141] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.264148] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.264164] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.268089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.268399] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.268406] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.268423] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.272341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.272649] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.272656] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.272671] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.276589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.276950] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.276960] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.276979] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.280839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.281258] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.281270] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.281289] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.285090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.285414] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.285420] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.285437] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.289345] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.289755] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.289766] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.289787] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.293589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.293903] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.293908] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.293925] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.297839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.298175] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.298182] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.298200] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.302093] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.302450] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.302458] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.302476] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.306339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.306636] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.306641] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.306657] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.310589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.310961] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.310970] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.310988] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.314840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.315169] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.315175] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.315193] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.319091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.319453] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.319462] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.319481] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.323341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.323667] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.323674] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.323693] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.327592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.327895] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.327901] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.327917] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.331842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.332198] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.332205] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.332221] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.336090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.336457] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.336463] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.336480] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.340343] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.340750] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.340759] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.340777] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.344591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.344941] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.344949] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.344968] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.348840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.349324] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.349337] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.349357] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.353091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.353469] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.353476] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.353493] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.357340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.357689] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.357696] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.357713] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.361591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.361924] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.361931] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.361949] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.365839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.366141] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.366147] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.366161] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.370087] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.370401] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.370407] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.370422] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.374341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.374642] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.374648] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.374664] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.378588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.378896] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.378902] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.378917] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.382842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.383166] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.383172] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.383188] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.387089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.387403] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.387408] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.387424] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.391341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.391679] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.391685] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.391703] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.395592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.395916] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.395921] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.395938] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.399839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.400150] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.400156] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.400171] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.404091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.404388] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.404393] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.404410] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.408342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.408663] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.408668] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.408685] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.412592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.412923] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.412932] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.412955] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.416839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.417235] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.417245] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.417263] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.421088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.421394] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.421401] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.421417] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.425340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.425682] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.425689] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.425707] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.429590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.429899] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.429904] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.429922] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.433840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.434168] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.434175] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.434191] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.438091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.438411] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.438417] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.438433] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.442339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.442646] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.442653] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.442670] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.446591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.446906] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.446913] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.446929] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.450841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.451149] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.451154] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.451170] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.455091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.455425] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.455433] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.455450] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.459342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.459661] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.459667] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.459683] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.463592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.463914] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.463921] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.463936] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.467842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.468146] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.468152] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.468167] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.472091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.472404] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.472411] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.472428] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.476342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.476648] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.476654] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.476670] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.480591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.480931] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.480940] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.480958] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.484840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.485242] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.485251] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.485267] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.489092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.489505] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.489512] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.489530] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.493339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.493636] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.493642] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.493660] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.497591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.497890] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.497898] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.497915] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.501839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.502132] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.502138] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.502154] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.506092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.506430] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.506437] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.506456] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.510340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.510653] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.510660] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.510677] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.514592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.514910] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.514917] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.514934] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.518840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.519129] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.519135] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.519151] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.523088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.523381] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.523387] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.523402] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.527341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.527647] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.527654] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.527673] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.531590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.531898] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.531904] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.531921] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.535843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.536178] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.536184] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.536201] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.540090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.540381] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.540387] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.540402] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.544341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.544666] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.544673] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.544690] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.548588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.548907] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.548915] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.548933] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.552833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.553119] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.553125] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.553139] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.557082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.557346] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.557351] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.557361] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.561332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.561592] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.561596] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.561606] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.565582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.565845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.565850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.565859] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.569832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.570093] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.570098] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.570108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.574083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.574350] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.574354] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.574364] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.578332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.578592] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.578596] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.578606] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.582582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.582846] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.582850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.582859] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.586832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.587091] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.587095] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.587105] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.591082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.591346] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.591351] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.591360] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.595332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.595596] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.595600] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.595608] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.599582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.599846] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.599850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.599859] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.603832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.604097] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.604102] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.604110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.608082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.608341] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.608345] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.608355] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.612332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.612593] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.612597] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.612606] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.616582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.616846] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.616850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.616868] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.620832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.621109] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.621114] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.621124] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.625082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.625346] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.625350] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.625359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.629332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.629597] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.629601] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.629609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.633582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.633843] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.633847] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.633856] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.637832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.638096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.638100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.638108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.642084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.642351] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.642355] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.642365] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.646332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.646593] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.646597] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.646607] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.650583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.650845] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.650850] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.650860] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.654832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.655096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.655100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.655109] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.659087] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.659379] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.659385] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.659400] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.663340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.663630] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.663636] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.663651] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.667588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.667894] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.667900] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.667916] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.671843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.672163] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.672169] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.672195] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.676085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.676366] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.676372] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.676386] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.680335] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.680614] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.680620] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.680633] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.684585] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.684883] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.684889] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.684911] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.688834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.689131] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.689138] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.689157] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.693084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.693357] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.693362] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.693375] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.697338] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.697654] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.697660] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.697675] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.701590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.701879] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.701885] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.701900] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.705841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.706177] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.706185] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.706203] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.710089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.710447] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.710455] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.710473] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.714341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.714637] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.714643] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.714659] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.718592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.718907] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.718913] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.718930] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.722844] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.723169] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.723175] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.723190] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.727092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.727398] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.727405] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.727423] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.731342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.731644] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.731650] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.731668] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.735590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.735876] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.735882] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.735897] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.739841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.740183] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.740190] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.740207] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.744089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.744377] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.744383] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.744399] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.748339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.748629] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.748635] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.748650] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.752589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.752905] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.752913] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.752937] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.756837] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.757178] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.757185] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.757200] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.761091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.761416] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.761422] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.761438] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.765337] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.765627] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.765633] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.765649] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.769588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.769883] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.769889] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.769904] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.773837] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.774120] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.774126] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.774140] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.778090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.778404] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.778411] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.778426] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.782339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.782623] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.782628] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.782644] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.786589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.786886] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.786892] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.786907] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.790840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.791156] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.791162] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.791178] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.795090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.795381] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.795387] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.795402] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.799339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.799648] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.799654] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.799669] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.803588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.803876] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.803882] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.803897] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.807839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.808140] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.808147] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.808162] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.812088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.812371] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.812377] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.812391] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.816336] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.816612] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.816617] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.816630] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.820585] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.820875] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.820881] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.820894] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.824834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.825127] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.825134] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.825147] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.829085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.829361] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.829367] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.829380] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.833334] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.833603] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.833608] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.833619] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.837584] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.837857] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.837862] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.837874] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.841834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.842104] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.842110] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.842122] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.846084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.846353] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.846359] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.846370] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.850333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.850602] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.850607] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.850618] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.854584] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.854856] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.854861] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.854873] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.858844] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.859148] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.859154] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.859170] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.863086] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.863364] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.863370] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.863386] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.867337] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.867613] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.867619] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.867634] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.871591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.871921] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.871927] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.871942] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.875841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.876174] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.876181] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.876198] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.880087] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.880414] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.880419] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.880434] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.884332] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.884652] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.884658] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.884671] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.888583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.888916] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.888924] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.888944] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.892832] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.893169] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.893175] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.893187] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.897086] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.897405] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.897411] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.897424] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.901341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.901684] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.901691] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.901706] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.905588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.905937] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.905944] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.905961] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.909837] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.910132] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.910138] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.910154] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.914090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.914432] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.914438] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.914456] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.918340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.918676] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.918682] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.918700] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.922591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.922923] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.922931] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.922948] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.926841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.927173] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.927180] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.927196] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.931091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.931427] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.931434] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.931451] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.935341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.935676] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.935682] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.935699] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.939593] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.939930] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.939937] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.939953] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.943842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.944190] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.944197] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.944214] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.948090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.948412] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.948419] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.948433] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.952338] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.952619] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.952625] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.952639] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.956586] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.956881] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.956889] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.956913] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.960834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.961121] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.961127] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.961149] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.965084] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.965357] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.965362] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.965375] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.969341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.969666] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.969673] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.969691] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.973589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.973881] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.973888] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.973903] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.977841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.978215] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.978223] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.978240] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.982089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.982384] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.982391] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.982406] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.986337] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.986619] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.986625] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.986639] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.990582] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.990844] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.990848] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.990858] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.994833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.995093] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.995098] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.995108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28203.999082] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28203.999343] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28203.999347] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28203.999357] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.003333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.003595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.003599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.003609] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.007590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.007897] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.007903] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.007919] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.011838] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.012130] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.012137] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.012152] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.016089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.016388] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.016394] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.016410] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.020340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.020675] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.020683] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.020700] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.024593] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.024958] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.024967] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.024993] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.028841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.029242] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.029253] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.029271] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.033091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.033432] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.033440] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.033455] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.037342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.037678] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.037686] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.037704] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.041592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.041934] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.041940] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.041959] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.045842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.046240] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.046249] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.046269] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.050091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.050381] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.050388] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.050404] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.054339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.054648] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.054655] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.054670] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.058592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.058947] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.058953] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.058972] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.062841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.063139] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.063146] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.063163] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.067097] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.067483] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.067490] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.067507] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.071345] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.071679] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.071686] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.071702] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.075591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.075888] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.075896] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.075912] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.079842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.080184] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.080192] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.080209] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.084093] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.084476] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.084483] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.084502] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.088347] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.088763] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.088772] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.088789] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.092591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.092987] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.092998] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.093017] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.096843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.097298] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.097308] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.097327] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.101092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.101419] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.101425] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.101442] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.105341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.105670] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.105678] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.105694] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.109592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.109909] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.109915] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.109932] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.113842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.114137] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.114143] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.114160] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.118090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.118395] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.118401] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.118419] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.122341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.122689] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.122699] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.122717] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.126592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.126885] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.126892] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.126908] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.130841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.131129] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.131135] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.131151] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.135093] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.135391] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.135397] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.135414] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.139340] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.139629] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.139635] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.139651] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.143591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.143912] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.143919] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.143936] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.147843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.148163] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.148170] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.148186] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.152090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.152392] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.152399] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.152417] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.156339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.156635] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.156641] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.156656] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.160591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.160945] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.160956] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.160976] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.164843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.165230] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.165242] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.165262] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.169091] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.169387] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.169393] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.169410] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.173342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.173670] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.173678] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.173694] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.177591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.177901] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.177907] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.177923] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.181841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.182151] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.182159] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.182176] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.186090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.186398] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.186404] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.186421] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.190344] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.190658] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.190664] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.190681] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.194595] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.194928] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.194935] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.194952] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.198844] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.199176] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.199182] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.199199] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.203094] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.203407] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.203415] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.203431] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.207343] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.207660] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.207667] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.207685] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.211593] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.211902] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.211908] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.211926] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.215840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.216142] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.216149] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.216163] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.220092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.220393] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.220400] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.220418] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.224344] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.224654] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.224660] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.224677] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.228592] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.228951] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.228960] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.228977] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.232840] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.233201] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.233211] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.233228] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.237094] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.237477] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.237484] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.237501] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.241341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.241635] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.241642] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.241658] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.245590] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.245881] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.245887] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.245902] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.249842] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.250136] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.250142] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.250158] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.254092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.254397] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.254404] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.254421] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.258341] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.258649] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.258656] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.258673] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.262591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.262919] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.262926] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.262943] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.266843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.267166] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.267173] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.267190] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.271092] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.271431] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.271438] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.271454] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.275342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.275646] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.275653] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.275669] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.279591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.279900] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.279907] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.279923] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.283841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.284134] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.284140] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.284155] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.288089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.288385] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.288391] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.288407] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.292338] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.292619] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.292625] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.292638] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.296583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.296847] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.296852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.296878] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.300833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.301117] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.301124] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.301136] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.305083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.305349] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.305353] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.305362] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.309334] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.309600] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.309604] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.309615] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.313583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.313848] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.313852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.313861] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.317833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.318097] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.318102] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.318110] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.322083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.322349] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.322353] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.322362] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.326333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.326595] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.326600] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.326610] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.330583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.330848] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.330852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.330861] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.334833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.335096] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.335100] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.335108] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.339083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.339345] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.339350] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.339359] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.343334] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.343594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.343598] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.343607] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.347583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.347848] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.347852] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.347862] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.351833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.352098] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.352102] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.352111] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.356083] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.356350] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.356354] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.356362] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.360333] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.360594] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.360599] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.360608] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.364583] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.364847] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.364851] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.364870] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.368833] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.369114] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.369122] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.369126] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.373088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.373366] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.373372] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.373384] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.377339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.377629] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.377636] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.377652] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.381589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.381894] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.381900] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.381917] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.385838] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.386132] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.386138] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.386152] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.390086] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.390364] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.390370] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.390385] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.394338] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.394651] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.394657] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.394671] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.398586] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.398862] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.398868] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.398881] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.402838] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.403156] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.403163] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.403177] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.407089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.407410] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.407416] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.407431] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.411339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.411667] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.411673] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.411688] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.415588] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.415919] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.415926] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.415941] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.419839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.420170] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.420178] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.420192] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.424088] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.424416] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.424423] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.424439] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.428344] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.428683] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.428691] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.428708] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.432593] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.432980] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.432989] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.433006] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.436844] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.437272] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.437283] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.437299] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.441090] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.441424] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.441430] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.441445] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.445339] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.445668] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.445674] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.445691] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.449589] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.449917] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.449923] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.449939] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.453841] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.454176] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.454184] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.454200] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.458089] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.458425] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.458432] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.458449] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.462342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.462680] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.462686] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.462703] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.466591] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.466922] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.466929] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.466944] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.470843] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.471182] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.471188] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.471203] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.475094] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.475436] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.475444] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.475460] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.479342] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.479641] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.479647] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.479662] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.483593] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.483880] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.483885] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.483901] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.487839] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.488122] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.488127] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.488142] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.492086] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.492360] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.492366] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.492378] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.496335] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.496604] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.496609] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.496621] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.500585] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.500854] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.500859] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.500888] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.504834] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.505118] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.505125] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.505137] sunxi:vin:[ERR]: scaler0 horizontal short!!!
+[28204.509085] sunxi:vin:[ERR]: scaler0 vertical short!!!
+[28204.509358] sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+[28204.509363] sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+[28204.509376] sunxi:vin:[ERR]: scaler0 horizontal short!!!

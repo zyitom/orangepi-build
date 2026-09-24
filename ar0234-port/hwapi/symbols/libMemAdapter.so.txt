@@ -1,0 +1,4 @@
+__GetIonMemOpsS
+MemAdapterGetDramFreq
+MemAdapterGetOpsS
+SecureMemAdapterGetOpsS

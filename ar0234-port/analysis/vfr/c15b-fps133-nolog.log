@@ -1,0 +1,55 @@
+===================== c15b-fps133-nolog =====================
+date   : 2026-09-17T01:52:39+08:00
+uptime : 352.43 s
+module : 79A92954C89CA32A7243DA5 6606471dd039a9c9dcdef94c1555584a  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 8 -d /dev/video0 -w 1920 -h 1080 -f NV12 -p 1/133  (vi0)
+marker : VFRMARK-c15b-fps133-nolog-2459778-1789581155
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 1080, hb: 478, hs: 1724
+frame => cnt: 961, lost_cnt: 1, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+--- vfr output ---
+input 0: 
+requested 1/133 -> got 1/133
+fmt NV12 1920x1080 planes=1 sizeimage=3110400 bytesperline=2880
+  [0.0s] no frame for >1s (frames=4)
+  [1.0s] no frame for >1s (frames=4)
+  [2.0s] no frame for >1s (frames=4)
+  [3.0s] no frame for >1s (frames=4)
+  [4.0s] no frame for >1s (frames=4)
+  [5.0s] no frame for >1s (frames=4)
+  [6.0s] no frame for >1s (frames=4)
+  [7.0s] no frame for >1s (frames=4)
+RESULT dev=/dev/video0 1920x1080 NV12 frames=4 wall=8.044s fps=0.50 timeouts=8
+GAPS n=3 median=0.007477s (133.74 fps) min=0.007451 max=0.007615 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 477, hs: 1724
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 7(ms), max: 8(ms), min: 7(ms)
+--- dmesg since marker ---
+frame lost               533
+sunxi_isp_reset          533
+vblank                   2
+3DNR forced off          1
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+[  354.847962] VFRMARK-c15b-fps133-nolog-2459778-1789581155
+[  355.686876] sunxi:vin:[INFO]: camera is on, close dfs
+[  355.744197] sunxi:vin:[INFO]: isp0 sensor 1920x1080 vts 1100 fps 133: vblank 136 us, 3DNR off (limit 500 us)
+[  355.749610] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+[  364.132450] sunxi:vin:[INFO]: camera is off, open dfs
+

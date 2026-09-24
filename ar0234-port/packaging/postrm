@@ -1,0 +1,15 @@
+#!/bin/sh
+# dpkg postrm: restore the original device tree and clean up runtime files.
+set -e
+DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
+
+if [ -f "$DTB.orig-ar0234-camera" ]; then
+	cp "$DTB.orig-ar0234-camera" "$DTB"
+	rm -f "$DTB.orig-ar0234-camera"
+fi
+
+
+rm -f /mnt/extsd/isp_param_config.bin
+rm -rf /mnt/extsd/ar0234
+
+echo "ar0234-camera: removed, reboot to return to the original imx219 setup"

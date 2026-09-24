@@ -1,0 +1,178 @@
+### (deduped) repeated flood lines collapsed, counts:
+    1639 x sunxi:vin:[WARN]: vinc0 input pixel in one line is less than expected!
+    1639 x sunxi:vin:[ERR]: vinc0 input lines in one frame is less than execpted, frame lost!
+     175 x sunxi:vin:[ERR]: isp0 frame lost!
+     174 x sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 0
+      51 x >>> rwnx_cfg80211_del_key()
+      51 x >>> rwnx_send_key_del()
+      16 x >>> rwnx_send_me_chan_config_req()
+      15 x >>> rwnx_cfg80211_disconnect()
+       8 x >>> rwnx_send_sm_disconnect_req()
+       8 x >>> rwnx_rx_me_tx_credits_update_ind()
+       8 x >>> rwnx_cfg80211_unlink_bss()
+       8 x >>> rwnx_close()
+       8 x >>> rwnx_send_remove_if()
+       8 x >>> rwnx_send_msg1()
+       8 x >>> rwnx_send_coex_req()
+       8 x >>> rwnx_send_reset()
+       8 x >>> rwnx_send_me_config_req()
+       8 x >>> rwnx_send_cfg_rssi_req()
+       1 x WARNING: CPU: 1 PID: 660 at bsp/drivers/net/wireless/aic8800/aic8800_fdrv/rwnx_main.c:3460 rwnx_cfg80211_disconnect+0x1a8/0x1d0 [aic8800_fdrv]
+       1 x WARNING: CPU: 6 PID: 656 at bsp/drivers/net/wireless/aic8800/aic8800_fdrv/rwnx_main.c:3460 rwnx_cfg80211_disconnect+0x1a8/0x1d0 [aic8800_fdrv]
+### remaining lines:
+[12:33:42] ---------- output ----------
+[12:33:50] ---------- output ----------
+[12:33:58] ---------- output ----------
+[12:34:06] ---------- output ----------
+[12:34:14] ---------- output ----------
+[12:34:22] ---------- output ----------
+[12:34:29] ---------- output ----------
+[  726.650598] Call trace:
+[  726.817732] >>> cmd_mgr_task_process()
+[  729.325535] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[  729.488276] systemd-shutdown[1]: Rebooting.
+[12:34:40] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:35:12] ---------- output ----------
+[12:35:16] ---------- output ----------
+[12:36:24] ---------- output ----------
+[12:36:30] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:37:02] ---------- output ----------
+[12:38:45] ---------- output ----------
+[12:38:50] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:39:22] ---------- output ----------
+[12:41:10] ---------- output ----------
+[12:41:15] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:41:47] ---------- output ----------
+[12:41:56] ---------- output ----------
+[   32.563247] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.693452] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.713337] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   33.037115] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[12:42:03] ---------- output ----------
+[   40.622801] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1080 300a
+[   41.859091] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   41.978366] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   41.980187] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   41.989142] 0x0x0000000000000000 is not mapped!
+[   41.989154] Bug is in CSI module, invalid address: 0x0, data:0x0, id:0x2
+[   42.023220] WARNING: CPU: 0 PID: 0 at bsp/drivers/iommu/sunxi-iommu-v2.c:405 sunxi_iommu_irq+0x5bc/0x5c4
+[   42.170909] Call trace:
+[   42.624401] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[   42.656008] sunxi:vin:[ERR]: scaler0 frame lost!!!
+[   43.751221] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[12:43:05] ---------- output ----------
+[12:43:35] ---------- output ----------
+[12:43:57] ---------- output ----------
+[12:44:07] ---------- output ----------
+[  168.209034] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[  168.395349] systemd-shutdown[1]: Rebooting.
+[12:44:17] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:44:49] ---------- output ----------
+[12:44:57] ---------- output ----------
+[   31.739329] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   31.870243] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   31.887579] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+[   32.211970] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 4896 (30 fps)
+[12:45:05] ---------- output ----------
+[   39.799376] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 960*600 300a
+[12:45:16] ---------- output ----------
+[12:45:22] ---------- output ----------
+[12:46:02] ---------- output ----------
+[   97.121653] Call trace:
+[   98.998524] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[   99.171627] systemd-shutdown[1]: Rebooting.
+[12:46:10] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:46:41] ---------- output ----------
+[12:46:51] ---------- output ----------
+[   32.350463] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.469432] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.471263] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   32.480184] 0x0x0000000000000000 is not mapped!
+[   32.480188] Bug is in CSI module, invalid address: 0x0, data:0x0, id:0x2
+[   32.514338] WARNING: CPU: 0 PID: 0 at bsp/drivers/iommu/sunxi-iommu-v2.c:405 sunxi_iommu_irq+0x5bc/0x5c4
+[   32.662213] Call trace:
+[   33.082710] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[   33.084368] sunxi:vin:[ERR]: scaler0 frame lost!!!
+[   33.117661] sunxi:vin:[ERR]: scaler0 frame lost!!!
+[   34.235578] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[12:47:21] ---------- output ----------
+[12:50:01] ---------- output ----------
+[  223.180427] Call trace:
+[  223.411459] >>> cmd_mgr_task_process()
+[  225.252369] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[  225.428438] systemd-shutdown[1]: Rebooting.
+[12:50:09] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:50:41] ---------- output ----------
+[12:51:30] ---------- output ----------
+[12:51:35] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:52:06] ---------- output ----------
+[12:52:16] ---------- output ----------
+[   32.305974] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.413422] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.547061] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   32.566516] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+[   32.892264] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 4896 (30 fps)
+[   38.601648] 0x0x0000000000000000 is not mapped!
+[   38.606728] Bug is in CSI module, invalid address: 0x0, data:0x0, id:0x2
+[   38.619484] WARNING: CPU: 0 PID: 0 at bsp/drivers/iommu/sunxi-iommu-v2.c:405 sunxi_iommu_irq+0x5bc/0x5c4
+[   38.767362] Call trace:
+[12:52:56] ---------- output ----------
+[12:53:09] ---------- output ----------
+[   89.307259] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[   89.479266] systemd-shutdown[1]: Rebooting.
+[12:53:19] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:53:50] ---------- output ----------
+[12:53:57] ---------- output ----------
+[   29.983162] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.090402] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.223179] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.242668] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+[   30.568031] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 4896 (30 fps)
+[   36.278981] 0x0x0000000000000000 is not mapped!
+[   36.284058] Bug is in CSI module, invalid address: 0x0, data:0x0, id:0x2
+[   36.296810] WARNING: CPU: 0 PID: 0 at bsp/drivers/iommu/sunxi-iommu-v2.c:405 sunxi_iommu_irq+0x5bc/0x5c4
+[   36.444690] Call trace:
+[12:54:37] ---------- output ----------
+[12:55:09] ---------- output ----------
+[  105.784938] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[  105.953946] systemd-shutdown[1]: Rebooting.
+[12:55:18] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:55:50] ---------- output ----------
+[12:55:57] ---------- output ----------
+[   30.579400] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.707474] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.727349] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   31.051750] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[   34.670324] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[12:56:16] ---------- output ----------
+[12:56:45] ---------- output ----------
+[   81.944652] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[   82.111982] systemd-shutdown[1]: Rebooting.
+[12:56:54] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:57:26] ---------- output ----------
+[12:57:32] ---------- output ----------
+[   29.883458] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.009909] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   30.029765] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   30.354885] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[12:57:36] ---------- output ----------
+[   33.971597] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[12:57:51] ---------- output ----------
+[12:59:10] ---------- output ----------
+[  128.037949] Call trace:
+[  130.313278] systemd-shutdown[1]: Using hardware watchdog 'sunxi-wdt', version 0, device /dev/watchdog
+[  130.485954] systemd-shutdown[1]: Rebooting.
+[12:59:18] ---------- output ----------
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+[12:59:50] ---------- output ----------

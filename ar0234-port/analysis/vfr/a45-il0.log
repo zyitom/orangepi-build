@@ -1,0 +1,31 @@
+########## d3d_min_vblank_us = 0
+--- step 1: 1920x1200@30 (3A loads 3dnr params, D3D on) ---
+input 0: 
+requested 1/30 -> got 1/30
+fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+RESULT dev=/dev/video0 1920x1200 NV12 frames=180 wall=6.032s fps=29.84 timeouts=0
+GAPS n=179 median=0.033328s (30.01 fps) min=0.033099 max=0.033565 >1.5x=0 >3x=0
+--- step 2: 1920x1200@120 ---
+input 0: 
+requested 1/120 -> got 1/120
+fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  [0.0s] no frame for >1s (frames=0)
+  [1.0s] no frame for >1s (frames=0)
+  [2.0s] no frame for >1s (frames=0)
+  [3.0s] no frame for >1s (frames=0)
+  [4.0s] no frame for >1s (frames=0)
+  [5.0s] no frame for >1s (frames=0)
+  [6.0s] no frame for >1s (frames=0)
+  [7.0s] no frame for >1s (frames=0)
+  [8.0s] no frame for >1s (frames=0)
+  [9.0s] no frame for >1s (frames=0)
+  [10.0s] no frame for >1s (frames=0)
+  [11.0s] no frame for >1s (frames=0)
+RESULT dev=/dev/video0 1920x1200 NV12 frames=0 wall=12.029s fps=0.00 timeouts=12
+--- vi0 after ---
+output => width: 1920, height: 1200, fmt: NV12
+frame => cnt: 1, lost_cnt: 1, error_cnt: 0
+--- dmesg since A45-IL0-1789538834 ---
+frame lost      : 482
+3DNR forced off : 1
+bad lines       : 0

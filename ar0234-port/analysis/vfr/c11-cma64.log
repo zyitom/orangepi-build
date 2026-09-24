@@ -1,0 +1,76 @@
+===================== c11-cma64 =====================
+date   : 2026-09-17T01:43:36+08:00
+uptime : 55.71 s
+module : 79A92954C89CA32A7243DA5 6606471dd039a9c9dcdef94c1555584a  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 30 -d /dev/video0 -w 1920 -h 1200 -f NV12 -p 1/120  (vi0)
+marker : VFRMARK-c11-cma64-2453776-1789580611
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+--- vfr output ---
+input 0: 
+requested 1/120 -> got 1/120
+fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  t=  1.0s frames=    119 this_second=119
+  t=  2.0s frames=    239 this_second=120
+  t=  3.0s frames=    359 this_second=120
+  t=  4.0s frames=    479 this_second=120
+  t=  5.0s frames=    599 this_second=120
+  t=  6.0s frames=    719 this_second=120
+  t=  7.0s frames=    839 this_second=120
+  t=  8.1s frames=    959 this_second=120
+  t=  9.1s frames=   1079 this_second=120
+  t= 10.1s frames=   1199 this_second=120
+  t= 11.1s frames=   1319 this_second=120
+  t= 12.1s frames=   1439 this_second=120
+  t= 13.1s frames=   1559 this_second=120
+  t= 14.1s frames=   1679 this_second=120
+  t= 15.1s frames=   1799 this_second=120
+  t= 16.1s frames=   1919 this_second=120
+  t= 17.1s frames=   2039 this_second=120
+  t= 18.1s frames=   2159 this_second=120
+  t= 19.1s frames=   2279 this_second=120
+  t= 20.1s frames=   2399 this_second=120
+  t= 21.2s frames=   2519 this_second=120
+  t= 22.2s frames=   2639 this_second=120
+  t= 23.2s frames=   2759 this_second=120
+  t= 24.2s frames=   2879 this_second=120
+  t= 25.2s frames=   2999 this_second=120
+  t= 26.2s frames=   3119 this_second=120
+  t= 27.2s frames=   3239 this_second=120
+  t= 28.2s frames=   3359 this_second=120
+  t= 29.2s frames=   3479 this_second=120
+RESULT dev=/dev/video0 1920x1200 NV12 frames=3573 wall=30.002s fps=119.09 timeouts=0
+GAPS n=3572 median=0.008397s (119.10 fps) min=0.008170 max=0.008623 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+frame => cnt: 3574, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+--- dmesg since marker ---
+frame lost               0
+sunxi_isp_reset          0
+vblank                   2
+3DNR forced off          1
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+[   58.193222] VFRMARK-c11-cma64-2453776-1789580611
+[   58.985713] sunxi:vin:[INFO]: camera is on, close dfs
+[   59.043045] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+[   59.049272] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+[   89.397107] sunxi:vin:[INFO]: camera is off, open dfs
+

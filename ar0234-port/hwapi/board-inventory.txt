@@ -1,0 +1,253 @@
+# device nodes
+crw-rw-rw- 1 root root   237,   0 Sep 15 10:52 /dev/cedar_dev
+crw-rw---- 1 root video  236,   0 Sep 15 10:52 /dev/cedar_dev_ve2
+crw-rw---- 1 root video  253,   1 Sep 15 10:52 /dev/dma_heap/reserved
+crw-rw---- 1 root video  253,   0 Sep 15 10:52 /dev/dma_heap/system
+crw-rw---- 1 root video  226,   0 Sep 15 10:52 /dev/dri/card0
+crw-rw---- 1 root video  226,   1 Sep 15 10:52 /dev/dri/card1
+crw-rw-rw- 1 root render 226, 128 Sep 15 10:52 /dev/dri/renderD128
+crw------- 1 root root   234,   0 Sep 15 11:19 /dev/g2d
+crw-rw---- 1 root video  251,   0 Sep 15 10:52 /dev/media0
+crw-rw---- 1 root video   81,   1 Sep 15 10:52 /dev/v4l-subdev0
+crw-rw---- 1 root video   81,   2 Sep 15 10:52 /dev/v4l-subdev1
+crw-rw---- 1 root video   81,  11 Sep 15 10:52 /dev/v4l-subdev10
+crw-rw---- 1 root video   81,  12 Sep 15 10:52 /dev/v4l-subdev11
+crw-rw---- 1 root video   81,  13 Sep 15 10:52 /dev/v4l-subdev12
+crw-rw---- 1 root video   81,  14 Sep 15 10:52 /dev/v4l-subdev13
+crw-rw---- 1 root video   81,  15 Sep 15 10:52 /dev/v4l-subdev14
+crw-rw---- 1 root video   81,  16 Sep 15 10:52 /dev/v4l-subdev15
+crw-rw---- 1 root video   81,  17 Sep 15 10:52 /dev/v4l-subdev16
+crw-rw---- 1 root video   81,   3 Sep 15 10:52 /dev/v4l-subdev2
+crw-rw---- 1 root video   81,   4 Sep 15 10:52 /dev/v4l-subdev3
+crw-rw---- 1 root video   81,   5 Sep 15 10:52 /dev/v4l-subdev4
+crw-rw---- 1 root video   81,   6 Sep 15 10:52 /dev/v4l-subdev5
+crw-rw---- 1 root video   81,   7 Sep 15 10:52 /dev/v4l-subdev6
+crw-rw---- 1 root video   81,   8 Sep 15 10:52 /dev/v4l-subdev7
+crw-rw---- 1 root video   81,   9 Sep 15 10:52 /dev/v4l-subdev8
+crw-rw---- 1 root video   81,  10 Sep 15 10:52 /dev/v4l-subdev9
+crw-rw---- 1 root video   81,   0 Sep 15 10:52 /dev/video0
+crw-rw-rw- 1 root root   199,   0 Sep 15 10:52 /dev/vipcore
+
+/dev/dri/by-path:
+total 0
+lrwxrwxrwx 1 root root  8 Sep 15 10:52 platform-1800000.gpu-card -> ../card1
+lrwxrwxrwx 1 root root 13 Sep 15 10:52 platform-1800000.gpu-render -> ../renderD128
+lrwxrwxrwx 1 root root  8 Sep 15 10:52 platform-soc@3000000:sunxi-drm-card -> ../card0
+
+# v4l2 names
+v4l-subdev0: ar0234_mipi
+v4l-subdev1: vin_cap.0
+v4l-subdev10: sunxi_mipi.1
+v4l-subdev11: sunxi_mipi.2
+v4l-subdev12: sunxi_isp.0
+v4l-subdev13: sunxi_h3a.0
+v4l-subdev14: sunxi_scaler.0
+v4l-subdev15: sunxi_scaler.8
+v4l-subdev16: sunxi_scaler.16
+v4l-subdev2: sunxi_csi.0
+v4l-subdev3: sunxi_csi.1
+v4l-subdev4: sunxi_csi.2
+v4l-subdev5: sunxi_tdm_rx.0
+v4l-subdev6: sunxi_tdm_rx.1
+v4l-subdev7: sunxi_tdm_rx.2
+v4l-subdev8: sunxi_tdm_rx.3
+v4l-subdev9: sunxi_mipi.0
+video0: vin_video0
+
+# modules
+Module                  Size  Used by
+g2d_sunxi              94208  0
+rfcomm                 49152  16
+bnep                   24576  2
+hci_uart               24576  1
+aic8800_btlpm          16384  0
+pvrsrvkm             1306624  16
+goodix_ts              24576  0
+pwm_fan                12288  0
+deinterlace            98304  0
+vipcore               245760  0
+sunxi_ve               45056  0
+aic8800_fdrv          311296  0
+aic8800_bsp            81920  1 aic8800_fdrv
+ar0234_mipi            20480  0
+vin_v4l2              278528  1
+videobuf2_dma_contig    16384  1 vin_v4l2
+vin_io                 61440  3 ar0234_mipi,vin_v4l2
+
+# pwm
+/sys/class/pwm/pwmchip0 npwm=10 /sys/devices/platform/soc@3000000/2527000.pwm
+/sys/class/pwm/pwmchip10 npwm=10 /sys/devices/platform/soc@3000000/2528000.pwm
+/sys/class/pwm/pwmchip20 npwm=10 /sys/devices/platform/soc@3000000/7023000.pwm
+
+# gpio
+
+# video0 controls
+
+User Controls
+
+                     brightness 0x00980900 (int)    : min=-128 max=512 step=1 default=0 value=0 flags=slider
+                       contrast 0x00980901 (int)    : min=-128 max=512 step=1 default=0 value=0 flags=slider
+                     saturation 0x00980902 (int)    : min=-256 max=512 step=1 default=0 value=0 flags=slider
+                            hue 0x00980903 (int)    : min=-180 max=180 step=1 default=0 value=0 flags=slider
+        white_balance_automatic 0x0098090c (bool)   : default=1 value=1
+                       exposure 0x00980911 (int)    : min=1 max=1048576 step=1 default=1 value=23520 flags=volatile
+                 gain_automatic 0x00980912 (bool)   : default=1 value=1
+                           gain 0x00980913 (int)    : min=16 max=96000 step=1 default=16 value=15000 flags=volatile
+                horizontal_flip 0x00980914 (bool)   : default=0 value=0 flags=volatile
+                  vertical_flip 0x00980915 (bool)   : default=0 value=0 flags=volatile
+           power_line_frequency 0x00980918 (menu)   : min=0 max=3 default=3 value=3
+				0: Disabled
+				1: 50 Hz
+				2: 60 Hz
+				3: Auto
+                  hue_automatic 0x00980919 (bool)   : default=1 value=1
+      white_balance_temperature 0x0098091a (int)    : min=2800 max=10000 step=1 default=6500 value=6500
+                      sharpness 0x0098091b (int)    : min=0 max=1000 step=1 default=0 value=0 flags=slider
+                     chroma_agc 0x0098091d (bool)   : default=1 value=1
+                  color_effects 0x0098091f (menu)   : min=0 max=15 default=0 value=0
+				0: None
+				1: Black & White
+				2: Sepia
+				3: Negative
+				4: Emboss
+				5: Sketch
+				6: Sky Blue
+				7: Grass Green
+				8: Skin Whiten
+				9: Vivid
+				10: Aqua
+				11: Art Freeze
+				12: Silhouette
+				13: Solarization
+				14: Antique
+				15: Set Cb/Cr
+           brightness_automatic 0x00980920 (bool)   : default=1 value=1
+               band_stop_filter 0x00980921 (int)    : min=0 max=1 step=1 default=1 value=1
+                  illuminator_1 0x00980925 (bool)   : default=0 value=0
+                  illuminator_2 0x00980926 (bool)   : default=0 value=0
+              autofocus_initial 0x00981952 (button) : flags=write-only, execute-on-write
+              autofocus_release 0x00981953 (button) : flags=write-only, execute-on-write
+                gsensor_rotaion 0x00981954 (int)    : min=-180 max=180 step=90 default=0 value=0
+                   take_picture 0x00981956 (int)    : min=0 max=16 step=1 default=0 value=0
+        horizontal_visual_angle 0x00981957 (int)    : min=0 max=360 step=1 default=60 value=60 flags=read-only, volatile
+          vertical_visual_angle 0x00981958 (int)    : min=0 max=360 step=1 default=60 value=60 flags=read-only, volatile
+                   focus_length 0x00981959 (int)    : min=0 max=1000 step=1 default=280 value=280 flags=volatile
+                    sensor_type 0x0098195e (menu)   : min=0 max=1 default=0 value=1 flags=volatile
+				0: YUV
+				1: RAW
+            autoexposure_win_x1 0x0098195f (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+            autoexposure_win_y1 0x00981960 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+            autoexposure_win_x2 0x00981961 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+            autoexposure_win_y2 0x00981962 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+               autofocus_win_x1 0x00981963 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+               autofocus_win_y1 0x00981964 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+               autofocus_win_x2 0x00981965 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+               autofocus_win_y2 0x00981966 (int)    : min=32 max=3264 step=16 default=256 value=256 flags=volatile
+                 vin_flash_ctrl 0x00981967 (menu)   : min=0 max=2 default=0 value=0
+				0: Off
+				1: Auto
+				2: Red Eye
+
+Camera Controls
+
+                  auto_exposure 0x009a0901 (menu)   : min=0 max=3 default=0 value=0
+				0: Auto Mode
+				1: Manual Mode
+				2: Shutter Priority Mode
+				3: Aperture Priority Mode
+         exposure_time_absolute 0x009a0902 (int)    : min=1 max=30000000 step=1 default=1 value=9996 flags=volatile
+     exposure_dynamic_framerate 0x009a0903 (bool)   : default=0 value=0
+                 focus_absolute 0x009a090a (int)    : min=0 max=127 step=1 default=0 value=0
+                 focus_relative 0x009a090b (int)    : min=-127 max=127 step=1 default=0 value=0 flags=write-only, execute-on-write
+     focus_automatic_continuous 0x009a090c (bool)   : default=1 value=1
+             auto_exposure_bias 0x009a0913 (intmenu): min=0 max=8 default=4 value=4
+				0: -4 (0xfffffffffffffffc)
+				1: -3 (0xfffffffffffffffd)
+				2: -2 (0xfffffffffffffffe)
+				3: -1 (0xffffffffffffffff)
+				4: 0 (0x0)
+				5: 1 (0x1)
+				6: 2 (0x2)
+				7: 3 (0x3)
+				8: 4 (0x4)
+      white_balance_auto_preset 0x009a0914 (menu)   : min=0 max=9 default=1 value=1
+				0: Manual
+				1: Auto
+				2: Incandescent
+				3: Fluorescent
+				4: Fluorescent H
+				5: Horizon
+				6: Daylight
+				7: Flash
+				8: Cloudy
+				9: Shade
+             wide_dynamic_range 0x009a0915 (bool)   : default=0 value=0
+            image_stabilization 0x009a0916 (bool)   : default=0 value=0
+                iso_sensitivity 0x009a0917 (intmenu): min=0 max=6 default=2 value=2
+				0: 100 (0x64)
+				1: 200 (0xc8)
+				2: 400 (0x190)
+				3: 800 (0x320)
+				4: 1600 (0x640)
+				5: 3200 (0xc80)
+				6: 6400 (0x1900)
+           iso_sensitivity_auto 0x009a0918 (menu)   : min=0 max=1 default=1 value=1
+				0: Manual
+				1: Auto
+         exposure_metering_mode 0x009a0919 (menu)   : min=0 max=3 default=0 value=0
+				0: Average
+				1: Center Weighted
+				2: Spot
+				3: Matrix
+                     scene_mode 0x009a091a (menu)   : min=0 max=13 default=0 value=0
+				0: None
+				1: Backlight
+				2: Beach/Snow
+				3: Candle Light
+				4: Dusk/Dawn
+				5: Fall Colors
+				6: Fireworks
+				7: Landscape
+				8: Night
+				9: Party/Indoor
+				10: Portrait
+				11: Sports
+				12: Sunset
+				13: Text
+                        3a_lock 0x009a091b (bitmask): max=0x00000007 default=0x00000000 value=0x00000000 flags=volatile
+               auto_focus_start 0x009a091c (button) : flags=write-only, execute-on-write
+                auto_focus_stop 0x009a091d (button) : flags=write-only, execute-on-write
+              auto_focus_status 0x009a091e (bitmask): max=0x00000007 default=0x00000000 value=0x00000000 flags=read-only, volatile
+               auto_focus_range 0x009a091f (menu)   : min=0 max=3 default=0 value=0
+				0: Auto
+				1: Normal
+				2: Macro
+				3: Infinity
+
+Flash Controls
+
+                       led_mode 0x009c0901 (menu)   : min=0 max=4 default=0 value=0
+				0: Off
+				1: Flash
+				2: Torch
+				4: Software
+
+# sensor subdev controls
+
+User Controls
+
+                       exposure 0x00980911 (int)    : min=0 max=1048576 step=1 default=0 value=23520 flags=volatile, execute-on-write
+                           gain 0x00980913 (int)    : min=1600 max=409600 step=1 default=1600 value=15000 flags=volatile, execute-on-write
+                horizontal_flip 0x00980914 (bool)   : default=0 value=0
+                  vertical_flip 0x00980915 (bool)   : default=0 value=0
+                     frame_rate 0x00981955 (int)    : min=0 max=240 step=1 default=0 value=0
+        temperature_approx_degc 0x009819c0 (int)    : min=-40 max=150 step=1 default=0 value=0 flags=read-only, volatile
+
+Image Processing Controls
+
+                   test_pattern 0x009f0903 (menu)   : min=0 max=4 default=0 value=0
+				0: Disabled
+				1: Solid Color
+				2: Vertical Color Bars
+				3: Fade to Grey Color Bars
+				4: Walking 1s

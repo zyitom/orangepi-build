@@ -1,0 +1,63 @@
+
+===== uboot_rescue start =====
+
+===== uboot_rescue end =====
+
+===== uboot_cmd start =====
+
+>>> echo UBOOTOK
+echo UBOOTOK
+UBOOTOK
+=> 
+>>> printenv
+printenv
+arch=arm
+baudrate=115200
+board=sunxi
+board_name=sunxi
+boot_a_script=load ${devtype} ${devnum}:${distro_bootpart} ${scriptaddr} ${prefix}${script}; source ${scriptaddr}
+boot_extlinux=sysboot ${devtype} ${devnum}:${distro_bootpart} any ${scriptaddr} ${prefix}extlinux/extlinux.conf
+boot_net_pci_enum=pci enum
+boot_net_usb_start=usb start
+boot_prefixes=/ /boot/
+boot_script_dhcp=boot.scr.uimg
+boot_scripts=boot.scr.uimg boot.scr
+boot_targets=mmc0 mmc2 ufs nvme usb0 
+bootcmd=run distro_bootcmd
+bootcmd_mmc0=setenv devnum 0; run mmc_boot
+bootcmd_mmc2=setenv devnum 2; run mmc_boot
+bootcmd_nvme=pci enum;nvme scan;setenv devnum 0;run nvme_boot;
+bootcmd_ufs=ufs init;setenv devnum 0;run ufs_boot;
+bootcmd_usb0=setenv devnum 0; run usb_boot
+bootdelay=1
+bootm_size=0xa000000
+bootreason=button
+console=ttyS0,115200
+cpu=armv7
+dfu_alt_info_ram=kernel ram 0x41000000 0x1000000;fdt ram 0x43000000 0x100000;ramdisk ram 0x43300000 0x4000000
+distro_bootcmd=for target in ${boot_targets}; do run bootcmd_${target}; done
+fdt_addr_r=0x43000000
+fdtcontroladdr=b3cf0e28
+fdtfile=sunxi/sun60iw2p1-soc-system.dtb
+fdtoverlay_addr_r=0x45000000
+kernel_addr_r=0x41000000
+mmc_boot=if mmc dev ${devnum}; then setenv devtype mmc; run scan_dev_for_boot_part; fi
+nvme_boot=if nvme dev ${devnum}; then setenv devtype nvme; run scan_dev_for_boot_part; fi
+partitions=name=loader1,start=8k,size=32k,uuid=${uuid_gpt_loader1};name=loader2,size=984k,uuid=${uuid_gpt_loader2};name=esp,size=128M,bootable,uuid=${uuid_gpt_esp};name=system,size=-,uuid=${uuid_gpt_system};
+pxefile_addr_r=0x43200000
+ramdisk_addr_r=0x43300000
+scan_dev_for_boot=echo Scanning ${devtype} ${devnum}:${distro_bootpart}...; for prefix in ${boot_prefixes}; do run scan_dev_for_extlinux; run scan_dev_for_scripts; done;
+scan_dev_for_boot_part=part list ${devtype} ${devnum} -bootable devplist; env exists devplist || setenv devplist 1; for distro_bootpart in ${devplist}; do if fstype ${devtype} ${devnum}:${distro_bootpart} bootfstype; then run scan_dev_for_boot; fi; done
+scan_dev_for_extlinux=if test -e ${devtype} ${devnum}:${distro_bootpart} ${prefix}extlinux/extlinux.conf; then echo Found ${prefix}extlinux/extlinux.conf; run boot_extlinux; echo SCRIPT FAILED: continuing...; fi
+scan_dev_for_scripts=for script in ${boot_scripts}; do if test -e ${devtype} ${devnum}:${distro_bootpart} ${prefix}${script}; then echo Found U-Boot script ${prefix}${script}; run boot_a_script; echo SCRIPT FAILED: continuing...; fi; done
+scriptaddr=0x43100000
+snum=4c058a30214248522d3
+soc=sunxi
+ufs_boot=if ufs dev ${devnum}; then setenv devtype ufs; run scan_dev_for_boot_part; fi
+usb_boot=usb start; if usb dev ${devnum}; then setenv devtype usb; run scan_dev_for_boot_part; fi
+uuid_gpt_esp=c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+uuid_gpt_system=69dad710-2ce4-4e3c-b16c-21a1d49abed3
+
+Environment size: 2893/131068 bytes
+=> 
+===== uboot_cmd end =====

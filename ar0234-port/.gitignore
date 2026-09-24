@@ -1,0 +1,49 @@
+# ---- 编译沙盒与产物（可由 kernel 树 + patches/ 重建）----
+/build/
+/userspace/build/
+*.o
+*.d
+
+# ---- analysis/ 实验记录：只入库文本与源码，数据不入 ----
+/analysis/*
+!/analysis/*.c
+!/analysis/*.h
+!/analysis/*.sh
+!/analysis/*.py
+!/analysis/*.txt
+# measurement logs added this round (small, worth keeping in the repo);
+# the older analysis/3a.log and analysis/t14-serial.log stay ignored
+!/analysis/t16.log
+!/analysis/t16-0007.log
+!/analysis/dual-dtb-enable.log
+!/analysis/vfr/
+!/analysis/vfr/*.log
+!/analysis/*.md
+!/analysis/libisp-offsets/
+!/analysis/g2d/
+!/analysis/g2d/*.md
+!/analysis/t14/
+!/analysis/t14/*.md
+# round 10 (2026-09-17): C-group closure evidence
+!/analysis/round10/
+!/analysis/round10/*.md
+!/analysis/round10/*.png
+
+# ---- 媒体与大数据文件一律不入库 ----
+*.h264
+*.h265
+*.mp4
+*.raw
+*.yuv
+*.bgr
+*.pgm
+
+# ---- 打包产物 ----
+packaging/*.deb
+
+# vendor ISP source clone (Allwinner, see analysis/libisp-offsets/VENDOR-SOURCE-CHECK.md)
+/vendor-ref/
+
+# userspace binaries are built on the board (make -C userspace) and copied here
+/packaging/payload/usr/local/bin/
+__pycache__/

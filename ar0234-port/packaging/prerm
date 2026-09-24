@@ -1,0 +1,5 @@
+#!/bin/sh
+# dpkg prerm: stop and disable the 3A daemon before its binary goes away.
+systemctl stop ar0234-3ad.service 2>/dev/null || true
+systemctl disable ar0234-3ad.service 2>/dev/null || true
+exit 0

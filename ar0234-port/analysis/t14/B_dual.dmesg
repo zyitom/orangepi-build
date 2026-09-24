@@ -1,0 +1,279 @@
+[   41.774660] systemd-journald[615]: Failed to open system journal: No space left on device
+[   41.859091] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   41.866258] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+[   41.874371] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   41.881930] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   41.914075] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   41.921685] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   41.978366] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   41.980001] L1 PageTable Invalid
+[   41.980187] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+[   41.985560] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+[   41.989142] 0x0x0000000000000000 is not mapped!
+[   41.989154] Bug is in CSI module, invalid address: 0x0, data:0x0, id:0x2
+[   41.989319] ------------[ cut here ]------------
+[   42.023220] WARNING: CPU: 0 PID: 0 at bsp/drivers/iommu/sunxi-iommu-v2.c:405 sunxi_iommu_irq+0x5bc/0x5c4
+[   42.033850] Modules linked in: rfcomm bnep hci_uart aic8800_btlpm pvrsrvkm(O) pwm_fan goodix_ts deinterlace vipcore sunxi_ve sun55iw3_devfreq aic8800_fdrv aic8800_bsp ar0234_mipi(O) vin_v4l2(O) videobuf2_dma_contig vin_io
+[   42.055933] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W  O       6.6.98-sun60iw2 #1.0.0
+[   42.065466] Hardware name: sun60iw2 (DT)
+[   42.069852] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   42.077640] pc : sunxi_iommu_irq+0x5bc/0x5c4
+[   42.082428] lr : sunxi_iommu_irq+0x4f4/0x5c4
+[   42.087215] sp : ffffffc080003c40
+[   42.090921] x29: ffffffc080003c40 x28: 0000000000800000 x27: ffffff80c13c4a80
+[   42.098922] x26: 0000000000000000 x25: ffffff80c13c4ad4 x24: 00000000000000c0
+[   42.106924] x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000634
+[   42.114924] x20: 0000000000000010 x19: 0000000000000000 x18: ffffffffffffffff
+[   42.122922] x17: ffffffc07e176000 x16: ffffffc080000000 x15: ffffffc0819608c0
+[   42.130921] x14: 0000000000000000 x13: 3278303a6469202c x12: 3078303a61746164
+[   42.138919] x11: 202c307830203a73 x10: 7365726464612064 x9 : 64612064696c6176
+[   42.146917] x8 : 6e69202c656c7564 x7 : ffffffc0819b5bd0 x6 : 0000000000004000
+[   42.154915] x5 : ffffff80ff64c908 x4 : 000000000000000c x3 : 0000000000000000
+[   42.162911] x2 : 0000000000001880 x1 : ffffffc0816f1800 x0 : 0000000000000000
+[   42.170909] Call trace:
+[   42.173644]  sunxi_iommu_irq+0x5bc/0x5c4
+[   42.178046]  __handle_irq_event_percpu+0x60/0x14c
+[   42.183318]  handle_irq_event+0x4c/0xa8
+[   42.187613]  handle_fasteoi_irq+0xa4/0x1cc
+[   42.192205]  handle_irq_desc+0x40/0x58
+[   42.196402]  generic_handle_domain_irq+0x1c/0x28
+[   42.201570]  gic_handle_irq+0x50/0x128
+[   42.205768]  do_interrupt_handler+0x50/0x84
+[   42.210455]  el1_interrupt+0x34/0x68
+[   42.214465]  el1h_64_irq_handler+0x18/0x24
+[   42.219056]  el1h_64_irq+0x64/0x68
+[   42.222865]  handle_softirqs+0x94/0x234
+[   42.227165]  __do_softirq+0x14/0x20
+[   42.231071]  ____do_softirq+0x10/0x1c
+[   42.235173]  call_on_irq_stack+0x24/0x4c
+[   42.239566]  do_softirq_own_stack+0x1c/0x2c
+[   42.244251]  irq_exit_rcu+0x84/0xc0
+[   42.248161]  el1_interrupt+0x38/0x68
+[   42.252169]  el1h_64_irq_handler+0x18/0x24
+[   42.256760]  el1h_64_irq+0x64/0x68
+[   42.260569]  cpuidle_enter_state+0x134/0x2d8
+[   42.265355]  cpuidle_enter+0x38/0x50
+[   42.269362]  do_idle+0x1fc/0x270
+[   42.272979]  cpu_startup_entry+0x34/0x3c
+[   42.277371]  kernel_init+0x0/0x1e0
+[   42.281188]  arch_post_acpi_subsys_init+0x0/0x8
+[   42.286268]  start_kernel+0x650/0x834
+[   42.290375]  __primary_switched+0xb4/0xbc
+[   42.294868] ---[ end trace 0000000000000000 ]---
+[   42.300037] iommu_master csi_iommu: Runtime PM usage count underflow!
+[   42.624401] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 4896 (30 fps)
+[   42.635057] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   42.642633] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   42.656008] sunxi:vin:[ERR]: scaler0 frame lost!!!
+[   43.679641] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   43.687197] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[   43.751221] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[   43.758370] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+[  101.949612] sunxi-vin-core 5830000.vinc: Runtime PM usage count underflow!
+[  101.960142] systemd-journald[615]: Failed to open system journal: No space left on device
+[  101.969612] systemd-journald[615]: Failed to open system journal: No space left on device
+[  101.980079] systemd-journald[615]: Failed to open system journal: No space left on device
+[  101.989447] systemd-journald[615]: Failed to open system journal: No space left on device
+[  101.999103] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.008444] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.018019] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.027368] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.036955] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.046301] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.055859] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.065211] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.074763] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.084118] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.093686] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.103075] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.112629] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.121976] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.131527] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.140873] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.150426] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.159909] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.169644] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.179906] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.189206] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.198417] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.207705] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.216920] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.226231] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.235443] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.244737] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.253954] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.263242] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.272456] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.281739] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.290955] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.300249] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.309467] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.318761] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.327974] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.337258] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.346471] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.355751] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.364967] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.374247] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.383464] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.392752] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.401966] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.411258] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.420474] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.429767] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.438981] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.448279] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.457492] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.466776] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.475994] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.485296] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.494508] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.503797] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.513009] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.522287] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.531500] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.540796] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.550020] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.559306] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.568519] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.577813] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.587025] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.596307] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.605521] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.614800] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.624014] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.633309] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.642521] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.651803] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.661019] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.670316] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.679545] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.688898] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.698156] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.707540] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.716773] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.726115] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.735346] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.744698] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.753919] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.763256] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.772481] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.781824] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.791046] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.800361] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.809575] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.818875] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.828088] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.837380] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.846596] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.855887] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.865100] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.874389] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.883604] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.892892] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.902105] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.911414] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.920636] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.929947] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.939156] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.948446] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.957647] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.966937] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.976147] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.985669] systemd-journald[615]: Failed to open system journal: No space left on device
+[  102.994890] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.004209] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.013425] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.022720] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.031936] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.041242] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.050456] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.059752] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.068964] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.078261] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.087475] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.096763] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.105973] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.115257] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.124472] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.133757] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.142969] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.152255] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.161486] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.170771] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.179982] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.189270] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.198484] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.207784] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.216998] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.226288] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.235503] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.244802] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.254015] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.263322] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.272547] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.281853] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.291066] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.300354] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.309569] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.318853] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.328064] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.337345] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.346557] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.355855] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.365068] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.374353] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.383569] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.392858] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.402084] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.411368] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.420588] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.429870] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.439088] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.448375] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.457594] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.466878] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.476091] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.485376] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.494585] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.503888] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.513106] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.522423] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.531637] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.540931] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.550142] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.559438] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.568650] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.577932] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.587145] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.596428] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.605641] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.614930] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.624141] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.633429] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.642658] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.651961] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.661177] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.670461] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.679677] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.688962] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.698182] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.699126] sunxi:vin:[ERR]: ar0234_mipi is not used, video4 cannot be close!
+[  103.707485] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.724636] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.734047] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.743333] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.752760] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.762056] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.771531] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.780824] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.790020] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[  103.790209] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.797654] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[  103.806810] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.814378] sunxi:vin:[ERR]: ar0234_mipi is not used, video0 cannot be close!
+[  103.823640] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.840842] systemd-journald[615]: Failed to open system journal: No space left on device
+[  103.866859] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[  103.874416] sunxi:vin:[ERR]: v4l2 sub device scaler get_selection error!
+[  103.881975] sunxi:vin:[ERR]: ar0234_mipi is not used, video4 cannot be close!

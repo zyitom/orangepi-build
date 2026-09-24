@@ -1,0 +1,179 @@
+Media controller API version 6.6.98
+
+Media device information
+------------------------
+driver          sunxi-vin-media
+model           Allwinner Vin
+serial          
+bus info        platform:5800800.vind
+hw revision     0x0
+driver version  6.6.98
+
+Device topology
+- entity 1: ar0234_mipi (1 pad, 1 link)
+            type V4L2 subdev subtype Sensor flags 0
+            device node name /dev/v4l-subdev0
+	pad0: Source
+		[fmt:SGRBG10_1X10/1920x1080 field:none]
+		-> "sunxi_mipi.0":0 []
+
+- entity 3: vin_cap.0 (2 pads, 2 links)
+            type Node subtype V4L flags 0
+            device node name /dev/v4l-subdev1
+	pad0: Sink
+		<- "sunxi_scaler.0":1 [ENABLED]
+	pad1: Source
+		-> "vin_video0":0 [ENABLED]
+
+- entity 6: vin_video0 (1 pad, 1 link)
+            type Node subtype V4L flags 0
+            device node name /dev/video0
+	pad0: Sink
+		<- "vin_cap.0":1 [ENABLED]
+
+- entity 10: sunxi_csi.0 (2 pads, 5 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev2
+	pad0: Sink
+		<- "sunxi_mipi.0":1 [ENABLED]
+	pad1: Source
+		-> "sunxi_tdm_rx.0":0 []
+		-> "sunxi_tdm_rx.1":0 []
+		-> "sunxi_tdm_rx.2":0 []
+		-> "sunxi_tdm_rx.3":0 []
+
+- entity 13: sunxi_csi.1 (2 pads, 4 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev3
+	pad0: Sink
+	pad1: Source
+		-> "sunxi_tdm_rx.0":0 []
+		-> "sunxi_tdm_rx.1":0 []
+		-> "sunxi_tdm_rx.2":0 []
+		-> "sunxi_tdm_rx.3":0 []
+
+- entity 16: sunxi_csi.2 (2 pads, 4 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev4
+	pad0: Sink
+	pad1: Source
+		-> "sunxi_tdm_rx.0":0 []
+		-> "sunxi_tdm_rx.1":0 []
+		-> "sunxi_tdm_rx.2":0 []
+		-> "sunxi_tdm_rx.3":0 []
+
+- entity 19: sunxi_tdm_rx.0 (2 pads, 4 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev5
+	pad0: Sink
+		<- "sunxi_csi.0":1 []
+		<- "sunxi_csi.1":1 []
+		<- "sunxi_csi.2":1 []
+	pad1: Source
+		-> "sunxi_isp.0":0 [ENABLED]
+
+- entity 22: sunxi_tdm_rx.1 (2 pads, 3 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev6
+	pad0: Sink
+		<- "sunxi_csi.0":1 []
+		<- "sunxi_csi.1":1 []
+		<- "sunxi_csi.2":1 []
+	pad1: Source
+
+- entity 25: sunxi_tdm_rx.2 (2 pads, 3 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev7
+	pad0: Sink
+		<- "sunxi_csi.0":1 []
+		<- "sunxi_csi.1":1 []
+		<- "sunxi_csi.2":1 []
+	pad1: Source
+
+- entity 28: sunxi_tdm_rx.3 (2 pads, 3 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev8
+	pad0: Sink
+		<- "sunxi_csi.0":1 []
+		<- "sunxi_csi.1":1 []
+		<- "sunxi_csi.2":1 []
+	pad1: Source
+
+- entity 31: sunxi_mipi.0 (2 pads, 2 links)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev9
+	pad0: Sink
+		<- "ar0234_mipi":0 []
+	pad1: Source
+		-> "sunxi_csi.0":0 [ENABLED]
+
+- entity 34: sunxi_mipi.1 (2 pads, 0 link)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev10
+	pad0: Sink
+	pad1: Source
+
+- entity 37: sunxi_mipi.2 (2 pads, 0 link)
+             type Node subtype V4L flags 0
+             device node name /dev/v4l-subdev11
+	pad0: Sink
+	pad1: Source
+
+- entity 40: sunxi_isp.0 (3 pads, 5 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev12
+	pad0: Sink
+		[fmt:SGRBG10_1X10/1920x1080 field:none colorspace:jpeg xfer:unknown ycbcr:unknown quantization:unknown]
+		<- "sunxi_tdm_rx.0":1 [ENABLED]
+	pad1: Source
+		[fmt:SGRBG10_1X10/1920x1080 field:none colorspace:jpeg xfer:unknown ycbcr:unknown quantization:unknown]
+		-> "sunxi_h3a.0":0 [ENABLED,IMMUTABLE]
+	pad2: Source
+		[fmt:SGRBG10_1X10/1920x1080 field:none colorspace:jpeg xfer:unknown ycbcr:unknown quantization:unknown]
+		-> "sunxi_scaler.0":0 [ENABLED]
+		-> "sunxi_scaler.8":0 []
+		-> "sunxi_scaler.16":0 []
+
+- entity 44: sunxi_h3a.0 (1 pad, 1 link)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev13
+	pad0: Sink
+		<- "sunxi_isp.0":1 [ENABLED,IMMUTABLE]
+
+- entity 46: sunxi_scaler.0 (2 pads, 2 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev14
+	pad0: Sink
+		[fmt:SGRBG10_1X10/1920x1080 field:none colorspace:jpeg xfer:unknown ycbcr:unknown quantization:unknown
+		 crop.bounds:(0,0)/1920x1080
+		 crop:(0,0)/1920x1080
+		 compose:(0,0)/1920x1080]
+		<- "sunxi_isp.0":2 [ENABLED]
+	pad1: Source
+		[fmt:SGRBG10_1X10/1920x1080 field:none colorspace:jpeg xfer:unknown ycbcr:unknown quantization:unknown]
+		-> "vin_cap.0":0 [ENABLED]
+
+- entity 49: sunxi_scaler.8 (2 pads, 1 link)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev15
+	pad0: Sink
+		[fmt:unknown/0x0
+		 crop.bounds:(0,0)/0x0
+		 crop:(0,0)/0x0
+		 compose:(0,0)/0x0]
+		<- "sunxi_isp.0":2 []
+	pad1: Source
+		[fmt:unknown/0x0]
+
+- entity 52: sunxi_scaler.16 (2 pads, 1 link)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev16
+	pad0: Sink
+		[fmt:unknown/0x0
+		 crop.bounds:(0,0)/0x0
+		 crop:(0,0)/0x0
+		 compose:(0,0)/0x0]
+		<- "sunxi_isp.0":2 []
+	pad1: Source
+		[fmt:unknown/0x0]
+
