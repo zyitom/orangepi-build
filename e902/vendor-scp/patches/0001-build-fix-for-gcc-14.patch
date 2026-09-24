@@ -1,0 +1,13 @@
+diff --git a/ar100s/Makefile b/ar100s/Makefile
+index 31d7074..ad6978a 100644
+--- a/ar100s/Makefile
++++ b/ar100s/Makefile
+@@ -175,7 +175,7 @@ scripts/basic/fixdep: scripts/basic/fixdep.c
+ 	$(Q)gcc $^ -o $(if $(OUTPUT),$(OUTPUT:%/=%)/fixdep,$@)
+ 
+ #compiler config options
+-CFLAGS  += -g -c -nostdlib -Wall -Werror -Os $(MARCH_FLAGS)
++CFLAGS  += -g -c -nostdlib -Wall -Werror -Wno-error=deprecated -fcommon -Os $(MARCH_FLAGS)
+ 
+ #linker config options
+ LD_FLAGS= --stats -T$(LINK_RAM-y) -e 0x100 $(MARCH_LD_FLAGS)

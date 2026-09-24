@@ -1,0 +1,115 @@
+2026-09-22 23:57:10 watcher start, want sha ee1f196cab8a697865f97c88660b576b3a41b27f2408e741ecf2cc9e45abd755
+23:58:28 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=e45b3573
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260922-235828.img
+  sha256 313df8cfe44c0e5d...
+slot readback OK: ee1f196cab8a697865f97c88660b576b3a41b27f2408e741ecf2cc9e45abd755
+pkg head : magic=89119800 add_sum=e45b3573 items=3 valid_len=0x154000
+words_sum W = e313906d   boot0_verify(W, stored) = 5dc2c733   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = 5dc2c733
+write done: add_sum=5dc2c733, readback verify = PASS
+pkg head : magic=89119800 add_sum=5dc2c733 items=3 valid_len=0x154000
+words_sum W = 5c7b222d   boot0_verify(W, stored) = 5dc2c733   -> PASS (checksum valid)
+required add_sum for current content = 5dc2c733
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+23:58:30 /dev/sdb: flash cycle finished (rc=0)
+2026-09-22 23:58:32 watcher exit
+2026-09-23 00:06:07 watcher start, want sha 18cbc82be892540d342305125ec27ec2edab1889f564614e799e50695a0bc5a5
+00:08:18 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=5dc2c733
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260923-000818.img
+  sha256 f183e0f42cfe4e41...
+slot readback OK: 18cbc82be892540d342305125ec27ec2edab1889f564614e799e50695a0bc5a5
+pkg head : magic=89119800 add_sum=5dc2c733 items=3 valid_len=0x154000
+words_sum W = 2708f98d   boot0_verify(W, stored) = 28509e93   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = 28509e93
+write done: add_sum=28509e93, readback verify = PASS
+pkg head : magic=89119800 add_sum=28509e93 items=3 valid_len=0x154000
+words_sum W = f196d0ed   boot0_verify(W, stored) = 28509e93   -> PASS (checksum valid)
+required add_sum for current content = 28509e93
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+00:08:19 /dev/sdb: flash cycle finished (rc=0)
+2026-09-23 00:08:21 watcher exit
+2026-09-23 02:50:26 watcher start, want sha 1b866745d85a9ce5a4c1217d97fb270566957687e59581c24d5611f852e1bef4
+02:59:52 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=7433b2db
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260923-025952.img
+  sha256 dd6b675d76a6f28e...
+slot readback OK: 1b866745d85a9ce5a4c1217d97fb270566957687e59581c24d5611f852e1bef4
+pkg head : magic=89119800 add_sum=7433b2db items=3 valid_len=0x154000
+words_sum W = 0bd0b0f3   boot0_verify(W, stored) = f6a76a51   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = f6a76a51
+write done: add_sum=f6a76a51, readback verify = PASS
+pkg head : magic=89119800 add_sum=f6a76a51 items=3 valid_len=0x154000
+words_sum W = 8e446869   boot0_verify(W, stored) = f6a76a51   -> PASS (checksum valid)
+required add_sum for current content = f6a76a51
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+02:59:53 /dev/sdb: flash cycle finished (rc=0)
+2026-09-23 02:59:55 watcher exit
+2026-09-23 03:08:15 watcher start, want sha eb1ec229d492e6207017a2a95d96222fd10335d5fff3f4f11b4ec3c312364f77
+03:10:20 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=f6a76a51
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260923-031020.img
+  sha256 e5a33d8c00def945...
+slot readback OK: eb1ec229d492e6207017a2a95d96222fd10335d5fff3f4f11b4ec3c312364f77
+pkg head : magic=89119800 add_sum=f6a76a51 items=3 valid_len=0x154000
+words_sum W = cdecbea1   boot0_verify(W, stored) = 364fc089   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = 364fc089
+write done: add_sum=364fc089, readback verify = PASS
+pkg head : magic=89119800 add_sum=364fc089 items=3 valid_len=0x154000
+words_sum W = 0d9514d9   boot0_verify(W, stored) = 364fc089   -> PASS (checksum valid)
+required add_sum for current content = 364fc089
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+03:10:22 /dev/sdb: flash cycle finished (rc=0)
+2026-09-23 03:10:24 watcher exit
+2026-09-23 03:18:34 watcher start, want sha 5986dc9fbfd7239caadc873762650d7724bae205ad14a24184c252fd891be7a3
+03:22:26 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=364fc089
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260923-032226.img
+  sha256 846906d12ad63cf6...
+slot readback OK: 5986dc9fbfd7239caadc873762650d7724bae205ad14a24184c252fd891be7a3
+pkg head : magic=89119800 add_sum=364fc089 items=3 valid_len=0x154000
+words_sum W = 547d5c4a   boot0_verify(W, stored) = 7d3807fa   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = 7d3807fa
+write done: add_sum=7d3807fa, readback verify = PASS
+pkg head : magic=89119800 add_sum=7d3807fa items=3 valid_len=0x154000
+words_sum W = 9b65a3bb   boot0_verify(W, stored) = 7d3807fa   -> PASS (checksum valid)
+required add_sum for current content = 7d3807fa
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+03:22:28 /dev/sdb: flash cycle finished (rc=0)
+2026-09-23 03:22:30 watcher exit
+2026-09-23 03:30:53 watcher start, want sha f42a60490637f3df447ca27895286d6c88778f3c61d3964837bec4f557a675eb
+2026-09-23 13:56:20 watcher start, want sha f42a60490637f3df447ca27895286d6c88778f3c61d3964837bec4f557a675eb
+13:56:21 /dev/sdb: A733 card detected, flashing canary...
+boot package OK: sig=sunxi-package magic=89119800 add_sum=7d3807fa
+backup 24MiB head -> /home/helios/Desktop/orangepi-build/e902/backup/sd-head-before-flash-20260923-135621.img
+  sha256 f7766303d2a39c89...
+slot readback OK: f42a60490637f3df447ca27895286d6c88778f3c61d3964837bec4f557a675eb
+pkg head : magic=89119800 add_sum=7d3807fa items=3 valid_len=0x154000
+words_sum W = 86cad41f   boot0_verify(W, stored) = 689d385e   -> FAIL (this is why boot0 refuses the package)
+required add_sum for current content = 689d385e
+write done: add_sum=689d385e, readback verify = PASS
+pkg head : magic=89119800 add_sum=689d385e items=3 valid_len=0x154000
+words_sum W = 72300483   boot0_verify(W, stored) = 689d385e   -> PASS (checksum valid)
+required add_sum for current content = 689d385e
+nothing to do: checksum already valid.
+
+=== DONE (flash) ===
+next: eject card, put it back into the board, power on.
+13:56:22 /dev/sdb: flash cycle finished (rc=0)
+2026-09-23 13:56:24 watcher exit

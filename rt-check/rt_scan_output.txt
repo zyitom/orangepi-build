@@ -1,0 +1,20 @@
+scanned 5097 .c files under bsp/drivers, bsp/modules, bsp/platform, drivers/soc/sunxi, drivers/clk/sunxi-ng, sound/soc/sunxi, drivers/media/platform/sunxi
+findings: 17
+
+[hrtimer] bsp/drivers/net/wireless/atbm6023is/hal_apollo/mac80211/mesh_plink.c:305 mesh_plink_timer(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/atbm6023is/hal_apollo/main.c:651 atbm_chantype_timer(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/atbm6023is/hal_apollo/queue.c:194 atbm_queue_gc(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/atbm6023is/hal_apollo/queue.c:286 atbm_queue_gc(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/xr819/umac/mesh_plink.c:305 mesh_plink_timer(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/xr819/wlan/queue.c:175 xradio_queue_gc(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/net/wireless/xr829/wlan/queue.c:161 xradio_queue_gc(): spin_lock_bh( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/sound/misc/snd_sunxi_loopback.c:135 play_hrtimer_handler(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/drivers/sound/misc/snd_sunxi_loopback.c:213 cap_hrtimer_handler(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/modules/gpu/mali-bifrost/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c:105 timer_callback(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/modules/gpu/mali-bifrost/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_pm_metrics.c:58 dvfs_callback(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/modules/gpu/mali-valhall/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c:105 timer_callback(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/modules/gpu/mali-valhall/driver_r32p1/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c:105 timer_callback(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[hrtimer] bsp/modules/gpu/mali-valhall/driver_r32p1/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_pm_metrics.c:62 dvfs_callback(): spin_lock_irqsave( -- non-raw spinlock in hrtimer context (.function callback (hrtimer?))
+[normal] bsp/drivers/input/ctp/gt9xxnew/gt9xx_update.c:2524 gup_output_pulse(): msleep -- sleeping call inside raw/preempt-disabled region ()
+[normal] bsp/drivers/input/ctp/gt9xxnew/gt9xx_update.c:2526 gup_output_pulse(): msleep -- sleeping call inside raw/preempt-disabled region ()
+[normal] bsp/modules/gpu/mali-valhall/driver/drivers/gpu/arm/midgard/mali_kbase_mem_migrate.c:347 kbase_page_isolate(): spin_trylock( -- non-raw spinlock inside raw/preempt-disabled region ()

@@ -1,0 +1,6 @@
+T22 add_sum fix applied (2026-09-22 ~17:42, card in TL101 reader /dev/sdb)
+- before: add_sum=a91ddf89 (vendor), slot=8aaf9486... (our fw) -> boot0_verify=83f86015 FAIL
+- wrote : add_sum=83f86015 (4 bytes @0x1004014), readback boot0_verify PASS
+- slot sha256 after fix: 8aaf9486151a3c2c31d1cfa5b7ebfab567704f265b9b7e41f9b50ebafeeb9a4a (unchanged)
+- 24MiB head diff vs vendor backup: only scp slot region + add_sum field
+- rollback: slot <- 07e6b976... AND add_sum <- a91ddf89 (or full head <- sd-boot-head-20260922.img)

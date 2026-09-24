@@ -1,0 +1,31 @@
+/*
+ * DT overlay: A733 shared 64-bit timestamp (TIMESTAMP_STA 0x08010000 +
+ * TIMESTAMP_CTRL 0x08020000) for the amp_timestamp driver, so the running
+ * RT kernel gets the node without replacing its board DTB.
+ *
+ * Build:   dtc -@ -I dts -O dtb -o amp-timestamp.dtbo amp-timestamp.dts
+ * Install: /boot/overlay-user/amp-timestamp.dtbo and add
+ *          "user_overlays=amp-timestamp" to /boot/orangepiEnv.txt
+ */
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target-path = "/soc@3000000";
+		__overlay__ {
+			#address-cells = <2>;
+			#size-cells = <2>;
+
+			amp-timestamp@8010000 {
+				compatible = "allwinner,amp-timestamp";
+				reg = <0x0 0x08010000 0x0 0x1000>,
+				      <0x0 0x08020000 0x0 0x1000>;
+				reg-names = "sta", "ctrl";
+				/* FREQID register reads 0; measured 24.000 MHz */
+				clock-frequency = <24000000>;
+				status = "okay";
+			};
+		};
+	};
+};

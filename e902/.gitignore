@@ -1,0 +1,19 @@
+# Local-only material -- large, regenerable, or not ours to redistribute.
+# Where each one comes from: README.md, section "本地目录".
+/toolchains/
+/vendor-ref/
+/opene902/
+/backup/
+/doc/vendor-v1/
+*.pdf
+
+# build outputs
+build/
+*.o
+*.elf
+*.map
+/fw-out/*.bin
+__pycache__/
+
+# our patches against the vendor tree (the top-level .gitignore drops *.patch)
+!/vendor-scp/patches/*.patch

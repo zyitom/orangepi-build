@@ -1,0 +1,3652 @@
+
+===== live capture start 2026-09-22 22:38:01 =====
+
+-- port opened 22:38:01 --
+
+[22:38:13]
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[123]boot param - magic error 
+[126]DRAM BOOT DRIVE INFO: V0.6034
+[131]DRAM_VCC set to 560 mv
+[134]DRAM CLK =2400 MHZ
+[136]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[283]Training result is = 7
+[285]DRAM Pstate 1 training, frequency is 1200 Mhz
+[463]Training result is = 7
+[466]DRAM Pstate 2 training, frequency is 800 Mhz
+[809]Training result is = 7
+[812]DRAM Pstate 3 training, frequency is 400 Mhz
+
+[22:38:17]
+[4560]Training result is = 7
+[4563]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4572]Actual DRAM SIZE =4096 M
+[4575]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4589]DRAM simple test OK.
+[4653]error: dtb not found for scp
+[4657]mmc not para
+[4659]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.713]CPU:   Allwinner Family
+[04.716]Model: sun60iw2
+I2C:   ready
+[04.777]DRAM:  4 GiB
+[04.785]Relocation Offset is: 6dd91000
+[05.112]secure enable bit: 0
+[05.116]PMU: AXP8191
+[05.118]PMU: AXP8191 VER_A
+[05.123]bmu_axp515_probe pmic_bus_read fail
+[05.126][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.131][AXP8191] charge status: 0x4 = 0x0
+[05.135]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.141]gic: sec monitor mode
+SPI ALL:   ready
+[05.185]flash init start
+[05.187]workmode = 0,storage type = 1
+[05.191][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.199][mmc]: get sdc_type fail and use default host:tm1.
+[05.207][mmc]: can't find node "mmc0",will add new node
+[05.212][mmc]: fdt err returned <no error>
+[05.215][mmc]: Using default timing para
+[05.219][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.237][mmc]: card_caps:0x3000000a
+[05.240][mmc]: host_caps:0x3000003f
+[05.243]sunxi flash init ok
+get value error
+[05.248]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.287]NOT support bridge yet
+[05.290]Warn: no find panel or bridge
+[05.294]hdmi0@5520000 disconnected
+[05.297]bad framebuffer width 0
+test
+[05.300]drm_framebuffer_alloc fail!
+[05.304]Get sunxi drm device fail!
+[05.309]battery temp is -1
+[05.316](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 12 ms (213.9 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.496]Starting kernel ...
+
+[11.499]total: 11499 ms
+
+[11.501][mmc]: MMC Device 2 not found
+[11.505][mmc]: mmc 2 not find, so not exit
+[12.134]get_sunxi_drm_connector_by_device fail!
+[12.139]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+
+-- device lost --
+
+-- port opened 22:54:01 --
+
+-- device lost --
+
+-- port opened 23:02:02 --
+
+[23:02:05]
+[4709]Training result is = 7
+[4712]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4721]Actual DRAM SIZE =4096 M
+[4724]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4738]DRAM simple test OK.
+[4740]key press : �
+[4804]error: dtb not found for scp
+[4807]mmc not para
+[4809]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.864]CPU:   Allwinner Family
+[04.867]Model: sun60iw2
+I2C:   ready
+[04.928]DRAM:  4 GiB
+[04.936]Relocation Offset is: 6dd91000
+[05.263]secure enable bit: 0
+[05.266]PMU: AXP8191
+[05.268]PMU: AXP8191 VER_A
+[05.273]bmu_axp515_probe pmic_bus_read fail
+[05.277][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.282][AXP8191] charge status: 0x4 = 0x0
+[05.286]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.292]gic: sec monitor mode
+SPI ALL:   ready
+[05.336]flash init start
+[05.338]workmode = 0,storage type = 1
+[05.341][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.349][mmc]: get sdc_type fail and use default host:tm1.
+[05.357][mmc]: can't find node "mmc0",will add new node
+[05.362][mmc]: fdt err returned <no error>
+[05.366][mmc]: Using default timing para
+[05.369][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.387][mmc]: card_caps:0x3000000a
+[05.390][mmc]: host_caps:0x3000003f
+[05.394]sunxi flash init ok
+get value error
+[05.398]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.438]NOT support bridge yet
+[05.440]Warn: no find panel or bridge
+[05.445]hdmi0@5520000 disconnected
+[05.448]bad framebuffer width 0
+test
+[05.451]drm_framebuffer_alloc fail!
+[05.454]Get sunxi drm device fail!
+[05.460]battery temp is -1
+[05.466](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 12 ms (213.9 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 49 ms (4.2 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.648]Starting kernel ...
+
+[11.651]total: 11651 ms
+
+[11.653][mmc]: MMC Device 2 not found
+[11.656][mmc]: mmc 2 not find, so not exit
+[12.286]get_sunxi_drm_connector_by_device fail!
+[12.291]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+
+===== interactive uboot session start 2026-09-22 23:23:42 =====
+
+===== ARM interactive session v2 2026-09-22 23:32:27 =====
+
+-- port opened 23:32:27 --
+
+===== ARM session v3 2026-09-23 00:57:26 =====
+
+-- port opened 00:57:26 --
+J+R'Z5Z~�^C9F��c�ˋ�e�^Xi�,V^^[?2004l[ 3398.046742] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[ 3398.519608] npu[1][1] unregister cooling
+[ 3398.519987] npu[1][1] remove opp freq: 492000000
+[ 3398.520088] npu[1][1] remove opp freq: 852000000
+
+===== ARM daemon v4 2026-09-23 01:45:14 =====
+
+-- port opened 01:45:14 --
+[?2004l[ 2518.212834] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[ 2518.656681] npu[1][1] unregister cooling
+[ 2518.656865] npu[1][1] remove opp freq: 492000000
+[ 2518.656910] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[123]boot param - magic error 
+[126]DRAM BOOT DRIVE INFO: V0.6034
+[131]DRAM_VCC set to 560 mv
+[133]DRAM CLK =2400 MHZ
+[136]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[282]Training result is = 7
+[285]DRAM Pstate 1 training, frequency is 1200 Mhz
+[463]Training result is = 7
+[466]DRAM Pstate 2 training, frequency is 800 Mhz
+[809]Training result is = 7
+[812]DRAM Pstate 3 training, frequency is 400 Mhz
+[4558]Training result is = 7
+[4561]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4570]Actual DRAM SIZE =4096 M
+[4573]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4587]DRAM simple test OK.
+[4651]error: dtb not found for scp
+[4654]mmc not para
+[4656]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.711]CPU:   Allwinner Family
+[04.714]Model: sun60iw2
+I2C:   ready
+[04.775]DRAM:  4 GiB
+[04.783]Relocation Offset is: 6dd91000
+[05.110]secure enable bit: 0
+[05.113]PMU: AXP8191
+[05.115]PMU: AXP8191 VER_A
+[05.120]bmu_axp515_probe pmic_bus_read fail
+[05.124][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.129][AXP8191] charge status: 0x4 = 0x0
+[05.133]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.139]gic: sec monitor mode
+SPI ALL:   ready
+[05.183]flash init start
+[05.185]workmode = 0,storage type = 1
+[05.188][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.197][mmc]: get sdc_type fail and use default host:tm1.
+[05.205][mmc]: can't find node "mmc0",will add new node
+[05.209][mmc]: fdt err returned <no error>
+[05.213][mmc]: Using default timing para
+[05.217][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.235][mmc]: card_caps:0x3000000a
+[05.238][mmc]: host_caps:0x3000003f
+[05.241]sunxi flash init ok
+get value error
+[05.245]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.285]NOT support bridge yet
+[05.288]Warn: no find panel or bridge
+[05.292]hdmi0@5520000 disconnected
+[05.295]bad framebuffer width 0
+test
+[05.298]drm_framebuffer_alloc fail!
+[05.301]Get sunxi drm device fail!
+[05.307]battery temp is -1
+[05.314](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.489]Starting kernel ...
+
+[11.492]total: 11492 ms
+
+[11.494][mmc]: MMC Device 2 not found
+[11.498][mmc]: mmc 2 not find, so not exit
+[12.128]get_sunxi_drm_connector_by_device fail!
+[12.134]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+......
+
+
+[199]HELLO! BOOT0 is starting!
+[202]BOOT0 commit : {4721ad08}
+[205]board gpio withstand voltage auto mode
+[220]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[257]boot param - magic error 
+[260]DRAM BOOT DRIVE INFO: V0.6034
+[265]DRAM_VCC set to 560 mv
+[268]DRAM CLK =2400 MHZ
+[270]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[416]Training result is = 7
+[419]DRAM Pstate 1 training, frequency is 1200 Mhz
+[597]Training result is = 7
+[600]DRAM Pstate 2 training, frequency is 800 Mhz
+[943]Training result is = 7
+[946]DRAM Pstate 3 training, frequency is 400 Mhz
+[4702]Training result is = 7
+[4705]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4714]Actual DRAM SIZE =4096 M
+[4717]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4731]DRAM simple test OK.
+[4795]error: dtb not found for scp
+[4799]mmc not para
+[4801]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.855]CPU:   Allwinner Family
+[04.858]Model: sun60iw2
+I2C:   ready
+[04.919]DRAM:  4 GiB
+[04.927]Relocation Offset is: 6dd91000
+[05.254]secure enable bit: 0
+[05.258]PMU: AXP8191
+[05.260]PMU: AXP8191 VER_A
+[05.265]bmu_axp515_probe pmic_bus_read fail
+[05.269][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.273][AXP8191] charge status: 0x4 = 0x0
+[05.277]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.284]gic: sec monitor mode
+SPI ALL:   ready
+[05.327]flash init start
+[05.329]workmode = 0,storage type = 1
+[05.333][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.341][mmc]: get sdc_type fail and use default host:tm1.
+[05.349][mmc]: can't find node "mmc0",will add new node
+[05.354][mmc]: fdt err returned <no error>
+[05.357][mmc]: Using default timing para
+[05.361][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.379][mmc]: card_caps:0x3000000a
+[05.382][mmc]: host_caps:0x3000003f
+[05.385]sunxi flash init ok
+get value error
+[05.390]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.429]NOT support bridge yet
+[05.432]Warn: no find panel or bridge
+[05.436]hdmi0@5520000 disconnected
+[05.439]bad framebuffer width 0
+test
+[05.442]drm_framebuffer_alloc fail!
+[05.446]Get sunxi drm device fail!
+[05.451]battery temp is -1
+[05.458](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.636]Starting kernel ...
+
+[11.638]total: 11638 ms
+
+[11.640][mmc]: MMC Device 2 not found
+[11.644][mmc]: mmc 2 not find, so not exit
+[12.274]get_sunxi_drm_connector_by_device fail!
+[12.280]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+......
+
+
+[201]HELLO! BOOT0 is starting!
+[204]BOOT0 commit : {4721ad08}
+[207]board gpio withstand voltage auto mode
+[222]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[258]boot param - magic error 
+[261]DRAM BOOT DRIVE INFO: V0.6034
+[266]DRAM_VCC set to 560 mv
+[269]DRAM CLK =2400 MHZ
+[271]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[418]Training result is = 7
+[421]DRAM Pstate 1 training, frequency is 1200 Mhz
+[598]Training result is = 7
+[601]DRAM Pstate 2 training, frequency is 800 Mhz
+[944]Training result is = 7
+[947]DRAM Pstate 3 training, frequency is 400 Mhz
+[4697]Training result is = 7
+[4700]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4709]Actual DRAM SIZE =4096 M
+[4712]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4726]DRAM simple test OK.
+[4790]error: dtb not found for scp
+[4794]mmc not para
+[4796]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.850]CPU:   Allwinner Family
+[04.853]Model: sun60iw2
+I2C:   ready
+[04.914]DRAM:  4 GiB
+[04.922]Relocation Offset is: 6dd91000
+[05.249]secure enable bit: 0
+[05.253]PMU: AXP8191
+[05.255]PMU: AXP8191 VER_A
+[05.260]bmu_axp515_probe pmic_bus_read fail
+[05.264][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.269][AXP8191] charge status: 0x4 = 0x0
+[05.272]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.279]gic: sec monitor mode
+SPI ALL:   ready
+[05.322]flash init start
+[05.324]workmode = 0,storage type = 1
+[05.328][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.336][mmc]: get sdc_type fail and use default host:tm1.
+[05.344][mmc]: can't find node "mmc0",will add new node
+[05.349][mmc]: fdt err returned <no error>
+[05.353][mmc]: Using default timing para
+[05.356][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.374][mmc]: card_caps:0x3000000a
+[05.377][mmc]: host_caps:0x3000003f
+[05.381]sunxi flash init ok
+get value error
+[05.385]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.425]NOT support bridge yet
+[05.427]Warn: no find panel or bridge
+[05.431]hdmi0@5520000 disconnected
+[05.434]bad framebuffer width 0
+test
+[05.438]drm_framebuffer_alloc fail!
+[05.441]Get sunxi drm device fail!
+[05.447]battery temp is -1
+[05.453](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.631]Starting kernel ...
+
+[11.634]total: 11634 ms
+
+[11.636][mmc]: MMC Device 2 not found
+[11.640][mmc]: mmc 2 not find, so not exit
+[12.271]get_sunxi_drm_connector_by_device fail!
+[12.277]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+......
+
+
+[202]HELLO! BOOT0 is starting!
+[205]BOOT0 commit : {4721ad08}
+[208]board gpio withstand voltage auto mode
+[223]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[260]boot param - magic error 
+[263]DRAM BOOT DRIVE INFO: V0.6034
+[268]DRAM_VCC set to 560 mv
+[270]DRAM CLK =2400 MHZ
+[273]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[419]Training result is = 7
+[422]DRAM Pstate 1 training, frequency is 1200 Mhz
+[600]Training result is = 7
+[602]DRAM Pstate 2 training, frequency is 800 Mhz
+[946]Training result is = 7
+[948]DRAM Pstate 3 training, frequency is 400 Mhz
+[4699]Training result is = 7
+[4702]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4711]Actual DRAM SIZE =4096 M
+[4714]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4728]DRAM simple test OK.
+[4792]error: dtb not found for scp
+[4795]mmc not para
+[4797]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.852]CPU:   Allwinner Family
+[04.855]Model: sun60iw2
+I2C:   ready
+[04.916]DRAM:  4 GiB
+[04.924]Relocation Offset is: 6dd91000
+[05.251]secure enable bit: 0
+[05.254]PMU: AXP8191
+[05.256]PMU: AXP8191 VER_A
+[05.261]bmu_axp515_probe pmic_bus_read fail
+[05.265][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.270][AXP8191] charge status: 0x4 = 0x0
+[05.274]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.280]gic: sec monitor mode
+SPI ALL:   ready
+[05.324]flash init start
+[05.326]workmode = 0,storage type = 1
+[05.329][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.338][mmc]: get sdc_type fail and use default host:tm1.
+[05.345][mmc]: can't find node "mmc0",will add new node
+[05.350][mmc]: fdt err returned <no error>
+[05.354][mmc]: Using default timing para
+[05.358][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.376][mmc]: card_caps:0x3000000a
+[05.379][mmc]: host_caps:0x3000003f
+[05.382]sunxi flash init ok
+get value error
+[05.386]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.426]NOT support bridge yet
+[05.429]Warn: no find panel or bridge
+[05.433]hdmi0@5520000 disconnected
+[05.436]bad framebuffer width 0
+test
+[05.439]drm_framebuffer_alloc fail!
+[05.442]Get sunxi drm device fail!
+[05.448]battery temp is -1
+[05.455](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 10 ms (16.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.633]Starting kernel ...
+
+[11.635]total: 11635 ms
+
+[11.637][mmc]: MMC Device 2 not found
+[11.641][mmc]: mmc 2 not find, so not exit
+[12.270]get_sunxi_drm_connector_by_device fail!
+[12.276]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 30%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 39°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Tue Sep 22 19:24:34 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$  �......
+
+
+[173]HELLO! BOOT0 is starting!
+[176]BOOT0 commit : {4721ad08}
+[179]board gpio withstand voltage auto mode
+[194]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[230]boot param - magic error 
+[233]DRAM BOOT DRIVE INFO: V0.6034
+[238]DRAM_VCC set to 560 mv
+[241]DRAM CLK =2400 MHZ
+[243]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[390]Training result is = 7
+[392]DRAM Pstate 1 training, frequency is 1200 Mhz
+[570]Training result is = 7
+[573]DRAM Pstate 2 training, frequency is 800 Mhz
+[916]Training result is = 7
+[919]DRAM Pstate 3 training, frequency is 400 Mhz
+[4671]Training result is = 7
+[4674]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4683]Actual DRAM SIZE =4096 M
+[4686]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4700]DRAM simple test OK.
+[4764]error: dtb not found for scp
+[4767]mmc not para
+[4769]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.824]CPU:   Allwinner Family
+[04.827]Model: sun60iw2
+I2C:   ready
+[04.888]DRAM:  4 GiB
+[04.896]Relocation Offset is: 6dd91000
+[05.223]secure enable bit: 0
+[05.226]PMU: AXP8191
+[05.228]PMU: AXP8191 VER_A
+[05.233]bmu_axp515_probe pmic_bus_read fail
+[05.237][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.242][AXP8191] charge status: 0x4 = 0x0
+[05.246]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.252]gic: sec monitor mode
+SPI ALL:   ready
+[05.296]flash init start
+[05.298]workmode = 0,storage type = 1
+[05.301][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.310][mmc]: get sdc_type fail and use default host:tm1.
+[05.317][mmc]: can't find node "mmc0",will add new node
+[05.322][mmc]: fdt err returned <no error>
+[05.326][mmc]: Using default timing para
+[05.330][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.348][mmc]: card_caps:0x3000000a
+[05.351][mmc]: host_caps:0x3000003f
+[05.354]sunxi flash init ok
+get value error
+[05.358]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.398]NOT support bridge yet
+[05.401]Warn: no find panel or bridge
+[05.405]hdmi0@5520000 disconnected
+[05.408]bad framebuffer width 0
+test
+[05.411]drm_framebuffer_alloc fail!
+[05.414]Get sunxi drm device fail!
+[05.420]battery temp is -1
+[05.427](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 46 ms (4.4 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.596]Starting kernel ...
+
+[11.599]total: 11599 ms
+
+[11.601][mmc]: MMC Device 2 not found
+[11.604][mmc]: mmc 2 not find, so not exit
+[12.235]get_sunxi_drm_connector_by_device fail!
+[12.240]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 23%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 37°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Tue Sep 22 19:24:34 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ [?2004l[  185.415527] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  185.902877] npu[1][1] unregister cooling
+[  185.903263] npu[1][1] remove opp freq: 492000000
+[  185.903367] npu[1][1] remove opp freq: 852000000
+......
+
+
+[133]HELLO! BOOT0 is starting!
+[136]BOOT0 commit : {4721ad08}
+[139]board gpio withstand voltage auto mode
+[154]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[191]boot param - magic error 
+[194]DRAM BOOT DRIVE INFO: V0.6034
+[199]DRAM_VCC set to 560 mv
+[201]DRAM CLK =2400 MHZ
+[204]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[350]Training result is = 7
+[353]DRAM Pstate 1 training, frequency is 1200 Mhz
+[531]Training result is = 7
+[533]DRAM Pstate 2 training, frequency is 800 Mhz
+[877]Training result is = 7
+[880]DRAM Pstate 3 training, frequency is 400 Mhz
+[4628]Training result is = 7
+[4631]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4640]Actual DRAM SIZE =4096 M
+[4643]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4657]DRAM simple test OK.
+[4721]error: dtb not found for scp
+[4725]mmc not para
+[4727]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.781]CPU:   Allwinner Family
+[04.784]Model: sun60iw2
+I2C:   ready
+[04.845]DRAM:  4 GiB
+[04.853]Relocation Offset is: 6dd91000
+[05.180]secure enable bit: 0
+[05.183]PMU: AXP8191
+[05.185]PMU: AXP8191 VER_A
+[05.190]bmu_axp515_probe pmic_bus_read fail
+[05.194][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.199][AXP8191] charge status: 0x4 = 0x0
+[05.203]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.209]gic: sec monitor mode
+SPI ALL:   ready
+[05.253]flash init start
+[05.255]workmode = 0,storage type = 1
+[05.258][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.267][mmc]: get sdc_type fail and use default host:tm1.
+[05.274][mmc]: can't find node "mmc0",will add new node
+[05.279][mmc]: fdt err returned <no error>
+[05.283][mmc]: Using default timing para
+[05.287][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.305][mmc]: card_caps:0x3000000a
+[05.308][mmc]: host_caps:0x3000003f
+[05.311]sunxi flash init ok
+get value error
+[05.315]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.355]NOT support bridge yet
+[05.358]Warn: no find panel or bridge
+[05.362]hdmi0@5520000 disconnected
+[05.365]bad framebuffer width 0
+test
+[05.368]drm_framebuffer_alloc fail!
+[05.371]Get sunxi drm device fail!
+[05.377]battery temp is -1
+[05.384](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 303 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 47 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.552]Starting kernel ...
+
+[11.554]total: 11554 ms
+
+[11.557][mmc]: MMC Device 2 not found
+[11.560][mmc]: mmc 2 not find, so not exit
+[12.189]get_sunxi_drm_connector_by_device fail!
+[12.194]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 22%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 29°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 05:17:16 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [[  168.010789] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  168.571813] npu[1][1] unregister cooling
+[  168.572191] npu[1][1] remove opp freq: 492000000
+[  168.572294] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[123]boot param - magic error 
+[126]DRAM BOOT DRIVE INFO: V0.6034
+[131]DRAM_VCC set to 560 mv
+[133]DRAM CLK =2400 MHZ
+[136]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[282]Training result is = 7
+[285]DRAM Pstate 1 training, frequency is 1200 Mhz
+[463]Training result is = 7
+[465]DRAM Pstate 2 training, frequency is 800 Mhz
+[809]Training result is = 7
+[811]DRAM Pstate 3 training, frequency is 400 Mhz
+[4564]Training result is = 7
+[4567]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4576]Actual DRAM SIZE =4096 M
+[4579]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4593]DRAM simple test OK.
+[4657]error: dtb not found for scp
+[4660]mmc not para
+[4662]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.717]CPU:   Allwinner Family
+[04.720]Model: sun60iw2
+I2C:   ready
+[04.781]DRAM:  4 GiB
+[04.789]Relocation Offset is: 6dd91000
+[05.116]secure enable bit: 0
+[05.119]PMU: AXP8191
+[05.121]PMU: AXP8191 VER_A
+[05.126]bmu_axp515_probe pmic_bus_read fail
+[05.130][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.135][AXP8191] charge status: 0x4 = 0x0
+[05.139]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.145]gic: sec monitor mode
+SPI ALL:   ready
+[05.189]flash init start
+[05.191]workmode = 0,storage type = 1
+[05.194][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.203][mmc]: get sdc_type fail and use default host:tm1.
+[05.210][mmc]: can't find node "mmc0",will add new node
+[05.215][mmc]: fdt err returned <no error>
+[05.219][mmc]: Using default timing para
+[05.223][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.241][mmc]: card_caps:0x3000000a
+[05.244][mmc]: host_caps:0x3000003f
+[05.247]sunxi flash init ok
+get value error
+[05.251]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.291]NOT support bridge yet
+[05.294]Warn: no find panel or bridge
+[05.298]hdmi0@5520000 disconnected
+[05.301]bad framebuffer width 0
+test
+[05.304]drm_framebuffer_alloc fail!
+[05.307]Get sunxi drm device fail!
+[05.313]battery temp is -1
+[05.320](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 10 ms (256.8 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 47 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.488]Starting kernel ...
+
+[11.491]total: 11491 ms
+
+[11.493][mmc]: MMC Device 2 not found
+[11.497][mmc]: mmc 2 not find, so not exit
+[12.126]get_sunxi_drm_connector_by_device fail!
+[12.132]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 26%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 45°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 08:59:26 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ 
+===== ARM daemon v4 2026-09-23 19:31:23 =====
+
+-- port opened 19:31:23 --
+
+-- device lost --
+
+-- port opened 19:36:15 --
+ starting!
+[164]BOOT0 commit : {4721ad08}
+[167]board gpio withstand voltage auto mode
+[182]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[219]boot param - magic error 
+[222]DRAM BOOT DRIVE INFO: V0.6034
+[227]DRAM_VCC set to 560 mv
+[230]DRAM CLK =2400 MHZ
+[232]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[379]Training result is = 7
+[381]DRAM Pstate 1 training, frequency is 1200 Mhz
+[559]Training result is = 7
+[562]DRAM Pstate 2 training, frequency is 800 Mhz
+
+-- device lost --
+
+-- port opened 19:44:53 --
+
+-- device lost --
+
+-- port opened 19:45:07 --
+ starting!
+[163]BOOT0 commit : {4721ad08}
+[166]board gpio withstand voltage auto mode
+[181]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[218]boot param - magic error 
+[221]DRAM BOOT DRIVE INFO: V0.6034
+[225]DRAM_VCC set to 560 mv
+[228]DRAM CLK =2400 MHZ
+[230]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[377]Training result is = 7
+[380]DRAM Pstate 1 training, frequency is 1200 Mhz
+[557]Training result is = 7
+[560]DRAM Pstate 2 training, frequency is 800 Mhz
+[?2004l[  402.530177] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  403.149089] npu[1][1] unregister cooling
+[  403.150128] npu[1][1] remove opp freq: 492000000
+[  403.150537] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4562]Training result is = 7
+[4565]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4574]Actual DRAM SIZE =4096 M
+[4577]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4591]DRAM simple test OK.
+[4655]error: dtb not found for scp
+[4659]mmc not para
+[4661]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.715]CPU:   Allwinner Family
+[04.718]Model: sun60iw2
+I2C:   ready
+[04.780]DRAM:  4 GiB
+[04.787]Relocation Offset is: 6dd91000
+[05.114]secure enable bit: 0
+[05.118]PMU: AXP8191
+[05.119]PMU: AXP8191 VER_A
+[05.124]bmu_axp515_probe pmic_bus_read fail
+[05.128][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.133][AXP8191] charge status: 0x4 = 0x1
+[05.137]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.143]gic: sec monitor mode
+SPI ALL:   ready
+[05.187]flash init start
+[05.189]workmode = 0,storage type = 1
+[05.193][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.201][mmc]: get sdc_type fail and use default host:tm1.
+[05.209][mmc]: can't find node "mmc0",will add new node
+[05.214][mmc]: fdt err returned <no error>
+[05.217][mmc]: Using default timing para
+[05.221][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.239][mmc]: card_caps:0x3000000a
+[05.242][mmc]: host_caps:0x3000003f
+[05.245]sunxi flash init ok
+get value error
+[05.250]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.289]NOT support bridge yet
+[05.292]Warn: no find panel or bridge
+[05.296]hdmi0@5520000 disconnected
+[05.299]bad framebuffer width 0
+test
+[05.302]drm_framebuffer_alloc fail!
+[05.306]Get sunxi drm device fail!
+[05.311]battery temp is -1
+[05.318](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 10 ms (256.8 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.493]Starting kernel ...
+
+[11.496]total: 11496 ms
+
+[11.498][mmc]: MMC Device 2 not found
+[11.501][mmc]: mmc 2 not find, so not exit
+[12.131]get_sunxi_drm_connector_by_device fail!
+[12.136]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 36%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 46°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 11:52:38 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?2004l[  241.753250] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  242.382983] npu[1][1] unregister cooling
+[  242.383353] npu[1][1] remove opp freq: 492000000
+[  242.383458] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[71]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[125]boot param - magic error 
+[128]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[811]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4566]Training result is = 7
+[4569]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4578]Actual DRAM SIZE =4096 M
+[4581]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4595]DRAM simple test OK.
+[4659]error: dtb not found for scp
+[4662]mmc not para
+[4664]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.719]CPU:   Allwinner Family
+[04.722]Model: sun60iw2
+I2C:   ready
+[04.783]DRAM:  4 GiB
+[04.791]Relocation Offset is: 6dd91000
+[05.118]secure enable bit: 0
+[05.121]PMU: AXP8191
+[05.123]PMU: AXP8191 VER_A
+[05.128]bmu_axp515_probe pmic_bus_read fail
+[05.132][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.137][AXP8191] charge status: 0x4 = 0x1
+[05.141]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.147]gic: sec monitor mode
+SPI ALL:   ready
+[05.191]flash init start
+[05.193]workmode = 0,storage type = 1
+[05.196][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.204][mmc]: get sdc_type fail and use default host:tm1.
+[05.212][mmc]: can't find node "mmc0",will add new node
+[05.217][mmc]: fdt err returned <no error>
+[05.221][mmc]: Using default timing para
+[05.225][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.242][mmc]: card_caps:0x3000000a
+[05.245][mmc]: host_caps:0x3000003f
+[05.249]sunxi flash init ok
+get value error
+[05.253]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.293]NOT support bridge yet
+[05.295]Warn: no find panel or bridge
+[05.300]hdmi0@5520000 disconnected
+[05.303]bad framebuffer width 0
+test
+[05.306]drm_framebuffer_alloc fail!
+[05.309]Get sunxi drm device fail!
+[05.315]battery temp is -1
+[05.322](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 303 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 46 ms (4.4 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.486]Starting kernel ...
+
+[11.488]total: 11488 ms
+
+[11.491][mmc]: MMC Device 2 not found
+[11.494][mmc]: mmc 2 not find, so not exit
+[12.125]get_sunxi_drm_connector_by_device fail!
+[12.130]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+
+Last login: Wed Sep 23 11:57:12 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?2004l[  151.411613] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  151.969169] npu[1][1] unregister cooling
+[  151.969544] npu[1][1] remove opp freq: 492000000
+[  151.969646] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4564]Training result is = 7
+[4567]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4576]Actual DRAM SIZE =4096 M
+[4579]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4593]DRAM simple test OK.
+[4657]error: dtb not found for scp
+[4661]mmc not para
+[4662]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.717]CPU:   Allwinner Family
+[04.720]Model: sun60iw2
+I2C:   ready
+[04.781]DRAM:  4 GiB
+[04.789]Relocation Offset is: 6dd91000
+[05.116]secure enable bit: 0
+[05.119]PMU: AXP8191
+[05.121]PMU: AXP8191 VER_A
+[05.126]bmu_axp515_probe pmic_bus_read fail
+[05.130][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.135][AXP8191] charge status: 0x4 = 0x1
+[05.139]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.145]gic: sec monitor mode
+SPI ALL:   ready
+[05.189]flash init start
+[05.191]workmode = 0,storage type = 1
+[05.194][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.202][mmc]: get sdc_type fail and use default host:tm1.
+[05.210][mmc]: can't find node "mmc0",will add new node
+[05.215][mmc]: fdt err returned <no error>
+[05.219][mmc]: Using default timing para
+[05.223][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.240][mmc]: card_caps:0x3000000a
+[05.243][mmc]: host_caps:0x3000003f
+[05.247]sunxi flash init ok
+get value error
+[05.251]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.291]NOT support bridge yet
+[05.294]Warn: no find panel or bridge
+[05.298]hdmi0@5520000 disconnected
+[05.301]bad framebuffer width 0
+test
+[05.304]drm_framebuffer_alloc fail!
+[05.307]Get sunxi drm device fail!
+[05.313]battery temp is -1
+[05.320](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 303 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 46 ms (4.4 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.485]Starting kernel ...
+
+[11.487]total: 11487 ms
+
+[11.489][mmc]: MMC Device 2 not found
+[11.493][mmc]: mmc 2 not find, so not exit
+[12.122]get_sunxi_drm_connector_by_device fail!
+[12.128]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 48%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 51°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 11:57:12 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ [?2004l[   51.043030] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[   51.407549] npu[1][1] unregister cooling
+[   51.407934] npu[1][1] remove opp freq: 492000000
+[   51.408037] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4565]Training result is = 7
+[4568]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4577]Actual DRAM SIZE =4096 M
+[4580]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4594]DRAM simple test OK.
+[4658]error: dtb not found for scp
+[4662]mmc not para
+[4664]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.718]CPU:   Allwinner Family
+[04.721]Model: sun60iw2
+I2C:   ready
+[04.782]DRAM:  4 GiB
+[04.790]Relocation Offset is: 6dd91000
+[05.117]secure enable bit: 0
+[05.120]PMU: AXP8191
+[05.122]PMU: AXP8191 VER_A
+[05.127]bmu_axp515_probe pmic_bus_read fail
+[05.131][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.136][AXP8191] charge status: 0x4 = 0x1
+[05.140]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.146]gic: sec monitor mode
+SPI ALL:   ready
+[05.190]flash init start
+[05.192]workmode = 0,storage type = 1
+[05.195][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.204][mmc]: get sdc_type fail and use default host:tm1.
+[05.211][mmc]: can't find node "mmc0",will add new node
+[05.216][mmc]: fdt err returned <no error>
+[05.220][mmc]: Using default timing para
+[05.224][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.242][mmc]: card_caps:0x3000000a
+[05.245][mmc]: host_caps:0x3000003f
+[05.248]sunxi flash init ok
+get value error
+[05.252]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.292]NOT support bridge yet
+[05.295]Warn: no find panel or bridge
+[05.299]hdmi0@5520000 disconnected
+[05.302]bad framebuffer width 0
+test
+[05.305]drm_framebuffer_alloc fail!
+[05.308]Get sunxi drm device fail!
+[05.314]battery temp is -1
+[05.321](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 12 ms (213.9 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 10 ms (16.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1128 ms (22.6 MiB/s)
+214174 bytes read in 50 ms (4.1 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.506]Starting kernel ...
+
+[11.508]total: 11508 ms
+
+[11.511][mmc]: MMC Device 2 not found
+[11.514][mmc]: mmc 2 not find, so not exit
+[12.144]get_sunxi_drm_connector_by_device fail!
+[12.149]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 58%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 48°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+[?2004horangepi@orangepizero3w:~$ [[   55.370136] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[   55.829457] npu[1][1] unregister cooling
+[   55.829836] npu[1][1] remove opp freq: 492000000
+[   55.829941] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[134]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4561]Training result is = 7
+[4564]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4573]Actual DRAM SIZE =4096 M
+[4576]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4590]DRAM simple test OK.
+[4654]error: dtb not found for scp
+[4658]mmc not para
+[4660]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.714]CPU:   Allwinner Family
+[04.717]Model: sun60iw2
+I2C:   ready
+[04.778]DRAM:  4 GiB
+[04.786]Relocation Offset is: 6dd91000
+[05.113]secure enable bit: 0
+[05.116]PMU: AXP8191
+[05.118]PMU: AXP8191 VER_A
+[05.123]bmu_axp515_probe pmic_bus_read fail
+[05.127][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.132][AXP8191] charge status: 0x4 = 0x1
+[05.136]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.142]gic: sec monitor mode
+SPI ALL:   ready
+[05.186]flash init start
+[05.188]workmode = 0,storage type = 1
+[05.191][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.200][mmc]: get sdc_type fail and use default host:tm1.
+[05.208][mmc]: can't find node "mmc0",will add new node
+[05.212][mmc]: fdt err returned <no error>
+[05.216][mmc]: Using default timing para
+[05.220][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.238][mmc]: card_caps:0x3000000a
+[05.241][mmc]: host_caps:0x3000003f
+[05.244]sunxi flash init ok
+get value error
+[05.248]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.288]NOT support bridge yet
+[05.291]Warn: no find panel or bridge
+[05.295]hdmi0@5520000 disconnected
+[05.298]bad framebuffer width 0
+test
+[05.301]drm_framebuffer_alloc fail!
+[05.304]Get sunxi drm device fail!
+[05.310]battery temp is -1
+[05.317](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 12 ms (213.9 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 49 ms (4.2 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.498]Starting kernel ...
+
+[11.501]total: 11501 ms
+
+[11.503][mmc]: MMC Device 2 not found
+[11.507][mmc]: mmc 2 not find, so not exit
+[12.137]get_sunxi_drm_connector_by_device fail!
+[12.143]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 46%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 49°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:02:27 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?[   33.860821] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[   34.365956] npu[1][1] unregister cooling
+[   34.366135] npu[1][1] remove opp freq: 492000000
+[   34.366177] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[125]boot param - magic error 
+[128]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[811]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4558]Training result is = 7
+[4561]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4570]Actual DRAM SIZE =4096 M
+[4573]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4587]DRAM simple test OK.
+[4651]error: dtb not found for scp
+[4654]mmc not para
+[4656]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.711]CPU:   Allwinner Family
+[04.714]Model: sun60iw2
+I2C:   ready
+[04.775]DRAM:  4 GiB
+[04.783]Relocation Offset is: 6dd91000
+[05.110]secure enable bit: 0
+[05.113]PMU: AXP8191
+[05.115]PMU: AXP8191 VER_A
+[05.120]bmu_axp515_probe pmic_bus_read fail
+[05.124][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.129][AXP8191] charge status: 0x4 = 0x1
+[05.132]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.139]gic: sec monitor mode
+SPI ALL:   ready
+[05.182]flash init start
+[05.185]workmode = 0,storage type = 1
+[05.188][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.196][mmc]: get sdc_type fail and use default host:tm1.
+[05.204][mmc]: can't find node "mmc0",will add new node
+[05.209][mmc]: fdt err returned <no error>
+[05.213][mmc]: Using default timing para
+[05.216][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.234][mmc]: card_caps:0x3000000a
+[05.237][mmc]: host_caps:0x3000003f
+[05.241]sunxi flash init ok
+get value error
+[05.245]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.285]NOT support bridge yet
+[05.287]Warn: no find panel or bridge
+[05.291]hdmi0@5520000 disconnected
+[05.294]bad framebuffer width 0
+test
+[05.298]drm_framebuffer_alloc fail!
+[05.301]Get sunxi drm device fail!
+[05.307]battery temp is -1
+[05.313](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 10 ms (256.8 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 8 ms (20.5 KiB/s)
+6783174 bytes read in 302 ms (21.4 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 45 ms (4.5 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.478]Starting kernel ...
+
+[11.480]total: 11480 ms
+
+[11.482][mmc]: MMC Device 2 not found
+[11.486][mmc]: mmc 2 not find, so not exit
+[12.115]get_sunxi_drm_connector_by_device fail!
+[12.121]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 46%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 48°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:03:34 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?[  983.598743] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  984.175150] npu[1][1] unregister cooling
+[  984.175524] npu[1][1] remove opp freq: 492000000
+[  984.175628] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[128]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[811]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4560]Training result is = 7
+[4562]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4572]Actual DRAM SIZE =4096 M
+[4575]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4589]DRAM simple test OK.
+[4653]error: dtb not found for scp
+[4656]mmc not para
+[4658]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.713]CPU:   Allwinner Family
+[04.715]Model: sun60iw2
+I2C:   ready
+[04.777]DRAM:  4 GiB
+[04.784]Relocation Offset is: 6dd91000
+[05.111]secure enable bit: 0
+[05.115]PMU: AXP8191
+[05.117]PMU: AXP8191 VER_A
+[05.122]bmu_axp515_probe pmic_bus_read fail
+[05.126][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.130][AXP8191] charge status: 0x4 = 0x1
+[05.134]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.141]gic: sec monitor mode
+SPI ALL:   ready
+[05.184]flash init start
+[05.186]workmode = 0,storage type = 1
+[05.190][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.198][mmc]: get sdc_type fail and use default host:tm1.
+[05.206][mmc]: can't find node "mmc0",will add new node
+[05.211][mmc]: fdt err returned <no error>
+[05.214][mmc]: Using default timing para
+[05.218][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.236][mmc]: card_caps:0x3000000a
+[05.239][mmc]: host_caps:0x3000003f
+[05.242]sunxi flash init ok
+get value error
+[05.247]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.286]NOT support bridge yet
+[05.289]Warn: no find panel or bridge
+[05.293]hdmi0@5520000 disconnected
+[05.296]bad framebuffer width 0
+test
+[05.299]drm_framebuffer_alloc fail!
+[05.303]Get sunxi drm device fail!
+[05.308]battery temp is -1
+[05.315](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 10 ms (256.8 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 8 ms (20.5 KiB/s)
+6783174 bytes read in 303 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 46 ms (4.4 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.481]Starting kernel ...
+
+[11.483]total: 11483 ms
+
+[11.485][mmc]: MMC Device 2 not found
+[11.489][mmc]: mmc 2 not find, so not exit
+[12.118]get_sunxi_drm_connector_by_device fail!
+[12.124]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 26%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 51°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:20:12 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?2004l[  120.464954] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  121.080752] npu[1][1] unregister cooling
+[  121.081135] npu[1][1] remove opp freq: 492000000
+[  121.081240] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[134]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4561]Training result is = 7
+[4564]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4573]Actual DRAM SIZE =4096 M
+[4576]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4590]DRAM simple test OK.
+[4654]error: dtb not found for scp
+[4658]mmc not para
+[4660]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.714]CPU:   Allwinner Family
+[04.717]Model: sun60iw2
+I2C:   ready
+[04.778]DRAM:  4 GiB
+[04.786]Relocation Offset is: 6dd91000
+[05.113]secure enable bit: 0
+[05.117]PMU: AXP8191
+[05.118]PMU: AXP8191 VER_A
+[05.123]bmu_axp515_probe pmic_bus_read fail
+[05.127][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.132][AXP8191] charge status: 0x4 = 0x1
+[05.136]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.142]gic: sec monitor mode
+SPI ALL:   ready
+[05.186]flash init start
+[05.188]workmode = 0,storage type = 1
+[05.192][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.200][mmc]: get sdc_type fail and use default host:tm1.
+[05.208][mmc]: can't find node "mmc0",will add new node
+[05.212][mmc]: fdt err returned <no error>
+[05.216][mmc]: Using default timing para
+[05.220][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.238][mmc]: card_caps:0x3000000a
+[05.241][mmc]: host_caps:0x3000003f
+[05.244]sunxi flash init ok
+get value error
+[05.249]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.288]NOT support bridge yet
+[05.291]Warn: no find panel or bridge
+[05.295]hdmi0@5520000 disconnected
+[05.298]bad framebuffer width 0
+test
+[05.301]drm_framebuffer_alloc fail!
+[05.305]Get sunxi drm device fail!
+[05.310]battery temp is -1
+[05.317](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 10 ms (16.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1128 ms (22.6 MiB/s)
+214174 bytes read in 50 ms (4.1 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.502]Starting kernel ...
+
+[11.504]total: 11504 ms
+
+[11.507][mmc]: MMC Device 2 not found
+[11.510][mmc]: mmc 2 not find, so not exit
+[12.141]get_sunxi_drm_connector_by_device fail!
+[12.146]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 34%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 52°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:20:12 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ [?2004l[  123.797791] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  124.273044] npu[1][1] unregister cooling
+[  124.273430] npu[1][1] remove opp freq: 492000000
+[  124.273534] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4563]Training result is = 7
+[4566]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4575]Actual DRAM SIZE =4096 M
+[4578]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4592]DRAM simple test OK.
+[4656]error: dtb not found for scp
+[4659]mmc not para
+[4661]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.716]CPU:   Allwinner Family
+[04.719]Model: sun60iw2
+I2C:   ready
+[04.780]DRAM:  4 GiB
+[04.788]Relocation Offset is: 6dd91000
+[05.115]secure enable bit: 0
+[05.118]PMU: AXP8191
+[05.120]PMU: AXP8191 VER_A
+[05.125]bmu_axp515_probe pmic_bus_read fail
+[05.129][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.134][AXP8191] charge status: 0x4 = 0x1
+[05.138]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.144]gic: sec monitor mode
+SPI ALL:   ready
+[05.188]flash init start
+[05.190]workmode = 0,storage type = 1
+[05.193][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.202][mmc]: get sdc_type fail and use default host:tm1.
+[05.209][mmc]: can't find node "mmc0",will add new node
+[05.214][mmc]: fdt err returned <no error>
+[05.218][mmc]: Using default timing para
+[05.222][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.240][mmc]: card_caps:0x3000000a
+[05.243][mmc]: host_caps:0x3000003f
+[05.246]sunxi flash init ok
+get value error
+[05.250]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.290]NOT support bridge yet
+[05.293]Warn: no find panel or bridge
+[05.297]hdmi0@5520000 disconnected
+[05.300]bad framebuffer width 0
+test
+[05.303]drm_framebuffer_alloc fail!
+[05.306]Get sunxi drm device fail!
+[05.312]battery temp is -1
+[05.319](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 49 ms (4.2 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.497]Starting kernel ...
+
+[11.500]total: 11500 ms
+
+[11.502][mmc]: MMC Device 2 not found
+[11.505][mmc]: mmc 2 not find, so not exit
+[12.137]get_sunxi_drm_connector_by_device fail!
+[12.142]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 38%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 51°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:22:46 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ [?[  408.090734] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  408.493751] npu[1][1] unregister cooling
+[  408.493932] npu[1][1] remove opp freq: 492000000
+[  408.493977] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4565]Training result is = 7
+[4568]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4577]Actual DRAM SIZE =4096 M
+[4580]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4594]DRAM simple test OK.
+[4658]error: dtb not found for scp
+[4661]mmc not para
+[4663]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.718]CPU:   Allwinner Family
+[04.721]Model: sun60iw2
+I2C:   ready
+[04.782]DRAM:  4 GiB
+[04.790]Relocation Offset is: 6dd91000
+[05.117]secure enable bit: 0
+[05.120]PMU: AXP8191
+[05.122]PMU: AXP8191 VER_A
+[05.127]bmu_axp515_probe pmic_bus_read fail
+[05.131][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.136][AXP8191] charge status: 0x4 = 0x1
+[05.140]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.146]gic: sec monitor mode
+SPI ALL:   ready
+[05.190]flash init start
+[05.192]workmode = 0,storage type = 1
+[05.195][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.204][mmc]: get sdc_type fail and use default host:tm1.
+[05.211][mmc]: can't find node "mmc0",will add new node
+[05.216][mmc]: fdt err returned <no error>
+[05.220][mmc]: Using default timing para
+[05.224][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.242][mmc]: card_caps:0x3000000a
+[05.245][mmc]: host_caps:0x3000003f
+[05.248]sunxi flash init ok
+get value error
+[05.252]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.292]NOT support bridge yet
+[05.295]Warn: no find panel or bridge
+[05.299]hdmi0@5520000 disconnected
+[05.302]bad framebuffer width 0
+test
+[05.305]drm_framebuffer_alloc fail!
+[05.308]Get sunxi drm device fail!
+[05.314]battery temp is -1
+[05.321](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.499]Starting kernel ...
+
+[11.502]total: 11502 ms
+
+[11.504][mmc]: MMC Device 2 not found
+[11.508][mmc]: mmc 2 not find, so not exit
+[12.139]get_sunxi_drm_connector_by_device fail!
+[12.145]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 31%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 52°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:24:43 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?[   78.936119] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[   79.493722] npu[1][1] unregister cooling
+[   79.494097] npu[1][1] remove opp freq: 492000000
+[   79.494199] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4562]Training result is = 7
+[4565]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4574]Actual DRAM SIZE =4096 M
+[4577]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4591]DRAM simple test OK.
+[4655]error: dtb not found for scp
+[4659]mmc not para
+[4661]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.715]CPU:   Allwinner Family
+[04.718]Model: sun60iw2
+I2C:   ready
+[04.779]DRAM:  4 GiB
+[04.787]Relocation Offset is: 6dd91000
+[05.114]secure enable bit: 0
+[05.117]PMU: AXP8191
+[05.119]PMU: AXP8191 VER_A
+[05.124]bmu_axp515_probe pmic_bus_read fail
+[05.128][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.133][AXP8191] charge status: 0x4 = 0x1
+[05.137]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.143]gic: sec monitor mode
+SPI ALL:   ready
+[05.187]flash init start
+[05.189]workmode = 0,storage type = 1
+[05.192][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.201][mmc]: get sdc_type fail and use default host:tm1.
+[05.208][mmc]: can't find node "mmc0",will add new node
+[05.213][mmc]: fdt err returned <no error>
+[05.217][mmc]: Using default timing para
+[05.221][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.239][mmc]: card_caps:0x3000000a
+[05.242][mmc]: host_caps:0x3000003f
+[05.245]sunxi flash init ok
+get value error
+[05.249]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.289]NOT support bridge yet
+[05.292]Warn: no find panel or bridge
+[05.296]hdmi0@5520000 disconnected
+[05.299]bad framebuffer width 0
+test
+[05.302]drm_framebuffer_alloc fail!
+[05.305]Get sunxi drm device fail!
+[05.311]battery temp is -1
+[05.318](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+170 bytes read in 9 ms (17.6 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 48 ms (4.3 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.494]Starting kernel ...
+
+[11.496]total: 11496 ms
+
+[11.499][mmc]: MMC Device 2 not found
+[11.502][mmc]: mmc 2 not find, so not exit
+[12.131]get_sunxi_drm_connector_by_device fail!
+[12.137]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 40%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 51°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:33:18 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?2004l[  556.856040] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  557.376956] npu[1][1] unregister cooling
+[  557.377336] npu[1][1] remove opp freq: 492000000
+[  557.377440] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4563]Training result is = 7
+[4566]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4575]Actual DRAM SIZE =4096 M
+[4578]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4592]DRAM simple test OK.
+[4656]error: dtb not found for scp
+[4660]mmc not para
+[4662]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.716]CPU:   Allwinner Family
+[04.719]Model: sun60iw2
+I2C:   ready
+[04.780]DRAM:  4 GiB
+[04.788]Relocation Offset is: 6dd91000
+[05.115]secure enable bit: 0
+[05.118]PMU: AXP8191
+[05.120]PMU: AXP8191 VER_A
+[05.125]bmu_axp515_probe pmic_bus_read fail
+[05.129][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.134][AXP8191] charge status: 0x4 = 0x1
+[05.138]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.144]gic: sec monitor mode
+SPI ALL:   ready
+[05.188]flash init start
+[05.190]workmode = 0,storage type = 1
+[05.193][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.202][mmc]: get sdc_type fail and use default host:tm1.
+[05.209][mmc]: can't find node "mmc0",will add new node
+[05.214][mmc]: fdt err returned <no error>
+[05.218][mmc]: Using default timing para
+[05.222][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.240][mmc]: card_caps:0x3000000a
+[05.243][mmc]: host_caps:0x3000003f
+[05.246]sunxi flash init ok
+get value error
+[05.250]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.290]NOT support bridge yet
+[05.293]Warn: no find panel or bridge
+[05.297]hdmi0@5520000 disconnected
+[05.300]bad framebuffer width 0
+test
+[05.303]drm_framebuffer_alloc fail!
+[05.306]Get sunxi drm device fail!
+[05.312]battery temp is -1
+[05.319](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+198 bytes read in 9 ms (21.5 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 49 ms (4.2 MiB/s)
+399 bytes read in 16 ms (23.4 KiB/s)
+Applying user provided DT overlay amp-timestamp.dtbo
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.539]Starting kernel ...
+
+[11.542]total: 11542 ms
+
+[11.544][mmc]: MMC Device 2 not found
+[11.548][mmc]: mmc 2 not find, so not exit
+[12.177]get_sunxi_drm_connector_by_device fail!
+[12.182]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 25%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 49°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 12:33:18 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ [?2004l[   80.609450] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[   81.142258] npu[1][1] unregister cooling
+[   81.142638] npu[1][1] remove opp freq: 492000000
+[   81.142738] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4562]Training result is = 7
+[4565]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4574]Actual DRAM SIZE =4096 M
+[4577]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4591]DRAM simple test OK.
+[4655]error: dtb not found for scp
+[4658]mmc not para
+[4660]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.715]CPU:   Allwinner Family
+[04.718]Model: sun60iw2
+I2C:   ready
+[04.779]DRAM:  4 GiB
+[04.787]Relocation Offset is: 6dd91000
+[05.114]secure enable bit: 0
+[05.117]PMU: AXP8191
+[05.119]PMU: AXP8191 VER_A
+[05.124]bmu_axp515_probe pmic_bus_read fail
+[05.128][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.133][AXP8191] charge status: 0x4 = 0x1
+[05.137]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.143]gic: sec monitor mode
+SPI ALL:   ready
+[05.187]flash init start
+[05.189]workmode = 0,storage type = 1
+[05.192][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.200][mmc]: get sdc_type fail and use default host:tm1.
+[05.208][mmc]: can't find node "mmc0",will add new node
+[05.213][mmc]: fdt err returned <no error>
+[05.217][mmc]: Using default timing para
+[05.221][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.238][mmc]: card_caps:0x3000000a
+[05.242][mmc]: host_caps:0x3000003f
+[05.245]sunxi flash init ok
+get value error
+[05.249]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.289]NOT support bridge yet
+[05.292]Warn: no find panel or bridge
+[05.296]hdmi0@5520000 disconnected
+[05.299]bad framebuffer width 0
+test
+[05.302]drm_framebuffer_alloc fail!
+[05.305]Get sunxi drm device fail!
+[05.311]battery temp is -1
+[05.318](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 10 ms (256.8 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+198 bytes read in 9 ms (21.5 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 47 ms (4.3 MiB/s)
+431 bytes read in 16 ms (25.4 KiB/s)
+Applying user provided DT overlay amp-timestamp.dtbo
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.531]Starting kernel ...
+
+[11.533]total: 11533 ms
+
+[11.535][mmc]: MMC Device 2 not found
+[11.539][mmc]: mmc 2 not find, so not exit
+[12.168]get_sunxi_drm_connector_by_device fail!
+[12.174]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 44%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 49°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+
+[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+Last login: Wed Sep 23 12:43:09 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?[ 2998.719832] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[ 2999.226585] npu[1][1] unregister cooling
+[ 2999.227612] npu[1][1] remove opp freq: 492000000
+[ 2999.228038] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[128]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[138]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[465]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[811]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4564]Training result is = 7
+[4566]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4576]Actual DRAM SIZE =4096 M
+[4579]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4593]DRAM simple test OK.
+[4657]error: dtb not found for scp
+[4660]mmc not para
+[4662]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.717]CPU:   Allwinner Family
+[04.720]Model: sun60iw2
+I2C:   ready
+[04.781]DRAM:  4 GiB
+[04.789]Relocation Offset is: 6dd91000
+[05.116]secure enable bit: 0
+[05.119]PMU: AXP8191
+[05.121]PMU: AXP8191 VER_A
+[05.126]bmu_axp515_probe pmic_bus_read fail
+[05.130][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.135][AXP8191] charge status: 0x4 = 0x1
+[05.138]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.145]gic: sec monitor mode
+SPI ALL:   ready
+[05.188]flash init start
+[05.190]workmode = 0,storage type = 1
+[05.194][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.202][mmc]: get sdc_type fail and use default host:tm1.
+[05.210][mmc]: can't find node "mmc0",will add new node
+[05.215][mmc]: fdt err returned <no error>
+[05.219][mmc]: Using default timing para
+[05.222][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.240][mmc]: card_caps:0x3000000a
+[05.243][mmc]: host_caps:0x3000003f
+[05.247]sunxi flash init ok
+get value error
+[05.251]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.291]NOT support bridge yet
+[05.293]Warn: no find panel or bridge
+[05.297]hdmi0@5520000 disconnected
+[05.300]bad framebuffer width 0
+test
+[05.304]drm_framebuffer_alloc fail!
+[05.307]Get sunxi drm device fail!
+[05.313]battery temp is -1
+[05.319](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+198 bytes read in 9 ms (21.5 KiB/s)
+6783174 bytes read in 304 ms (21.3 MiB/s)
+26718280 bytes read in 1126 ms (22.6 MiB/s)
+214174 bytes read in 46 ms (4.4 MiB/s)
+431 bytes read in 15 ms (27.3 KiB/s)
+Applying user provided DT overlay amp-timestamp.dtbo
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.525]Starting kernel ...
+
+[11.527]total: 11527 ms
+
+[11.530][mmc]: MMC Device 2 not found
+[11.533][mmc]: mmc 2 not find, so not exit
+[12.162]get_sunxi_drm_connector_by_device fail!
+[12.168]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 29%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 52°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+[[31m Menu-driven system configuration (beta)[0m: [1msudo dpkg -i orangepi-config.deb[0m ]
+
+
+Last login: Wed Sep 23 13:34:56 UTC 2026 on tty1
+[?2004horangepi@orangepizero3w:~$ [?[  704.211174] systemd-shutdown[1]: Failed to set watchdog hardware timeout to 10min: Invalid argument
+[  704.738673] npu[1][1] unregister cooling
+[  704.739049] npu[1][1] remove opp freq: 492000000
+[  704.739153] npu[1][1] remove opp freq: 852000000
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[126]boot param - magic error 
+[129]DRAM BOOT DRIVE INFO: V0.6034
+[133]DRAM_VCC set to 560 mv
+[136]DRAM CLK =2400 MHZ
+[139]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[285]Training result is = 7
+[288]DRAM Pstate 1 training, frequency is 1200 Mhz
+[466]Training result is = 7
+[468]DRAM Pstate 2 training, frequency is 800 Mhz
+[812]Training result is = 7
+[814]DRAM Pstate 3 training, frequency is 400 Mhz
+[4564]Training result is = 7
+[4567]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4576]Actual DRAM SIZE =4096 M
+[4579]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4593]DRAM simple test OK.
+[4657]error: dtb not found for scp
+[4660]mmc not para
+[4662]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 22 2026 - 02:27:55 +0800) Allwinner Technology
+
+[04.717]CPU:   Allwinner Family
+[04.720]Model: sun60iw2
+I2C:   ready
+[04.781]DRAM:  4 GiB
+[04.789]Relocation Offset is: 6dd91000
+[05.116]secure enable bit: 0
+[05.119]PMU: AXP8191
+[05.121]PMU: AXP8191 VER_A
+[05.126]bmu_axp515_probe pmic_bus_read fail
+[05.130][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.135][AXP8191] charge status: 0x4 = 0x1
+[05.139]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.145]gic: sec monitor mode
+SPI ALL:   ready
+[05.189]flash init start
+[05.191]workmode = 0,storage type = 1
+[05.194][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.202][mmc]: get sdc_type fail and use default host:tm1.
+[05.210][mmc]: can't find node "mmc0",will add new node
+[05.215][mmc]: fdt err returned <no error>
+[05.219][mmc]: Using default timing para
+[05.223][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.240][mmc]: card_caps:0x3000000a
+[05.243][mmc]: host_caps:0x3000003f
+[05.247]sunxi flash init ok
+get value error
+[05.251]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.291]NOT support bridge yet
+[05.293]Warn: no find panel or bridge
+[05.298]hdmi0@5520000 disconnected
+[05.301]bad framebuffer width 0
+test
+[05.304]drm_framebuffer_alloc fail!
+[05.307]Get sunxi drm device fail!
+[05.313]battery temp is -1
+[05.319](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 11 ms (233.4 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+198 bytes read in 9 ms (21.5 KiB/s)
+6783174 bytes read in 305 ms (21.2 MiB/s)
+26718280 bytes read in 1127 ms (22.6 MiB/s)
+214174 bytes read in 49 ms (4.2 MiB/s)
+431 bytes read in 16 ms (25.4 KiB/s)
+Applying user provided DT overlay amp-timestamp.dtbo
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26718216 Bytes = 25.5 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    6783110 Bytes = 6.5 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 49987000, end 49fff086 ... OK
+[11.538]Starting kernel ...
+
+[11.540]total: 11540 ms
+
+[11.543][mmc]: MMC Device 2 not found
+[11.546][mmc]: mmc 2 not find, so not exit
+[12.176]get_sunxi_drm_connector_by_device fail!
+[12.181]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+orangepizero3w login: orangepi (automatic login)
+
+  [0;1;34;94m___[0m  [0;1;34;94m____[0m  [0;1;34;94m_[0m   [0;34m_____[0m                [0;37m_______[0m        [0;1;30;90m__[0m
+ [0;1;34;94m/[0m [0;1;34;94m_[0m [0;1;34;94m\|[0m  [0;34m_[0m [0;34m\(_)[0m [0;34m|__[0m  [0;34m/__[0;37m_[0m [0;37m_[0m [0;37m__[0m [0;37m___[0m   [0;37m|__[0;1;30;90m_[0m [0;1;30;90m/\[0m [0;1;30;90m\[0m      [0;1;30;90m/[0m [0;1;30;90m/[0m
+[0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|[0m [0;34m|_)[0m [0;34m|[0m [0;34m|[0m   [0;37m/[0m [0;37m//[0m [0;37m_[0m [0;37m\[0m [0;37m'__/[0m [0;1;30;90m_[0m [0;1;30;90m\[0m    [0;1;30;90m|_[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;30;90m\[0m [0;1;34;94m/\[0m [0;1;34;94m/[0m [0;1;34;94m/[0m 
+[0;34m|[0m [0;34m|_|[0m [0;34m|[0m  [0;37m__/|[0m [0;37m|[0m  [0;37m/[0m [0;37m/|[0m  [0;37m_[0;1;30;90m_/[0m [0;1;30;90m|[0m [0;1;30;90m|[0m [0;1;30;90m(_)[0m [0;1;30;90m|[0m  [0;1;30;90m__[0;1;34;94m_)[0m [0;1;34;94m|[0m [0;1;34;94m\[0m [0;1;34;94mV[0m  [0;1;34;94mV[0m [0;1;34;94m/[0m  
+ [0;37m\___/|_|[0m   [0;37m|_|[0m [0;1;30;90m/____\___|_|[0m  [0;1;30;90m\_[0;1;34;94m__/[0m  [0;1;34;94m|____/[0m   [0;1;34;94m\_[0;34m/\_/[0m   
+                                                       
+Welcome to [0;91mOrange Pi 1.0.0 Bookworm[0m with [0;91mLinux 6.6.98-rt58-sun60iw2[0m
+
+System load:  [0;92m 28%[0m           	Up time:       [92m0 min[0m	
+Memory usage: [0;92m 4%[0m of 3.76G  	IP:	       [92m172.16.0.193[0m
+CPU temp:     [0;92m 52°C[0m           	Usage of /:   [0;92m 4%[0m of 59G    	
+
+Last login: Wed Sep 23 13:34:56 UTC 2026 on ttyS0
+[?2004horangepi@orangepizero3w:~$ 

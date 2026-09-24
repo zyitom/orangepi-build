@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>A733 E902/SCP 架构决策分析 — 2026-09-23</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;max-width:980px;margin:24px auto;padding:0 20px;color:#1a2233;line-height:1.65;background:#fafbfd}
+h1{font-size:1.5em;border-bottom:3px solid #2456d6;padding-bottom:8px}
+h2{font-size:1.15em;margin-top:1.6em;color:#2456d6}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.92em}
+th,td{border:1px solid #d7dce6;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#eef2fb}
+.ok{color:#127a3d;font-weight:600}.bad{color:#b3261e;font-weight:600}.mid{color:#a05a00;font-weight:600}
+.card{background:#fff;border:1px solid #d7dce6;border-radius:10px;padding:14px 18px;margin:12px 0;box-shadow:0 1px 3px rgba(20,40,90,.06)}
+.tag{display:inline-block;background:#2456d6;color:#fff;border-radius:5px;padding:1px 8px;font-size:.8em;margin-right:6px}
+.mut{color:#5b6474;font-size:.9em}
+code{background:#eef1f7;padding:1px 5px;border-radius:4px;font-size:.9em}
+ul{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>A733 E902/SCP 架构决策分析</h1>
+<p class="mut">2026-09-23 · Orange Pi Zero 3W · 基于 2026-09-22/23 实机实验（v5.1–v5.3 固件迭代）+ 公开资料调研（linux-sunxi、Crust、ARM SCMI）</p>
+
+<h2>1. 实测底账（今天的证据链）</h2>
+<table>
+<tr><th>项</th><th>结果</th><th>证据</th></tr>
+<tr><td>bl31 强制要求 SCP 握手</td><td class="bad">不可绕过</td><td>四轮实测均停在 <code>[SCP] :wait arisc ready....</code>；握手成功后立即放行内核（v5.2/v5.3 两次复现）</td></tr>
+<tr><td>「全大核」路线</td><td class="bad">不存在</td><td>bl31 在启动路径同步等 SCP 就绪——没有应答握手的小核固件，Linux 根本起不来</td></tr>
+<tr><td>最小固件即可完成开机</td><td class="ok">已验证</td><td>v5.3 只做：握手 + 存活主循环，Debian 完整启动并联网 40+ 分钟</td></tr>
+<tr><td>正常运行不依赖 SCP 服务</td><td class="ok">初步验证</td><td>v5.2 固件握手后冻结 57 分钟，系统持续运行无崩溃（cpufreq/thermal 未因无应答挂死）</td></tr>
+<tr><td>软件 reboot 依赖 SCP 应答</td><td class="mid">待实现</td><td>01:12 重启卡死在 systemd 关机尾部（npu 卸载后）；物理断电可恢复</td></tr>
+<tr><td>E902 主循环实测速率</td><td class="ok">368 万次/秒</td><td>心跳 SEQ 5 秒差分：18,383,778 ÷ 5</td></tr>
+<tr><td>E902 时钟</td><td>≤200 MHz</td><td>linux-sunxi.org A733 页："XuanTie E902 RISC-V microcontroller, up to 200 MHz"；与实测迭代速率吻合</td></tr>
+<tr><td>已知冻结点（已修）</td><td class="ok">3 个</td><td>① WDT_CPUS 冷时钟未开 → 总线挂死（v5.1）② <code>rdcycle</code> 非法指令异常（v5.2，mcause=0x30000002 / mepc=0x40004BA6）③ CPUS 域 24MHz 广播未使能 → 定时器/SPI 不跑（v5.3 现状）</td></tr>
+</table>
+
+<h2>2. 业界与社区的三种模式</h2>
+<table>
+<tr><th>模式</th><th>代表</th><th>SCP 职责</th><th>DVFS 在哪</th><th>对本项目的适用性</th></tr>
+<tr><td>厂商手机/平板模式（ARM SCMI 理念）</td><td>全志 A733 原厂 BSP、ARM SCMI 文档</td><td>SCP 独占电源/性能硬件，OS 只发请求</td><td>SCP 侧（u-boot 传 vf 表给 SCP）</td><td>要完整复刻 DVFS/suspend 协议，成本高；本项目暂不需要</td></tr>
+<tr><td>mainline 社区模式</td><td>Crust（A64/H5/H6，AR100 OpenRISC）</td><td>只做：深度睡眠、看门狗、有序上下电；<b>不做 DVFS</b></td><td>内核直做（cpufreq + PMIC I2C）</td><td class="ok">★ 与本项目最贴近：最小 SCP + 大核自治，正常运行业已证明不需要 SCP 服务</td></tr>
+<tr><td>MCU 伴随核模式</td><td>Luckfox E907 裸机示例等</td><td>无电源职责，纯用户任务</td><td>—</td><td class="ok">用户的 SPI/UART 任务正是这种用法；但 A733 上必须叠加最小握手层</td></tr>
+</table>
+<p class="mut">注：Crust 仅支持到 H6（or1k 工具链、AR100 核），A733 的 E902 上<strong>没有任何公开可用的 SCP 替代固件</strong>——本项目属于新开垦地带；最接近的参照是 Crust 的"最小职责哲学"与 Luckfox 的伴随核用法。</p>
+
+<h2>3. 结论：应不应该这么做？</h2>
+<div class="card">
+<p><span class="tag">结论</span><b>保留小核架构，但只做"最小 SCP + 你的实时任务"，不复刻厂商全量电源管理。</b></p>
+<ul>
+<li><b>"全大核"不是选项</b>——bl31 的握手闸门是硬性的，任何 Linux 启动都要求小核应答。这不是偏好问题，是启动链事实。</li>
+<li><b>小核的实时容量远超需求</b>——368 万次/秒的空转速率 ≈ 数百 MIPS；规划的 SPI 采集（100Hz–1kHz，2–20%）、UART 中断任务（&lt;1%）、电源应答（毫秒级、偶发）全部是零头。SRAM-only 执行（无 cache/TLB/乱序）带来可计算的确定性中断延迟，这是大核 RT 方案给不了的。</li>
+<li><b>大核 RT 反而受益</b>——PMIC I2C、电源序列这类慢操作从小核走，PREEMPT_RT 大核少一类抖动源。</li>
+<li><b>深度睡眠/低功耗</b>——如果以后需要，再按 Crust 的职责范围补 suspend 协议；不需要就永远不做，系统照常跑。</li>
+</ul>
+</div>
+
+<h2>4. 路线图（按序）</h2>
+<table>
+<tr><th>#</th><th>事项</th><th>目的</th><th>预期信号</th></tr>
+<tr><td>1</td><td>v5.4：反汇编厂商 scp.fex 启动路径，复刻 CPUS 24MHz 广播使能序列（R-CCU 0x07010244 / key 0xA700，v3 时代误判为"毒药"的寄存器）</td><td>S_TIMER/S_SPI 功能时钟源头</td><td>RELOAD 自清、CUR_VALUE 递减、<code>[tick]</code> 打印、tick_count 增长</td></tr>
+<tr><td>2</td><td>中断投递调通（CLIC INTIE 已置位但无投递；核对 GINTC 路由 / mtvec.MODE / INTATTR 向量位）</td><td>timer/msgbox/uart/spi 四路中断</td><td>tick_count、mb_irq_count 增长；串口按键回显</td></tr>
+<tr><td>3</td><td>电源操作应答协议（reboot/poweroff 请求的 mailbox 应答）</td><td>软件重启不再挂死</td><td>Linux <code>reboot</code> 干净重启</td></tr>
+<tr><td>4</td><td>正式业务：SPI 采集 + UART 中断任务在主循环上展开</td><td>项目目标</td><td>按键 p 自检返回数据；业务吞吐达标</td></tr>
+</table>
+
+<h2>5. 工程保障（本轮沉淀）</h2>
+<ul>
+<li>trap 记录器（<code>last_mcause</code>/<code>last_mepc</code>）：静默冻结自动留案底，本轮 rdcycle 案发点 3 分钟定位。</li>
+<li>心跳块（0x4001E000）：magic/seq/stage 从 Linux 侧 <code>awdevmem.py dump --e902</code> 直读，无需串口。</li>
+<li>双串口常驻录制（setsid 守护、断线自动重连）+ udev 规则（/dev/tty-board、/dev/tty-e902）。</li>
+<li>在线刷写闭环：ssh → dd 槽位 → fix-bootpkg-sum → reboot，单轮迭代 ≈ 90 秒，不再拔卡。</li>
+</ul>
+<p class="mut">来源：实机实验日志 e902/verify-logs/*；<a href="https://linux-sunxi.org/A733">linux-sunxi.org/A733</a>；<a href="https://github.com/smaeul/crust">github.com/smaeul/crust</a>（Crust README）；ARM SCMI 文档（documentation-service.arm.com）。</p>
+</body>
+</html>

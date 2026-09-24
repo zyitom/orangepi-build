@@ -1,0 +1,45 @@
+
+
+
+=== A733 E902 firmware v2 ===
+PL_CFG0     = 0xffff3322  (PL2/PL3 mux ok)
+APBS1 (S_UART clock) = 24000000 Hz
+RISCV_BGR   = 0x00010003
+RST_START   = 0x40004000
+startup feedback (ch3 hdr=0x00900200 13w) : FAILED
+spi_init(500kHz) = ok
+SPI VER=0x00010003 GC=0x00000083 TC=0x00000004
+SPI CLK_CTL=0x00001017 FIFO_STA=0x00000000 INT_STA=0x00000032
+msgbox irq 48, timer irq 21 (100ms), uart irq 29, spi irq 38.
+keys: s=send to ARM  r=rx count  t=ticks  p=spi selftest  h=heartbeat
+sent HELLO to ARM
+
+--- TIMESTAMP probe (CPUX domain 0x08010000) ---
+TSTAMP_CTRL = 0x00000001  FREQID = 0x00000000  (NOT 24 MHz)
+t0 = 0x00000000:0x118fc8c9
+t1 = 0x00000000:0x1190ac57
+delta_1s = 58254 ticks
+=> 速率异常，需要进一步判断
+--- end probe ---
+
+
+=== A733 E902 firmware v2 ===
+PL_CFG0     = 0xffff3322  (PL2/PL3 mux ok)
+APBS1 (S_UART clock) = 24000000 Hz
+RISCV_BGR   = 0x00010003
+RST_START   = 0x40004000
+startup feedback (ch3 hdr=0x00900200 13w) : FAILED
+spi_init(500kHz) = ok
+SPI VER=0x00010003 GC=0x00000083 TC=0x00000004
+SPI CLK_CTL=0x00001017 FIFO_STA=0x00000000 INT_STA=0x00000032
+msgbox irq 48, timer irq 21 (100ms), uart irq 29, spi irq 38.
+keys: s=send to ARM  r=rx count  t=ticks  p=spi selftest  h=heartbeat
+sent HELLO to ARM
+
+--- TIMESTAMP probe (CPUX domain 0x08010000) ---
+TSTAMP_CTRL = 0x00000001  FREQID = 0x00000000  (NOT 24 MHz)
+t0 = 0x00000000:0x118cd3f7
+t1 = 0x00000000:0x118db77f
+delta_1s = 58248 ticks
+=> 速率异常，需要进一步判断
+--- end probe ---

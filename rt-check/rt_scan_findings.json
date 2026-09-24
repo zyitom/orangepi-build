@@ -1,0 +1,155 @@
+[
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/atbm6023is/hal_apollo/mac80211/mesh_plink.c",
+  "func": "mesh_plink_timer",
+  "line": 305,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/atbm6023is/hal_apollo/main.c",
+  "func": "atbm_chantype_timer",
+  "line": 651,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/atbm6023is/hal_apollo/queue.c",
+  "func": "atbm_queue_gc",
+  "line": 194,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/atbm6023is/hal_apollo/queue.c",
+  "func": "atbm_queue_gc",
+  "line": 286,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/xr819/umac/mesh_plink.c",
+  "func": "mesh_plink_timer",
+  "line": 305,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/xr819/wlan/queue.c",
+  "func": "xradio_queue_gc",
+  "line": 175,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/net/wireless/xr829/wlan/queue.c",
+  "func": "xradio_queue_gc",
+  "line": 161,
+  "ctx": "hrtimer",
+  "what": "spin_lock_bh(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/sound/misc/snd_sunxi_loopback.c",
+  "func": "play_hrtimer_handler",
+  "line": 135,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/sound/misc/snd_sunxi_loopback.c",
+  "func": "cap_hrtimer_handler",
+  "line": 213,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-bifrost/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c",
+  "func": "timer_callback",
+  "line": 105,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-bifrost/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_pm_metrics.c",
+  "func": "dvfs_callback",
+  "line": 58,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-valhall/driver/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c",
+  "func": "timer_callback",
+  "line": 105,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-valhall/driver_r32p1/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_js_backend.c",
+  "func": "timer_callback",
+  "line": 105,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-valhall/driver_r32p1/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_pm_metrics.c",
+  "func": "dvfs_callback",
+  "line": 62,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/input/ctp/gt9xxnew/gt9xx_update.c",
+  "func": "gup_output_pulse",
+  "line": 2524,
+  "ctx": "normal",
+  "what": "msleep",
+  "why": "sleeping call inside raw/preempt-disabled region",
+  "detail": ""
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/drivers/input/ctp/gt9xxnew/gt9xx_update.c",
+  "func": "gup_output_pulse",
+  "line": 2526,
+  "ctx": "normal",
+  "what": "msleep",
+  "why": "sleeping call inside raw/preempt-disabled region",
+  "detail": ""
+ },
+ {
+  "file": "/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2/bsp/modules/gpu/mali-valhall/driver/drivers/gpu/arm/midgard/mali_kbase_mem_migrate.c",
+  "func": "kbase_page_isolate",
+  "line": 347,
+  "ctx": "normal",
+  "what": "spin_trylock(",
+  "why": "non-raw spinlock inside raw/preempt-disabled region",
+  "detail": ""
+ }
+]

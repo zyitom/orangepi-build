@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A733 E902 小核资源白皮书 · Orange Pi Zero 3W</title>
+<style>
+  :root{
+    --ink:#111111; --paper:#FFFFFF; --accent:#C8102E; --muted:#666666;
+    --hair:#D9D9D9; --hair2:#BFBFBF; --bg-soft:#F5F5F4; --ok:#1B7F3B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{font-size:16px;}
+  body{
+    font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+    color:var(--ink); background:var(--paper);
+    line-height:1.7; padding:0 24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:1060px; margin:0 auto; padding:40px 0 96px;}
+  /* 8pt baseline rhythm */
+  h1,h2,h3,h4,p,li,td,th,dd{margin-bottom:8pt;}
+  h2{font-size:1.35rem; letter-spacing:.02em; border-top:3px solid var(--ink); padding-top:12pt; margin-top:40pt;}
+  h2 .no{color:var(--accent); font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.85rem; display:block; letter-spacing:.12em;}
+  h3{font-size:1.02rem; margin-top:20pt;}
+  h4{font-size:.92rem; margin-top:14pt; color:var(--ink);}
+  p{max-width:74ch;}
+  a{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
+  code,.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:.86em; background:var(--bg-soft); padding:0 4px;}
+  ul{padding-left:1.2em;}
+  table{width:100%; border-collapse:collapse; font-size:.86rem; margin:12pt 0 20pt;}
+  th{border-top:2px solid var(--ink); border-bottom:1px solid var(--ink); text-align:left; padding:6pt 8pt; font-weight:600; background:#FAFAFA;}
+  td{border-bottom:1px solid var(--hair); padding:6pt 8pt; vertical-align:top;}
+  tr:last-child td{border-bottom:1px solid var(--hair2);}
+  .num{font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .mut{color:var(--muted); font-size:.82rem;}
+  .acc{color:var(--accent);}
+  .ok{color:var(--ok); font-weight:600;}
+  /* header */
+  header.masthead{border-bottom:6px solid var(--ink); padding:32pt 0 16pt; margin-bottom:24pt;}
+  header.masthead .kicker{font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--accent); letter-spacing:.28em; font-size:.72rem; text-transform:uppercase;}
+  header.masthead h1{font-size:2.3rem; line-height:1.15; letter-spacing:-0.01em; margin:10pt 0 6pt;}
+  header.masthead .sub{color:var(--muted); font-size:.95rem; max-width:70ch;}
+  /* status strip */
+  .strip{display:flex; flex-wrap:wrap; border:1px solid var(--ink); margin:20pt 0;}
+  .strip>div{flex:1 1 200px; padding:10pt 14pt; border-right:1px solid var(--hair2);}
+  .strip>div:last-child{border-right:none;}
+  .strip .k{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.68rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;}
+  .strip .v{font-size:1.02rem; font-weight:600;}
+  /* warning block */
+  .warn{border-left:4px solid var(--ink); background:var(--bg-soft); padding:10pt 14pt; margin:14pt 0; max-width:80ch;}
+  .warn .t{font-weight:700; letter-spacing:.06em;}
+  .note{border-left:4px solid var(--accent); background:#FFF7F8; padding:10pt 14pt; margin:14pt 0; max-width:80ch;}
+  /* boot chain */
+  .chain{display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--ink); margin:16pt 0;}
+  .chain .stage{flex:1 1 150px; padding:10pt 12pt; border-right:1px solid var(--hair2); position:relative;}
+  .chain .stage:last-child{border-right:none;}
+  .chain .stage .s-k{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.66rem; letter-spacing:.14em; color:var(--muted);}
+  .chain .stage .s-t{font-weight:700; font-size:.95rem;}
+  .chain .stage .s-d{font-size:.78rem; color:var(--muted);}
+  /* confidence chips */
+  .chip{display:inline-block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.66rem; letter-spacing:.08em; border:1px solid var(--ink); padding:0 6px; margin-left:6px; vertical-align:1px; white-space:nowrap;}
+  .chip.h{background:var(--ink); color:#fff;}
+  .chip.m{border-color:var(--ink);}
+  .chip.p{border-color:var(--accent); color:var(--accent);}
+  /* evidence footer per table */
+  .src{font-size:.76rem; color:var(--muted); margin-top:-14pt; margin-bottom:20pt;}
+  .toc{columns:2; column-gap:40px; font-size:.9rem; margin:12pt 0 8pt;}
+  .toc div{break-inside:avoid; padding:2pt 0; border-bottom:1px dotted var(--hair);}
+  .toc a{text-decoration:none;}
+  .toc a:hover{text-decoration:underline;}
+  footer{border-top:3px solid var(--ink); margin-top:48pt; padding-top:10pt; color:var(--muted); font-size:.78rem;}
+  @media print{ body{padding:0;} .page{padding:0;} h2{break-before:page;} header.masthead{break-after:avoid;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <div class="kicker">RESOURCE WHITEPAPER · sun60iw2 · REV 2026-09-22</div>
+  <h1>A733 E902 小核资源白皮书</h1>
+  <div class="sub">Orange Pi Zero 3W（Allwinner A733 / BSP 族名 sun60iw2）CPUS 域玄铁 E902 协处理器的地址空间、时钟树、复位与启动控制、中断路由、与主核（Cortex-A，下称「大核」）的资源共享边界 —— 每条结论附文档章节 / 源码位置 / 板上实测三类出处与置信度。</div>
+</header>
+
+<div class="strip">
+  <div><div class="k">工程根</div><div class="v mono">TL101:~/Desktop/orangepi-build</div></div>
+  <div><div class="k">固件指纹（当前在卡）</div><div class="v mono">8aaf9486…105912B</div></div>
+  <div><div class="k">厂商回滚件</div><div class="v mono">07e6b976… / 114cd1f3…(24MiB)</div></div>
+  <div><div class="k">现场状态</div><div class="v">SD 已刷新版固件，<span class="acc">待插卡上电实测</span></div></div>
+</div>
+
+<h2 id="s0"><span class="no">§ 00</span>结论速览</h2>
+<ol>
+  <li><b>“从 Linux 直接借用 E902”在硬件上不成立。</b>软件可见寄存器里<b>不存在 E902 内核复位位</b>；<code>RISCV_BGR</code> bit0 只是内核总线时钟门控。<span class="chip h">High·三方</span></li>
+  <li><b>唯一可行路径是 bl31</b>：启动时 bl31 把启动包里的 <code>scp</code> 条目载入 SRAM_A2 <code>0x40004000</code>、写 <code>E902_RST_START_ADDR</code>、释放复位，然后<b>阻塞等待小核通过 mailbox 通道 3 上报 startup feedback</b>。替换该条目即可让 E902 执行我们的固件。<span class="chip h">High·三方</span></li>
+  <li><b>握手包格式已从厂商固件反汇编逐字解出并两次独立复核</b>：通道 3，线上序 <code>[hdr=0x00900200][count=13][13×u32=0]</code>。曾误判为 bl31 拒绝；T22 定案：当时真因是 boot0 对启动包整包 add_sum 校验失败（bad checksum），hdr 值从未被硬件验证。<span class="chip h">High·反汇编×2</span></li>
+  <li><b>失败安全设计</b>：我们的固件把握手放在 <code>main()</code> 第一梯队（先于一切外设初始化），即使后续初始化全部失败，板子照常启动，最坏后果退化为「小核不可用」而非「变砖」。<span class="chip h">High·反汇编</span></li>
+  <li>E902 <b>独占</b>：S_SPI(0x07092000)、S_UART0/1、S_TIMER0..3、S_MBOX 读侧；<b>共享</b>：SRAM_A2、双 mailbox 硬件、hwspinlock、MSGBOX0_BGR、CPUS_CFG 总线；<b>绝对禁区</b>：PL0/PL1（PMIC I2C）。<span class="chip h">High</span></li>
+  <li>接管 E902 的<b>代价</b>：DRAM 变频、suspend、PMIC 看护三类厂商 SCP 职能丢失（表现为 SMC 返回错误码的软失败）。<span class="chip m">Medium·源码推断</span></li>
+  <li>SD 卡（板上 <code>/dev/mmcblk1</code>）是唯一可启动介质，scp 槽位 = 绝对偏移 <code>0x113BC00</code>、长度 <code>0x19DB8</code>=105912 字节；当前卡内已是我们的最终固件（读回校验通过），<b>只差插卡上电</b>。<span class="chip h">High·实测</span></li>
+</ol>
+
+<div class="toc">
+  <div><a href="#s1">§01 平台与术语</a></div>
+  <div><a href="#s2">§02 启动链路与 E902 的角色</a></div>
+  <div><a href="#s3">§03 地址空间与内存归属</a></div>
+  <div><a href="#s4">§04 时钟树</a></div>
+  <div><a href="#s5">§05 复位与启动控制</a></div>
+  <div><a href="#s6">§06 中断架构</a></div>
+  <div><a href="#s7">§07 引脚复用</a></div>
+  <div><a href="#s8">§08 总线与核间通信</a></div>
+  <div><a href="#s9">§09 厂商 SCP 固件的资源足迹</a></div>
+  <div><a href="#s10">§10 共享边界与安全清单</a></div>
+  <div><a href="#s11">§11 bl31 握手协议规格</a></div>
+  <div><a href="#s12">§12 固件工程与使用</a></div>
+  <div><a href="#s13">§13 运行手册索引</a></div>
+  <div><a href="#s14">§14 风险与异常</a></div>
+  <div><a href="#s15">§15 验证记录与置信度体系</a></div>
+  <div><a href="#s16">§16 出处清单</a></div>
+</div>
+
+<h2 id="s1"><span class="no">§ 01</span>平台与术语</h2>
+<table>
+  <tr><th style="width:22%">项</th><th>值</th><th style="width:30%">出处</th></tr>
+  <tr><td>SoC</td><td>Allwinner A733（BSP 内部族名 <code>sun60iw2</code>）</td><td class="src mono">orangepi-build README；git log (sun60iw2 commits)</td></tr>
+  <tr><td>板卡</td><td>Orange Pi Zero 3W，启动介质 = SD 卡（板上枚举为 <code>/dev/mmcblk1</code>，59.7G，根分区 mmcblk1p1）</td><td class="src mono">板上 lsblk；FLASH-SPEC §1</td></tr>
+  <tr><td>小核</td><td>玄铁 E902（RISC-V RV32EMC + Zicsr，CLIC/CLINT），扮演 <b>SCP / arisc</b> 角色（电源管理与安全协处理）</td><td class="src mono">scp.fex 反汇编（87 条 mul/div ⇒ M 扩展）；手册 ch.2</td></tr>
+  <tr><td>大核</td><td>Cortex-A（CPUX 域），Linux 6.6-sun60iw2（另有 RT 补丁线）</td><td class="src mono">HANDOFF-RT-IMAGE.md</td></tr>
+  <tr><td>编译机</td><td><code>ssh helios@TL101</code></td><td class="src mono">RECOVERY-AND-HANDOFF §2</td></tr>
+  <tr><td>板卡</td><td><code>orangepi@172.16.0.193</code>（登录与 sudo 口令 = orangepi）；工具 <code>ar0234-port/tools/ssh_board.sh</code>（环境变量 BOARD / BOARD_PASS）</td><td class="src mono">CORRECTION-2026-09-22.md</td></tr>
+  <tr><td>两个串口</td><td>TL101 的 USB 串口历史上是 CH340（大核控制台，PB4/PB5）；<b>E902 控制台 = S_UART0</b>（排针 pin16=PL2 TX「SCPU-TX」，pin18=PL3 RX「SCPU-RX」），FT232H 适配器（USB ID 0403:6014）当前插在 TL101 上</td><td class="src mono">CONSOLE-CHANNEL.md（实测：翻转 PL2 时 FT232H 收到 10 字节、基线 0 字节）</td></tr>
+</table>
+<p class="src">置信度标注体系见 §15。手册 = <code>e902/doc/A733_User Manual_V0.91.pdf</code>（pdftotext 行号引用），原理图 = <code>OPI ZERO 3W V1_2_原理图.pdf</code>，E902 核手册 = <code>玄铁E902R3S0用户手册_Rev.12_20260104.pdf</code>。</p>
+
+<h2 id="s2"><span class="no">§ 02</span>启动链路与 E902 的角色</h2>
+<div class="chain">
+  <div class="stage"><div class="s-k">0x00002000</div><div class="s-t">boot0</div><div class="s-d">eGON.BT0，初始化 DRAM/介质</div></div>
+  <div class="stage"><div class="s-k">0x01004000</div><div class="s-t">boot package</div><div class="s-d">"sunxi-package" 容器，TOC 3 条目</div></div>
+  <div class="stage"><div class="s-k">条目0 · 0x01004800</div><div class="s-t">u-boot</div><div class="s-d">0x124000 B</div></div>
+  <div class="stage"><div class="s-k">条目1 · 0x01128800</div><div class="s-t">monitor / bl31</div><div class="s-d">0x13311 B，闭源</div></div>
+  <div class="stage"><div class="s-k">条目2 · 0x0113BC00</div><div class="s-t">scp = E902 固件</div><div class="s-d">0x19DB8 = 105912 B</div></div>
+  <div class="stage"><div class="s-k">bl31 内部</div><div class="s-t">载入→放复位→等握手</div><div class="s-d">arm_svc_arisc_wait_ready</div></div>
+  <div class="stage"><div class="s-k">之后</div><div class="s-t">Linux</div><div class="s-d">大核启动内核</div></div>
+</div>
+<p>bl31（闭源 monitor）是<b>唯一</b>能把 E902 从复位态放出来的一方：它把 <code>scp</code> 条目拷贝到 SRAM_A2 <code>0x40004000</code>，把 <code>E902_RST_START_ADDR</code>（0x07032204）设为入口，释放复位，然后调用 <code>arm_svc_arisc_wait_ready()</code> 等 E902 在 mailbox 通道 3 上报 startup feedback；等不到就一直挂在那里（板子表现为不启动）。u-boot 侧的调用面：<code>bootm.c:409</code> 的 <code>ARM_SVC_ARISC_STARTUP = 0x8000ff10</code>。</p>
+<table>
+  <tr><th>启动包 TOC 条目</th><th>相对偏移</th><th>大小</th><th>绝对偏移</th><th>验证方式</th></tr>
+  <tr><td class="mono">u-boot</td><td class="mono">0x00800</td><td class="mono">0x124000</td><td class="mono">0x1004800</td><td rowspan="3" class="src">对介质前 24MiB 只读 dump 解析（decode_toc.py）；scp 条目另经「入口指令序列独立搜索」双重定位；槽位 105912B 与工程内 scp.fex sha256 逐字节一致（T17）；介质可写性/落点经原样写回测试证实（T20）</td></tr>
+  <tr><td class="mono">monitor (bl31)</td><td class="mono">0x124800</td><td class="mono">0x013311</td><td class="mono">0x1128800</td></tr>
+  <tr><td class="mono"><b>scp</b></td><td class="mono">0x137C00</td><td class="mono">0x19DB8</td><td class="mono"><b>0x113BC00</b></td></tr>
+</table>
+<div class="warn"><span class="t">判定「为什么必须动启动介质」：</span>软件侧没有 E902 内核复位位（§05），u-boot 这版也没有 <code>smc</code> 命令、CPUS 电源域控制寄存器未公开。因此运行期从 Linux「停核—换码—再启动」不存在；唯一入口就是启动包里的 scp 条目。证据链见 FINDINGS-LEDGER T1–T9（9 组寄存器序列实验全部无效）。</div>
+
+<h2 id="s3"><span class="no">§ 03</span>地址空间与内存归属</h2>
+<table>
+  <tr><th>区域</th><th>E902 视角</th><th>ARM 视角</th><th>大小</th><th>归属</th><th>置信度</th></tr>
+  <tr><td>SRAM_A2</td><td class="mono">0x40000000–0x40033FFF</td><td class="mono">0x00040000–0x00073FFF</td><td>208K</td><td><b>共享</b>（同一片 SRAM，两侧地址不同）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>├ 厂商 scp 镜像区</td><td class="mono">0x40004000–0x4001DDB8</td><td class="mono">0x00044000–0x0005DDB8</td><td>105912B</td><td>小核代码区（bl31 载入点 = RST_START）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>├ 我们的固件（同区覆盖）</td><td class="mono">0x40004000 起，6216B</td><td class="mono">0x00044000 起</td><td>—</td><td>小核代码区（槽位填充 0x00 至 105912B）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>├ 心跳/状态块</td><td class="mono"><b>0x4001E000</b></td><td class="mono">0x0005E000</td><td>17×u32</td><td>观测契约（厂商镜像上方、栈区下方，不重叠）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>└ 厂商栈顶</td><td class="mono">0x4002F000</td><td class="mono">0x0006F000</td><td>向下增长</td><td>小核独占</td><td><span class="chip m">M</span></td></tr>
+  <tr><td>DRAM</td><td class="mono">0x40000000–0x7FFFFFFF</td><td class="mono">0x40000000–0x7FFFFFFF</td><td>~1G</td><td>共享（需 E902_DDR_REMAP；<b>同一数值在两侧含义完全不同</b>）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>DRAM 窗口（E902 独立视图）</td><td class="mono">0x80000000–0xBFFFFFFF</td><td>—</td><td>1G</td><td>可 remap 到 16G 内任意段</td><td><span class="chip m">M</span></td></tr>
+  <tr><td>CPUS_CFG 外设</td><td class="mono">0x07000000–0x0709FFFF</td><td class="mono">同址</td><td>640K</td><td>共享（msgbox@0x07094000 双方都在用）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>CPUX 子系统外设</td><td class="mono">0x00080000–0x06FFFFFF</td><td class="mono">同址</td><td>—</td><td>大核为主，小核亦可访问（含主 CCU 0x02000000）</td><td><span class="chip m">M</span></td></tr>
+  <tr><td>CLIC/CLINT（核内）</td><td class="mono">0xE0000000–0xEFFFFFFF（TCIP 窗口）</td><td>—</td><td>—</td><td>小核独占，不占 SoC 地址空间</td><td><span class="chip h">H</span></td></tr>
+</table>
+<p class="src">出处：手册 ch.2 内存表（pdftotext 1477 起 / 1484）；u-boot <code>plat-sun60iw2p1/cpu_autogen.h:5 SUNXI_SRAM_A2_BASE</code>；RST_START 实测读回 0x40004000；E902 手册 ch.4（TCIP）。<span class="chip h">H</span> = 手册+代码+实测 ≥2 源一致；<span class="chip m">M</span> = 单一权威源。</p>
+<div class="warn"><span class="t">最易踩的坑：</span><code>0x40000000</code> 在 E902 眼里是 SRAM_A2 起点，在 ARM 眼里是 DRAM 起点。换算公式 <code>ARM = 0x00040000 + (E902 − 0x40000000)</code>。所有主核侧访问统一走 <code>e902-fw/scripts/awdevmem.py</code>（强制换算 + 越界拒绝 + 写回校验）；早期脚本曾因直接把 E902 地址当 ARM /dev/mem 偏移而静默破坏内核内存（DESIGN-NOTES §2.3.1）。</div>
+
+<h2 id="s4"><span class="no">§ 04</span>时钟树（R-CCU / 主 CCU 相关项）</h2>
+<table>
+  <tr><th>时钟 / 门控</th><th>寄存器</th><th>关键位</th><th>供谁</th><th>归属</th><th>置信度</th></tr>
+  <tr><td>RISCV_24M_CLK</td><td class="mono">R-CCU 0x0210</td><td class="mono">mux[25:24], gate31</td><td>E902 子系统 TIMESTAMP 时基</td><td>小核可配；厂商 SCP 也配（6 次）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>RISCV_BGR</td><td class="mono">R-CCU 0x021C</td><td class="mono">bit16 RISCV_CFG_RST · bit1 RISCV_CFG_GATING · bit0 RISCV_GATING</td><td>RISCV_CFG 寄存器块 + E902 内核总线时钟</td><td><b>共享</b>；<b>bit0 不是内核复位</b></td><td><span class="chip h">H</span></td></tr>
+  <tr><td>S_SPI_CLK</td><td class="mono">R-CCU 0x0150</td><td class="mono">M[4:0] N[12:8] mux[26:24] gate31</td><td>S_SPI（0x07092000）</td><td><b>小核独占</b>（Linux DTS r_spi = disabled）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>S_SPI_BGR</td><td class="mono">R-CCU 0x015C</td><td class="mono">bit16 rst, bit0 gate</td><td>同上</td><td>小核独占</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>S_MBOX_BGR</td><td class="mono">R-CCU 0x017C</td><td class="mono">bit16 rst, bit0 gate</td><td>S_MBOX 0x07094000（读侧）</td><td>小核独占；实测已开 0x00010001</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>MSGBOX0_BGR</td><td class="mono">主 CCU 0x0744</td><td class="mono">bit16 rst, bit0 gate</td><td>CPUX_MSGBOX 0x03004000</td><td><b>共享</b>（sunxi-msgbox probe 时无条件打开）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>S_UART_BGR</td><td class="mono">R-CCU 0x018C</td><td class="mono">bit17/16 rst, bit1/0 gate</td><td>S_UART0/1</td><td>小核独占（Linux uart7 = disabled）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>S_TIMER_BGR</td><td class="mono">R-CCU 0x011C</td><td class="mono">bit16 rst, bit0 gate</td><td>S_TIMER0..3</td><td>小核可配；未见大核占用</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>APBS1_CLK</td><td class="mono">R-CCU 0x0010</td><td class="mono">mux[26:24]+5bit 分频</td><td>S_UART0/1 父时钟</td><td><b>只读对待</b>（boot0/u-boot/Linux 已配好）</td><td><span class="chip h">H</span></td></tr>
+</table>
+<p class="src">出处：手册 4.2.5.x（RISCV_24M=文本 13583–13601，RISCV_BGR=13613–13630）；内核 <code>ccu-sun60iw2-r.c:29,109,116,128,135,136,174,179,183,221–234</code>；主 CCU <code>ccu-sun60iw2.c:751,2087,2136–2140</code>。厂商 SCP 足迹（§09）交叉证实共享项。</p>
+<h3>频率关系</h3>
+<ul>
+  <li>CPU（大核）变频<b>不经过</b>小核：<code>ccu-sun60iw2-cpupll.c</code> 无任何 SMC 调用，大核自己写 PLL。</li>
+  <li>DRAM 变频<b>经过</b>小核：<code>ccu-ddr.c:77</code> 发 <code>ARM_SVC_SUNXI_DDRFREQ</code> SMC → bl31 → mailbox → SCP。我们接管 E902 后该链路断，属于 §14 A3 软失败。</li>
+  <li>S_SPI 模块时钟：固件固定选 DCXO 24MHz、M=N=0（/1），SPI 时钟用 CDR2 分频（500kHz 时 CDR2=23）。真实 SCLK 频率待示波器复核（B3）。<span class="chip p">P</span></li>
+</ul>
+
+<h2 id="s5"><span class="no">§ 05</span>复位与启动控制（核心结论）</h2>
+<table>
+  <tr><th>复位项</th><th>位置</th><th>语义</th><th>置信度</th></tr>
+  <tr><td>RST_BUS_RISCV_CFG</td><td class="mono">RISCV_BGR bit16</td><td>只复位 <b>RISCV_CFG 寄存器块</b>，不是 E902 内核</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>RISCV_GATING</td><td class="mono">RISCV_BGR bit0</td><td>内核总线时钟门控；写 0 = 从原地停跑，写 1 = 原地续跑，PC 不重定位</td><td><span class="chip h">H</span>（9 组实验 + 手册原文）</td></tr>
+  <tr><td>RST_BUS_R_SPI / R_MBOX / R_UART0/1</td><td class="mono">0x015C / 0x017C / 0x018C bit16(17)</td><td>对应 S_ 外设复位</td><td><span class="chip h">H</span></td></tr>
+  <tr><td><b>E902 内核复位</b></td><td class="mono">不存在软件可见寄存器</td><td>只能由 bl31 在启动流程中释放一次</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>E902_RST_START_ADDR</td><td class="mono">E902_CFG+0x0204 = 0x07032204</td><td>手册原文：“It is the running PC address when E902 reset is released.”——复位释放时的 PC；实测复位后读回 0x40004000</td><td><span class="chip h">H</span>（抽查命中：pdftotext 行 18556）</td></tr>
+</table>
+<p class="src">出处：手册 4.2.5.24（RISCV_BGR 位定义，pdftotext 13613–13630，抽查命中）、5.2.3 E902_CFG 寄存器清单仅 8 项且无复位寄存器（18371–18385）、18550–18560（RST_START 定义，抽查命中）；<code>ccu-sun60iw2-r.c:221–234</code> 复位表全表无 RST_BUS_RISCV；T1–T9 九组写序列实验（min2 探针 156B，心跳恒 0 ⇒ 内核从未从我们设的向量取指）。</p>
+
+<h2 id="s6"><span class="no">§ 06</span>中断架构（E902 / CLIC 视角）</h2>
+<p>E902 用 T-Head <b>CLIC</b>（核内，基址 0xE0800000；每中断一个字节：<code>INTIP/INTIE/INTATTR/INTCTL</code> 位于 +0x1000+4i+{0,1,2,3}；CLICCFG 在 +0x0000）。SoC 手册查不到 CLIC 是正常的——它在核内 TCIP 窗口。厂商 scp.fex 反汇编 <code>lui a4,0xe0801</code> 印证基址。</p>
+<table>
+  <tr><th>IRQ</th><th>名称（手册表 12-2 原文）</th><th>本工程用法</th><th>置信度</th></tr>
+  <tr><td class="mono">20–23</td><td>S_TIMER0..3</td><td>固件用 <b>21</b> 做 100ms tick</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">25/26</td><td>GPIOL_S / GPIOL_NS</td><td>未用</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono"><b>29</b></td><td><b>S_UART0</b></td><td><b>固件 RX 中断</b>（控制台收发统计）</td><td><span class="chip h">H</span> ·硬件触发<span class="chip p">P</span></td></tr>
+  <tr><td class="mono">30</td><td>S_UART1</td><td>未用</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">31–33</td><td>S_TWI0..2</td><td><b>禁区</b>：PL0/PL1 = PMIC I2C</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">35</td><td>S_PWM</td><td>未用</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono"><b>38</b></td><td><b>S_SPI</b>（“STBY SPI interrupt”）</td><td><b>固件 SPI 中断</b></td><td><span class="chip h">H</span> ·硬件触发<span class="chip p">P</span></td></tr>
+  <tr><td class="mono">39</td><td>CPUS_MBOX_READ_IRQ</td><td>未用（读侧通知，不是 CPUX 写通知）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono"><b>48</b></td><td><b>CPUX_MSGBOX_W_R</b>：“CPUX MSGBOX WRITE IRQ FOR CPUS/RISCV”（偏移 0x00C0）</td><td><b>固件 mailbox 收中断</b>——旧笔记疑为 39 是错的，48 正确</td><td><span class="chip h">H</span>（抽查命中）·硬件触发<span class="chip p">P</span></td></tr>
+  <tr><td class="mono">49</td><td>SPINLOCK(CPUX)</td><td>预留（大载荷互斥）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">54–69</td><td>riscv_sys_irq_i[6..21]</td><td>由 GINTC_CONFIG_REG0~4 从 GIC irq 32–159 映射；未用</td><td><span class="chip h">H</span></td></tr>
+</table>
+<p class="src">出处：手册表 12-2（pdftotext 33860–33980；抽查行 33897–33903：48/0x00C0/CPUX MSGBOX WRITE IRQ FOR CPUS-RISCV）；CORRECTION-2026-09-22 对「48 vs 39」的更正。中断硬件触发证明（计数器随事件增长）待上电后由心跳块 [10][11][12] 字段取证（drills/post-poweron）。</p>
+
+<h2 id="s7"><span class="no">§ 07</span>引脚复用（Zero3W 排针 / PL 域）</h2>
+<table>
+  <tr><th>引脚</th><th>排针</th><th>功能</th><th>归属</th><th>置信度</th></tr>
+  <tr><td class="mono">PL0/PL1</td><td>—</td><td>s_twi0 → AXP515/AXP8191 PMIC</td><td><b>大核独占 · 任何情况下不许动</b></td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL2</td><td><b>pin16</b></td><td>功能3 = S_UART0-TX，网络名 SCPU-TX</td><td>小核独占（uart7 disabled，其 pinctrl 组永不应用）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL3</td><td><b>pin18</b></td><td>功能3 = S_UART0-RX，网络名 SCPU-RX</td><td>小核独占</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL4</td><td>—</td><td>s_irrx 红外</td><td>大核</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL5</td><td>pin27</td><td>s_twi2 SDA</td><td>大核</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL6</td><td>—</td><td>空闲</td><td><b>可给 E902 用</b></td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">PL7</td><td>—</td><td>status LED（Linux 走 PL_DAT 0x0010，不写 PL_CFG0）</td><td>大核</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">S_SPI 四线</td><td>未定位</td><td>r_spi 在 DTS 无 pinctrl 组；MOSI/MISO/CLK/CS 具体排针号待查（B5）</td><td>小核独占但<b>未接线确认</b></td><td><span class="chip p">P</span></td></tr>
+</table>
+<div class="warn"><span class="t">PL_CFG0 竞争窗口：</span><code>0x07025000</code> 一个 32 位字装 8 个引脚（每脚 4bit）。改 PL2/PL3 必须读-改-写整字，与 Linux 存在竞争窗口。实测 <code>PL_CFG0=0x1FFF1F22</code>（PL2/PL3 nibble=2，即当时无人设成 S_UART0）。固件策略：只在初始化写一次、只动 PL2/PL3 两个 nibble、写后读回校验（MISMATCH 会在横幅与心跳 [3] 可见）。</div>
+<p class="src">出处：原理图 Sheet18；<code>pinctrl-sun60iw2-r.c:38–56</code>；<code>sun60i-a733-orangepi-zero3w.dts</code>；CONSOLE-CHANNEL.md 的翻转实验（FT232H-RX←PL2 实链路已证；FT232H-TX→PL3 方向按交叉接线常规，待上电由 UART 计数器取证）。</p>
+
+<h2 id="s8"><span class="no">§ 08</span>总线与核间通信</h2>
+<table>
+  <tr><th>资源</th><th>地址</th><th>方向</th><th>说明</th><th>置信度</th></tr>
+  <tr><td class="mono">CPUX_MSGBOX</td><td class="mono">0x03004000</td><td>E902 → ARM</td><td>4 通道 × 8×32bit FIFO；写 MSG_REG 自动拉起对端中断；TX 状态 0x0300406C，ch3 MSG 0x0300407C</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">S_MBOX (CPUS_MSGBOX)</td><td class="mono">0x07094000</td><td>ARM → E902</td><td>读侧门控 S_MBOX_BGR 0x017C；RX 状态 0x0709406C，ch3 MSG 0x0709407C</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">hwspinlock</td><td class="mono">0x03005000</td><td>双向</td><td>共享；DTS okay，暂无客户端</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">remoteproc</td><td>—</td><td>—</td><td><b>本平台没有 E902 rproc 框架</b>（compatible 表无 e902，dtsi 无节点）——「标准加载接口」不存在，才有了本白皮书的 bl31 路线</td><td><span class="chip h">H</span></td></tr>
+  <tr><td class="mono">SMC → bl31</td><td>—</td><td>ARM → E902（间接）</td><td>同步 RPC：DRAM 变频、suspend、PMIC 类请求都走这条；无 SCP 应答时按错误码软失败</td><td><span class="chip m">M</span></td></tr>
+</table>
+<p class="src">出处：手册 6.1.1/6.1.4.1（“当通道非空时产生读中断”）；实测两侧状态寄存器可读、门控 0x0744=0x00010001；<code>sunxi-msgbox.c:825</code>（RX 中断仅在客户端 claim 通道时开）——因此大核侧直接怼寄存器与内核驱动共存安全（DESIGN-NOTES §6.7）；<code>sunxi_rproc.c:1412–1418</code>。</p>
+
+<h2 id="s9"><span class="no">§ 09</span>厂商 SCP 固件的资源足迹（静态反汇编）</h2>
+<p>对 <code>u-boot/v2018.05-sun60iw2/scp.fex</code>（105912B）做 <code>objdump -D -b binary -m riscv:rv32 --adjust-vma=0x40004000</code>，抽取全部解析出的地址注释（脚本 <code>doc/e902/scp_addrs.py</code>）。</p>
+<ul>
+  <li><b>SRAM 内只碰自己的镜像/bss/栈</b>（栈顶 0x4002F000）——没有外部 SRAM 握手标志 ⇒ 与 bl31 的握手只能走 mailbox。</li>
+  <li>实际使用的 CPUS 域寄存器：STBY_PRCM/AHBS_CLK(0x0000)、APBS0_CLK(0x000C)、S_TIMER0_CLK(0x0100)、S_TIMER_BGR(0x011C)、S_PWM_BGR(0x013C)、S_MBOX_BGR(0x017C)、S_UART_BGR(0x018C)、S_TWI_BGR(0x019C)、S_IRRX_CLK/BGR(0x01C0/0x01CC)、RTC_BGR(0x020C)、RISCV_24M_CLK(0x0210)、PRCM 0x0244/0x0250(×12)/0x0254/0x0260、NMI_INT_EN(0x0324)、BUS_ACG(0x033C)、E902_CFG 区(0x07032001)、0x07050010/14/0220、S_UART0(0x07080080/84/A4)、S_TWI0 区、0x07090000 区。</li>
+  <li>跨域访问：CPUX_MSGBOX(0x03004001)、0x030060A0、0x03000200/0160/0000；主 CCU MSGBOX0_BGR(0x02002744)、0x02003300..340、0x02002588。</li>
+  <li><b>判定价值</b>：SCP 碰过而 Linux 也用的 = 真共享（RISCV_24M、S_MBOX_BGR、MSGBOX0_BGR、S_TWI0→PMIC、S_UART_BGR）；它<b>完全没碰</b>的（S_SPI 0x07092000 区、RISCV_BGR 0x0701021C）= 可安全归小核独占。</li>
+</ul>
+<p class="src">出处：DESIGN-NOTES §3；<span class="chip m">M</span>（反汇编推断，非厂商文档）。</p>
+
+<h2 id="s10"><span class="no">§ 10</span>共享边界与安全清单</h2>
+<table>
+  <tr><th class="acc">级别</th><th>资源</th><th>使用规则（本工程约定）</th></tr>
+  <tr><td><b>E902 独占</b></td><td>S_SPI 0x07092000 + S_SPI_CLK/BGR(0x0150/0x015C)、S_UART0/1 + S_UART_BGR(0x018C)、S_TIMER0..3 + S_TIMER_BGR(0x011C)、S_MBOX 读侧 + S_MBOX_BGR(0x017C)、CLIC/CLINT、PL2/PL3</td><td>Linux 侧对应节点 disabled 或无客户端，固件可用可配，无需仲裁</td></tr>
+  <tr><td><b>共享·需克制</b></td><td>SRAM_A2（双地址！）、CPUX_MSGBOX(0x03004000) 写侧、S_MBOX(0x07094000) 写侧(ARM)、MSGBOX0_BGR(主 CCU 0x0744)、hwspinlock、RISCV_24M_CLK(0x0210)、RISCV_BGR(0x021C)</td><td>mailbox 按「谁写谁发」使用，ARM 侧直接怼寄存器（无内核客户端）；RISCV_BGR 属于「改错即冻核」项，只允许 drills.sh 的 E2 流程触碰；SRAM 访问一律走 awdevmem.py（强制地址换算）</td></tr>
+  <tr><td><b>大核独占·禁区</b></td><td>PL0/PL1（PMIC I2C，S_TWI0）、CPUX 子系统外设、DRAM 布局、启动介质其余区域</td><td>任何情况下不写；碰 PL0/PL1 可能伤 PMIC/硬件</td></tr>
+  <tr><td><b>让渡给固件的厂商职能</b></td><td>DRAM 变频、suspend/resume、PMIC 看护（原 SCP 职能）</td><td>接管后丢失；表现为 SMC 错误码软失败 + 可能的 devfreq 重试日志；<code>echo mem</code> 在本工程下不可用（会醒不来，需断电）</td></tr>
+</table>
+<p class="src">并发风险：PL_CFG0 读改写窗口（§07）、mailbox FIFO 满（固件发送带 100000 次有界自旋 + TX 空 FIFO 等待）、心跳块只由 E902 写 / ARM 只读（单向所有权，天然免锁；未来大载荷用 hwspinlock）。</p>
+
+<h2 id="s11"><span class="no">§ 11</span>bl31 握手协议规格（刷写成败的唯一悬点）</h2>
+<table>
+  <tr><th>要素</th><th>值</th><th>证据</th></tr>
+  <tr><td>通道</td><td class="mono"><b>ch3</b>（双向各自独立 FIFO 块）</td><td class="src mono">scp.fex 0x40007250/0x40007278（TX/RX MSG 0x0300407C / 0x0709407C）</td></tr>
+  <tr><td>线上格式</td><td class="mono">[u32 hdr][u32 count][count×u32 data]</td><td class="src mono">sender 0x4000721e..0x4000733c：先发 *(u32*)pkt，再发 byte4(count)，再循环发 data_ptr@+28[i]</td></tr>
+  <tr><td>startup feedback</td><td class="mono">hdr=<b>0x00900200</b>（b0=0, b1=flags 2, b2=0x90 cmd, b3=result 0）· count=13 · 13 个 0 字</td><td class="src mono">builder 0x4000b1b0..0x4000b202：memset 52B → sb 2→[1] → sh 0x90→[2..3] → sb 13→[4]；发送仅当 pkt[1]&2</td></tr>
+  <tr><td>发送时机</td><td>进入主循环前、任何其他初始化之前（失败安全）</td><td class="src mono">固件 objdump：main() 头四调 hb_init→hb_stage→msgbox_init→msgbox_send_startup_feedback</td></tr>
+  <tr><td>失败后果</td><td>bl31 永等 → 板子不启动；唯一恢复 = 把厂商 scp 写回介质</td><td class="src mono">T21 实测事件（hdr=0 → no-boot → 读卡器恢复成功）</td></tr>
+</table>
+<p>复核状态：格式经两轮独立反汇编比对（T15 + T21），与厂商固件逐字节等价；<b>是否被 bl31 接受</b>只能上电证实——此前两次启动失败均死于 boot0 add_sum 校验（T22 定案），尚未到达 bl31。</p>
+<div class="note"><span class="t">T21/T22 事件记录（已定案）：</span>两次刷入后板子不启动，串口实录 <code>error:bad checksum / error:bad magic / Loading boot-pkg fail</code> —— 真因是 <b>boot0 校验启动包整包 add_sum 失败</b>（算法：LE u32 字和 − add_sum + 0x5F0A6C39 ≡ add_sum，出处 board/sunxi/board_common.c:846、private_toc.h、mksunxiboot.c:19），与 bl31/握手无关。修复 = <code>fix-bootpkg-sum.py --write</code> 重算包头 0x1004014 处 4 字节（厂商 a91ddf89 → 我们内容对应 <b>83f86015</b>）；自测厂商备份 PASS、模拟件修复 PASS、槽位内容不变。SD 恢复到厂商态 = 槽位写回 07e6b976 且 add_sum 写回 a91ddf89。</div>
+
+<h2 id="s12"><span class="no">§ 12</span>固件工程与使用</h2>
+<h3>12.1 构建与产物</h3>
+<table>
+  <tr><th>项</th><th>值</th></tr>
+  <tr><td>源码</td><td class="mono">e902/e902-fw/src/{start.S, soc.c, pinmux.c, uart.c, timer.c, msgbox.c, clic.c, spi.c, heartbeat.c, main.c, a733.h, fw.h, fw-scp.ld}</td></tr>
+  <tr><td>工具链</td><td class="mono">e902/toolchains/Xuantie-900-gcc-elf-newlib-x86_64-V3.2.0（-march=rv32emc_zicsr -mabi=ilp32e，-nostdlib -static -no-pie）</td></tr>
+  <tr><td>构建</td><td class="mono">cd e902/e902-fw && make scpfw</td></tr>
+  <tr><td>产物（最终）</td><td class="mono">fw-scp.bin 6400B sha256 08e67528… · fw-scp-padded.bin 105912B sha256 <b>40b005f0…</b>（= fw-out/scp-ours-padded-105912.bin，v3.1：包重组+应答器）</td></tr>
+  <tr><td>结构校验</td><td class="mono">doc/e902/verify_scpfw.sh（段地址/无重定位/厂商序言/握手在位/尾补零）+ verify_failsafe.sh（握手最前）——两项全过</td></tr>
+  <tr><td>链接布局</td><td class="mono">入口 __start=0x40004000，trap_entry=0x400040c0，.vectors=0x40005140，全部段落在 0x40004000..0x4002F000</td></tr>
+</table>
+<h3>12.2 运行行为与观测面</h3>
+<ul>
+  <li><b>心跳块</b> 0x4001E000（17×u32，magic 0xE902C0DE）：<span class="mono">[0]magic [1]seq [2]stage [3]PL_CFG0 [4]APBS1 [5]RISCV_BGR [6]RST_START [7]spi_init [8]spi_tc [9]spi_rx_len [10]spi_irq [11]uart_rx [12]mbox_irq [13]mbox_rx [14]timer_ticks [15][16]SPI RX 前 8 字节</span>。ARM 侧：<code>awdevmem.py dump --e902 0x4001E000 --count 17</code>。</li>
+  <li><b>控制台</b>（S_UART0@115200 8N1）：banner（PL_CFG0/APBS1/RISCV_BGR/RST_START/握手结果/spi_init）、<code>[tick] N</code> 每秒、按键 <span class="mono">s</span>(向 ARM 发 UART_KEY) <span class="mono">r</span>(收计数) <span class="mono">t</span>(tick 数) <span class="mono">p</span>(SPI 自测) <span class="mono">h</span>(心跳开关)、未知字符回显。</li>
+  <li><b>mailbox 命令</b>（ARM→E902 单字，写 0x0709407C）：0x01 PING→回 0x02 PONG；0x20 ECHO→原样回；0x30 SPI_READ(len)→回 0x31（前 2 字节+长度）+0x32（异或折合）；0x34 UART_STAT→回 0x35（RX 字节计数）；0x36 HB_READ→回 0x37（seq）。回复读 0x0300407C。启动时固件主动发 0x10 HELLO。</li>
+  <li><b>SPI 自测</b>：主模式 mode0、CS0 低有效、24MHz 模块钟 → SCLK 500kHz、发 pattern A5 5A 01 FE 00 FF 3C C3、TC 中断（IRQ38）计数；MOSI-MISO 短接时收=发（可验证正确性），开路时仍验证控制器机制（时钟/FIFO/中断）但数据不比对。</li>
+</ul>
+
+<h2 id="s13"><span class="no">§ 13</span>运行手册索引</h2>
+<table>
+  <tr><th>场景</th><th>入口（TL101 上）</th><th>说明</th></tr>
+  <tr><td>插卡上电后一键验证 + 四演示</td><td class="mono">bash e902/tests/post-poweron.sh</td><td>等 ssh → 抓 E902 控制台 → 心跳×2 → 寄存器 → PING/ECHO/SPI_READ/UART_STAT → UART RX 字节注入 → devfreq 影响 → PASS/FAIL 判定；日志落 e902/verify-logs/&lt;ts&gt;/</td></tr>
+  <tr><td>异常演练 E2/E3</td><td class="mono">bash e902/tests/drills.sh</td><td>E2：RISCV_BGR 门控冻核/复跑（心跳 seq 停/涨）；E3：mailbox 16 字洪泛（mbox 计数 + 大核侧无恙）</td></tr>
+  <tr><td>回滚与重部署演练</td><td class="mono">bash e902/tests/rollback-drill.sh</td><td>板上 restore-scp.sh → 重启验证厂商态 → 重刷我们的 → 重启验证我们的（一键回滚的实际演示）</td></tr>
+  <tr><td>读卡器恢复（板子起不来时）</td><td class="mono">sudo bash e902/recover-sd.sh</td><td>卡插 TL101 读卡器，自动识别（eGON.BT0+sunxi-package 指纹）并写回厂商 scp；已演练</td></tr>
+  <tr><td>完整复现 / 从零构建</td><td class="mono">e902/doc/delivery/E902-复现与回滚手册.md</td><td>环境、构建、校验、双路径刷写、故障矩阵、回滚三梯队</td></tr>
+</table>
+
+<h2 id="s14"><span class="no">§ 14</span>风险与异常清单（摘要）</h2>
+<table>
+  <tr><th>#</th><th>风险 / 事件</th><th>状态与缓解</th></tr>
+  <tr><td>A1</td><td>Linux 侧无法重定位 E902 PC（无内核复位位）</td><td><span class="ok">已定案</span>：9 组实验证实；路线改为 bl31</td></tr>
+  <tr><td>A2</td><td>替换 scp.fex 使 bl31 等握手；无握手则不启动</td><td><span class="ok">已实弹化</span>：T21 事件真实发生并恢复；新版格式经双轮反汇编复核 + 失败安全前置；读卡器恢复链已演练</td></tr>
+  <tr><td>A3</td><td>接管后丢 DRAM 变频 / suspend / PMIC 看护</td><td>软失败设计；devfreq 重试噪音待上电量化；<code>echo mem</code> 禁用；如需可关 AW_DMC_DEVFREQ 重编内核</td></tr>
+  <tr><td>A4</td><td>PL_CFG0 读改写与大核竞争（PL0/PL1=PMIC）</td><td>只动 PL2/PL3、初始化写一次、读回校验；<b>PL0/PL1 永不触碰</b></td></tr>
+  <tr><td>A5</td><td>SRAM_A2 双地址陷阱（误写 DRAM）</td><td>awdevmem.py 强制换算 + 越界拒绝 + 写回校验</td></tr>
+  <tr><td>A6</td><td>E902 控制台观测</td><td><span class="ok">已解决</span>：FT232H（0403:6014）= S_UART0，实测验证；当前插在 TL101</td></tr>
+  <tr><td>B2</td><td>IRQ 48/29/38 硬件真实触发</td><td><span class="chip p">P</span> 待上电：心跳 [10][11][12] 计数 + 控制台 [rx] 行取证</td></tr>
+  <tr><td>B3/B4/B5</td><td>S_SPI 实际 SCLK 频率；中断延迟；S_SPI 排针定位</td><td><span class="chip p">P</span> 待硬件条件（示波器/短接线）；固件侧参数已按手册设定</td></tr>
+  <tr><td>B6</td><td>启动介质确认</td><td><span class="ok">已定案</span>：SD = /dev/mmcblk1（boot0@0x2000 + 容器@0x1004000 + 根分区 mmcblk1p1）</td></tr>
+</table>
+
+<h2 id="s15"><span class="no">§ 15</span>验证记录与置信度体系</h2>
+<p>置信度四级：<span class="chip h">High</span> ≥2 类独立来源一致（手册/源码/实测）；<span class="chip m">Medium</span> 单一权威源；<span class="chip p">Pending</span> 结论成立但硬件取证待上电；Conflict 显式列出不抹平。全部原始读值见 <code>e902/doc/e902/FINDINGS-LEDGER.md</code>（T1–T21）。</p>
+<table>
+  <tr><th>关键结论</th><th>手册</th><th>源码/反汇编</th><th>实测</th><th>置信度</th></tr>
+  <tr><td>无 E902 内核复位位；RISCV_BGR bit0=门控</td><td>4.2.5.24（行 13613–13630，抽查命中）</td><td>ccu-sun60iw2-r.c:221–234</td><td>T1–T9 九组序列无效</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>RST_START_ADDR=复位释放 PC</td><td>5.2.3（行 18556，抽查命中）</td><td>u-boot arisc 代码引用</td><td>复位后读回 0x40004000</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>IRQ48=CPUX→CPUS 写通知</td><td>表 12-2（0x00C0 行，抽查命中）</td><td>固件 msgbox.c 位运算 1&lt;&lt;(3*2)</td><td><span class="chip p">P</span> 计数待上电</td><td><span class="chip h">H</span>+<span class="chip p">P</span></td></tr>
+  <tr><td>scp 槽位 0x113BC00 / 105912B</td><td>—</td><td>decode_toc.py + 入口序列独立搜索</td><td>槽位内容与 scp.fex 哈希一致（T17/T20）</td><td><span class="chip h">H</span></td></tr>
+  <tr><td>握手包 [0x00900200][13][0×13]@ch3</td><td>—</td><td>两轮独立反汇编（builder+sender 逐指令）</td><td>hdr=0 反例实测（T21 no-boot）</td><td><span class="chip h">H</span>·bl31 接受性<span class="chip p">P</span></td></tr>
+  <tr><td>FT232H=E902 控制台</td><td>—</td><td>原理图 Sheet18（pin16/18=SCPU-TX/RX）</td><td>翻转 PL2 收 10 字节 vs 基线 0</td><td><span class="chip h">H</span></td></tr>
+</table>
+
+<h2 id="s16"><span class="no">§ 16</span>出处清单</h2>
+<ul>
+  <li class="mono">e902/doc/A733_User Manual_V0.91.pdf —— 4.2.5.x（R-CCU）、5.2.3/5.2.4（E902_CFG/DDR_REMAP）、表 12-2（中断）、6.1.x（MSGBOX）、ch.2（地址映射）</li>
+  <li class="mono">e902/doc/OPI ZERO 3W V1_2_原理图.pdf —— Sheet18（PL0–PL7 网络）</li>
+  <li class="mono">e902/doc/玄铁E902R3S0用户手册_Rev.12_20260104.pdf —— CLIC/TCIP/指令集</li>
+  <li class="mono">kernel/orange-pi-6.6-sun60iw2 —— ccu-sun60iw2-r.c、ccu-ddr.c:77、ccu-sun60iw2-cpupll.c、sunxi-msgbox.c:825、pinctrl-sun60iw2-r.c:38–56、sunxi_rproc.c:1412</li>
+  <li class="mono">u-boot/v2018.05-sun60iw2 —— bootm.c:409、arisc_i.h（dts_cfg_64_t）、plat cpu_autogen.h:5、scp.fex（反汇编对象）</li>
+  <li class="mono">e902/doc/e902/ —— FINDINGS-LEDGER.md（T1–T21）、RESOURCE-MAP.md、FLASH-SPEC.md、FAILSAFE-ORDERING.md、CONSOLE-CHANNEL.md、RISKS.md、CORRECTION-2026-09-22.md 及全部可复现脚本</li>
+  <li class="mono">e902/e902-fw/ —— 固件源码与 verify_scpfw.sh / verify_failsafe.sh；e902/tests/ —— post-poweron.sh / drills.sh / rollback-drill.sh；e902/backup/ —— 回滚产物三件</li>
+</ul>
+
+<footer>
+  A733 E902 资源白皮书 · 生成于 2026-09-22 · 证据快照见 e902/verify-logs/ · 工程根 /home/helios/Desktop/orangepi-build
+</footer>
+</div>
+</body>
+</html>

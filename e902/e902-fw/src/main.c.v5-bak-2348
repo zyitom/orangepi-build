@@ -1,0 +1,300 @@
+/*
+ * A733 E902 firmware -- v2 (SPI + interrupt + SRAM heartbeat).
+ *
+ * What it does:
+ *   - writes a status block to SRAM 0x4001E000 that the ARM can read via
+ *     /dev/mem (see heartbeat.c) -- this is the primary bring-up observable,
+ *     because /dev/ttyUSB0 on the build host is the *Linux* console, not the
+ *     E902's S_UART0
+ *   - brings up S_UART0, prints a banner, echoes input, and (new) routes
+ *     received bytes through a real CLIC interrupt on IRQ 29
+ *   - brings up S_SPI (r_spi @ 0x07092000, currently status="disabled" in
+ *     Linux's device tree, so nobody else owns it) and can clock out a fixed
+ *     pattern, reporting what came back
+ *   - receives 32-bit messages from ARM over MSGBOX (CLIC IRQ 48) and answers
+ *   - types keys on its own UART to push unsolicited messages to ARM
+ *
+ * Message format (ours to define; 32 bits is all the hardware carries):
+ *   [31:24] command
+ *   [23:0]  payload
+ */
+#include "fw.h"
+#include "spi.h"
+
+#define CMD_PING	0x01	/* ARM -> us, we reply CMD_PONG          */
+#define CMD_PONG	0x02	/* us -> ARM                             */
+#define CMD_HELLO	0x10	/* us -> ARM, sent once at startup       */
+#define CMD_UART_KEY	0x11	/* us -> ARM, payload = keypress         */
+#define CMD_ECHO	0x20	/* ARM -> us, we echo the payload back   */
+#define CMD_SPI_READ	0x30	/* ARM -> us, payload = byte count       */
+#define CMD_SPI_DATA	0x31	/* us -> ARM, rx[0..1] and byte count    */
+#define CMD_SPI_SUM	0x32	/* us -> ARM, xor-fold of the rx bytes   */
+#define CMD_UART_STAT	0x34	/* ARM -> us                             */
+#define CMD_UART_RXCNT	0x35	/* us -> ARM, payload = uart rx bytes    */
+#define CMD_HB_READ	0x36	/* ARM -> us                             */
+#define CMD_HB_SEQ	0x37	/* us -> ARM, payload = heartbeat seq    */
+
+#define MSG(cmd, payload)	((((u32)(cmd)) << 24) | ((payload) & 0xFFFFFF))
+#define MSG_CMD(m)		(((m) >> 24) & 0xFF)
+#define MSG_PAYLOAD(m)		((m) & 0xFFFFFF)
+
+static u8 spi_rx[SPI_MAX_BURST];
+static unsigned int spi_rx_len;
+static u32 spi_rx_sum;
+
+static void spi_do_read(unsigned int len)
+{
+	unsigned int i;
+
+	if (len == 0 || len > SPI_MAX_BURST)
+		len = 8;
+
+	if (spi_selftest(spi_rx, &spi_rx_len) < 0) {
+		spi_rx_len = 0;
+		spi_rx_sum = 0xDEADu;
+		return;
+	}
+	spi_rx_sum = 0;
+	for (i = 0; i < SPI_MAX_BURST; i++)
+		spi_rx_sum ^= ((u32)spi_rx[i] << ((i & 3) * 8));
+}
+
+static void handle_arm_packet(u32 hdr, const u32 *data, unsigned int count)
+{
+	u32 rhdr = hdr & 0x00FFFFFFu;   /* result byte (hdr byte3) = 0: OK */
+	u32 copy[16];
+	unsigned int i;
+
+	uart_puts("[pkt] hdr=");
+	uart_put_hex(hdr);
+	uart_puts(" count=");
+	uart_put_dec(count);
+	if (count > 0) {
+		uart_puts(" d0=");
+		uart_put_hex(data[0]);
+	}
+	uart_puts("\n");
+
+	/* Reply rule from the vendor dispatcher (scp.fex 0x4000acd8): the
+	 * packet is echoed back with only the result byte changed, and only
+	 * when the sender asked for a reply (flags & 3 != 0).  bl31's
+	 * arm_svc_arisc_wait_ready() sends a query with data[0] low byte
+	 * 0x90 and completes on receiving this echo. */
+	for (i = 0; i < count && i < 16; i++)
+		copy[i] = data[i];
+
+	if ((hdr & 0x00FFFFFFu) == 0x00900200u) {
+		/* bl31's ACK to our feedback/ready packets -- never echo a
+		 * reply back to a reply (T26). */
+		uart_puts("[pkt] ack from ARM -- no echo\n");
+		return;
+	}
+	if (((hdr >> 8) & 3u) == 0u) {
+		uart_puts("[pkt] flags&3 == 0 -- no reply expected\n");
+		return;
+	}
+	if (msgbox_send_packet(rhdr, copy, count) == 0)
+		uart_puts("[pkt] replied (result=0)\n");
+	else
+		uart_puts("[pkt] reply FAILED\n");
+}
+
+int main(void)
+{
+	unsigned int seq = 0;
+	unsigned int last_reported = 0;
+	int heartbeat = 1;
+	int mux_ok, spi_ok, hs_ok;
+	int c;
+	u32 last_banner_seq = 0xFFFFFFFFu;
+
+	/* First thing: publish the magic. If the ARM can read it, the core is
+	 * executing our code even when nothing else works. */
+	hb_init();
+	hb_stage(1);
+
+	/*
+	 * FAIL-SAFE ORDERING -- read this before moving anything above it.
+	 *
+	 * bl31 loads this image, sets E902_RST_START_ADDR, releases reset and
+	 * then calls arm_svc_arisc_wait_ready(): it WAITS for the little core to
+	 * report readiness before it carries on booting Linux. If that signal
+	 * never arrives, the hang happens inside bl31 and the board does not
+	 * boot at all.
+	 *
+	 * So the handshake goes FIRST, before any pin mux, UART or SPI bring-up.
+	 * Consequence: even if everything below this line fails, bl31 already has
+	 * its "ready", the board still boots, and the worst case degrades to
+	 * "the little core is dead" (no DRAM DFS, no suspend) instead of
+	 * "the board is bricked".
+	 *
+	 * Packet = the vendor's: mailbox channel 3, header 0x00900200, 13 data words.
+	 * Verified by independent disassembly of scp.fex (T15 + T21).
+	 */
+	/* Service the WDT_CPUS exactly like the vendor does right before its
+	 * startup feedback (T25): boot0/bl31 leave it armed with a ~10s
+	 * timeout and it resets the board while bl31 waits for the ready. */
+	wdt_cpus_service();
+
+	msgbox_init();
+	hs_ok = msgbox_send_startup_feedback();
+
+	/* Mux PL2/PL3 to S_UART0 before touching the UART. Nothing on the
+	 * Linux side does this for us -- see the comment in pinmux.c. */
+	mux_ok = pinmux_s_uart0();
+	hb_stage(2);
+
+	uart_init(115200);
+	hb_set(HB_PL_CFG0, pinmux_read_pl_cfg0());
+	hb_set(HB_APBS1, apbs1_rate());
+	hb_set(HB_RISCV_BGR, readl(RISCV_BGR_REG));
+	hb_set(HB_RST_START, readl(E902_RST_START_ADDR_REG));
+
+	uart_puts("\n\n=== A733 E902 firmware v5 ===\n");
+	uart_puts("PL_CFG0     = ");
+	uart_put_hex(pinmux_read_pl_cfg0());
+	uart_puts(mux_ok == 0 ? "  (PL2/PL3 mux ok)\n"
+			      : "  (PL2/PL3 mux MISMATCH!)\n");
+	uart_puts("APBS1 (S_UART clock) = ");
+	uart_put_dec(apbs1_rate());
+	uart_puts(" Hz\n");
+	uart_puts("RISCV_BGR   = ");
+	uart_put_hex(readl(RISCV_BGR_REG));
+	uart_puts("\nRST_START   = ");
+	uart_put_hex(readl(E902_RST_START_ADDR_REG));
+	uart_puts("\nstartup feedback (ch3 hdr=0x00900200 13w) : ");
+	uart_puts(hs_ok == 0 ? "sent\n" : "FAILED\n");
+
+	/* Receive interrupts on our own console UART (CLIC IRQ 29). */
+	clic_set_handler(IRQ_S_UART0, uart_isr);
+	clic_enable(IRQ_S_UART0, 0 /* level triggered */);
+	uart_irq_enable();
+
+	msgbox_init();
+	clic_set_handler(IRQ_CPUX_MBOX_W_R, msgbox_isr);
+	clic_enable(IRQ_CPUX_MBOX_W_R, 0 /* level triggered */);
+
+	/* 100 ms periodic tick on CLIC irq 21. */
+	timer_periodic_start(100);
+
+	/* S_SPI: the CPUS-domain controller, free because Linux has the node
+	 * disabled. 500 kHz is slow and safe for bench wiring. */
+	spi_ok = spi_init(500000);
+	hb_set(HB_SPI_INIT, (spi_ok == 0) ? 0u : 0xFFFFFFFFu);
+	uart_puts("spi_init(500kHz) = ");
+	uart_puts(spi_ok == 0 ? "ok\n" : "FAILED (controller not enabled)\n");
+	spi_dump_regs();
+	clic_set_handler(IRQ_S_SPI, spi_isr);
+	clic_enable(IRQ_S_SPI, 0);
+	spi_irq_enable();
+
+	hb_stage(3);
+	uart_puts("msgbox irq 48, timer irq 21 (100ms), uart irq 29, spi irq 38.\n");
+	uart_puts("keys: s=send to ARM  r=rx count  t=ticks  p=spi selftest  h=heartbeat\n");
+
+	/* Unsolicited SPI read out of the box, so an ARM-side listener sees
+	 * the result without having to send anything first. */
+	spi_do_read(8);
+	hb_set(HB_SPI_TXCNT, spi_tc_count());
+	hb_set(HB_SPI_RXCNT, spi_rx_len);
+	hb_set(HB_SPI_RX0, ((u32)spi_rx[0] << 24) | ((u32)spi_rx[1] << 16) |
+			   ((u32)spi_rx[2] << 8) | spi_rx[3]);
+	hb_set(HB_SPI_RX1, ((u32)spi_rx[4] << 24) | ((u32)spi_rx[5] << 16) |
+			   ((u32)spi_rx[6] << 8) | spi_rx[7]);
+
+	/* (the boot handshake was already sent at the very top of main() --
+	 * see the FAIL-SAFE ORDERING comment there) */
+
+	/* T26: bl31's arm_svc_arisc_wait_ready() (monitor.fex 0xae88..0xb128)
+	 * polls ch3 for a packet whose data[0] low byte == 0x90.  The feedback
+	 * packet alone (13 zero data words) does NOT satisfy it, and ANY stray
+	 * non-packet word (like the old single-word HELLO) deadlocks bl31's
+	 * receiver -- it pops the word as a header and then spins forever
+	 * waiting for the count word.  Send the ready notification as a proper
+	 * packet instead. */
+	{
+		u32 ready_data[1] = { 0x90u };
+
+		if (msgbox_send_packet(0x00900200u, ready_data, 1) == 0)
+			uart_puts("ready pkt sent (d0=0x90)\n");
+		else
+			uart_puts("ready pkt FAILED\n");
+	}
+
+	ts_test_run();
+
+	hb_stage(4);
+
+	for (;;) {
+		hb_tick();
+
+		if (heartbeat) {
+			unsigned int t = timer_ticks();
+
+			if (t - last_reported >= 10) {	/* 10 x 100 ms */
+				last_reported = t;
+				uart_puts("[tick] ");
+				uart_put_dec(t);
+				uart_puts("\n");
+			}
+			/* Republish the live counters roughly once a second so the
+			 * SRAM block stays useful without a console. */
+			if (t / 10 != last_banner_seq) {
+				last_banner_seq = t / 10;
+				hb_set(HB_SPI_IRQ, spi_irq_count());
+				hb_set(HB_SPI_TXCNT, spi_tc_count());
+				hb_set(HB_UART_RX, uart_rx_count());
+				hb_set(HB_MBOX_IRQ, msgbox_irq_count());
+				hb_set(HB_MBOX_RXCOUNT, mb_rx_count);
+				hb_set(HB_TIMER_TICKS, t);
+			}
+		}
+
+		if (mb_pkt_ready) {
+			mb_pkt_ready = 0;
+			handle_arm_packet(mb_pkt_hdr,
+					  (const u32 *)mb_pkt_data,
+					  mb_pkt_words);
+		}
+
+		/* Drain anything the UART interrupt buffered. */
+		while ((c = uart_rx_pop()) >= 0) {
+			if (c == 's') {
+				seq++;
+				uart_puts("[tx] seq=");
+				uart_put_dec(seq);
+				if (msgbox_send(MSG(CMD_UART_KEY, seq)) == 0)
+					uart_puts(" sent\n");
+				else
+					uart_puts(" FAILED\n");
+			} else if (c == 'r') {
+				uart_puts("[rx count] ");
+				uart_put_dec(mb_rx_count);
+				uart_puts(" (uart irq bytes ");
+				uart_put_dec(uart_rx_count());
+				uart_puts(")\n");
+			} else if (c == 't') {
+				uart_puts("[ticks] ");
+				uart_put_dec(timer_ticks());
+				uart_puts(" (x100ms)\n");
+			} else if (c == 'p') {
+				spi_do_read(8);
+				uart_puts("[spi] ");
+				uart_put_dec(spi_rx_len);
+				uart_puts(" bytes sum=");
+				uart_put_hex(spi_rx_sum);
+				uart_puts("\n");
+			} else if (c == 'h') {
+				heartbeat = !heartbeat;
+				uart_puts(heartbeat ? "[heartbeat on]\n"
+						    : "[heartbeat off]\n");
+			} else if (c == '\r' || c == '\n') {
+				/* ignore CR/LF so the console stays readable */
+			} else {
+				uart_putc((char)c);
+			}
+		}
+	}
+
+	return 0;
+}

@@ -1,0 +1,22 @@
+diff --git a/ar100s/driver/timer/timer-extended/timer-extended.c b/ar100s/driver/timer/timer-extended/timer-extended.c
+index c1c77f1..fc4f0ef 100644
+--- a/ar100s/driver/timer/timer-extended/timer-extended.c
++++ b/ar100s/driver/timer/timer-extended/timer-extended.c
+@@ -61,10 +61,14 @@ s32 timer_init(void)
+ 		 * timer tick time base on ms,
+ 		 * soucre clock = 24M, pre-scale = 1, timer source clock = 24M.
+ 		 */
+-		/* source clock = 24M */
++		/*
++		 * source clock = SYS_CLK24M (mux 4, manual V1.00 4.2.5.4).
++		 * mux 0 is the DCXO, which is 26 MHz on boards such as the
++		 * Orange Pi Zero 3W -- ms timing would run 8.3% fast there.
++		 */
+ 		value = readl(EXT_TIMER_CLK_REG(index));
+-		value &= ~(0x3 << 4);
+-		value |= (0x0 << 4);
++		value &= ~(0x7 << 4);
++		value |= (0x4 << 4);
+ 		writel(value, EXT_TIMER_CLK_REG(index));
+ 
+ 		/* pre-scale = 1 */

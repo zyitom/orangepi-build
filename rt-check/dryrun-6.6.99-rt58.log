@@ -1,0 +1,324 @@
+File arch/arm/Kconfig is read-only; trying to patch anyway
+checking file arch/arm/Kconfig
+File arch/arm/mm/fault.c is read-only; trying to patch anyway
+checking file arch/arm/mm/fault.c
+File arch/arm/vfp/vfpmodule.c is read-only; trying to patch anyway
+checking file arch/arm/vfp/vfpmodule.c
+File arch/arm64/Kconfig is read-only; trying to patch anyway
+checking file arch/arm64/Kconfig
+File arch/powerpc/Kconfig is read-only; trying to patch anyway
+checking file arch/powerpc/Kconfig
+File arch/powerpc/include/asm/stackprotector.h is read-only; trying to patch anyway
+checking file arch/powerpc/include/asm/stackprotector.h
+File arch/powerpc/kernel/traps.c is read-only; trying to patch anyway
+checking file arch/powerpc/kernel/traps.c
+File arch/powerpc/kvm/Kconfig is read-only; trying to patch anyway
+checking file arch/powerpc/kvm/Kconfig
+File arch/powerpc/platforms/pseries/Kconfig is read-only; trying to patch anyway
+checking file arch/powerpc/platforms/pseries/Kconfig
+File arch/powerpc/platforms/pseries/iommu.c is read-only; trying to patch anyway
+checking file arch/powerpc/platforms/pseries/iommu.c
+File arch/riscv/Kconfig is read-only; trying to patch anyway
+checking file arch/riscv/Kconfig
+File arch/riscv/include/asm/cpufeature.h is read-only; trying to patch anyway
+checking file arch/riscv/include/asm/cpufeature.h
+File arch/riscv/include/asm/thread_info.h is read-only; trying to patch anyway
+checking file arch/riscv/include/asm/thread_info.h
+File arch/riscv/kernel/cpufeature.c is read-only; trying to patch anyway
+checking file arch/riscv/kernel/cpufeature.c
+File arch/riscv/kernel/smpboot.c is read-only; trying to patch anyway
+checking file arch/riscv/kernel/smpboot.c
+File arch/x86/Kconfig is read-only; trying to patch anyway
+checking file arch/x86/Kconfig
+File arch/x86/include/asm/thread_info.h is read-only; trying to patch anyway
+checking file arch/x86/include/asm/thread_info.h
+File drivers/acpi/processor_idle.c is read-only; trying to patch anyway
+checking file drivers/acpi/processor_idle.c
+File drivers/block/zram/zram_drv.c is read-only; trying to patch anyway
+checking file drivers/block/zram/zram_drv.c
+File drivers/block/zram/zram_drv.h is read-only; trying to patch anyway
+checking file drivers/block/zram/zram_drv.h
+File drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+File drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+File drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+File drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+File drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h is read-only; trying to patch anyway
+checking file drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
+File drivers/gpu/drm/i915/Kconfig is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/Kconfig
+File drivers/gpu/drm/i915/display/intel_crtc.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/display/intel_crtc.c
+File drivers/gpu/drm/i915/display/intel_vblank.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/display/intel_vblank.c
+File drivers/gpu/drm/i915/gt/intel_execlists_submission.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+File drivers/gpu/drm/i915/gt/intel_reset.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/gt/intel_reset.c
+File drivers/gpu/drm/i915/gt/uc/intel_guc.h is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/gt/uc/intel_guc.h
+File drivers/gpu/drm/i915/i915_request.c is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/i915_request.c
+File drivers/gpu/drm/i915/i915_trace.h is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/i915_trace.h
+File drivers/gpu/drm/i915/i915_utils.h is read-only; trying to patch anyway
+checking file drivers/gpu/drm/i915/i915_utils.h
+File drivers/tty/serial/21285.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/21285.c
+File drivers/tty/serial/8250/8250_aspeed_vuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_aspeed_vuart.c
+File drivers/tty/serial/8250/8250_bcm7271.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_bcm7271.c
+File drivers/tty/serial/8250/8250_core.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_core.c
+File drivers/tty/serial/8250/8250_dma.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_dma.c
+File drivers/tty/serial/8250/8250_dw.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_dw.c
+File drivers/tty/serial/8250/8250_exar.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_exar.c
+File drivers/tty/serial/8250/8250_fsl.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_fsl.c
+File drivers/tty/serial/8250/8250_mtk.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_mtk.c
+File drivers/tty/serial/8250/8250_omap.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_omap.c
+File drivers/tty/serial/8250/8250_pci1xxxx.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_pci1xxxx.c
+File drivers/tty/serial/8250/8250_port.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/8250/8250_port.c
+File drivers/tty/serial/altera_jtaguart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/altera_jtaguart.c
+File drivers/tty/serial/altera_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/altera_uart.c
+File drivers/tty/serial/amba-pl010.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/amba-pl010.c
+File drivers/tty/serial/amba-pl011.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/amba-pl011.c
+File drivers/tty/serial/apbuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/apbuart.c
+File drivers/tty/serial/ar933x_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/ar933x_uart.c
+File drivers/tty/serial/arc_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/arc_uart.c
+File drivers/tty/serial/atmel_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/atmel_serial.c
+File drivers/tty/serial/bcm63xx_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/bcm63xx_uart.c
+File drivers/tty/serial/cpm_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/cpm_uart.c
+File drivers/tty/serial/digicolor-usart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/digicolor-usart.c
+File drivers/tty/serial/dz.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/dz.c
+File drivers/tty/serial/fsl_linflexuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/fsl_linflexuart.c
+File drivers/tty/serial/fsl_lpuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/fsl_lpuart.c
+File drivers/tty/serial/icom.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/icom.c
+File drivers/tty/serial/imx.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/imx.c
+File drivers/tty/serial/ip22zilog.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/ip22zilog.c
+File drivers/tty/serial/jsm/jsm_neo.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/jsm/jsm_neo.c
+File drivers/tty/serial/jsm/jsm_tty.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/jsm/jsm_tty.c
+File drivers/tty/serial/liteuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/liteuart.c
+File drivers/tty/serial/lpc32xx_hs.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/lpc32xx_hs.c
+File drivers/tty/serial/ma35d1_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/ma35d1_serial.c
+File drivers/tty/serial/mcf.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/mcf.c
+File drivers/tty/serial/men_z135_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/men_z135_uart.c
+File drivers/tty/serial/meson_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/meson_uart.c
+File drivers/tty/serial/milbeaut_usio.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/milbeaut_usio.c
+File drivers/tty/serial/mpc52xx_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/mpc52xx_uart.c
+File drivers/tty/serial/mps2-uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/mps2-uart.c
+File drivers/tty/serial/msm_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/msm_serial.c
+File drivers/tty/serial/mvebu-uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/mvebu-uart.c
+File drivers/tty/serial/omap-serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/omap-serial.c
+File drivers/tty/serial/owl-uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/owl-uart.c
+File drivers/tty/serial/pch_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/pch_uart.c
+File drivers/tty/serial/pic32_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/pic32_uart.c
+File drivers/tty/serial/pmac_zilog.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/pmac_zilog.c
+File drivers/tty/serial/pxa.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/pxa.c
+File drivers/tty/serial/qcom_geni_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/qcom_geni_serial.c
+File drivers/tty/serial/rda-uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/rda-uart.c
+File drivers/tty/serial/rp2.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/rp2.c
+File drivers/tty/serial/sa1100.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sa1100.c
+File drivers/tty/serial/samsung_tty.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/samsung_tty.c
+File drivers/tty/serial/sb1250-duart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sb1250-duart.c
+File drivers/tty/serial/serial-tegra.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/serial-tegra.c
+File drivers/tty/serial/serial_core.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/serial_core.c
+File drivers/tty/serial/serial_mctrl_gpio.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/serial_mctrl_gpio.c
+File drivers/tty/serial/serial_port.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/serial_port.c
+File drivers/tty/serial/serial_txx9.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/serial_txx9.c
+File drivers/tty/serial/sh-sci.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sh-sci.c
+File drivers/tty/serial/sifive.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sifive.c
+File drivers/tty/serial/sprd_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sprd_serial.c
+File drivers/tty/serial/st-asc.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/st-asc.c
+File drivers/tty/serial/stm32-usart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/stm32-usart.c
+File drivers/tty/serial/sunhv.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sunhv.c
+File drivers/tty/serial/sunplus-uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sunplus-uart.c
+File drivers/tty/serial/sunsab.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sunsab.c
+File drivers/tty/serial/sunsu.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sunsu.c
+File drivers/tty/serial/sunzilog.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/sunzilog.c
+File drivers/tty/serial/timbuart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/timbuart.c
+File drivers/tty/serial/uartlite.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/uartlite.c
+File drivers/tty/serial/ucc_uart.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/ucc_uart.c
+File drivers/tty/serial/vt8500_serial.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/vt8500_serial.c
+File drivers/tty/serial/xilinx_uartps.c is read-only; trying to patch anyway
+checking file drivers/tty/serial/xilinx_uartps.c
+File drivers/tty/tty_io.c is read-only; trying to patch anyway
+checking file drivers/tty/tty_io.c
+File fs/proc/consoles.c is read-only; trying to patch anyway
+checking file fs/proc/consoles.c
+File include/linux/bottom_half.h is read-only; trying to patch anyway
+checking file include/linux/bottom_half.h
+File include/linux/console.h is read-only; trying to patch anyway
+checking file include/linux/console.h
+File include/linux/entry-common.h is read-only; trying to patch anyway
+checking file include/linux/entry-common.h
+File include/linux/entry-kvm.h is read-only; trying to patch anyway
+checking file include/linux/entry-kvm.h
+File include/linux/interrupt.h is read-only; trying to patch anyway
+checking file include/linux/interrupt.h
+File include/linux/netdevice.h is read-only; trying to patch anyway
+checking file include/linux/netdevice.h
+File include/linux/printk.h is read-only; trying to patch anyway
+checking file include/linux/printk.h
+File include/linux/sched.h is read-only; trying to patch anyway
+checking file include/linux/sched.h
+File include/linux/sched/idle.h is read-only; trying to patch anyway
+checking file include/linux/sched/idle.h
+File include/linux/sched/rt.h is read-only; trying to patch anyway
+checking file include/linux/sched/rt.h
+File include/linux/serial_8250.h is read-only; trying to patch anyway
+checking file include/linux/serial_8250.h
+File include/linux/serial_core.h is read-only; trying to patch anyway
+checking file include/linux/serial_core.h
+File include/linux/thread_info.h is read-only; trying to patch anyway
+checking file include/linux/thread_info.h
+File include/linux/trace_events.h is read-only; trying to patch anyway
+checking file include/linux/trace_events.h
+File kernel/Kconfig.preempt is read-only; trying to patch anyway
+checking file kernel/Kconfig.preempt
+File kernel/entry/common.c is read-only; trying to patch anyway
+checking file kernel/entry/common.c
+File kernel/entry/kvm.c is read-only; trying to patch anyway
+checking file kernel/entry/kvm.c
+File kernel/futex/pi.c is read-only; trying to patch anyway
+checking file kernel/futex/pi.c
+File kernel/futex/requeue.c is read-only; trying to patch anyway
+checking file kernel/futex/requeue.c
+File kernel/ksysfs.c is read-only; trying to patch anyway
+checking file kernel/ksysfs.c
+File kernel/locking/lockdep.c is read-only; trying to patch anyway
+checking file kernel/locking/lockdep.c
+File kernel/locking/rtmutex.c is read-only; trying to patch anyway
+checking file kernel/locking/rtmutex.c
+File kernel/locking/rwbase_rt.c is read-only; trying to patch anyway
+checking file kernel/locking/rwbase_rt.c
+File kernel/locking/rwsem.c is read-only; trying to patch anyway
+checking file kernel/locking/rwsem.c
+File kernel/locking/spinlock_rt.c is read-only; trying to patch anyway
+checking file kernel/locking/spinlock_rt.c
+File kernel/locking/ww_rt_mutex.c is read-only; trying to patch anyway
+checking file kernel/locking/ww_rt_mutex.c
+File kernel/panic.c is read-only; trying to patch anyway
+checking file kernel/panic.c
+File kernel/printk/Makefile is read-only; trying to patch anyway
+checking file kernel/printk/Makefile
+File kernel/printk/internal.h is read-only; trying to patch anyway
+checking file kernel/printk/internal.h
+checking file kernel/printk/nbcon.c
+File kernel/printk/printk.c is read-only; trying to patch anyway
+checking file kernel/printk/printk.c
+File kernel/printk/printk_ringbuffer.c is read-only; trying to patch anyway
+checking file kernel/printk/printk_ringbuffer.c
+File kernel/printk/printk_ringbuffer.h is read-only; trying to patch anyway
+checking file kernel/printk/printk_ringbuffer.h
+File kernel/printk/printk_safe.c is read-only; trying to patch anyway
+checking file kernel/printk/printk_safe.c
+File kernel/rcu/rcutorture.c is read-only; trying to patch anyway
+checking file kernel/rcu/rcutorture.c
+File kernel/rcu/tree_stall.h is read-only; trying to patch anyway
+checking file kernel/rcu/tree_stall.h
+File kernel/sched/core.c is read-only; trying to patch anyway
+checking file kernel/sched/core.c
+File kernel/sched/debug.c is read-only; trying to patch anyway
+checking file kernel/sched/debug.c
+File kernel/sched/fair.c is read-only; trying to patch anyway
+checking file kernel/sched/fair.c
+File kernel/sched/features.h is read-only; trying to patch anyway
+checking file kernel/sched/features.h
+File kernel/sched/idle.c is read-only; trying to patch anyway
+checking file kernel/sched/idle.c
+File kernel/sched/rt.c is read-only; trying to patch anyway
+checking file kernel/sched/rt.c
+File kernel/sched/sched.h is read-only; trying to patch anyway
+checking file kernel/sched/sched.h
+File kernel/signal.c is read-only; trying to patch anyway
+checking file kernel/signal.c
+File kernel/softirq.c is read-only; trying to patch anyway
+checking file kernel/softirq.c
+File kernel/time/hrtimer.c is read-only; trying to patch anyway
+checking file kernel/time/hrtimer.c
+File kernel/time/tick-sched.c is read-only; trying to patch anyway
+checking file kernel/time/tick-sched.c
+File kernel/time/timer.c is read-only; trying to patch anyway
+checking file kernel/time/timer.c
+File kernel/trace/trace.c is read-only; trying to patch anyway
+checking file kernel/trace/trace.c
+File kernel/trace/trace_output.c is read-only; trying to patch anyway
+checking file kernel/trace/trace_output.c
+checking file localversion-rt
+File net/core/dev.c is read-only; trying to patch anyway
+checking file net/core/dev.c
+File net/core/skbuff.c is read-only; trying to patch anyway
+checking file net/core/skbuff.c

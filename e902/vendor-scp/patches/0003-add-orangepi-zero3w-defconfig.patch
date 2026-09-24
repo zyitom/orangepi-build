@@ -1,0 +1,18 @@
+diff --git a/ar100s/arch/configs/sun60iw2p1_opi_zero3w_defconfig b/ar100s/arch/configs/sun60iw2p1_opi_zero3w_defconfig
+new file mode 100644
+index 0000000..044c674
+--- /dev/null
++++ b/ar100s/arch/configs/sun60iw2p1_opi_zero3w_defconfig
+@@ -0,0 +1,12 @@
++CFG_SUN60IW2P1=y
++CFG_AXP8191_USED=y
++CFG_BMU_USED=y
++CFG_AXP515_USED=y
++CFG_HW_MSGBOX_EXTENDED_USED=y
++CFG_TIMER_EXTENDED_USED=y
++CFG_DRAMFREQ_USED=y
++CFG_DRAM_DTS_PARA_V2=y
++CFG_DRAM_PARA_V2=y
++CFG_CLIC_USED=y
++CFG_FDT_INIT_ARISC_PMU_USED=y
++CFG_DEBUG_INF=y

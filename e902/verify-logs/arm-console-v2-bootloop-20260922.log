@@ -1,0 +1,124 @@
+starting!
+[69]BOOT0 commit : {4nd voltage auto mode
+ra0
+[mmc]: mmc driver ver 2025-[mmc]: Wrong media type 0x0
+[mm[mmc]: HSSDR52/SDR25 4 bit
+[mmc
+[mmc]: ***SD/MMC 0 init OK!!!**[123]boot param - magic error 
+34
+[131]DRAM_VCC set to 560 mvRAM Type =9 (8:LPDDR4,9:LPDDR5)[282]Training result is = 7
+[28ncy is 1200 Mhz
+6]DRAM Pstate 2 training, freque[809]Training result is = 7
+[81ncy is 400 Mhz
+567]DRAM Pstate 0 training, freq[4576]Actual DRAM SIZE =4096 M
+ra1 = a0fa, para2 = 10001001, dr[4593]DRAM simple test OK.
+cp
+[4660]mmc not para
+[4662]Ju0000, uboot_base = 0x4a000000, oOP-TEE 32bit detected
+NOTICE:  NOTICE:  BL31: v2.5(debug):7dddb : 21:40:11, Dec 30 2024
+NOTICE Error initializing runtime servore!!!
+amp fw boot after!!!
+ig-dirty (Sep 22 2026 - 02:27:55[04.717]CPU:   Allwinner Family [04.789]Relocation Offset is: 6d[05.116]secure enable bit: 0
+[0 AXP8191 VER_A
+s_read fail
+[05.130][AXP8191] o0x0
+[05.135][AXP8191] charge st4 MHz,PLL6=1200 Mhz,AHB=200 Mhz,5]gic: sec monitor mode
+init start
+[05.191]workmode = 0: mmc driver ver uboot2018:2024-03-28 10:03:00
+[05.203][mmc]: g host:tm1.
+mmc0",will add new node
+[05.215or>
+[05.219][mmc]: Using defaulNXI SDMMC Controller Version:0x5[05.241][mmc]: card_caps:0x300003000003f
+[05.247]sunxi flash inLoading Environment from EXT4...Failed (-5)
+No ethernet found.[05.291]NOT support bridge yet
+ridge
+[05.298]hdmi0@5520000 diser width 0
+test
+[05.304]drm_fret sunxi drm device fail!
+[05.320](not enough data: expectLink up timeout
+ of Gen1
+2024.12.30 16:00
+ Scanning mmc 0:1...
+cr
+KiB/s)
+## Executing script at 4 mmc 0
+/s)
+.2 MiB/s)
+22.6 MiB/s)
+MiB/s)
+## Booting kernel from LImage Name:   Linux kernel
+   Iage (uncompressed)
+   Data Size   Load Address: 41000000
+   Enng Checksum ...  Legacy Image at 43300000 ...
+ e Type:   ARM Linux RAMDisk Image:    6783110 Bytes = 6.5 MiB
+ ry Point:  00000000
+   VerifyinOK
+## Flattened Device Tree blothe fdt blob at 0x43000000
+end 49fff086 ... [11.499]Starting kernel ...
+
+[4][mmc]: MMC Device 2 not foundso not exit
+by_device fail!
+[12.143]Failed 
+....
+starting!
+[69]BOOT0 commit : {4nd voltage auto mode
+ra0
+[mmc]: mmc driver ver 2025-[mmc]: Wrong media type 0x0
+[mm[mmc]: HSSDR52/SDR25 4 bit
+[mmc
+[mmc]: ***SD/MMC 0 init OK!!!**[123]boot param - magic error 
+34
+[131]DRAM_VCC set to 560 mvRAM Type =9 (8:LPDDR4,9:LPDDR5)[283]Training result is = 7
+[28ncy is 1200 Mhz
+6]DRAM Pstate 2 training, freque[809]Training result is = 7
+[81ncy is 400 Mhz
+559]DRAM Pstate 0 training, freq[4568]Actual DRAM SIZE =4096 M
+ra1 = a0fa, para2 = 10001001, dr[4585]DRAM simple test OK.
+cp
+[4652]mmc not para
+[4654]Ju0000, uboot_base = 0x4a000000, oOP-TEE 32bit detected
+NOTICE:  NOTICE:  BL31: v2.5(debug):7dddb : 21:40:11, Dec 30 2024
+NOTICE Error initializing runtime servore!!!
+amp fw boot after!!!
+ig-dirty (Sep 22 2026 - 02:27:55[04.709]CPU:   Allwinner Family [04.781]Relocation Offset is: 6d[05.108]secure enable bit: 0
+[0 AXP8191 VER_A
+s_read fail
+[05.122][AXP8191] o0x0
+[05.127][AXP8191] charge st4 MHz,PLL6=1200 Mhz,AHB=200 Mhz,7]gic: sec monitor mode
+init start
+[05.183]workmode = 0: mmc driver ver uboot2018:2024-03-28 10:03:00
+[05.195][mmc]: g host:tm1.
+mmc0",will add new node
+[05.207or>
+[05.211][mmc]: Using defaulNXI SDMMC Controller Version:0x5[05.233][mmc]: card_caps:0x300003000003f
+[05.239]sunxi flash inLoading Environment from EXT4...Failed (-5)
+No ethernet found.[05.283]NOT support bridge yet
+ridge
+[05.290]hdmi0@5520000 diser width 0
+test
+[05.296]drm_fret sunxi drm device fail!
+[05.312](not enough data: expectLink up timeout
+ of Gen1
+2024.12.30 16:00
+ Scanning mmc 0:1...
+cr
+KiB/s)
+## Executing script at 4 mmc 0
+/s)
+.2 MiB/s)
+22.6 MiB/s)
+MiB/s)
+## Booting kernel from LImage Name:   Linux kernel
+   Iage (uncompressed)
+   Data Size   Load Address: 41000000
+   Enng Checksum ...  Legacy Image at 43300000 ...
+ e Type:   ARM Linux RAMDisk Image:    6783110 Bytes = 6.5 MiB
+ ry Point:  00000000
+   VerifyinOK
+## Flattened Device Tree blothe fdt blob at 0x43000000
+end 49fff086 ... [11.491]Starting kernel ...
+
+[6][mmc]: MMC Device 2 not foundso not exit
+by_device fail!
+[12.135]Failed 
+....

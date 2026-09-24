@@ -1,0 +1,5 @@
+# Out-of-tree build of the A733 AMP shared timestamp driver for a kernel
+# whose config does not have CONFIG_AW_AMP_TIMESTAMP (the running RT kernel).
+# The header's IS_ENABLED() check would otherwise select its inline stubs.
+obj-m := amp_timestamp.o
+ccflags-y := -I$(src)/include -DCONFIG_AW_AMP_TIMESTAMP_MODULE=1
