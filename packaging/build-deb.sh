@@ -5,14 +5,18 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-KV=6.6.98-sun60iw2
-VER=0.1.0
+VER=0.2.0
 STAGE=$(mktemp -d)
 trap 'rm -rf "$STAGE"' EXIT
 
 # --- payload in target filesystem layout ------------------------------------
-install -D -m 644 prebuilt/vin_v4l2.ko    "$STAGE/lib/modules/$KV/updates/vin_v4l2.ko"
-install -D -m 644 prebuilt/ar0234_mipi.ko "$STAGE/lib/modules/$KV/updates/ar0234_mipi.ko"
+# kernel side (ar0234_mipi.ko, patched vin, DTB) comes from the kernel/dtb
+# packages built with userpatches/kernel/sun60iw2-current -- not shipped here.
+# The binaries below are built on the board: make -C userspace, then copy
+# build/ar0234-{3ad,rec,npu-zerocopy} to packaging/payload/usr/local/bin/.
+for b in ar0234-3ad ar0234-rec ar0234-npu-zerocopy; do
+	[ -x packaging/payload/usr/local/bin/$b ] || { echo "missing packaging/payload/usr/local/bin/$b (see above)"; exit 1; }
+done
 install -D -m 755 packaging/payload/usr/local/bin/ar0234-3ad "$STAGE/usr/local/bin/ar0234-3ad"
 install -D -m 755 packaging/payload/usr/local/bin/ar0234-rec "$STAGE/usr/local/bin/ar0234-rec"
 install -D -m 755 packaging/payload/usr/local/bin/ar0234-npu-zerocopy "$STAGE/usr/local/bin/ar0234-npu-zerocopy"

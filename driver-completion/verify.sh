@@ -15,7 +15,7 @@ done
 echo "=== SPI / spidev ==="
 ls -l /dev/spidev* 2>&1
 echo "=== 幽灵外设是否已安静（应无 hym8563/goodix 报错）==="
-printf ' \n' | sudo -S -p '' dmesg | grep -iE 'hym8563|Goodix|ac101' | tail -10
+sudo dmesg | grep -iE 'hym8563|Goodix|ac101' | tail -10
 echo "(以上为空 = 幽灵节点已关闭)"
 echo "=== 其它错误汇总 ==="
-printf ' \n' | sudo -S -p '' dmesg | grep -iE 'error|fail' | tail -15
+sudo dmesg | grep -iE 'error|fail' | tail -15

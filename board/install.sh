@@ -1,30 +1,24 @@
 #!/bin/sh
 # Install the AR0234 camera stack on an Orange Pi Zero 3W (A733) running the
-# 6.6.98-sun60iw2 image. Run on the board from a copy of ar0234-port:
+# kernel built by orangepi-build with userpatches/kernel/sun60iw2-current
+# (that kernel package already carries ar0234_mipi.ko and the patched vin).
+# Run on the board from a copy of ar0234-port:
 #   sudo sh board/install.sh            (then reboot)
 # Undo: restore the *.orig backups it prints, apt-mark unhold the kernel packages.
 set -e
 DIR=$(cd "$(dirname "$0")/.." && pwd)
-KV=6.6.98-sun60iw2
-M=/lib/modules/$KV/kernel/bsp/drivers/vin
+M=/lib/modules/$(uname -r)/kernel/bsp/drivers/vin
 DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
 VIND=/soc@3000000/vind@5800800
 
-[ "$(uname -r)" = "$KV" ] || { echo "kernel $(uname -r) != $KV, rebuild the modules"; exit 1; }
+[ -f $M/modules/sensor/ar0234_mipi.ko ] || {
+	echo "no ar0234_mipi.ko under $M: install a kernel built with userpatches/kernel/sun60iw2-current"; exit 1; }
 
 backup() {
 	[ -f "$1" ] || { echo "backup: $1 (absent, nothing to save)"; return 0; }
 	[ -f "$1.orig" ] || cp "$1" "$1.orig"
 	echo "backup: $1.orig"
 }
-
-# modules: sensor driver + vin framework with the auto S_INPUT fixes and
-# CONFIG_D3D (LBC mode) for the ISP 3DNR; vin_io.ko stays the packaged one
-backup $M/vin_v4l2.ko
-[ -f $M/modules/sensor/ar0234_mipi.ko ] && backup $M/modules/sensor/ar0234_mipi.ko
-install -m 644 "$DIR/prebuilt/vin_v4l2.ko" $M/vin_v4l2.ko
-install -m 644 "$DIR/prebuilt/ar0234_mipi.ko" $M/modules/sensor/ar0234_mipi.ko
-depmod -a $KV
 
 # device tree: AR0234 on MIPI-A through the ISP, unused MIPI-B sensor off
 backup $DTB
@@ -55,7 +49,7 @@ rm -f /mnt/isp0_*_ar0234_mipi_ctx_saved.bin
 backup /etc/ar0234.conf
 [ -f /etc/ar0234.conf ] || install -m 644 "$DIR/board/ar0234.conf" /etc/ar0234.conf
 
-# keep apt from replacing the modules/DTB above
+# keep apt from replacing the kernel/DTB this setup depends on
 apt-mark hold linux-image-current-sun60iw2 linux-dtb-current-sun60iw2
 
 # C++ userspace: ar0234-3ad (3A for every stream) + ar0234-rec (VE recorder)

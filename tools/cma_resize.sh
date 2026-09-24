@@ -20,7 +20,7 @@
 #   sh tools/cma_resize.sh set 64        # cma=64M after next reboot
 #   sh tools/cma_resize.sh rollback      # restore the shipped boot.cmd
 # Run on the board (needs root for /boot and reboot for the effect):
-#   printf ' \n' | sudo -S -p '' sh tools/cma_resize.sh set 64
+#   sudo sh tools/cma_resize.sh set 64
 set -e
 BOOT_CMD=/boot/boot.cmd
 BOOT_SCR=/boot/boot.scr

@@ -45,7 +45,7 @@ PWM 通道 → 引脚（来自 board DTS 的 pinctrl 定义）：
 # 板上（root）。先看有哪些可用，再启用（会自动备份 orangepiEnv.txt）
 sh enable-overlay.sh                                   # 列出可用覆层
 sh enable-overlay.sh i2c0 pwm3 uart2                    # 启用三个
-printf ' \n' | sudo -S -p '' reboot
+sudo reboot
 sh test-40pin.sh                                        # 验收
 ```
 回退：脚本会打印 `cp -a /boot/orangepiEnv.txt.bak-… /boot/orangepiEnv.txt && reboot`。

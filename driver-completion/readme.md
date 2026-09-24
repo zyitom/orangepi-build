@@ -53,8 +53,8 @@ sudo ./build.sh BOARD=orangepizero3w BRANCH=current BUILD_OPT=kernel REVISION=1.
 ### 第二步：DT 翻转（板子上，root）
 ```sh
 # 把 dt-enable.sh 传到板上再跑
-printf ' \n' | sudo -S -p '' sh /tmp/dt-enable.sh
-printf ' \n' | sudo -S -p '' reboot
+sudo sh /tmp/dt-enable.sh
+sudo reboot
 ```
 （脚本会先备份 DTB，并打印回退命令。）
 

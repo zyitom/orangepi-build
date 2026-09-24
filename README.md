@@ -1,6 +1,8 @@
 # AR0234 → Orange Pi Zero 3W (A733/sun60iw2) BSP 摄像头驱动移植
 
-> 接手工作先读 [`HANDOFF.md`](HANDOFF.md)（待办任务、环境、必读的坑），硬件接口见 [`hwapi/README.md`](hwapi/README.md)。
+> **内核改动（驱动 + vin 补丁 + RT）只在 `../userpatches/kernel/sun60iw2-current/` 一处**，由 orangepi-build 编内核时自动打上；
+> 本目录只放用户态、打包、参数和调试记录。
+> 接手工作先读 [`docs/HANDOFF.md`](docs/HANDOFF.md)（待办任务、环境、必读的坑），硬件接口见 [`hwapi/README.md`](hwapi/README.md)。
 
 4-lane MIPI（MIPI-A），10-bit RAW (GRBG)，24MHz MCLK，走 `vind0 → mipi0 → csi0 → tdm_rx0 → isp0 → vinc00`
 （沿用板上原 imx219 的链路）。
@@ -102,7 +104,7 @@ libisp 全局状态不会残留。
 | 关，缺标定 | LSC、MSC（没有 AR0234 镜头的平场表） |
 | 用不上 | WDR（AR0234 无 HDR）、AF（定焦） |
 
-- 3DNR 需要 `CONFIG_D3D=y` 且 **LBC 模式**（`patches/0004`，`prebuilt/vin_v4l2.ko` 已带）。
+- 3DNR 需要 `CONFIG_D3D=y` 且 **LBC 模式**（已写进 `../userpatches/linux-sun60iw2-current-a733.config`）。
   厂商 A733 配置里 D3D 是关的；PKG 模式一出流就 `isp0 width error`，COMPRESS_EN 会 IOMMU fault。
   `vin_io.ko` 必须用系统原装的，树里重编的 vin_io 同样出不了图。
 - 1920x1200@120 帧长 1216 行、消隐只有 16 行，3DNR 来不及更新参考帧，每帧 `isp0 frame lost`
@@ -112,23 +114,25 @@ libisp 全局状态不会残留。
 - 3DNR 实测：1080p30 帧间噪声（相邻帧亮度差中位数）1.03 → 0.03，编码方块明显减少。
 - `isp/isp_param_config.bin` 是之前 3DNR 关闭的版本，留作对照。
 
-## 内容
+## 目录
 
-| 文件 | 说明 |
+| 路径 | 说明 |
 |---|---|
-| `ar0234_mipi.c` | BSP sunxi-vin 框架 sensor 驱动（以 imx219.c 为模板），寄存器表来自 RPi/Kurokesu ar0234 驱动 |
-| `patches/0001-vin-sun60iw2-add-ar0234-sensor.patch` | 内核补丁：新驱动 + sensor/Kconfig + sensor/Makefile + zero3w DTS 的 `sensor0_mname` |
-| `patches/0002-configs-enable-sensor-ar0234.patch` | 三个内核配置加 `CONFIG_SENSOR_AR0234=m` |
-| `patches/0004-configs-enable-isp-3dnr-d3d-lbc.patch` | 三个内核配置开 `CONFIG_D3D=y` + `CONFIG_D3D_LBC_MODE=y`（ISP 硬件 3DNR） |
-| `build/vin-d3d-lbc/` | 外部编译 vin 模块的目录（vin 源码拷贝 + 0003 + `board_compat.h` 定义 D3D），`make -C <kernel> M=$PWD` 约 9 秒 |
-| `apply.sh` | 一键把上面两个补丁打进 root 属主的内核树 |
-| `userspace/` | C++20 用户态：`ar0234-3ad` 3A 服务、`ar0234-rec` 录像（见上） |
-| `tools/cap.c` | 板上抓图测试程序（S_INPUT→S_FMT→STREAMON→设曝光增益→统计帧率→存 raw + 缩略 pgm） |
-| `legacy/` | 旧的 C 版录像/3A 辅助进程（`ar0234_rec.c`、`ar0234_3a.c`），已被 `userspace/` 取代，留作参考 |
-| `analysis/` | ISP 诊断：寄存器截获 `ispreg_spy.c`、RAW/NV12 统计、3A 日志、3DNR 对比 |
-| `hwapi/` | **A733 图像相关硬件底层 API 汇总**：ISP/V4L2、3A、VE、G2D、NPU、GPU、显示、DMA-BUF、PWM/GPIO 的头文件、导出符号、调用流程和验证状态 |
-| `../rt-check/` | PREEMPT_RT 补丁（6.6.97-rt57 / 6.6.99-rt58）对 BSP 内核的试打结果：0 冲突；暂不做 RT |
-| `tools/sc.py` / `tools/get_file.py` / `send_file.py` | 串口执行命令 / 从板上取文件 / 往板上传文件 |
+| `../userpatches/kernel/sun60iw2-current/` | **内核补丁（唯一出处）**：0000 RT、0001 AR0234 驱动 + DTS、0003–0013 vin 修复；README 里有逐个说明 |
+| `userspace/` | C++20 用户态：`ar0234-3ad` 3A 服务、`ar0234-rec` 录像、G2D/NPU 工具（见上）；`vendor-include/` 是 sunxi-g2d UAPI 头 |
+| `packaging/` | 一键打 `ar0234-camera` deb 包（0.2.0 起不带内核模块） |
+| `board/` | 板上安装脚本、udev 规则、`/etc/ar0234.conf` 样例 |
+| `isp/` | libisp 参数文件（3DNR / 无 3DNR / 工业固定模式）与 gc05a2 模板 |
+| `tools/` | 常用工具：`ssh_board.sh`（`-s` 以 sudo 执行）、`put_board.sh`、串口 `sc.py`/`serial_log.py`、`make_isp_bin.py`、`build_vin.sh`、`vinreg.c`、DT/CMA 辅助 |
+| `tools/hwtest/` | 硬件测试程序：抓图 `cap.c`、`vfr`、G2D/JPEG/解码/OpenCL、软件 ISP |
+| `tools/rescue/` | 板子起不来时的 u-boot / sysrq 串口救援脚本 |
+| `docs/` | `HANDOFF.md`（坑与任务清单）、`NEXT-TASKS.md`、`ARCHITECTURE.md`、`BASELINE.md` |
+| `analysis/` | 各轮调查报告（`REPORT-*.md`、`round9/`、`round10/`、`t14/`、`g2d/`…）；`analysis/scripts/` 是当时一次性用的实验脚本 |
+| `hwapi/` | A733 图像相关硬件底层 API 汇总（ISP/V4L2、3A、VE、G2D、NPU、GPU、显示、DMA-BUF、PWM/GPIO） |
+| `driver-completion/` | 非相机外设补全（RTC、触摸、音频、40-pin） |
+| `legacy/` | 旧的 C 版录像/3A 辅助进程，已被 `userspace/` 取代 |
+| `samples/`、`tuning-ref/` | 样张、Kurokesu 调参参考 |
+| `vendor-ref/`、`build/` | 本地：libAWIspApi 源码克隆、vin 外部编译目录（不入 git） |
 
 ## 相对 RPi 驱动/上一版的修正
 
@@ -145,26 +149,19 @@ libisp 全局状态不会残留。
 - 上一版装在板上的其实是 **RAW8 / 360MHz(720Mbps)** 的实验版本（描述字符串仍写 10-bit）；
   实测 10-bit/900Mbps 完全正常，现已换回 10-bit。
 
-## 编译（外部模块，秒级）
+## 编译
 
-内核树是 root 属主，不想打补丁也可以在别处建目录，把 `bsp/drivers/vin/*` 与
-`bsp/drivers/vin/modules/*`（sensor 除外）软链过去、`modules/sensor/*.h` 也软链，
-再放 `ar0234_mipi.c` + 一行 `obj-m := ar0234_mipi.o` 的 Makefile：
+正式出包：在 orangepi-build 根目录 `./build.sh BOARD=orangepizero3w BRANCH=current BUILD_OPT=kernel`。
+构建系统会把内核树 `git checkout -f` + `git clean` 回原样，再按顺序打上
+`userpatches/kernel/sun60iw2-current/*.patch`，所以**不要直接改 `kernel/orange-pi-6.6-sun60iw2`**，改动都写成补丁。
 
-```bash
-K=/home/helios/Desktop/orangepi-build/kernel/orange-pi-6.6-sun60iw2
-TC=/home/helios/Desktop/orangepi-build/toolchains/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
-make -C $K M=$PWD ARCH=arm64 CROSS_COMPILE=$TC modules
-${TC}strip --strip-debug -o ar0234_mipi.stripped.ko ar0234_mipi.ko   # 510K -> 25K，串口好传
-```
-
-或者 `sudo bash ar0234-port/apply.sh` 后走内核树 `make modules`，完整出包仍走 build.sh。
+调试时想秒级重编 vin / 传感器模块，用 `tools/build_vin.sh`（在 `build/` 下外部编译）。
 
 ## 板上使用 / 测试
 
-板子当前状态：DTB `sensor0_isp_used=1`；`vin_v4l2.ko`（D3D LBC）与 `ar0234_mipi.ko` 为 `prebuilt/` 版本，
-旧版备份 `vin_v4l2.ko.bak-pre-d3d`、`ar0234_mipi.ko.bak-pre-cpp`；`/etc/modules-load.d/ar0234.conf` 开机加载 vin；
-`ar0234-3ad.service` 开机启动；内核/dtb 包 apt-mark hold。
+板子现状（2026-09-24）：跑 RT 内核 `6.6.98-rt58-sun60iw2`，`ar0234_mipi.ko` / `vin_v4l2.ko` 由内核包提供；
+但 `/dev/video*` 不存在、`ar0234-3ad` 没在跑 —— 换 RT 内核后相机栈还没重新装好，先跑 `board/install.sh`
+或装 0.2.0 deb 包，再验证。
 
 RAW 抓图（ISP 模式下也能直接要 BA10，不经 ISP 处理）：
 
@@ -177,7 +174,7 @@ sudo v4l2-ctl -d /dev/v4l-subdev0 -c test_pattern=1   # 彩条，下次开流生
 ```
 
 注意：
-- `patches/0003` 让 vin 在开流时自动 S_INPUT，`v4l2-ctl --stream-mmap` 这类通用程序可以直接用。
+- 内核补丁 0003 让 vin 在开流时自动 S_INPUT，`v4l2-ctl --stream-mmap` 这类通用程序可以直接用。
   帧率用 `v4l2-ctl -d /dev/v4l-subdev0 -c frame_rate=N`（通用程序不发 S_PARM 时）。
 - ISP 模式下 cap 的曝光/增益（经 video0）不会写到 sensor，手动值请用 `/dev/v4l-subdev0` 的控件。
 - RAW10 缓冲是 16-bit 小端，每像素 2 字节，值域 0~1023，黑电平 42（0x301E）。

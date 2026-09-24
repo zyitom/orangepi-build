@@ -71,7 +71,7 @@ def main():
                 time.sleep(0.3)
                 ser.write(b"orangepi\r")
                 time.sleep(2.0)
-                ser.write(b" \r")  # password is a single space
+                ser.write(os.environ.get("BOARD_PASS", "orangepi").encode() + b"\r")
                 time.sleep(1.5)
                 ser.write(b"export PS1='T14> '\r")
                 login_sent = True

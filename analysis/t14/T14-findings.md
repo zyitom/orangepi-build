@@ -10,7 +10,7 @@
 
 ## 1. 现场实测：板子与文档不一致
 
-| 项 | HANDOFF.md 说 | 实测（本轮） |
+| 项 | docs/HANDOFF.md 说 | 实测（本轮） |
 |---|---|---|
 | `/lib/modules/…/updates/vin_v4l2.ko` | 修复「待验证」，DTB 里第二路已禁用 | md5 `f263f4d30ff43608ab854f825d99ac25` = **修复版**，且 `/sys/module/vin_v4l2/srcversion` = `E5BC56FB49738345BEFA770` ⇒ **加载的就是修复版** |
 | DTB `vinc@5831000`（label `vinc10`, device_id 4 → `/dev/video4`） | status disabled（稳定态） | `status = "okay"`，`vinc4_isp_tx_ch = <1>` ⇒ **T14 的部署步骤 ①②已经做完** |
@@ -128,7 +128,7 @@ sunxi_scaler.4 pad0 sink 1920x1080 → pad1 source 640x400    → vin_video4
 ## 6. 本轮改动清单（都可回退）
 
 板上：
-- `tools/boardtest.sh`、`tools/dualtest.sh`、`tools/serial_log.py`（新增，主机侧/板上测试工具）
+- `analysis/scripts/boardtest.sh`、`analysis/scripts/dualtest.sh`、`tools/serial_log.py`（新增，主机侧/板上测试工具）
 - `/lib/modules/6.6.98-sun60iw2/updates/` 增加：`vin_v4l2.ko.fix-t14`（= f263…，修复版）、
   `vin_v4l2.ko.orig-bsp`（= 512ec…，pre-fix，和已有的 `.bak-pre-fix` 内容相同）。
   **`vin_v4l2.ko` 当前 = fix-t14**（和接手时一致）。
@@ -145,14 +145,14 @@ panic / 硬挂都能自动重启，不必手动断电。回退：把该值改回
 
 ```bash
 # 单路基线（必须限帧率）
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' sh -c '
+tools/ssh_board.sh -s "sh -c '
   v4l2-ctl -d /dev/v4l-subdev0 -c frame_rate=30
   v4l2-ctl -d /dev/video0 --set-fmt-video=width=1920,height=1080,pixelformat=NV12
   timeout 20 v4l2-ctl -d /dev/video0 --stream-mmap --stream-count=120'"
 # 期望：rc=0，dmesg 无 Oops/frame lost
 
 # 双路（顺序 Y）
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' /tmp/dualtest.sh 30 120 90 4 30 15"
+tools/ssh_board.sh -s "/tmp/dualtest.sh 30 120 90 4 30 15"
 # 期望（本轮实际）：v0 rc=0、v4 rc=124（0 帧）
 
 # 换模块（必须装完重启，HANDOFF §3.1）

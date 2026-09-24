@@ -1,7 +1,6 @@
 #!/bin/sh
 # dpkg postrm: restore the original device tree and clean up runtime files.
 set -e
-KV=6.6.98-sun60iw2
 DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
 
 if [ -f "$DTB.orig-ar0234-camera" ]; then
@@ -9,9 +8,6 @@ if [ -f "$DTB.orig-ar0234-camera" ]; then
 	rm -f "$DTB.orig-ar0234-camera"
 fi
 
-# updates/ modules are already gone (package files); refresh the index so the
-# packaged kernel/ modules win again
-depmod -a $KV 2>/dev/null || true
 
 rm -f /mnt/extsd/isp_param_config.bin
 rm -rf /mnt/extsd/ar0234

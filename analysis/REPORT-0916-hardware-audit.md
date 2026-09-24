@@ -284,7 +284,7 @@ vi0: input w:1920 h:1200 fmt:GRBG10 | output 1920x1200 NV12 | prs_in x:1920 y:12
 
 | 序 | 项 | 收益 | 风险 | 下一步最小验证动作 |
 |---|---|---|---|---|
-| 1 | **G2D 开机加载 + 权限**（modules-load + udev，T7 剩余） | 中高（否则每个部署都要手工 modprobe；非 root 根本用不了） | **极低**（两行配置 + 重启） | 写 `/etc/modules-load.d/g2d.conf` + `KERNEL=="g2d", GROUP="video", MODE="0660"`，重启后以 `orangepi` 用户跑 `tools/g2d_test.cpp` |
+| 1 | **G2D 开机加载 + 权限**（modules-load + udev，T7 剩余） | 中高（否则每个部署都要手工 modprobe；非 root 根本用不了） | **极低**（两行配置 + 重启） | 写 `/etc/modules-load.d/g2d.conf` + `KERNEL=="g2d", GROUP="video", MODE="0660"`，重启后以 `orangepi` 用户跑 `tools/hwtest/g2d_test.cpp` |
 | 2 | **流启动"4 帧卡死"（10%）** | 高（工业相机最怕偶发启动失败；一行重试就能兜住） | 低（先做用户态重试，不动内核） | 在采集库里加"开流后 N ms 无帧即 STREAMOFF→重开（最多 2 次）"，用 40×4 s 循环验证 0 残留 |
 | 3 | **把"ISP 出错就得重启"改写成精确规则并写进 README/HANDOFF** | 高（避免无谓重启、避免误判"驱动坏了"） | **零**（文档） | 复述本轮两个反例即可 |
 | 4 | **T16b 的偶发复发复核** | 中高（否则用户会遇到"偶发不出图"） | 低（只读+压测） | 跑 30 次"20 s 流 + touch 第二节点"，记录冻结次数；若 ≥3 次，用 0009 之前/之后对比定位 |
@@ -357,20 +357,20 @@ MIPI-A PHY(4 lane,844Mbps,RAW10) → CSI300_500 → TDM_rx0(online) → ISP602(3
 
 | # | 文档 | 文档说法 | 本轮实测 | 性质 |
 |---|---|---|---|---|
-| 1 | `HANDOFF.md` §1 | vin 模块 = **0008**（`9899a15c…`/`659707E6…`） | 板上实际是 **0009**（`2715c25c…`/`843BC1A03606D35EC062D57`） | 文档落后（§1 没跟着 T16b 一起更新） |
-| 2 | `HANDOFF.md` §1「硬件编码」 | ✅ H.264/**H.265** 零拷贝 | H.264 ✅；**H.265 在 1920×1200@120 只出 6 帧 + `isp0 configuration error/height error`** | 高估（缺条件） |
-| 3 | `HANDOFF.md` §1「G2D」 | 完全打通、fd→fd BITBLT **字节级精确（0 差异）** | 213834/3110400 字节不同（**全部 ≤2 LSB，无 >8**）；且 `/dev/g2d` 开机不存在、只有 root 能用 | 高估 + 条件缺失 |
-| 4 | `HANDOFF.md` T16b / §3.27 第五轮 | 0009「已修复并验证…119.04 fps / 0 超时 / 0 underflow / 0 新 WARN」 | 11 次干净，但**两次独立发作**（一次冻结第一路，一次让 video0 连死 9 个流）；且 `underflow` 本 boot 又出现 1 次 | 过度乐观 |
-| 5 | `HANDOFF.md` §3.20 | 「1920×1080 可用上限是 132 fps，不是 133；133（vts 1100）会从第 4 帧起 frame lost + reset 无限循环」 | 请求 **130/132/133/134/135 全部干净**；**136 才崩**，且 134/135 与 136 编制的是同一个 `fll=1096` | **错**（边界不对，且 133 是干净的） |
-| 6 | `HANDOFF.md` §3.2 / T6 | 「十几次里有 1 次」开流后一帧不出 | **4/40 = 10%**（签名：4 帧后停 + `vi0` 计数复位 + 0 条 dmesg） | 严重低估 |
-| 7 | `HANDOFF.md` §2（坑 2）/§3.1 | 「ISP 出过错之后，下一次测试结果不可信，先重启再测」 | **反例**：400 次 `frame_lost` + 400 次 reset 之后，同 boot 的下一次流 119.78 fps 干净 | 过宽 |
+| 1 | `docs/HANDOFF.md` §1 | vin 模块 = **0008**（`9899a15c…`/`659707E6…`） | 板上实际是 **0009**（`2715c25c…`/`843BC1A03606D35EC062D57`） | 文档落后（§1 没跟着 T16b 一起更新） |
+| 2 | `docs/HANDOFF.md` §1「硬件编码」 | ✅ H.264/**H.265** 零拷贝 | H.264 ✅；**H.265 在 1920×1200@120 只出 6 帧 + `isp0 configuration error/height error`** | 高估（缺条件） |
+| 3 | `docs/HANDOFF.md` §1「G2D」 | 完全打通、fd→fd BITBLT **字节级精确（0 差异）** | 213834/3110400 字节不同（**全部 ≤2 LSB，无 >8**）；且 `/dev/g2d` 开机不存在、只有 root 能用 | 高估 + 条件缺失 |
+| 4 | `docs/HANDOFF.md` T16b / §3.27 第五轮 | 0009「已修复并验证…119.04 fps / 0 超时 / 0 underflow / 0 新 WARN」 | 11 次干净，但**两次独立发作**（一次冻结第一路，一次让 video0 连死 9 个流）；且 `underflow` 本 boot 又出现 1 次 | 过度乐观 |
+| 5 | `docs/HANDOFF.md` §3.20 | 「1920×1080 可用上限是 132 fps，不是 133；133（vts 1100）会从第 4 帧起 frame lost + reset 无限循环」 | 请求 **130/132/133/134/135 全部干净**；**136 才崩**，且 134/135 与 136 编制的是同一个 `fll=1096` | **错**（边界不对，且 133 是干净的） |
+| 6 | `docs/HANDOFF.md` §3.2 / T6 | 「十几次里有 1 次」开流后一帧不出 | **4/40 = 10%**（签名：4 帧后停 + `vi0` 计数复位 + 0 条 dmesg） | 严重低估 |
+| 7 | `docs/HANDOFF.md` §2（坑 2）/§3.1 | 「ISP 出过错之后，下一次测试结果不可信，先重启再测」 | **反例**：400 次 `frame_lost` + 400 次 reset 之后，同 boot 的下一次流 119.78 fps 干净 | 过宽 |
 | 8 | `hwapi/README.md` §5 / `HANDOFF` T19 | NPU：**❌ 缺 `libVIPlite.so`**，用户态不全 | **`/usr/lib/libNBGlinker.so` 导出全套 `vip_*` API**（含 `vip_create_buffer_from_fd`），且 `vpm_run` 实跑推理成功（2747 µs）、`yolov5` demo 认出 dog 82% | **错**（可从 ❌ 改 ✅） |
-| 9 | `HANDOFF.md` §1「硬件 JPEG」 | 实测 1080p 单帧 **33KB** | q90 实测 **239 725 B**（有效 SOF0 1920×1080×3） | 数值过时/条件缺失（质量与内容相关） |
+| 9 | `docs/HANDOFF.md` §1「硬件 JPEG」 | 实测 1080p 单帧 **33KB** | q90 实测 **239 725 B**（有效 SOF0 1920×1080×3） | 数值过时/条件缺失（质量与内容相关） |
 | 10 | `hwapi/README.md` §1 | 「BGR 1920x1200@120 有过**一次**开流后一帧不出（十几次里出现 1 次）」 | 同 #6：**10%**，且下一帧流即恢复 | 低估 |
-| 11 | `HANDOFF.md` §1「硬件编码」 | 「1200p120 实测 **115.7fps（编码器上限）**」 | H.264 实测 **103.29 fps**（9.6 ms/帧） | 数值过时（与内容/码率有关，需按实际重标） |
-| 12 | `HANDOFF.md` §3.8 | 3DNR 在 1920×1200@120 每帧丢帧；PKG 模式报 width error；COMPRESS_EN IOMMU fault | 前半条**已由 0006 的互锁变成自动关**（`3DNR forced off, sensor vblank 136 us < 500 us`）；后两条本轮未复测（不主动踩） | 部分过时（0006/0009 之后行为变了） |
-| 13 | `HANDOFF.md` §1「板子安装状态」 | 「板子停在需要断电重启的状态」 | 板子健康：1200p120 120.03 fps / 0 超时；DTB 原样 | 过时 |
-| 14 | `baseline`/`ARCHITECTURE.md`（2026-09-15） | 早于 0005–0009 / 双路 / JPEG / G2D / NPU | 未更新 | 过时（见 `BASELINE.md`） |
+| 11 | `docs/HANDOFF.md` §1「硬件编码」 | 「1200p120 实测 **115.7fps（编码器上限）**」 | H.264 实测 **103.29 fps**（9.6 ms/帧） | 数值过时（与内容/码率有关，需按实际重标） |
+| 12 | `docs/HANDOFF.md` §3.8 | 3DNR 在 1920×1200@120 每帧丢帧；PKG 模式报 width error；COMPRESS_EN IOMMU fault | 前半条**已由 0006 的互锁变成自动关**（`3DNR forced off, sensor vblank 136 us < 500 us`）；后两条本轮未复测（不主动踩） | 部分过时（0006/0009 之后行为变了） |
+| 13 | `docs/HANDOFF.md` §1「板子安装状态」 | 「板子停在需要断电重启的状态」 | 板子健康：1200p120 120.03 fps / 0 超时；DTB 原样 | 过时 |
+| 14 | `baseline`/`docs/ARCHITECTURE.md`（2026-09-15） | 早于 0005–0009 / 双路 / JPEG / G2D / NPU | 未更新 | 过时（见 `docs/BASELINE.md`） |
 | 15 | `analysis/libisp-offsets/offs.txt` + `tools/make_isp_bin.py` | 偏移以结构体表述，**未说明文件头部 74 字节** | `isp_param_config.bin` = 74 B 头（4B 长度 + 20B 日期 + 50B note）+ 116284 B 结构体；**文件偏移 = 结构体偏移 + 74**（已用 tdf: 结构体 101 ↔ 文件 175 双向验证） | 文档缺陷（不是工具错） |
 | 16 | `hwapi/README.md` §4 | 「G2D…`/dev/g2d` 只有 root 能访问 → 要在 modules-load 加上模块 + udev 规则」 | 至今**仍未做**（T7 剩余），`modprobe` 后仍是 `crw------- root root` | 未完成（不是错） |
 
@@ -387,8 +387,8 @@ MIPI-A PHY(4 lane,844Mbps,RAW10) → CSI300_500 → TDM_rx0(online) → ISP602(3
 | `analysis/hardware-audit/REPORT-0916-hardware-audit.md` | 本报告（即 `analysis/REPORT-0916-hardware-audit.md` 的副本/正本） |
 | `analysis/hardware-audit/s1..s17.out` | 本轮 18 组实验的**原始输出**（含失败原文） |
 | `analysis/hardware-audit/s1..s17.sh` | 本轮所有测试脚本（可重跑） |
-| `analysis/hardware-audit/reproA.out`, `diag.sh` | 用仓库自带 `tools/t17-repro-close.sh` 的复现记录 + 一次现场诊断 |
-| `HANDOFF.md` | 追加「第六轮」小节 + §3.28b 订正块 + 修正 §1 的模块版本/编码/JPEG/G2D 四行；备份 `HANDOFF.md.bak-pre-audit`（**未 git commit**） |
+| `analysis/hardware-audit/reproA.out`, `diag.sh` | 用仓库自带 `analysis/scripts/t17-repro-close.sh` 的复现记录 + 一次现场诊断 |
+| `docs/HANDOFF.md` | 追加「第六轮」小节 + §3.28b 订正块 + 修正 §1 的模块版本/编码/JPEG/G2D 四行；备份 `HANDOFF.md.bak-pre-audit`（**未 git commit**） |
 | ⚠️ 注意 | 仓库 `.gitignore` 第 8 行 `/analysis/*` 是**白名单**模式，`analysis/hardware-audit/*.out` 这类日志**不会进 git**（与 `analysis/t17/*.out` 一致）；它们留在磁盘上，要长期保存需手工 `git add -f` |
 
 **板子（Orange Pi Zero 3W）—— 零持久改动**
@@ -406,13 +406,13 @@ MIPI-A PHY(4 lane,844Mbps,RAW10) → CSI300_500 → TDM_rx0(online) → ISP602(3
 
 ```sh
 # 1) 万一需要回退模块（本板 rmmod vin_v4l2 不可能，必须靠重启）
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' sh -c 'cp \
+tools/ssh_board.sh -s "sh -c 'cp \
   /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko.bak-0008 \
   /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko; depmod -a'" </dev/null
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' systemd-run --on-active=2 /bin/systemctl reboot" </dev/null
+tools/ssh_board.sh -s "systemd-run --on-active=2 /bin/systemctl reboot" </dev/null
 
 # 2) 万一 DTB 被改（本轮没改）
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' sh -c 'cp \
+tools/ssh_board.sh -s "sh -c 'cp \
   /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008 \
   /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb; sync; md5sum \
   /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb'" </dev/null   # 期望 d4ee5b68…

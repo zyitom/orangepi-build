@@ -19,7 +19,7 @@
 # device_id 8) at mipi1/csi1/isp0 with rear_sensor_sel = 2, and sensor slot 2
 # already has pwdn = PE10 (sensor slot 1 shares PE6 with camera 0 - do not use
 # it while camera 0 is attached).
-S() { printf ' \n' | sudo -S -p '' "$@"; }
+S() { sudo "$@"; }
 
 DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
 V=/soc@3000000/vind@5800800

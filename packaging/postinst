@@ -1,13 +1,9 @@
 #!/bin/sh
 # dpkg postinst: register modules, patch the device tree, enable the 3A daemon.
 set -e
-KV=6.6.98-sun60iw2
 DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
 VIND=/soc@3000000/vind@5800800
 
-# modules live in updates/, which kmod searches before the packaged kernel/
-# tree, so they win without overwriting package-owned files
-depmod -a $KV
 
 # device tree: AR0234 on MIPI-A through the ISP, unused MIPI-B sensor off
 if [ ! -f "$DTB.orig-ar0234-camera" ]; then

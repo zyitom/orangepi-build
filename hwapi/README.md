@@ -167,14 +167,14 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 - `AWCropYuv` / `AWCropYuvAndRotate`：YUV 裁剪和旋转 ⚠️
 - `VideoEncIspCreate` / `VideoEncIspFunction`、`GetIspPhyAddrByFd`：编码器与 ISP 联动 ⚠️
 
-### JPEG 编码（✅ 2026-09-16 实测，`../tools/jpeg_test.cpp`）
+### JPEG 编码（✅ 2026-09-16 实测，`../tools/hwtest/jpeg_test.cpp`）
 
 `VideoEncCreate(VENC_CODEC_JPEG)` + `VideoEncSetParameter(VENC_IndexParamJpegQuality, &int)` +
 `VideoEncInit(YUV420SP)`，零拷贝流程与 H.264 相同（GetVeIommuAddr/nShareBufFd=-1），
 `GetOneBitstreamFrame` 直接出完整 JPEG（无独立码流头）。实测 1080p 单帧 33KB，走 **VE2**
 （`/dev/cedar_dev_ve2`）。无 SPS/PPS 调用。
 
-### 解码 libvdecoder（⚠️→✅ 2026-09-16，`../tools/dec_test.cpp` + 厂商 demo）
+### 解码 libvdecoder（⚠️→✅ 2026-09-16，`../tools/hwtest/dec_test.cpp` + 厂商 demo）
 
 **解码可用，但有三个坑（2026-09-16 实测）：**
 1. 必须先 `AddVDPlugin()`（加载 libawh264/libawh265 等插件），链接 **`-lvideoengine`**；
@@ -191,7 +191,7 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 - 没有用户态库，直接对 `/dev/g2d` 发 ioctl。
 - ✅ 驱动能响应：`G2D_CMD_QUERY_VERSION` 返回 `g2d_version = 0x10112114`（`vendor-samples/probe_accel.c`）
 - ✅ 开机自动加载 + 权限已修（第七轮）：`/etc/modules-load.d/g2d.conf` + udev `KERNEL=="g2d", GROUP="video", MODE="0660"`；冷启动 `/dev/g2d` = `crw-rw---- root video`，`orangepi`（video 组）免 sudo 即可用（主设备号是动态的，规则必须匹配设备名）
-- ✅ 打通 + 机制确认（2026-09-16，第八轮；`../tools/g2d_test.cpp`，证据 `../analysis/g2d/REPORT.md`）：
+- ✅ 打通 + 机制确认（2026-09-16，第八轮；`../tools/hwtest/g2d_test.cpp`，证据 `../analysis/g2d/REPORT.md`）：
   1. `src_image_h.bbuff` 必须设 **1**，否则 G2D 把源读成有限色域黑帧；`use_phy_addr = 0` 走 fd 路径；
      src/dst 用两个 `/dev/dma_heap/system` 专用缓冲；sync 顺序是 CPU 写前 `START`、写后 `END`，
      设备写完后 CPU 读前 `START`（invalidate）、读完 `END`；测真实帧前先 `cap.stop()`。

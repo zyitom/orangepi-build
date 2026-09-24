@@ -43,3 +43,7 @@ packaging/*.deb
 
 # vendor ISP source clone (Allwinner, see analysis/libisp-offsets/VENDOR-SOURCE-CHECK.md)
 /vendor-ref/
+
+# userspace binaries are built on the board (make -C userspace) and copied here
+/packaging/payload/usr/local/bin/
+__pycache__/

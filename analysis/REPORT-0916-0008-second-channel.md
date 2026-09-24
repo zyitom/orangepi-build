@@ -135,7 +135,7 @@ channel on this SoC; forcing 0 (video4 would otherwise silently never receive a 
 
 ### 2.1 受控复现实验（超时 + 看门狗兜底）
 
-脚本 `tools/t14iommu.sh`：先挂 150 s 的 `systemd-run --on-active=150 /bin/systemctl reboot` 兜底，
+脚本 `analysis/scripts/t14iommu.sh`：先挂 150 s 的 `systemd-run --on-active=150 /bin/systemctl reboot` 兜底，
 再按两个顺序跑，全程 `dmesg -n 8`。
 
 * **X1（`video0` 出流中给 `video4` 做 S_FMT）**：`rc=0`，随后 dmesg 出现
@@ -227,7 +227,7 @@ the 960x600 S_FMT on video4 (the uplink cannot serve two sizes at once)
 
 ### 5.1 新发现（重要）：**"打开再关闭第二个 video 节点"就会把第一路拖到 ~18 fps**
 
-对照实验 `tools/eprobe.sh`（每轮 `video0` 单独出流 30 s，中途对 `video4` 做一次操作）：
+对照实验 `analysis/scripts/eprobe.sh`（每轮 `video0` 单独出流 30 s，中途对 `video4` 做一次操作）：
 
 | 轮次 | 条件 | video0 结果 | timeouts |
 |---|---|---|---|
@@ -407,13 +407,13 @@ $ fdtget -t i <dtb> .../sensor@5812020 sensor2_pwdn -> 54 4 10 0   (&pio PE 10) 
 ### 7.3 断电后第一件事（把 DTB 换回备份）
 
 ```sh
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' sh -c '
+tools/ssh_board.sh -s "sh -c '
   cp /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008 \
      /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb; sync; \
   md5sum /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb'"
 #   期望 md5 = d4ee5b6869e7b7cd39ce3762d0e078f9
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' systemd-run --on-active=2 /bin/systemctl reboot" < /dev/null
-#   然后跑一次 120 s 回归：tools/vfrrun.sh final-0008 120 -d /dev/video0 -w 1920 -h 1200 -f NV12 -p 1/120
+tools/ssh_board.sh -s "systemd-run --on-active=2 /bin/systemctl reboot" < /dev/null
+#   然后跑一次 120 s 回归：tools/hwtest/vfrrun.sh final-0008 120 -d /dev/video0 -w 1920 -h 1200 -f NV12 -p 1/120
 ```
 
 `/boot/dtb/allwinner/` 里的备份都在（U-Boot 的 `ls` 可见）：
@@ -441,14 +441,14 @@ tools/ssh_board.sh "printf ' \n' | sudo -S -p '' systemd-run --on-active=2 /bin/
 | `build/vin-d3d-lbc/{vin.c, vin-video/vin_core.c, vin-video/vin_video.c, vin-vipp/sunxi_scaler.c, vin-isp/sunxi_isp.c}` | 改（= pristine+0003/0005/0006/0007 + 0008） |
 | `build/vin-d3d-lbc/out/vin_v4l2-0008.ko` | md5 `9899a15c89ebd6ee0126228fa9714d35`，srcversion `659707E6FD376A25E1E38CB` |
 | `tools/vinreg.c` | 新增：/dev/mem 读写 SoC 寄存器（`r/s/w`），T14 证据工具 |
-| `tools/t14probe.sh` `t14live.sh` `t14dual.sh` `t14iommu.sh` `verify0008.sh` `eprobe.sh` | 新增：T14 三场景 / 在位改写寄存器 / 双路 / IOMMU 受控复现 / 0008 回归 / 3A 对照 |
+| `analysis/scripts/t14probe.sh` `t14live.sh` `t14dual.sh` `t14iommu.sh` `verify0008.sh` `eprobe.sh` | 新增：T14 三场景 / 在位改写寄存器 / 双路 / IOMMU 受控复现 / 0008 回归 / 3A 对照 |
 | `tools/dt_second_cam.sh` | 新增：第二路 DT 一键改/回退（fdtput + 时间戳备份） |
-| `tools/uboot_rescue.py` `uboot_cmd.py` `uboot_shell_rescue.py` `sysrq.py` `sysrq2.py` `sysrq3.py` | 新增：U-Boot 抢救/命令注入（事故中产生） |
+| `tools/rescue/uboot_rescue.py` `uboot_cmd.py` `uboot_shell_rescue.py` `sysrq.py` `sysrq2.py` `sysrq3.py` | 新增：U-Boot 抢救/命令注入（事故中产生） |
 | `analysis/REPORT-0916-0008-second-channel.md` | 本报告 |
 | `analysis/dmesg-boot-0008.txt` / `-0008b.txt` / `-isp01-on-0008.txt` / `-sensor2-0008.txt` / `-sensor2b-0008.txt` | 开机快照 |
 | `analysis/t14/uboot*.log` `serial-recover.log` `serial-recovery.log` `sysrq*.log` | 事故现场与恢复过程 |
 | `analysis/t14/CHECKLIST-second-camera.md` | 接线后一页清单 |
-| `HANDOFF.md` | 更新 |
+| `docs/HANDOFF.md` | 更新 |
 
 ### 8.2 板子
 
@@ -467,7 +467,7 @@ tools/ssh_board.sh "printf ' \n' | sudo -S -p '' systemd-run --on-active=2 /bin/
 
 ```sh
 # 模块回 0007（或更早 .orig-bsp）
-tools/ssh_board.sh "printf ' \n' | sudo -S -p '' sh -c 'cp \
+tools/ssh_board.sh -s "sh -c 'cp \
   /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko.bak-0007 \
   /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko; depmod -a'"   # 换模块必须重启
 # DT 回原始

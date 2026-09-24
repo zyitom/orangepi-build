@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //
 // ar0234-npu-zerocopy -- the "NPU <- ISP zero-copy" acceptance test (C10 in
-// NEXT-TASKS.md). Until this program ran, `vip_create_buffer_from_fd` existed
+// docs/NEXT-TASKS.md). Until this program ran, `vip_create_buffer_from_fd` existed
 // as a library symbol but had never been fed a real ISP frame: both vendor
 // demos (/opt/vpm_run, /opt/yolov5) read their inputs from files.
 //

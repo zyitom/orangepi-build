@@ -1,4 +1,4 @@
-# G2D investigation — 2026-09-16 (round: fix tools/g2d_test.cpp + NV12 chroma root cause)
+# G2D investigation — 2026-09-16 (round: fix tools/hwtest/g2d_test.cpp + NV12 chroma root cause)
 
 Project root on TL101: `/home/helios/Desktop/orangepi-build/ar0234-port`
 Board: Orange Pi Zero 3W (A733 / sun60iw2), kernel 6.6.98-sun60iw2.
@@ -85,7 +85,7 @@ Status: **候选** until the probe data below confirms it.
 
 ## 2. Probe results
 
-### 2.1 Part 1 — fixed `tools/g2d_test.cpp`, first run (board, user `orangepi`, no sudo)
+### 2.1 Part 1 — fixed `tools/hwtest/g2d_test.cpp`, first run (board, user `orangepi`, no sudo)
 
 Build: native on the board (`g++`, glibc 2.31 — the 11.2 cross toolchain is too new:
 `GLIBC_2.32/2.34 not found`).
@@ -274,7 +274,7 @@ correctly — this is the safe annotation primitive.
 
 (see 2.8)
 
-### 2.8 Part 2 — real ISP frame (`tools/g2d_test.cpp --capture`, phase 3)
+### 2.8 Part 2 — real ISP frame (`tools/hwtest/g2d_test.cpp --capture`, phase 3)
 
 ```
 == phase 3: real ISP NV12 frame -> G2D -> NV12 ==
@@ -331,8 +331,8 @@ misbehaves identically).
 
 ## 3. Safe / unsafe operations for "ISP NV12 → G2D 搬运 / 标注"
 
-Everything below was measured on the board with `tools/g2d_test.cpp` and the probes
-in `tools/g2d-probes/`. Numbers are for 1920x1080 NV12 in `/dev/dma_heap/system`
+Everything below was measured on the board with `tools/hwtest/g2d_test.cpp` and the probes
+in `tools/hwtest/g2d-probes/`. Numbers are for 1920x1080 NV12 in `/dev/dma_heap/system`
 buffers, `G2D_BLT_NONE_H`, `bbuff=1`, `use_phy_addr=0`, and the correct sync order.
 
 ### ✅ 安全（直接可用）
@@ -358,4 +358,4 @@ buffers, `G2D_BLT_NONE_H`, `bbuff=1`, `use_phy_addr=0`, and the correct sync ord
 | `bbuff = 0` | 读到陈旧/黑数据（Y=16 有限色域黑帧） |
 | `G2D_BLT_COPYPEN` | 本内核返回 -1（EINVAL），2.0 接口上不可用 |
 | 把色度差异归因于缓存/同步竞态 | 差异是**确定性**的（三次跑 1025237/1025300，差 <0.001%），机制是重采样滤波。别再往 `begin_cpu_access`、uncached 分配、手工 flush 方向查 |
-| 用周期 256 的图案 + 步长 256 去"定位色度偏移" | 每个采样点同相位，读数恒等 → 无信息。定位源偏移要用单点冲激（`tools/g2d-probes/g2d_mark.c`）。 |
+| 用周期 256 的图案 + 步长 256 去"定位色度偏移" | 每个采样点同相位，读数恒等 → 无信息。定位源偏移要用单点冲激（`tools/hwtest/g2d-probes/g2d_mark.c`）。 |

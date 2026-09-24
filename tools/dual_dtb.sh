@@ -19,7 +19,7 @@
 # copied to <dtb>.dual-bak-<timestamp>, `disable` restores the most recent one.
 # The serial console stays usable either way, so a bad dtb can always be undone
 # over the console.
-S() { printf ' \n' | sudo -S -p '' "$@"; }
+S() { sudo "$@"; }
 
 DTB=/boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
 V=/soc@3000000/vind@5800800

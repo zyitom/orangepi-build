@@ -1,6 +1,6 @@
 #!/bin/sh
 # 板上运行：40-pin 启用后的验收（只读；i2cdetect 需 sudo）
-S() { printf ' \n' | sudo -S -p '' "$@"; }
+S() { sudo "$@"; }
 echo "=== applied overlays (dmesg) ==="
 S dmesg | grep -i 'Applying kernel provided DT overlay' | tail
 echo "=== i2c adapters ==="

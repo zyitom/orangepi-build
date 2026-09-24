@@ -16,11 +16,11 @@
 
 ---
 
-## T-C13 `DMA_BUF_IOCTL_SYNC` 旧编码修复（tools/g2d_test.cpp + g2d-probes）
+## T-C13 `DMA_BUF_IOCTL_SYNC` 旧编码修复（tools/hwtest/g2d_test.cpp + g2d-probes）
 
 **改动**
-- `tools/g2d_test.cpp`：删除硬编码 mainline 编码（READ 1<<2 / END 1<<0），改为**运行时协商**（先 legacy 后 mainline，与 `userspace/src/g2d.cpp` 的 `ar0234::DmaBuffer` 同一套协商逻辑）；`sync()` 失败改为**抛异常**，main() 顶层 catch → `CONTROL-FAIL`（退出码 2），不再可能静默空操作。
-- `tools/g2d-probes/*.c`（全部 11 个）：每份复制粘贴的宏块换成共享头 `tools/g2d-probes/dmabuf_sync.h`（C 版协商 + 失败 `exit(2)`）；`syncbuf`/`sync_` 调用点零改动。README 构建说明同步更新。
+- `tools/hwtest/g2d_test.cpp`：删除硬编码 mainline 编码（READ 1<<2 / END 1<<0），改为**运行时协商**（先 legacy 后 mainline，与 `userspace/src/g2d.cpp` 的 `ar0234::DmaBuffer` 同一套协商逻辑）；`sync()` 失败改为**抛异常**，main() 顶层 catch → `CONTROL-FAIL`（退出码 2），不再可能静默空操作。
+- `tools/hwtest/g2d-probes/*.c`（全部 11 个）：每份复制粘贴的宏块换成共享头 `tools/hwtest/g2d-probes/dmabuf_sync.h`（C 版协商 + 失败 `exit(2)`）；`syncbuf`/`sync_` 调用点零改动。README 构建说明同步更新。
 
 **板上复测（g2d_test 无 --capture，1920×1080，orangepi 用户）**
 ```
