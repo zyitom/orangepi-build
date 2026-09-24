@@ -6,6 +6,11 @@ the struct (116284 bytes) is the concatenation of a built-in sensor's
 test/3a/tuning/iso settings. Offsets below come from the libisp_ini.so
 set_* accessors (ISP602 layout, differs from the kernel isp_tuning_priv.h).
 
+    !! Every offset in this file / in analysis/libisp-offsets/offs.txt is a
+    !! STRUCT offset.  The offset inside the .bin FILE is:
+    !!     file offset = struct offset + 74      (74 = 4B size + 20B time + 50B note)
+    !! Verified both ways on tdf: struct 101 <-> file 175.
+
 make_isp_bin.py <template_blob> <kurokesu ar0234.json> <out.bin> [options]
   --awb off|on          --msc off|on       --black N (10-bit, default 42)
   --ccm kurokesu|template   --awb-table kurokesu|template
@@ -25,6 +30,10 @@ AWB_CT_LOW, AWB_CT_HIGH = 1088, 1090
 AWB_LIGHT_NUM, AWB_LIGHT_INFO, AWB_LIGHT_FIELDS = 1098, 1104, 10
 CCM0, CCM_TRIG = 87210, 87282          # 3 x (s16 matrix[3][3] + offset[3]), u16[3]
 DYN_CFG0, DYN_CFG_SIZE, DYN_BLACK = 102480, 986, 121   # s16 index of black_level[4]
+
+# Gamma: one row per LV level, each row = 3 identical channels x 1024 points,
+# 12-bit output codes (template rows span 0..4086, monotonic, R=G=B).
+GAMMA_TBL, GAMMA_ROWS, GAMMA_ROW_LEN, GAMMA_CH = 56480, 5, 3072, 1024
 
 # LSC/MSC tables, reverse engineered from libisp_ini.so set_* accessors
 # (2026-09-16, see analysis/libisp-offsets/). Payload offsets; the kernel
@@ -46,6 +55,8 @@ ap.add_argument("--ccm", default="kurokesu")
 ap.add_argument("--awb-table", default="kurokesu")
 ap.add_argument("--note", default="ar0234 from kurokesu libcamera tuning")
 ap.add_argument("--set", action="append", default=[], help="module enable override, e.g. cem=0")
+ap.add_argument("--gamma-table", default="template", choices=("template", "linear"),
+                help="linear = replace the tone curve with a straight 0..4095 line")
 ap.add_argument("--lsc-json", metavar="FILE", help="inject LSC table from calibrate_lsc.py output")
 ap.add_argument("--dump-lsc", metavar="FILE", help="dump the template's LSC/MSC tables to JSON and exit")
 a = ap.parse_args()
@@ -121,6 +132,15 @@ if a.ccm == "kurokesu":
             q[r * 3 + r] += 256 - sum(q[r * 3:r * 3 + 3])
         struct.pack_into("<12h", b, CCM0 + 24 * k, *q, 0, 0, 0)
         print("ccm %dK: %s" % (cct, q))
+
+# gamma: a straight line 0..4095, identically in all three channels of every row
+if a.gamma_table == "linear":
+    lin = [round(4095 * i / (GAMMA_CH - 1)) for i in range(GAMMA_CH)]
+    row = lin * 3
+    assert len(row) == GAMMA_ROW_LEN
+    for i in range(GAMMA_ROWS):
+        struct.pack_into("<%dH" % GAMMA_ROW_LEN, b, GAMMA_TBL + GAMMA_ROW_LEN * 2 * i, *row)
+    print("gamma: linear 0..4095 in %d rows x %d points x 3 channels" % (GAMMA_ROWS, GAMMA_CH))
 
 # black level, negative offset in 10-bit units, for all 14 ISO levels
 for i in range(14):

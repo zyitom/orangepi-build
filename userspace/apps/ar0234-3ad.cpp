@@ -29,6 +29,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ar0234/ar0234conf.hpp"
 #include "ar0234/isp3a.hpp"
 #include "ar0234/v4l2.hpp"
 
@@ -45,6 +46,8 @@ struct Options {
 	std::string isp_name = "sunxi_isp.0";
 	int video_id = 0;
 	ar0234::IspParamSets params;
+	std::filesystem::path conf_path = "/etc/ar0234.conf";
+	ar0234::Ar0234Conf conf;
 	bool verbose = false;
 };
 
@@ -57,15 +60,35 @@ void print_log(const char *fmt, auto... args)
 void usage()
 {
 	std::fprintf(stderr,
-		     "usage: ar0234-3ad [-i isp_subdev_name] [-v video_id] [-p param_dir] [-V]\n"
+		     "usage: ar0234-3ad [-i isp_subdev_name] [-v video_id] [-p param_dir]"
+		     " [-c conf_file] [-V]\n"
 		     "  -i  ISP sub-device name (default sunxi_isp.0)\n"
 		     "  -v  vin video node id libisp attaches to (default 0)\n"
 		     "  -p  directory with isp_param_3dnr.bin / isp_param_no3dnr.bin\n"
 		     "      (default /mnt/extsd/ar0234)\n"
+		     "  -c  fixed-mode config (default /etc/ar0234.conf; missing file =\n"
+		     "      auto mode, previous behaviour)\n"
 		     "  -V  log every ISP event\n");
 }
 
-/// Child process: one libisp session until SIGTERM.
+/// Child process.
+///
+/// AUTO mode (default): one libisp session until SIGTERM, as before.
+///
+/// FIXED mode (/etc/ar0234.conf mode=fixed): NO libisp at all. Measured
+/// round 11: libisp's manual mode (param-file byte patch) still rewrites the
+/// sensor every frame -- exposure honours the pinned value but the gain field
+/// always arrives as the 1.0x clamp minimum, so a "fixed gain" could never
+/// stick and a direct sensor-subdev write loses the race against 120 Hz
+/// rewrites. Without a libisp session there is no writer at all: the pinned
+/// exposure and gain are written once through the sensor sub-device (which is
+/// never busy) and hold for the whole stream (verified: gain 16x, Y 7 -> 82).
+/// The ISP itself runs on the configuration the kernel restores from the
+/// ctx saved by the last auto session (/mnt/isp0_*.ctx_saved.bin) or on its
+/// power-on default, so run one normal auto stream after installing before
+/// relying on fixed mode. AWB stays at the last auto session's gains in this
+/// mode; pinning white balance needs a fully regenerated parameter file
+/// (tools/make_isp_bin.py), not a byte patch.
 [[noreturn]] void run_session(const Options &opt, ar0234::Resolution sensor, int fps)
 {
 	sigset_t set;
@@ -73,10 +96,51 @@ void usage()
 	sigaddset(&set, SIGTERM);
 	sigaddset(&set, SIGINT);
 	sigprocmask(SIG_BLOCK, &set, nullptr);
+
+	if (opt.conf.fixed()) {
+		try {
+			auto node = ar0234::find_v4l2_node("ar0234_mipi");
+			if (!node)
+				throw std::runtime_error{"no ar0234_mipi subdev node"};
+			ar0234::Subdev sensor_dev{*node};
+			if (opt.conf.exp_val_16()) {
+				sensor_dev.set_control(0x00980911, // exposure, 1/16 line
+						       static_cast<std::int32_t>(
+							       *opt.conf.exp_val_16()));
+				print_log("ar0234-3ad: fixed exposure %u lines",
+					  *opt.conf.exp_val_16() / 16);
+			}
+			if (opt.conf.gain_16()) {
+				sensor_dev.set_control(0x00980913, // gain, 1/1600 x
+						       static_cast<std::int32_t>(
+							       *opt.conf.gain_16()) *
+							       100);
+				print_log("ar0234-3ad: fixed gain %.2fx",
+					  *opt.conf.gain_16() / 16.0);
+			}
+			print_log("ar0234-3ad: fixed passthrough via %s (no libisp, no AE)",
+				  node->c_str());
+		} catch (const std::exception &e) {
+			print_log("ar0234-3ad: fixed mode failed: %s", e.what());
+			std::_Exit(1);
+		}
+		int sig;
+		sigwait(&set, &sig);
+		std::_Exit(0);
+	}
+
 	try {
-		if (auto installed = opt.params.select(sensor, fps))
+		if (auto installed = opt.params.select(sensor, fps, opt.conf.params()))
 			print_log("ar0234-3ad: parameters %s", installed->c_str());
-		ar0234::Isp3A session{opt.video_id, fps};
+		else if (opt.conf.ae_log()) {
+			/* diagnostics switch: works in auto mode too, so the AE can
+			 * be watched while it adapts (fps-boundary hunts etc.) */
+			const ar0234::FixedParams log_only{.ae_log = true};
+			if (auto patched = ar0234::apply_fixed_mode(log_only, opt.params.active))
+				print_log("ar0234-3ad: ae_log enabled in %s (auto mode)",
+					  patched->c_str());
+		}
+		ar0234::Isp3A session{opt.video_id, fps > 120 ? 120 : fps};
 		print_log("ar0234-3ad: 3A running on isp%d for %ux%u@%d", session.isp_id(), sensor.width,
 		    sensor.height, fps);
 		int sig;
@@ -166,11 +230,12 @@ private:
 std::optional<Options> parse(int argc, char **argv)
 {
 	Options opt;
-	for (int c; (c = ::getopt(argc, argv, "i:v:p:Vh")) != -1;) {
+	for (int c; (c = ::getopt(argc, argv, "i:v:p:c:Vh")) != -1;) {
 		switch (c) {
 		case 'i': opt.isp_name = optarg; break;
 		case 'v': opt.video_id = std::atoi(optarg); break;
 		case 'p': opt.params.dir = optarg; break;
+		case 'c': opt.conf_path = optarg; break;
 		case 'V': opt.verbose = true; break;
 		default: return std::nullopt;
 		}
@@ -182,7 +247,7 @@ std::optional<Options> parse(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	const auto opt = parse(argc, argv);
+	auto opt = parse(argc, argv);
 	if (!opt) {
 		usage();
 		return 2;
@@ -194,6 +259,14 @@ int main(int argc, char **argv)
 	sigaction(SIGINT, &sa, nullptr);
 
 	try {
+		opt->conf = ar0234::Ar0234Conf::load(opt->conf_path);
+		if (opt->conf.present()) {
+			print_log("ar0234-3ad: config %s (%s)", opt->conf_path.c_str(),
+				  opt->conf.fixed() ? "fixed mode" : "auto mode");
+			for (const auto &w : opt->conf.warnings())
+				print_log("ar0234-3ad: config warning: %s", w.c_str());
+		}
+
 		const auto node = ar0234::find_v4l2_node(opt->isp_name);
 		if (!node) {
 			print_log("ar0234-3ad: no V4L2 node named %s (is vin_v4l2 loaded?)", opt->isp_name.c_str());

@@ -15,7 +15,7 @@
 | VE JPEG 编码、YUV 裁剪 | 同上 | 同上 | `AWJpecEnc`、`AWCropYuv` | ⚠️ |
 | VE 解码 | `/dev/cedar_dev` | 同上 | `libvdecoder.so`，`vdecoder.h` | ⚠️ |
 | G2D 2D 加速 | `/dev/g2d` | `bsp/drivers/g2d/` | 无库，直接 ioctl，`sunxi-g2d.h` | ⚠️ 驱动能响应 |
-| NPU | `/dev/vipcore` | `bsp/drivers/npu/aw_nna_vip/vip2/` | `vip_lite.h` 有；**`libVIPlite.so` 缺** | ❌ 用户态不全 |
+| NPU | `/dev/vipcore` | `bsp/drivers/npu/aw_nna_vip/vip2/` | `libNBGlinker.so` 导出整套 vip_lite API（`libVIPlite.so` 名字不存在但**不需要**） | ✅ 可用（第十轮实测） |
 | GPU PowerVR BXM-4-64 | `/dev/dri/renderD128` | `bsp/modules/gpu/img-bxm/` | `libOpenCL.so`（OpenCL 3.0）、Vulkan、GLES | ✅ OpenCL 能枚举设备 |
 | 显示 | `/dev/dri/card0`、`card1` | `bsp/drivers/drm/` | libdrm（头文件没装），`sunxi_drm.h` | ⚠️ |
 | DMA-BUF 内存 | `/dev/dma_heap/system`、`reserved` | 主线 | `linux/dma-heap.h` | ✅（vin 导出 → VE 导入已实测） |
@@ -130,6 +130,10 @@ ar0234_mipi (subdev0) → sunxi_mipi.0 (subdev9) → sunxi_csi.0 (subdev2) → s
 
 - 参数文件：libisp 只读 `/mnt/extsd/isp_param_config.bin`；结构偏移见 `../tools/make_isp_bin.py`；
   偏移 64 处 `isp_log_param = 0x3` 可打开 AE/AWB 日志。
+  **!! 那里写的偏移全是「结构体偏移」，文件里的偏移 = 结构体偏移 + 74**
+  （74 = 4 B 长度 + 20 B 日期 + 50 B note）。例：模块开关 `manual..enc_2dnr` 结构体 88..120
+  ↔ 文件 162..194；`tdf` 结构体 101 ↔ 文件 175；gamma 表结构体 56480 ↔ 文件 56554。
+  直接按结构体偏移去 `dd`/`hexdump` 文件会读到错位的数据。
 - 完整用法：`../userspace/src/isp3a.cpp`、`../userspace/apps/ar0234-3ad.cpp`。
 
 ---
@@ -186,13 +190,21 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 
 - 没有用户态库，直接对 `/dev/g2d` 发 ioctl。
 - ✅ 驱动能响应：`G2D_CMD_QUERY_VERSION` 返回 `g2d_version = 0x10112114`（`vendor-samples/probe_accel.c`）
-- ⚠️ 模块 `g2d_sunxi` **默认不自动加载**，`/dev/g2d` 只有 root 能访问 → 要在 `/etc/modules-load.d/` 加上模块，再加一条 udev 规则
-- ⚠️→部分打通（2026-09-16，`../tools/g2d_test.cpp`）：`modprobe g2d_sunxi` 后 fd→fd BITBLT 可执行、
-  2x 缩放输出尺寸正确。**两个关键发现**：
-  1. `src_image_h.bbuff` 必须设 **1**（fd 缓冲标志），否则 G2D 把源读成全黑（输出 Y=16 的有限色域黑帧）；
-  2. NV12→NV12 全屏拷贝仍有 ~5% 像素逐次漂移（幅度 >8，缓存同步协议问题：DMA_BUF_IOCTL_SYNC 无效，
-     疑似 vb2 导出缓冲的 begin/end_cpu_access 没实现），T7 集成时要么换 uncached 分配、要么自己 flush。
-  NV12 格式值 = `G2D_FORMAT_YUV420UVC_U1V1U0V0`（0x29）。
+- ✅ 开机自动加载 + 权限已修（第七轮）：`/etc/modules-load.d/g2d.conf` + udev `KERNEL=="g2d", GROUP="video", MODE="0660"`；冷启动 `/dev/g2d` = `crw-rw---- root video`，`orangepi`（video 组）免 sudo 即可用（主设备号是动态的，规则必须匹配设备名）
+- ✅ 打通 + 机制确认（2026-09-16，第八轮；`../tools/g2d_test.cpp`，证据 `../analysis/g2d/REPORT.md`）：
+  1. `src_image_h.bbuff` 必须设 **1**，否则 G2D 把源读成有限色域黑帧；`use_phy_addr = 0` 走 fd 路径；
+     src/dst 用两个 `/dev/dma_heap/system` 专用缓冲；sync 顺序是 CPU 写前 `START`、写后 `END`，
+     设备写完后 CPU 读前 `START`（invalidate）、读完 `END`；测真实帧前先 `cap.stop()`。
+  2. **单次 4:2:0 `YUV420UVC` blit 不可能位精确**：Y 被钳到 ≥16，色度走 mixer 的 4:2:0 重采样滤波器。
+     （第六/七轮把 NV12→NV12 的差异归因于"缓存同步/漂移"是**错的**：实测差异是确定性的，且是重采样滤波，
+     不是竞态。）真实 ISP 帧：色度 0 差异，Y 有 514 456 字节被抬到 16。
+  3. **位精确搬运 NV12 = 两次 `G2D_FORMAT_Y8` blit**：把 NV12 缓冲看成 1920×1620 的 8 位单平面图，
+     `clip_rect.y=0/h=1080` 取 Y、`y=1080/h=540` 取 UV；实测 0/3 110 400，含真实帧。
+  4. **NV12 格式值 = `G2D_FORMAT_YUV420UVC_V1U1V0U0`（0x28）**。名字像"U 在前"的
+     `G2D_FORMAT_YUV420UVC_U1V1U0V0`（0x29，第六轮记录里用的那个）**其实是 NV21**，
+     用在 NV12 上会让 ARGB 转换的红蓝对调。
+  5. 画框：`G2D_CMD_FILLRECT_H`，`dst_image_h.color = (Y<<16)|(U<<8)|V`（原样写入，无 RGB→YUV 矩阵），裁剪正确。
+  6. 不安全的：`G2D_BLT_COPYPEN`（rc=-1）、`bbuff=0`、拿 V4L2 采集缓冲直接当 dst（必须专用 heap 缓冲）。
 
 | 命令 | 结构体 | 用途 |
 |---|---|---|
@@ -211,28 +223,35 @@ VideoEncGetParameter(VENC_IndexParamH264SPSPPS / VENC_IndexParamH265Header)   �
 
 ---
 
-## 5. NPU（VeriSilicon VIPLite）
+## 5. NPU（VeriSilicon VIPLite）—— ✅ 已实测可用（第十轮，2026-09-17）
 
 - ✅ 内核驱动 `vipcore` 1.13.0 已加载，`/dev/vipcore` 普通用户可读写
 - `debugfs viplite/vip_info`：`pid=0x1000003b, ver1=0x9000, ver2=0x9202`
 - `debugfs viplite/core_loading`：NPU 负载；`clk_freq`：492M、852M、1008M（当前）
-- 用户态：`/usr/include/vip_lite.h` 有，`/usr/lib/libVIPhal.so`（只导出底层 `viphal_*`）和 `libNBGlinker.so` 有
-- ❌ **缺 `libVIPlite.so`**（`vip_init` 等函数的实现），也缺把 ONNX/TFLite 模型转换、量化成 `.nb` 的工具
+- 用户态：`/usr/include/vip_lite.h` + **`/usr/lib/libNBGlinker.so` 导出整套 40 个 `vip_*` 符号**。
+  旧文档写"缺 `libVIPlite.so` 所以用不了"——**错**：`libNBGlinker.so` 就是 VIPLite 的实现入口，
+  `vip_init/create_network/create_buffer[_from_fd]/set_input/run_network/...` 全在里面，链接 `-lNBGlinker` 即可。
+- **端到端实测（`userspace/apps/ar0234-npu-zerocopy.cpp`）**：真实 ISP 帧 → G2D(缩放+NV12→BGR888)
+  → `vip_create_buffer_from_fd`（直接吃 `/dev/dma_heap/system` 的 dma-buf，cache 维护宿主不管也无需管）
+  → 推理；与 CPU 拷贝对照 **300/300 帧输出逐字节一致**；推理 2.95 ms，dequeue→输出 4.39 ms，
+  CPU 0.71 ms/帧（两次推理+转换）。`vip_query_driver_version` 头文件有、库里没有，用前按实际导出核对。
 
-`vip_lite.h` 里的推理流程（拿到库之后照这个用）：
+推理流程（已验证的写法，照这个用）：
 
 ```
 vip_init()
-vip_create_network(.nb 文件或内存, &network) → vip_query_network（输入/输出张量信息）
-vip_create_buffer / vip_create_buffer_from_fd（DMA-BUF 零拷贝输入）/ vip_create_buffer_from_handle
-vip_prepare_network → vip_set_input / vip_set_output → vip_run_network → vip_finish_network
-vip_map_buffer / vip_unmap_buffer 读结果
+vip_create_network(.nb 文件或内存, &network) → vip_query_input/vip_query_output（张量 dims/format/quant）
+vip_create_buffer_from_fd(fd, size)（DMA-BUF 零拷贝输入）或 vip_create_buffer + vip_map_buffer（CPU 写入）
+vip_prepare_network → vip_set_input / vip_set_output → vip_run_network（同步）
+输出先 vip_flush_buffer(buf, VIP_BUFFER_OPER_TYPE_INVALIDATE) 再从 vip_map_buffer 读
 vip_destroy_buffer / vip_destroy_network / vip_destroy
 ```
 
-内核命令接口在 `kernel-uapi/npu/vip_drv_interface.h`（ioctl 码 `VIPDRV_IOCTL = 30000`），只给库用；网络二进制格式由厂商工具生成，不能绕过库直接用。
+张量结构：dims 顺序 `[w, h, c, n]`；`vpm_run` 自带的 .nb 是 224×224×3 UINT8、TF 量化（scale 1/255），
+输出 2 类（TF 量化，zero 128）。**仍缺的只有模型转换工具**（ONNX/TFLite → .nb 的 NBG/ACUITY，版本要配
+VIPLite 2.0.3.2，找香橙派/全志要，见 NEXT-TASKS A5）。
 
-**要向香橙派或全志要：A733 NPU SDK（VIPLite 运行库 + 模型转换工具链），版本要和内核驱动 1.13.0 匹配。**
+内核命令接口在 `kernel-uapi/npu/vip_drv_interface.h`（ioctl 码 `VIPDRV_IOCTL = 30000`），只给库用；网络二进制格式由厂商工具生成，不能绕过库直接用。
 
 ---
 
@@ -262,8 +281,8 @@ vip_destroy_buffer / vip_destroy_network / vip_destroy
 | 从 → 到 | 接口 | 状态 |
 |---|---|---|
 | ISP（V4L2 EXPBUF）→ VE 编码 | `VideoEncoderGetVeIommuAddr` | ✅ |
-| ISP → G2D | `g2d_image_enh.fd` | ⚠️ 接口支持，未测 |
-| ISP / G2D → NPU | `vip_create_buffer_from_fd` | ❌ 缺库 |
+| ISP → G2D | `g2d_image_enh.fd`（EXPBUF fd 直入 blit） | ✅（`G2d::convert_nv12_to_bgr888` / `move_nv12` 日产化，bufinfo 见到 g2d 附着捕获缓冲） |
+| ISP / G2D → NPU | `vip_create_buffer_from_fd` | ✅ 300 帧逐字节一致（第十轮，`ar0234-npu-zerocopy`） |
 | ISP → GPU OpenCL | 取决于 PowerVR 扩展 | ⚠️ 未知 |
 | ISP → 显示 | DRM PRIME 导入 | ⚠️ 未测 |
 | 自己分配 | `/dev/dma_heap/system`（`DMA_HEAP_IOCTL_ALLOC`） | ✅ 节点存在 |
@@ -285,7 +304,7 @@ vip_destroy_buffer / vip_destroy_network / vip_destroy
 
 ## 10. 缺口清单
 
-1. **NPU SDK**：`libVIPlite.so` + 模型转换工具（找厂商要）
+1. **NPU 模型转换工具**：运行库不缺（`libNBGlinker.so` 即是），缺 ONNX/TFLite → .nb 转换器（NBG/ACUITY，版本配 VIPLite 2.0.3.2，找厂商要）
 2. **ISP tuning**：全志 ISP Tuning Tool 及板端配合程序（找厂商要），或者自己拿白纸、灰卡、色卡标定
 3. **开发头文件**：OpenCL / EGL / GLES / Vulkan / libdrm（apt 安装，注意别覆盖厂商库）
 4. **G2D**：开机自动加载 + 设备权限

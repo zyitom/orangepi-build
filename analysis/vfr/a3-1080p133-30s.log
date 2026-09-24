@@ -1,0 +1,72 @@
+===================== a3-1080p133-30s =====================
+date   : 2026-09-16T14:08:08+08:00
+uptime : 1702.48 s
+module : 7C24A2D09BC0401EC56E7CA db08571aa60d30c4b8187391ac8440c6  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 30 -d /dev/video0 -w 1920 -h 1080 -f NV12 -p 1/133  (vi0)
+marker : VFRMARK-a3-1080p133-30s-1968155-1789538887
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+frame => cnt: 1441, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 33(ms), min: 3(ms)
+--- vfr output ---
+input 0: 
+requested 1/133 -> got 1/133
+fmt NV12 1920x1080 planes=1 sizeimage=3110400 bytesperline=2880
+  [0.0s] no frame for >1s (frames=4)
+  [1.0s] no frame for >1s (frames=4)
+  [2.1s] no frame for >1s (frames=4)
+  [3.1s] no frame for >1s (frames=4)
+  [4.1s] no frame for >1s (frames=4)
+  [5.1s] no frame for >1s (frames=4)
+  [6.1s] no frame for >1s (frames=4)
+  [7.1s] no frame for >1s (frames=4)
+  [8.1s] no frame for >1s (frames=4)
+  [9.1s] no frame for >1s (frames=4)
+  [10.2s] no frame for >1s (frames=4)
+  [11.2s] no frame for >1s (frames=4)
+  [12.2s] no frame for >1s (frames=4)
+  [13.2s] no frame for >1s (frames=4)
+  [14.2s] no frame for >1s (frames=4)
+  [15.2s] no frame for >1s (frames=4)
+  [16.2s] no frame for >1s (frames=4)
+  [17.2s] no frame for >1s (frames=4)
+  [18.2s] no frame for >1s (frames=4)
+  [19.2s] no frame for >1s (frames=4)
+  [20.3s] no frame for >1s (frames=4)
+  [21.3s] no frame for >1s (frames=4)
+  [22.3s] no frame for >1s (frames=4)
+  [23.3s] no frame for >1s (frames=4)
+  [24.3s] no frame for >1s (frames=4)
+  [25.3s] no frame for >1s (frames=4)
+  [26.3s] no frame for >1s (frames=4)
+  [27.3s] no frame for >1s (frames=4)
+  [28.3s] no frame for >1s (frames=4)
+  [29.3s] no frame for >1s (frames=4)
+RESULT dev=/dev/video0 1920x1080 NV12 frames=4 wall=30.353s fps=0.13 timeouts=30
+GAPS n=3 median=0.007473s (133.81 fps) min=0.007444 max=0.007592 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 478, hs: 1723
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 7(ms), max: 33(ms), min: 3(ms)
+--- dmesg since marker ---
+frame lost               0
+sunxi_isp_reset          0
+vblank                   0
+3DNR forced off          0
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+

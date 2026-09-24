@@ -1,0 +1,47 @@
+=== 1. stream once (ISP has run) ===
+RESULT dev=/dev/video0 1920x1200 NV12 frames=476 wall=4.007s fps=118.78 timeouts=0
+GAPS n=475 median=0.008398s (119.07 fps) min=0.008206 max=0.008610 >1.5x=0 >3x=0
+=== 2. rmmod vin_v4l2 (expected to be impossible: circular refcount) ===
+rmmod: ERROR: Module vin_v4l2 is in use
+   rmmod vin_v4l2 rc=1
+ar0234_mipi            20480  0
+vin_v4l2              278528  1
+videobuf2_dma_contig    16384  1 vin_v4l2
+vin_io                 61440  3 ar0234_mipi,vin_v4l2
+=== 3. reload the sensor module only ===
+   rmmod ar0234_mipi rc=0
+   modprobe ar0234_mipi rc=0
+=== 4. S_INPUT on the reloaded module (used to panic) ===
+input 0: sunxi-vin
+S_PARM 1/120 failed: Invalid argument
+S_FMT: Invalid argument
+   vfr rc=1
+=== 5. does the pipeline still work? ===
+input 0: sunxi-vin
+   vfr rc=1
+=== 6. dmesg since T16B-1789539965 ===
+S_PARM 1/120 failed: Invalid argument
+S_FMT: Invalid argument
+   [  173.841863] T16B-1789539965
+   [  173.977838] sunxi:sound-mach:[WARN]: 372 asoc_simple_parse_ucfmt(): set data late to default
+   [  173.977865] sunxi:sound-mach:[ERR]: 513 simple_parse_of(): simple_dai_link_of failed
+   [  173.982789] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.982808] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.982942] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.982951] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.982956] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.982960] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.983004] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.983010] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.983195] sunxi:vin:[ERR]: ar0234_mipi is not used, video0 cannot be close!
+   [  173.984446] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.984458] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.984577] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.984583] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.984589] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.984592] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.984623] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+   [  173.984628] sunxi:vin:[ERR]: sensor setup link failed
+   [  173.984794] sunxi:vin:[ERR]: ar0234_mipi is not used, video0 cannot be close!
+=== 7. board still up? ===
+174.04 1282.58

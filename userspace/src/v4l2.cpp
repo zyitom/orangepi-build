@@ -1,8 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "ar0234/v4l2.hpp"
 
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
 #include <fstream>
+#include <stdexcept>
 #include <string>
+
+#include <fcntl.h>
 
 #include <poll.h>
 #include <sys/mman.h>
@@ -15,6 +21,21 @@ namespace fs = std::filesystem;
 
 // sunxi_camera_v2.h: VIDIOC_S_PARM capture mode
 constexpr std::uint32_t kModeVideo = 0x0002;
+
+constexpr int kBufferType = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+
+namespace {
+
+void fill_buffer(v4l2_buffer &buf, v4l2_plane *planes, unsigned index)
+{
+	buf.index = index;
+	buf.type = kBufferType;
+	buf.memory = V4L2_MEMORY_MMAP;
+	buf.m.planes = planes;
+	buf.length = 1;
+}
+
+} // namespace
 
 void MappedMemory::reset() noexcept
 {
@@ -71,6 +92,20 @@ std::optional<Resolution> Subdev::pad_format(std::uint32_t pad) const
 	return Resolution{fmt.format.width, fmt.format.height};
 }
 
+void Subdev::set_control(std::uint32_t id, std::int32_t value)
+{
+	v4l2_control ctrl{id, value};
+	ioctl_or_throw(fd_.get(), VIDIOC_S_CTRL, &ctrl, "VIDIOC_S_CTRL (subdev)");
+}
+
+std::int32_t Subdev::get_control(std::uint32_t id) const
+{
+	v4l2_control ctrl{};
+	ctrl.id = id;
+	ioctl_or_throw(fd_.get(), VIDIOC_G_CTRL, &ctrl, "VIDIOC_G_CTRL (subdev)");
+	return ctrl.value;
+}
+
 Frame::Frame(Frame &&other) noexcept : owner_{std::exchange(other.owner_, nullptr)}, buf_{other.buf_} {}
 
 Frame::~Frame()
@@ -79,24 +114,37 @@ Frame::~Frame()
 		owner_->requeue(buf_);
 }
 
-Capture::Capture(const CaptureConfig &cfg) : fd_{open_or_throw(cfg.device, O_RDWR | O_NONBLOCK)}
+Capture::Capture(const CaptureConfig &cfg) : cfg_{cfg}, device_{cfg.device}
+{
+	fd_ = open_or_throw(device_.c_str(), O_RDWR | O_NONBLOCK);
+	configure();
+}
+
+// buffers_ (mappings, DMA-BUFs) are released before fd_ closes
+Capture::~Capture()
+{
+	stop();
+	release_buffers();
+}
+
+// S_INPUT binds the sensor pipeline; sunxi-vin only does that on this ioctl.
+void Capture::configure()
 {
 	const int fd = fd_.get();
 
-	// sunxi-vin only binds the sensor pipeline on S_INPUT
 	v4l2_input input{};
 	ioctl_or_throw(fd, VIDIOC_S_INPUT, &input, "VIDIOC_S_INPUT");
 
 	v4l2_streamparm parm{};
-	parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-	parm.parm.capture.timeperframe = {1, static_cast<std::uint32_t>(cfg.fps)};
+	parm.type = kBufferType;
+	parm.parm.capture.timeperframe = {1, static_cast<std::uint32_t>(cfg_.fps)};
 	parm.parm.capture.capturemode = kModeVideo;
 	ioctl_or_throw(fd, VIDIOC_S_PARM, &parm, "VIDIOC_S_PARM");
 
 	v4l2_format fmt{};
-	fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-	fmt.fmt.pix_mp.width = cfg.size.width;
-	fmt.fmt.pix_mp.height = cfg.size.height;
+	fmt.type = kBufferType;
+	fmt.fmt.pix_mp.width = cfg_.size.width;
+	fmt.fmt.pix_mp.height = cfg_.size.height;
 	fmt.fmt.pix_mp.pixelformat = V4L2_PIX_FMT_NV12;
 	fmt.fmt.pix_mp.field = V4L2_FIELD_NONE;
 	ioctl_or_throw(fd, VIDIOC_S_FMT, &fmt, "VIDIOC_S_FMT");
@@ -104,8 +152,8 @@ Capture::Capture(const CaptureConfig &cfg) : fd_{open_or_throw(cfg.device, O_RDW
 	size_ = {fmt.fmt.pix_mp.width, fmt.fmt.pix_mp.height};
 
 	v4l2_requestbuffers req{};
-	req.count = cfg.buffer_count;
-	req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+	req.count = cfg_.buffer_count;
+	req.type = kBufferType;
 	req.memory = V4L2_MEMORY_MMAP;
 	ioctl_or_throw(fd, VIDIOC_REQBUFS, &req, "VIDIOC_REQBUFS");
 
@@ -113,11 +161,7 @@ Capture::Capture(const CaptureConfig &cfg) : fd_{open_or_throw(cfg.device, O_RDW
 	for (unsigned i = 0; i < req.count; ++i) {
 		v4l2_plane planes[VIDEO_MAX_PLANES]{};
 		v4l2_buffer buf{};
-		buf.index = i;
-		buf.type = req.type;
-		buf.memory = req.memory;
-		buf.m.planes = planes;
-		buf.length = 1;
+		fill_buffer(buf, planes, i);
 		ioctl_or_throw(fd, VIDIOC_QUERYBUF, &buf, "VIDIOC_QUERYBUF");
 
 		void *mem = ::mmap(nullptr, planes[0].length, PROT_READ | PROT_WRITE, MAP_SHARED, fd,
@@ -127,7 +171,7 @@ Capture::Capture(const CaptureConfig &cfg) : fd_{open_or_throw(cfg.device, O_RDW
 		MappedMemory memory{mem, planes[0].length};
 
 		v4l2_exportbuffer exp{};
-		exp.type = req.type;
+		exp.type = kBufferType;
 		exp.index = i;
 		exp.flags = O_CLOEXEC;
 		UniqueFd dmabuf{xioctl(fd, VIDIOC_EXPBUF, &exp) < 0 ? -1 : exp.fd};
@@ -137,10 +181,46 @@ Capture::Capture(const CaptureConfig &cfg) : fd_{open_or_throw(cfg.device, O_RDW
 	}
 }
 
-// buffers_ (mappings, DMA-BUFs) are released before fd_ closes
-Capture::~Capture()
+void Capture::release_buffers() noexcept
+{
+	if (buffers_.empty())
+		return;
+	v4l2_requestbuffers req{};
+	req.count = 0;
+	req.type = kBufferType;
+	req.memory = V4L2_MEMORY_MMAP;
+	xioctl(fd_.get(), VIDIOC_REQBUFS, &req);
+	buffers_.clear(); // munmap + close the DMA-BUFs
+}
+
+/// Close and reopen the node, then reconfigure everything: the software
+/// equivalent of rerunning the program, which is the only recovery known to
+/// bring a stalled vin/ISP pipeline back.
+void Capture::restart_hard()
 {
 	stop();
+	release_buffers();
+	fd_.reset();
+	fd_ = open_or_throw(device_.c_str(), O_RDWR | O_NONBLOCK);
+	configure();
+}
+
+// A buffer may be queued before STREAMON (that is how a stream starts) and
+// after STREAMOFF (it will be used by the next one), so queueing does not
+// depend on the streaming flag. -EINVAL means "already queued": harmless.
+int Capture::queue_buffer(unsigned index) noexcept
+{
+	v4l2_plane planes[VIDEO_MAX_PLANES]{};
+	v4l2_buffer buf{};
+	fill_buffer(buf, planes, index);
+	return xioctl(fd_.get(), VIDIOC_QBUF, &buf) < 0 ? -1 : 0;
+}
+
+void Capture::stream_on()
+{
+	int type = kBufferType;
+	ioctl_or_throw(fd_.get(), VIDIOC_STREAMON, &type, "VIDIOC_STREAMON");
+	streaming_ = true;
 }
 
 bool Capture::dmabuf_exported() const noexcept
@@ -157,18 +237,99 @@ void Capture::set_control(std::uint32_t id, std::int32_t value)
 	ioctl_or_throw(fd_.get(), VIDIOC_S_CTRL, &ctrl, "VIDIOC_S_CTRL");
 }
 
+std::int32_t Capture::get_control(std::uint32_t id) const
+{
+	v4l2_control ctrl{};
+	ctrl.id = id;
+	ioctl_or_throw(fd_.get(), VIDIOC_G_CTRL, &ctrl, "VIDIOC_G_CTRL");
+	return ctrl.value;
+}
+
+std::chrono::milliseconds Capture::stall_timeout() const noexcept
+{
+	if (cfg_.stall_timeout_ms > 0)
+		return std::chrono::milliseconds{cfg_.stall_timeout_ms};
+	if (cfg_.fps <= 0)
+		return std::chrono::milliseconds{250};
+	// four frame periods, but never below 250 ms: a healthy stream is never
+	// anywhere near a quarter second of silence
+	return std::chrono::milliseconds{std::max(4 * 1000 / cfg_.fps, 250)};
+}
+
+/// Wait until the stream has produced cfg.probe_frames frames. The first frame
+/// gets its own, longer budget (the ISP pipeline takes a moment to come up);
+/// every later frame must arrive within the stall budget.
+bool Capture::probe_stream()
+{
+	unsigned seen = 0;
+	while (seen < cfg_.probe_frames) {
+		const auto budget = seen == 0 ? std::chrono::milliseconds{cfg_.probe_timeout_ms}
+					      : stall_timeout();
+		auto frame = dequeue(budget);
+		if (!frame)
+			return false;
+		frame.reset(); // puts the buffer straight back into the queue
+		++seen;
+	}
+	return true;
+}
+
 void Capture::start()
 {
-	int type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-	ioctl_or_throw(fd_.get(), VIDIOC_STREAMON, &type, "VIDIOC_STREAMON");
-	streaming_ = true;
+	if (streaming_)
+		return;
+
+	++stats_.start_calls;
+	stats_.retries_used = 0;
+
+	std::string reason;
+	for (unsigned attempt = 0; attempt <= cfg_.retries; ++attempt) {
+		if (attempt > 0) {
+			// Measured on this board: after a stalled start the pipeline is
+			// dead as far as the file descriptor is concerned -- a plain
+			// STREAMOFF + STREAMON comes back -EINVAL. The only recovery that
+			// is known to work (it is what rerunning the program does) is a
+			// fresh open, so escalate to that.
+			stats_.retries_used = attempt;
+			stats_.hard_reopens++;
+			std::fprintf(stderr, "ar0234: stream watchdog: restart %u/%u, reopening %s\n", attempt,
+			    cfg_.retries, device_.c_str());
+			try {
+				restart_hard();
+			} catch (const std::exception &e) {
+				reason = e.what();
+				continue;
+			}
+		}
+
+		try {
+			stream_on();
+		} catch (const std::exception &e) {
+			// some attempts fail here instead of at the probe
+			stats_.streamon_failures++;
+			reason = e.what();
+			continue;
+		}
+		if (cfg_.probe_timeout_ms <= 0)
+			return;
+		if (probe_stream())
+			return;
+
+		// dead stream: no frames at all, or a gap far longer than a frame
+		stats_.failed_probes++;
+		reason = "stream stalled (no frames)";
+		stop();
+	}
+
+	throw std::runtime_error{"ar0234: stream start watchdog: " + device_ + " gave no frames in " +
+				 std::to_string(cfg_.retries + 1) + " attempts (" + reason + ")"};
 }
 
 void Capture::stop() noexcept
 {
 	if (!std::exchange(streaming_, false))
 		return;
-	int type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+	int type = kBufferType;
 	xioctl(fd_.get(), VIDIOC_STREAMOFF, &type);
 }
 
@@ -183,27 +344,24 @@ std::optional<Frame> Capture::dequeue(std::chrono::milliseconds timeout)
 
 	v4l2_plane planes[VIDEO_MAX_PLANES]{};
 	v4l2_buffer buf{};
-	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-	buf.memory = V4L2_MEMORY_MMAP;
-	buf.m.planes = planes;
-	buf.length = 1;
+	fill_buffer(buf, planes, 0);
 	if (xioctl(fd_.get(), VIDIOC_DQBUF, &buf) < 0) {
 		if (errno == EAGAIN)
 			return std::nullopt;
 		throw errno_error("VIDIOC_DQBUF");
 	}
 	buf.m.planes = nullptr; // points into this stack frame
+	++outstanding_;
 	return Frame{*this, buf};
 }
 
 void Capture::requeue(v4l2_buffer buf) noexcept
 {
-	if (!streaming_)
+	if (outstanding_ > 0)
+		--outstanding_;
+	if (buffers_.empty())
 		return;
-	v4l2_plane planes[VIDEO_MAX_PLANES]{};
-	buf.m.planes = planes;
-	buf.length = 1;
-	xioctl(fd_.get(), VIDIOC_QBUF, &buf);
+	queue_buffer(buf.index);
 }
 
 } // namespace ar0234

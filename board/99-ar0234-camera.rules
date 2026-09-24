@@ -1,2 +1,10 @@
-# AR0234 camera stack: A733 VE2 (H.264/H.265 encoder core) for the video group
+# AR0234 camera stack device permissions.
+
+# A733 VE2 (H.264/H.265 encoder core) for the video group
 KERNEL=="cedar_dev_ve2", GROUP="video", MODE="0660"
+
+# G2D 2D engine. The driver registers a plain misc device with mode 0600, so
+# without this rule only root can open /dev/g2d. Placed here (rather than in
+# the module) so the permissions also apply when g2d_sunxi is modprobed by
+# hand or reloaded.
+KERNEL=="g2d", GROUP="video", MODE="0660"

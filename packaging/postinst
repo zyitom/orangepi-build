@@ -20,6 +20,9 @@ fdtput -t s $DTB $VIND/sensor@5812020 status disabled
 systemctl daemon-reload || true
 systemctl enable ar0234-3ad.service || true
 
+# new udev permissions for the video group (cedar_dev_ve2, g2d)
+udevadm control --reload-rules || true
+
 # keep apt from replacing the modules/dtb this package depends on
 apt-mark hold linux-image-current-sun60iw2 linux-dtb-current-sun60iw2 || true
 

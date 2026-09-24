@@ -1,0 +1,40 @@
+# =====================================================================
+# A733 / sun60iw2 底层驱动补全 —— 内核配置增补
+# 符号名取自 kernel/orange-pi-6.6-sun60iw2/bsp/drivers/*/Kconfig（厂商 AW_ 前缀）
+# 前置：CONFIG_AW_BSP=y（本 BSP 默认已开）
+# 用法：bash merge-config.sh      （幂等：先删同名行再追加，自动备份）
+# =====================================================================
+
+# ---- Crypto Engine 硬件加解密 + 真随机数 ----
+CONFIG_AW_CE_SOCKET=y
+CONFIG_AW_CE_IOCTL=y
+CONFIG_AW_HWRNG_DRIVER=y
+CONFIG_AW_TRNG=y
+CONFIG_HW_RANDOM=y
+
+# ---- 通用 ADC / 按键 ADC ----
+CONFIG_AW_GPADC=y
+CONFIG_AW_LRADC=y
+
+# ---- SPI 控制器 ----
+# 更正（2026-09-21）：本板 SPI 控制器驱动是 AW_SPI_NG（.config 里已 =y），
+# 不需要 CONFIG_AW_SPI（那是旧驱动，本来就没开）。
+# 出 /dev/spidevX.Y 只需：开 spi3 覆层 + DT 里加 spidev/器件子节点（CONFIG_SPI_SPIDEV 已 =y）。
+CONFIG_SPI_SPIDEV=y
+
+# ---- IIO 子系统（接外部传感器/IMU 如 BMI088 时必需；本 .config 当前是 # CONFIG_IIO is not set）----
+CONFIG_IIO=y
+CONFIG_IIO_BUFFER=y
+CONFIG_IIO_KFIFO_BUF=y
+CONFIG_IIO_TRIGGERED_BUFFER=y
+# BMI088 加速度计（驱动源码已在 drivers/iio/accel/bmi088-accel-*，DT binding bosch,bmi088.yaml）
+CONFIG_BMI088_ACCEL=m
+CONFIG_BMI088_ACCEL_SPI=m
+# 注：陀螺仪 bmi088-gyro 在本内核树里【不存在】（drivers/iio/imu 下无 bmi088），
+#     需要从更新 mainline 回移，或自写一个 gyro 驱动。
+
+# ---- SoC 内部 RTC（allwinner,rtc-v201 @ 7090000）----
+CONFIG_AW_RTC=y
+CONFIG_AW_RTC_REBOOT_FLAG=y
+# 注：内部 RTC 需要 32.768kHz 时钟源；厂商在 Zero 3W 上默认 disabled，
+#     按“可回退方式”试开（见 dt-enable.sh + verify.sh）。

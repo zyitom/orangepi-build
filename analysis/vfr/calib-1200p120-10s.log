@@ -1,0 +1,99 @@
+===================== calib-1200p120-10s =====================
+date  : 2026-09-16T13:53:35+08:00
+board : uptime 829.48 s
+args  : -d /dev/video0 -w 1920 -h 1200 -f NV12 -p 1/120
+marker: VFRMARK-calib-1200p120-10s-1955300-1789538014
+--- vi counters before  ---
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+frame => cnt: 7025, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 33(ms), min: 3(ms)
+--- vfr ---
+input 0: 
+requested 1/120 -> got 1/120
+fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  t=  1.0s frames=    119 this_second=119
+  t=  2.0s frames=    240 this_second=121
+  t=  3.0s frames=    361 this_second=121
+  t=  4.0s frames=    482 this_second=121
+  t=  5.0s frames=    603 this_second=121
+  t=  6.0s frames=    724 this_second=121
+  t=  7.0s frames=    845 this_second=121
+  t=  8.1s frames=    966 this_second=121
+  t=  9.1s frames=   1087 this_second=121
+  t= 10.1s frames=   1208 this_second=121
+  t= 11.1s frames=   1329 this_second=121
+  t= 12.1s frames=   1450 this_second=121
+  t= 13.1s frames=   1571 this_second=121
+  t= 14.1s frames=   1692 this_second=121
+  t= 15.1s frames=   1813 this_second=121
+  t= 16.1s frames=   1934 this_second=121
+  t= 17.1s frames=   2055 this_second=121
+  t= 18.1s frames=   2176 this_second=121
+  t= 19.1s frames=   2297 this_second=121
+  t= 20.2s frames=   2418 this_second=121
+  t= 21.2s frames=   2539 this_second=121
+  t= 22.2s frames=   2660 this_second=121
+  t= 23.2s frames=   2781 this_second=121
+  t= 24.2s frames=   2902 this_second=121
+  t= 25.2s frames=   3023 this_second=121
+  t= 26.2s frames=   3144 this_second=121
+  t= 27.2s frames=   3265 this_second=121
+  t= 28.2s frames=   3386 this_second=121
+  t= 29.2s frames=   3507 this_second=121
+  t= 30.2s frames=   3628 this_second=121
+  t= 31.2s frames=   3749 this_second=121
+  t= 32.2s frames=   3870 this_second=121
+  t= 33.3s frames=   3991 this_second=121
+  t= 34.3s frames=   4112 this_second=121
+  t= 35.3s frames=   4233 this_second=121
+  t= 36.3s frames=   4354 this_second=121
+  t= 37.3s frames=   4475 this_second=121
+  t= 38.3s frames=   4596 this_second=121
+  t= 39.3s frames=   4717 this_second=121
+  t= 40.3s frames=   4838 this_second=121
+  t= 41.3s frames=   4959 this_second=121
+  t= 42.3s frames=   5080 this_second=121
+  t= 43.3s frames=   5201 this_second=121
+  t= 44.3s frames=   5322 this_second=121
+  t= 45.4s frames=   5443 this_second=121
+  t= 46.4s frames=   5564 this_second=121
+  t= 47.4s frames=   5685 this_second=121
+  t= 48.4s frames=   5806 this_second=121
+  t= 49.4s frames=   5927 this_second=121
+  t= 50.4s frames=   6048 this_second=121
+  t= 51.4s frames=   6169 this_second=121
+  t= 52.4s frames=   6290 this_second=121
+  t= 53.4s frames=   6411 this_second=121
+  t= 54.4s frames=   6532 this_second=121
+  t= 55.4s frames=   6653 this_second=121
+  t= 56.4s frames=   6774 this_second=121
+  t= 57.4s frames=   6895 this_second=121
+  t= 58.5s frames=   7016 this_second=121
+  t= 59.5s frames=   7137 this_second=121
+RESULT dev=/dev/video0 1920x1200 NV12 frames=7202 wall=60.004s fps=120.03 timeouts=0
+GAPS n=7201 median=0.008330s (120.05 fps) min=0.008061 max=0.008606 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi counters after   ---
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+frame => cnt: 7203, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 33(ms), min: 3(ms)
+--- dmesg since marker ---
+frame lost               0
+sunxi_isp_reset          0
+vblank                   2
+3DNR forced off          1
+configuration error      0
+height error             0
+strea                    2
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---

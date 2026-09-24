@@ -1,0 +1,53 @@
+===================== c15b-133-s3 =====================
+date   : 2026-09-17T01:59:31+08:00
+uptime : 348.78 s
+module : BA48201D23BA4260923B53E 375f6f4f5c15f72b2d2323f32e7af087  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 6 -d /dev/video0 -w 1920 -h 1080 -f NV12 -p 1/133  (vi0)
+marker : VFRMARK-c15b-133-s3-2464939-1789581567
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 477, hs: 1724
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 7(ms), max: 8(ms), min: 7(ms)
+--- vfr output ---
+input 0: 
+requested 1/133 -> got 1/133
+fmt NV12 1920x1080 planes=1 sizeimage=3110400 bytesperline=2880
+  [0.0s] no frame for >1s (frames=4)
+  [1.0s] no frame for >1s (frames=4)
+  [2.0s] no frame for >1s (frames=4)
+  [3.0s] no frame for >1s (frames=4)
+  [4.1s] no frame for >1s (frames=4)
+  [5.1s] no frame for >1s (frames=4)
+RESULT dev=/dev/video0 1920x1080 NV12 frames=4 wall=6.053s fps=0.66 timeouts=6
+GAPS n=3 median=0.007496s (133.41 fps) min=0.007476 max=0.007518 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 0, hb: 477, hs: 1724
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 7(ms), max: 8(ms), min: 7(ms)
+--- dmesg since marker ---
+frame lost               400
+sunxi_isp_reset          400
+vblank                   2
+3DNR forced off          1
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+[  351.237417] VFRMARK-c15b-133-s3-2464939-1789581567
+[  352.044935] sunxi:vin:[INFO]: isp0 sensor 1920x1080 vts 1100 fps 133: vblank 136 us, 3DNR off (limit 500 us)
+[  352.050835] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+[  354.059464] systemd-journald[610]: Failed to create new user journal: No space left on device
+[  354.132965] systemd-journald[610]: Failed to read journal file /var/log/journal/234c9a3c13d3420fa4966a4fc92d3842/user-1000.journal for rotation, trying to move it out of the way: Bad message
+

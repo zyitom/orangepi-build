@@ -1,0 +1,74 @@
+
+===== shell rescue start =====
+
+>>> setenv extraargs init=/bin/sh
+setenv extraargs init=/bin/sh
+=> 
+>>> run bootcmd
+run bootcmd
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+2638 bytes read in 7 ms (367.2 KiB/s)
+## Executing script at 43100000
+Boot script loaded from mmc 0
+169 bytes read in 6 ms (27.3 KiB/s)
+12690249 bytes read in 547 ms (22.1 MiB/s)
+26486856 bytes read in 1125 ms (22.5 MiB/s)
+213624 bytes read in 36 ms (5.7 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    26486792 Bytes = 25.3 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 43300000 ...
+   Image Name:   uInitrd
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    12690185 Bytes = 12.1 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   Loading Ramdisk to 493e5000, end 49fff309 ... OK
+[334.659]Starting kernel ...
+
+[334.662]total: 334662 ms
+
+[334.664][mmc]: MMC Device 2 not found
+[334.668][mmc]: mmc 2 not find, so not exit
+[335.286]get_sunxi_drm_connector_by_device fail!
+[335.292]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: []
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x412fd050]
+[    0.000000] Linux version 6.6.98-sun60iw2 (root@TL101) (aarch64-none-linux-gnu-gcc (GNU Toolchain for the Arm Architecture 11.2-2022.02 (arm-11.14)) 11.2.1 20220111, GNU ld (GNU Toolchain for the Arm Architecture 11.2-2022.02 (arm-11.14)) 2.37.20220122) #1.0.0 SMP PREEMPT Tue Sep 15 01:09:24 CST 2026
+[    0.000000] Machine model: sun60iw2
+[    0.000000] printk: bootconsole [earlycon0] enabled
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+>>> mount -o remount,rw /
+
+>>> echo SHELLUP-$(id -u)
+
+>>> ls -la /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb | tail -8
+
+>>> cp -f /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008 /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb
+
+>>> md5sum /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008
+
+>>> sync
+
+>>> reboot -f
+
+===== shell rescue end =====
+
+===== uboot_cmd start =====

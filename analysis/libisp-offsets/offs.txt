@@ -1,3 +1,8 @@
+!! WARNING (2026-09-23): these offsets were computed with the KERNEL header = ISP_VERSION 601 layout
+!! (sz_all 119204). The board libisp (commit 665dc2e9, ISP602) uses the 602 layout (sz_all 116284):
+!! isp_3a_param shrinks 5760 -> 2724, so every o_3a_* after the AWB light table and every absolute
+!! offset behind it differs. tools/make_isp_bin.py already uses the correct 602 values.
+!! Ground truth: analysis/libisp-offsets/VENDOR-SOURCE-CHECK.md, abs602.c (-DISP_VERSION=602).
 o_3a_ae_analog_gain_range 772
 o_3a_ae_gain_range 788
 o_3a_ae_max_lv 2
@@ -52,6 +57,13 @@ sz_tune 99384
 
 == 2026-09-16 LSC/MSC reverse (libisp_ini.so disasm, see lsc_offs.c) ==
 payload = [u32 size=116284][20B time][50B notes][struct 116284]; deployed
+
+!! EVERY OFFSET IN THIS FILE (and in tools/make_isp_bin.py) IS A *STRUCT*
+!! OFFSET.  The offset inside the .bin FILE is:
+!!     file offset = struct offset + 74
+!! 74 = 4 B size + 20 B date/time + 50 B note.
+!! Verified both ways: module enable bits struct 88..120 <-> file 162..194
+!! (tdf: struct 101 <-> file 175); gamma table struct 56480 <-> file 56554.
 isp_param_*.bin carry the 74B header, template blob is the raw struct.
 Layout = kernel isp_tuning_priv.h with +2848 bytes before bayer_gain and
 iso triger block removed. All verified against make_isp_bin.py anchors

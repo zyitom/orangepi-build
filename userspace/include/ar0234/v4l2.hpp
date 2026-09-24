@@ -7,6 +7,7 @@
 #include <initializer_list>
 #include <optional>
 #include <span>
+#include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -39,6 +40,10 @@ public:
 	/// Waits up to `timeout` for an event; nullopt on timeout.
 	[[nodiscard]] std::optional<v4l2_event> next_event(std::chrono::milliseconds timeout);
 	[[nodiscard]] std::optional<Resolution> pad_format(std::uint32_t pad = 0) const;
+	/// VIDIOC_S_CTRL on the sub-device (e.g. the sensor's test_pattern).
+	void set_control(std::uint32_t id, std::int32_t value);
+	/// VIDIOC_G_CTRL on the sub-device; throws on error.
+	[[nodiscard]] std::int32_t get_control(std::uint32_t id) const;
 	[[nodiscard]] int fd() const noexcept { return fd_.get(); }
 
 private:
@@ -72,6 +77,7 @@ public:
 
 private:
 	void reset() noexcept;
+
 	std::span<std::uint8_t> span_;
 };
 
@@ -88,6 +94,31 @@ struct CaptureConfig {
 	Resolution size{1920, 1080};
 	int fps = 30;
 	unsigned buffer_count = 4;
+
+	// --- stream-start watchdog -------------------------------------------
+	// Roughly one STREAMON in ten on this board delivers a handful of frames
+	// (usually 4, i.e. one full buffer queue) and then stalls for ever: the
+	// vin frame counters reset to 0, dmesg stays completely silent, and the
+	// very next start works. start() therefore treats "did not reach
+	// `probe_frames` frames, or any gap longer than the stall budget" as a
+	// failed start and restarts the stream, so a caller never sees the dead
+	// stream. Set probe_timeout_ms = 0 to disable the watchdog entirely
+	// (needed for external-trigger/free-running capture below ~1 fps).
+	int probe_timeout_ms = 1500;  ///< budget for the *first* frame
+	unsigned probe_frames = 8;    ///< frames that prove the stream is alive
+	unsigned retries = 2;         ///< restart attempts before giving up
+	int stall_timeout_ms = 0;     ///< 0 = auto (4 frame periods, min 250 ms)
+};
+
+/// What the stream-start watchdog had to do. Counters live for the lifetime of
+/// one Capture, so a caller can report how much of the 10% bad-start rate was
+/// absorbed by retrying instead of failing.
+struct StreamStats {
+	unsigned start_calls = 0;       ///< start() calls that did something
+	unsigned failed_probes = 0;     ///< probes that saw a dead/stalled stream
+	unsigned streamon_failures = 0; ///< STREAMON rejected during a restart
+	unsigned hard_reopens = 0;      ///< full close/open/reconfigure
+	unsigned retries_used = 0;      ///< restarts needed by the last start()
 };
 
 class Capture;
@@ -125,6 +156,9 @@ public:
 	Capture &operator=(const Capture &) = delete;
 	~Capture();
 
+	/// STREAMON plus the stream-start watchdog (see CaptureConfig): returns only
+	/// once the stream has actually produced frames. Throws std::runtime_error
+	/// if it still has not after cfg.retries restarts.
 	void start();
 	void stop() noexcept;
 	/// nullopt on timeout; throws on driver errors.
@@ -133,19 +167,35 @@ public:
 	[[nodiscard]] Resolution size() const noexcept { return size_; }
 	[[nodiscard]] std::span<CaptureBuffer> buffers() noexcept { return buffers_; }
 	[[nodiscard]] bool dmabuf_exported() const noexcept;
+	[[nodiscard]] const StreamStats &stream_stats() const noexcept { return stats_; }
+	/// Effective stall budget used by the watchdog (0 when disabled).
+	[[nodiscard]] std::chrono::milliseconds stall_timeout() const noexcept;
 
 	/// VIDIOC_S_CTRL on the video node. With the ISP in use, exposure/gain
 	/// controls go to libisp, which only notices changes made while it runs.
 	void set_control(std::uint32_t id, std::int32_t value);
+	/// VIDIOC_G_CTRL on the video node; throws on error.
+	[[nodiscard]] std::int32_t get_control(std::uint32_t id) const;
 
 private:
 	friend class Frame;
 	void requeue(v4l2_buffer buf) noexcept;
 
+	void configure();     ///< S_INPUT/S_PARM/S_FMT/REQBUFS/mmap/EXPBUF/QBUF
+	void release_buffers() noexcept;
+	void restart_hard();
+	int queue_buffer(unsigned index) noexcept;
+	void stream_on();
+	bool probe_stream();
+
+	CaptureConfig cfg_;
+	std::string device_;
 	UniqueFd fd_;
 	Resolution size_;
 	std::vector<CaptureBuffer> buffers_;
 	bool streaming_ = false;
+	unsigned outstanding_ = 0; ///< frames handed to the caller right now
+	StreamStats stats_;
 };
 
 } // namespace ar0234

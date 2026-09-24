@@ -1,0 +1,30 @@
+=== before: modules ===
+ar0234_mipi            20480  0
+vin_v4l2              278528  1
+videobuf2_dma_contig    16384  1 vin_v4l2
+vin_io                 61440  3 ar0234_mipi,vin_v4l2
+=== a stream first, so the ISP has really run ===
+RESULT dev=/dev/video0 1920x1200 NV12 frames=479 wall=4.005s fps=119.59 timeouts=0
+GAPS n=478 median=0.008330s (120.05 fps) min=0.008123 max=0.008535 >1.5x=0 >3x=0
+=== rmmod / modprobe ===
+rmmod ar0234_mipi rc=0
+rmmod: ERROR: Module vin_io is in use by: vin_v4l2
+rmmod vin_io rc=1
+rmmod vin_v4l2 rc=1
+rmmod: ERROR: Module vin_v4l2 is in use
+vin_v4l2              278528  1
+videobuf2_dma_contig    16384  1 vin_v4l2
+vin_io                 61440  1 vin_v4l2
+modprobe vin_v4l2 rc=0
+modprobe vin_io rc=0
+modprobe ar0234_mipi rc=0
+ar0234_mipi            20480  0
+vin_v4l2              278528  1
+videobuf2_dma_contig    16384  1 vin_v4l2
+vin_io                 61440  2 ar0234_mipi,vin_v4l2
+=== devices after reload ===
+ls: cannot access '/dev/v4l-subdev0': No such file or directory
+/dev/video0
+/dev/video4
+=== stream after reload ===
+client_loop: send disconnect: Broken pipe

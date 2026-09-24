@@ -12,7 +12,11 @@ VIND=/soc@3000000/vind@5800800
 
 [ "$(uname -r)" = "$KV" ] || { echo "kernel $(uname -r) != $KV, rebuild the modules"; exit 1; }
 
-backup() { [ -f "$1.orig" ] || cp "$1" "$1.orig"; echo "backup: $1.orig"; }
+backup() {
+	[ -f "$1" ] || { echo "backup: $1 (absent, nothing to save)"; return 0; }
+	[ -f "$1.orig" ] || cp "$1" "$1.orig"
+	echo "backup: $1.orig"
+}
 
 # modules: sensor driver + vin framework with the auto S_INPUT fixes and
 # CONFIG_D3D (LBC mode) for the ISP 3DNR; vin_io.ko stays the packaged one
@@ -31,12 +35,25 @@ fdtput -t s $DTB $VIND/sensor@5812020 status disabled
 # load at boot (vin_v4l2 pulls vin_io and requests ar0234_mipi)
 printf '# AR0234 camera on MIPI-A\nvin_v4l2\n' > /etc/modules-load.d/ar0234.conf
 
+# G2D: nothing in this image requests it at boot (DRM/KMS does not pull it in)
+# and its misc device comes up 0600 root:root, so it needs both a modules-load
+# entry and a udev rule to be usable by the video group.
+install -m 644 "$DIR/board/g2d.conf" /etc/modules-load.d/g2d.conf
+backup /etc/udev/rules.d/99-ar0234-camera.rules
+install -m 644 "$DIR/board/99-ar0234-camera.rules" /etc/udev/rules.d/99-ar0234-camera.rules
+udevadm control --reload-rules || true
+
 # libisp 3A parameters (first-pass AR0234 tuning, see README): all usable ISP
 # modules on incl. hardware 3DNR; ar0234-3ad picks the no-3DNR set for 1200p120
 mkdir -p /mnt/extsd/ar0234
 install -m 644 "$DIR/isp/isp_param_3dnr.bin" "$DIR/isp/isp_param_no3dnr.bin" /mnt/extsd/ar0234/
 install -m 644 "$DIR/isp/isp_param_3dnr.bin" /mnt/extsd/isp_param_config.bin
 rm -f /mnt/isp0_*_ar0234_mipi_ctx_saved.bin
+
+# fixed-mode config (/etc/ar0234.conf): never overwrite an existing one --
+# editing that file is exactly how the operator pins exposure/gain/AWB
+backup /etc/ar0234.conf
+[ -f /etc/ar0234.conf ] || install -m 644 "$DIR/board/ar0234.conf" /etc/ar0234.conf
 
 # keep apt from replacing the modules/DTB above
 apt-mark hold linux-image-current-sun60iw2 linux-dtb-current-sun60iw2

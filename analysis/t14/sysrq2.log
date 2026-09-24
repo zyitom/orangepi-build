@@ -1,0 +1,10 @@
+
+===== sysrq2 =====
+
+>>> method break_cond_0.5 then 'b'
+
+>>> method tcsendbreak0 then 'b'
+
+>>> method tcsendbreak1 then 'b'
+
+===== sysrq2 end =====

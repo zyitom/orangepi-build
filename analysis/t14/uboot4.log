@@ -1,0 +1,27 @@
+
+===== uboot_cmd start =====
+
+>>> load mmc 0:1 0x43100000 /boot/orangepiEnv.txt
+load mmc 0:1 0x43100000 /boot/orangepiEnv.txt
+169 bytes read in 6 ms (27.3 KiB/s)
+=> 
+>>> env import -t 0x43100000 ${filesize}
+env import -t 0x43100000 ${filesize}
+=> 
+>>> printenv fdtfile
+printenv fdtfile
+fdtfile=allwinner/sun60i-a733-orangepi-zero3w.dtb
+=> 
+>>> printenv extraargs
+printenv extraargs
+## Error: "extraargs" not defined
+=> 
+>>> printenv bootargs
+printenv bootargs
+## Error: "bootargs" not defined
+=> 
+>>> ls mmc 0:1 /boot/dtb-6.6.98-sun60iw2/allwinner | grep sun60i
+ls mmc 0:1 /boot/dtb-6.6.98-sun60iw2/allwinner | grep sun60i
+syntax error
+=> 
+===== uboot_cmd end =====

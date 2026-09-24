@@ -1,0 +1,10 @@
+
+===== sysrq3 =====
+
+>>> longbreak + 'b'
+
+>>> longbreak + 'h'
+
+>>> longbreak + 'b'
+
+===== sysrq3 end =====

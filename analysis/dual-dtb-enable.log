@@ -1,0 +1,18 @@
+backup: /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.dual-bak-1789540194
+--- values after enable (file) ---
+okay
+okay
+1
+1
+ar0234_mipi
+--- file: /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb (71395a71ffc36c710958689a4e835d9c) ---
+status                     okay
+
+status                     okay
+
+vinc1_rear_sensor_sel      1
+
+vinc1_front_sensor_sel     1
+
+sensor1_mname              ar0234_mipi
+

@@ -1,0 +1,9 @@
+echo RESCUE-START
+part list mmc 0
+ext4size mmc 0:1 /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb
+ext4load mmc 0:1 ${fdt_addr_r} /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008
+ext4size mmc 0:1 /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008
+ext4write mmc 0:1 ${fdt_addr_r} /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb ${filesize}
+ext4size mmc 0:1 /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb
+ext4load mmc 0:1 ${fdt_addr_r} /boot/dtb-6.6.98-sun60iw2/allwinner/sun60i-a733-orangepi-zero3w.dtb
+boot

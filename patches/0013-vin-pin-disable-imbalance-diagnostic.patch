@@ -1,0 +1,41 @@
+From: AR0234 port <local>
+Subject: [PATCH 0013] vin: read-only enable-count imbalance diagnostic in vin_pin_disable()
+
+patches/0012 gated the __vin_pipeline_close() teardown on vind->use_count,
+which removed the three-signature underflow (Runtime PM usage count underflow,
+_regulator_disable WARNING, "disable vind_mclkpin error"). The disable path has
+more callers than that gate (vin_probe()'s balanced pair today, whatever comes
+tomorrow), and the failure mode is silent except for a generic regulator
+warning. Add a read-only tripwire: before disabling, regulator_is_enabled()
+(queries, changes nothing) reports an already-disabled regulator as an explicit
+vin_err naming the real cause - an enable-count imbalance, i.e. a disable
+without a partner enable. Healthy paths (probe pair, gated close) are exactly
+balanced and never print.
+
+Board evidence this is false-positive-free: 40x4 s stream watchdog test and
+30x open+close(/dev/video4)-while-streaming after this patch: zero diagnostic
+lines, regulator_summary enable count back to 0 (analysis/round10/REPORT.md).
+---
+--- a/bsp/drivers/vin/vin.c
++++ b/bsp/drivers/vin/vin.c
+@@ -1186,6 +1186,19 @@
+ 	int ret = 0;
+ #if IS_ENABLED(CONFIG_ARCH_SUN55IW3) || IS_ENABLED(CONFIG_ARCH_SUN60IW2)
+ 	int i;
++
++	/*
++	 * Read-only imbalance diagnostic (round 10). An unbalanced disable
++	 * shows up here as a regulator that is already off - the exact
++	 * signature of a close path that runs one extra time (see the
++	 * use_count gate in __vin_pipeline_close()). is_enabled() only
++	 * queries; the disable below is left exactly as it was.
++	 */
++	for (i = 0; i < VIN_MAX_PINCTRL; i++)
++		if (!regulator_is_enabled(vind->vin_pinctrl[i]))
++			vin_err("%s: %s already disabled (enable-count imbalance: a disable without a partner enable)\n",
++				__func__, vind_pin_name[i]);
++
+ 	for (i = 0; i < VIN_MAX_PINCTRL; i++) {
+ 		ret = regulator_disable(vind->vin_pinctrl[i]);
+ 		if (0 != ret) {
+

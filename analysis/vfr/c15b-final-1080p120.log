@@ -1,0 +1,69 @@
+===================== c15b-final-1080p120 =====================
+date   : 2026-09-17T02:13:29+08:00
+uptime : 1186.30 s
+module : BA48201D23BA4260923B53E 375f6f4f5c15f72b2d2323f32e7af087  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko 
+args   : -t 8 -d /dev/video0 -w 1920 -h 1080 -f NV12 -p 1/120  (vi0)
+marker : VFRMARK-c15b-final-1080p120-2476144-1789582405
+--- vi0 counters before ---
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1723
+frame => cnt: 3602, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+--- vfr output ---
+input 0: 
+requested 1/120 -> got 1/120
+fmt NV12 1920x1080 planes=1 sizeimage=3110400 bytesperline=2880
+  t=  1.0s frames=    120 this_second=120
+  t=  2.0s frames=    241 this_second=121
+  t=  3.0s frames=    362 this_second=121
+  t=  4.0s frames=    483 this_second=121
+  t=  5.0s frames=    604 this_second=121
+  t=  6.0s frames=    725 this_second=121
+  t=  7.1s frames=    846 this_second=121
+RESULT dev=/dev/video0 1920x1080 NV12 frames=960 wall=8.003s fps=119.96 timeouts=0
+GAPS n=959 median=0.008330s (120.05 fps) min=0.008229 max=0.008429 >1.5x=0 >3x=0
+--- vfr rc=0 ---
+--- vi0 counters after ---
+input => hoff: 0, voff: 0, w: 1920, h: 1080, fmt: GRBG10
+output => width: 1920, height: 1080, fmt: NV12
+prs_in => x: 1920, y: 1080, hb: 477, hs: 1724
+frame => cnt: 961, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 9(ms), min: 7(ms)
+--- dmesg since marker ---
+frame lost               0
+sunxi_isp_reset          0
+vblank                   1
+3DNR forced off          0
+configuration error      0
+height error             0
+stream off               0
+not mapped               0
+CSI module               0
+sunxi_iommu              0
+Oops                     0
+BUG:                     0
+WARNING:                 0
+Call trace               0
+--- dmesg lines of interest (tail) ---
+[ 1207.370832] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.370905] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371080] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371153] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371330] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371400] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371588] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371658] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371830] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.371900] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.372073] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.372143] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.372696] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.372770] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.372949] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1207.373020] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1211.137272] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1211.137360] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1211.138026] systemd-journald[610]: Failed to open system journal: No space left on device
+[ 1211.138099] systemd-journald[610]: Failed to open system journal: No space left on device
+
