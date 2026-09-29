@@ -1,0 +1,79 @@
+74.80
+843BC1A03606D35EC062D57
+----- A1 : 20s touch=none
+  vi before: vi0 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2402 wall=20.007s fps=120.06 timeouts=0
+  dmesg:
+   ! [   75.727829] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [   75.733998] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- A2 : 20s touch=none
+  vi before: vi0 frame => cnt: 2403, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2400 wall=20.001s fps=119.99 timeouts=0
+  dmesg:
+   ! [  100.209810] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  100.226220] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- A3 : 20s touch=none
+  vi before: vi0 frame => cnt: 2401, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2401 wall=20.004s fps=120.03 timeouts=0
+  dmesg:
+   ! [  124.720214] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  124.736569] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- B1 : 20s touch=touch
+  vi before: vi0 frame => cnt: 2402, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi @8s: vi0 frame => cnt: 915, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+    open/close /dev/video4 #1 ok
+  vi right after touch: vi0 frame => cnt: 1036, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi 8s later:          vi0 frame => cnt: 1998, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2401 wall=20.002s fps=120.04 timeouts=0
+  dmesg:
+   ! [  149.238285] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  149.246757] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- B2 : 20s touch=touch
+  vi before: vi0 frame => cnt: 2402, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi @8s: vi0 frame => cnt: 898, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+    open/close /dev/video4 #1 ok
+  vi right after touch: vi0 frame => cnt: 1017, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi 8s later:          vi0 frame => cnt: 1963, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2361 wall=20.008s fps=118.00 timeouts=0
+  dmesg:
+   ! [  173.750997] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  173.767432] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- C1 : 20s touch=none
+  vi before: vi0 frame => cnt: 2362, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2401 wall=20.007s fps=120.01 timeouts=0
+  dmesg:
+   ! [  198.253920] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  198.262398] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+----- D1 : 20s touch=touch
+  vi before: vi0 frame => cnt: 2402, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi @8s: vi0 frame => cnt: 913, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+    open/close /dev/video4 #1 ok
+  vi right after touch: vi0 frame => cnt: 1034, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  vi 8s later:          vi0 frame => cnt: 1996, lost_cnt: 0, error_cnt: 0 vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2401 wall=20.008s fps=120.00 timeouts=0
+  dmesg:
+   ! [  222.761643] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+   ! [  222.778149] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+=========== 3A service journal (last 20) ===========
+  -- Journal begins at Wed 2026-09-16 12:43:15 UTC, ends at Wed 2026-09-16 12:50:43 UTC. --
+  Sep 16 12:47:56 orangepizero3w ar0234-3ad[3860]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:48:16 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:48:20 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 120 fps
+  Sep 16 12:48:20 orangepizero3w ar0234-3ad[3876]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:48:40 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:48:45 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 120 fps
+  Sep 16 12:48:45 orangepizero3w ar0234-3ad[3893]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:49:05 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:49:09 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 120 fps
+  Sep 16 12:49:09 orangepizero3w ar0234-3ad[3911]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:49:29 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:49:34 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 118 fps
+  Sep 16 12:49:34 orangepizero3w ar0234-3ad[3944]: ar0234-3ad: 3A running on isp0 for 1920x1200@118
+  Sep 16 12:49:54 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:49:58 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 120 fps
+  Sep 16 12:49:58 orangepizero3w ar0234-3ad[3976]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:50:18 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+  Sep 16 12:50:23 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream 1920x1200, 120 fps
+  Sep 16 12:50:23 orangepizero3w ar0234-3ad[3996]: ar0234-3ad: 3A running on isp0 for 1920x1200@120
+  Sep 16 12:50:43 orangepizero3w ar0234-3ad[658]: ar0234-3ad: stream stopped
+########## DONE7

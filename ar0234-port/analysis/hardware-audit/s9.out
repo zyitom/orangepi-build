@@ -1,0 +1,75 @@
+########## 40 x 4 s runs at 1920x1200@120 (expect ~478 frames each)
+  run1   frames=480 wall=4.008s fps=119.75 timeouts=0               vi0[1191 0 0] -> [481 0 0]
+  run2   frames=480 wall=4.008s fps=119.75 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run3   frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run4   frames=4 wall=4.048s fps=0.99 timeouts=4                   vi0[481 0 0] -> [0 0 0] <== BAD START
+    --- recovery attempt: 3 more runs right after the bad one ---
+      retry1: frames=479 wall=4.008s fps=119.51 timeouts=0 | dmesg frame_lost=241
+      retry2: frames=480 wall=4.008s fps=119.75 timeouts=0 | dmesg frame_lost=241
+      retry3: frames=480 wall=4.008s fps=119.76 timeouts=0 | dmesg frame_lost=241
+  run5   frames=476 wall=4.007s fps=118.79 timeouts=0               vi0[481 0 0] -> [477 0 0]
+  run6   frames=476 wall=4.007s fps=118.80 timeouts=0               vi0[477 0 0] -> [477 0 0]
+  run7   frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[477 0 0] -> [481 0 0]
+  run8   frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run9   frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run10  frames=472 wall=4.008s fps=117.76 timeouts=0               vi0[481 0 0] -> [473 0 0]
+  run11  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[473 0 0] -> [481 0 0]
+  run12  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run13  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run14  frames=476 wall=4.007s fps=118.80 timeouts=0               vi0[481 0 0] -> [477 0 0]
+  run15  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[477 0 0] -> [481 0 0]
+  run16  frames=4 wall=4.048s fps=0.99 timeouts=4                   vi0[481 0 0] -> [0 0 0] <== BAD START
+    --- recovery attempt: 3 more runs right after the bad one ---
+      retry1: frames=475 wall=4.007s fps=118.55 timeouts=0 | dmesg frame_lost=241
+      retry2: frames=480 wall=4.008s fps=119.76 timeouts=0 | dmesg frame_lost=241
+      retry3: frames=480 wall=4.008s fps=119.75 timeouts=0 | dmesg frame_lost=241
+  run17  frames=480 wall=4.008s fps=119.75 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run18  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run19  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run20  frames=4 wall=4.048s fps=0.99 timeouts=4                   vi0[481 0 0] -> [0 0 0] <== BAD START
+    --- recovery attempt: 3 more runs right after the bad one ---
+      retry1: frames=471 wall=4.008s fps=117.52 timeouts=0 | dmesg frame_lost=241
+      retry2: frames=480 wall=4.008s fps=119.76 timeouts=0 | dmesg frame_lost=241
+      retry3: frames=476 wall=4.007s fps=118.80 timeouts=0 | dmesg frame_lost=241
+  run21  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[477 0 0] -> [481 0 0]
+  run22  frames=4 wall=4.048s fps=0.99 timeouts=4                   vi0[481 0 0] -> [0 0 0] <== BAD START
+    --- recovery attempt: 3 more runs right after the bad one ---
+      retry1: frames=475 wall=4.006s fps=118.56 timeouts=0 | dmesg frame_lost=241
+      retry2: frames=476 wall=4.007s fps=118.80 timeouts=0 | dmesg frame_lost=241
+      retry3: frames=480 wall=4.008s fps=119.76 timeouts=0 | dmesg frame_lost=241
+  run23  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run24  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run25  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run26  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run27  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run28  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run29  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run30  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run31  frames=472 wall=4.008s fps=117.77 timeouts=0               vi0[481 0 0] -> [473 0 0]
+  run32  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[473 0 0] -> [481 0 0]
+  run33  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+  run34  frames=476 wall=4.006s fps=118.81 timeouts=0               vi0[481 0 0] -> [477 0 0]
+  run35  frames=476 wall=4.007s fps=118.80 timeouts=0               vi0[477 0 0] -> [477 0 0]
+  run36  frames=472 wall=4.008s fps=117.77 timeouts=0               vi0[477 0 0] -> [473 0 0]
+  run37  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[473 0 0] -> [481 0 0]
+  run38  frames=476 wall=4.007s fps=118.80 timeouts=0               vi0[481 0 0] -> [477 0 0]
+  run39  frames=480 wall=4.008s fps=119.75 timeouts=0               vi0[477 0 0] -> [481 0 0]
+  run40  frames=480 wall=4.008s fps=119.76 timeouts=0               vi0[481 0 0] -> [481 0 0]
+########## SUMMARY: 4 bad starts out of 40 runs
+--- dmesg pattern totals over the whole loop ---
+  frame lost: 117
+--- vi0 now ---
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1723
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 481, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 9(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+--- final health run ---
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=708 wall=6.007s fps=117.86 timeouts=0
+########## DONE9

@@ -1,0 +1,174 @@
+### t17-bw start=2026-09-16T10:47:14+00:00 uptime=150.65
+### srcversion=659707E6FD376A25E1E38CB
+
+################ 1. IDLE (nothing streaming) ################
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2858, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2621, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+
+################ 2. SINGLE stream /dev/video0 ################
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 4, work_mode: online
+frame => cnt: 915, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2621, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+--- vi0 vfr so far ---
+--- video0 RESULT ---
+RESULT dev=/dev/video0 1920x1200 NV12 frames=2401 wall=20.007s fps=120.01 timeouts=0
+
+################ 3. DUAL streams video0 + video4 ################
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 1264, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 1191, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+--- video0 RESULT ---
+RESULT dev=/dev/video0 1920x1200 NV12 frames=2857 wall=24.000s fps=119.04 timeouts=0
+--- video4 RESULT ---
+RESULT dev=/dev/video4 1920x1200 NV12 frames=2620 wall=22.001s fps=119.08 timeouts=0
+
+################ 4. AFTER both stopped ################
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2858, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2621, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+### done 2026-09-16T10:47:59+00:00

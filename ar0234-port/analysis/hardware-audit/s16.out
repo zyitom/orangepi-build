@@ -1,0 +1,167 @@
+########## A. the kernel trace seen around uptime 472 s
+  [    9.644976] WARNING: CPU: 3 PID: 606 at fs/sysfs/file.c:736 sysfs_emit+0xa4/0xb4
+  [    9.645065] pc : sysfs_emit+0xa4/0xb4
+  [    9.645070] lr : sysfs_emit+0xa4/0xb4
+  [    9.645173] Call trace:
+  [    9.645286] ---[ end trace 0000000000000000 ]---
+  [  472.725648] WARNING: CPU: 6 PID: 7336 at drivers/regulator/core.c:3012 _regulator_disable+0xf0/0x1c8
+  [  472.725791] pc : _regulator_disable+0xf0/0x1c8
+  [  472.725802] lr : _regulator_disable+0xf0/0x1c8
+  [  472.725989] Call trace:
+  [  472.726315] ---[ end trace 0000000000000000 ]---
+    *** [  472.726324] sunxi:vin:[ERR]: vin_pin_disable: disable vind_mclkpin error, fail to disable regulator!
+    *** [  472.726336] sunxi-vin-core 5830000.vinc: Runtime PM usage count underflow!
+--- raw window (lines with el0t_64_sync) ---
+  242:[    9.645273]  el0t_64_sync_handler+0x13c/0x158
+  243:[    9.645279]  el0t_64_sync+0x190/0x194
+  1850:[  472.726290]  el0t_64_sync_handler+0x13c/0x158
+  1851:[  472.726305]  el0t_64_sync+0x190/0x194
+  202: [    9.643907] usb usb6: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+  203: [    9.643912] usb usb6: Product: OHCI Host Controller
+  204: [    9.643917] usb usb6: Manufacturer: Linux 6.6.98-sun60iw2 ohci_hcd
+  205: [    9.643922] usb usb6: SerialNumber: sunxi-ohci
+  206: [    9.644467] hub 6-0:1.0: USB hub found
+  207: [    9.644509] hub 6-0:1.0: 1 port detected
+  208: [    9.644938] ------------[ cut here ]------------
+  209: [    9.644953] invalid sysfs_emit: buf:00000000605f2324
+  210: [    9.644976] WARNING: CPU: 3 PID: 606 at fs/sysfs/file.c:736 sysfs_emit+0xa4/0xb4
+  211: [    9.644994] Modules linked in: aic8800_btlpm pvrsrvkm(O) goodix_ts pwm_fan deinterlace sunxi_ve vipcore sun55iw3_devfreq aic8800_fdrv aic8800_bsp ar0234_mipi(O) vin_v4l2(O) videobuf2_dma_contig vin_io
+  212: [    9.645046] CPU: 3 PID: 606 Comm: orangepi-hardwa Tainted: G           O       6.6.98-sun60iw2 #1.0.0
+  213: [    9.645054] Hardware name: sun60iw2 (DT)
+  214: [    9.645058] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  215: [    9.645065] pc : sysfs_emit+0xa4/0xb4
+  216: [    9.645070] lr : sysfs_emit+0xa4/0xb4
+  217: [    9.645074] sp : ffffffc082e1bbb0
+  218: [    9.645078] x29: ffffffc082e1bbb0 x28: ffffff80c3215e80 x27: 0000000000000000
+  219: [    9.645088] x26: 0000000000000000 x25: 0000000000000000 x24: ffffff80c25d1f20
+  220: [    9.645098] x23: ffffffc082e1bd88 x22: ffffffc0819b9000 x21: ffffff80c0e595b0
+  221: [    9.645107] x20: 0000000000000001 x19: ffffffc0819b9780 x18: ffffffffffffffff
+  222: [    9.645117] x17: 000000000000001c x16: 00000000cf40a7ee x15: ffffffc08196914a
+  223: [    9.645126] x14: 0000000000000000 x13: ffffffc0816fad20 x12: 000000000000118e
+  224: [    9.645135] x11: 00000000000005da x10: ffffffc081752d20 x9 : ffffffc0816fad20
+  225: [    9.645144] x8 : 00000000ffffefff x7 : ffffffc081752d20 x6 : 0000000000000000
+  226: [    9.645153] x5 : ffffff80ff688908 x4 : 0000000000000000 x3 : ffffffc07e1b2000
+  227: [    9.645163] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffff80c3215e80
+  228: [    9.645173] Call trace:
+  229: [    9.645177]  sysfs_emit+0xa4/0xb4
+  230: [    9.645183]  host_chose+0xa0/0xf0
+  231: [    9.645193]  set_otg_role+0x68/0x198
+  232: [    9.645198]  dev_attr_store+0x18/0x2c
+  233: [    9.645208]  sysfs_kf_write+0x44/0x54
+  234: [    9.645213]  kernfs_fop_write_iter+0x118/0x1a8
+  235: [    9.645222]  vfs_write+0x1f4/0x2b4
+  236: [    9.645231]  ksys_write+0x68/0xf4
+  237: [    9.645237]  __arm64_sys_write+0x1c/0x28
+  238: [    9.645244]  invoke_syscall+0x48/0x118
+  239: [    9.645252]  el0_svc_common.constprop.0+0x40/0xe8
+  240: [    9.645259]  do_el0_svc+0x20/0x2c
+  241: [    9.645265]  el0_svc+0x38/0x114
+  242: [    9.645273]  el0t_64_sync_handler+0x13c/0x158
+  243: [    9.645279]  el0t_64_sync+0x190/0x194
+  244: [    9.645286] ---[ end trace 0000000000000000 ]---
+  245: [    9.645507] sunxi:sound-mach:[WARN]: 372 asoc_simple_parse_ucfmt(): set data late to default
+  246: [    9.645534] sunxi:sound-mach:[ERR]: 513 simple_parse_of(): simple_dai_link_of failed
+  247: [    9.646251] [BT_LPM] bluesleep_write_proc_btwrite: lpm disabled, direct set ext_wake to 1
+--- counts since boot ---
+  Unable to handle         0
+  Internal error           0
+  Call trace               2
+  end trace                2
+  WARNING:                 2
+  vin_pin_disable          1
+  usage count underflow    1
+  is not mapped            0
+  frame lost               603
+########## B. ISP param: locate the real tdf/enable bytes
+  == isp_param_3dnr.bin
+   0-based 88..127 :  00 00 00 7d 00 00 05 00 00 00 00 00 00 00 00 01
+ 00 00 40 00 00 00 00 10 00 00 05 00 00 00 00 00
+ 00 00 0a 00 00 00 0a 00
+   0-based 160..199:  00 00 00 01 01 00 01 01 00 00 01 01 01 01 01 01
+ 01 01 01 00 00 01 01 01 01 01 01 01 01 01 01 01
+ 00 00 00 00 00 00 01 00
+  == isp_param_no3dnr.bin
+   0-based 88..127 :  00 00 00 7d 00 00 05 00 00 00 00 00 00 00 00 01
+ 00 00 40 00 00 00 00 10 00 00 05 00 00 00 00 00
+ 00 00 0a 00 00 00 0a 00
+   0-based 160..199:  00 00 00 01 01 00 01 01 00 00 01 01 01 01 01 00
+ 01 01 01 00 00 01 01 01 01 01 01 01 01 01 01 01
+ 00 00 00 00 00 00 01 00
+  --- byte 175 (0-based 175) in both ---
+   isp_param_3dnr.bin           [175]=1 [101]=0
+   isp_param_no3dnr.bin         [175]=0 [101]=0
+########## C. NPU: actually run the shipped framework
+--- vpm_run -s sample.txt -l 1 ---
+  loop_count=1, device_index=0, core_index=-1, file_name=sample.txt, time_out=0x0, bypass=1
+  enable_npd=0, preload=0
+  show_top50, save_txt=0
+  init vip lite, driver version=0x00020003...
+  VIPLite driver software version 2.0.3.2-AW-2024-08-30
+  vip lite init OK.
+  
+  cid=0x1000003b, device_count=1
+    device[0] core_count=1
+  config file read network count=1
+  init test resources, task_count: 1 ...
+  create/prepare networks ...
+  task i=0, binary name: ./network_binary.nb
+  nbg name=./network_binary.nb
+  create network 0: 868 us.
+  input 0 dim 224 224 3 1, data_format=2, quant_format=2, name=input[0], scale=0.003922, zero_point=0
+  ouput 0 dim 2 1 0 0, data_format=2, name=uid_1_out_0, scale=0.001625, zero_point=128
+  memory pool size=1092352byte
+  network core count=1
+  prepare network 0: 422 us.
+  golden file count=0
+  input 0 name: ./input_0.dat
+  read input and golden 0: 186 us.
+  task: 0, loop count: 1
+  start to run network=./network_binary.nb
+  run time for this network 0: 2848 us.
+  run network done...
+  profile inference time=2747us, cycle=2754157
+  destroy test resource task_count=1
+  vpm run ret=0
+  rc=0
+--- npu counters after ---
+  video memory profile
+   ------------------------------------------------------------------------------
+  |       current(byte)    |      peak(byte)    |   alloc count   |   free count 
+  |------------------------------------------------------------------------------
+  |      0x00000000        |     0x00251888     |      12         |    12     
+  NPU Loading -----> Core0:  0% 
+--- dmesg ---
+  [  506.302369] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+  [  506.306800] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+  [  506.307391] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  [  506.625131] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 1220 (120 fps)
+  [  516.637320] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+  [  542.165782] npu[24aa][24aa] set core(index): 0, percent: 100, freq: 1008000000
+  [  542.174346] seq_file: buggy .next function vipdrv_seq_next [vipcore] did not update position index
+  [  542.176909] seq_file: buggy .next function vipdrv_seq_next [vipcore] did not update position index
+########## D. yolov5 demo with its own model
+--- ./yolov5 model/yolov5.nb input_data/dog_640_640.jpg ---
+  detection num: 3
+  16:  82%, [ 112,  233,  257,  609], dog
+   7:  69%, [ 390,   83,  576,  194], truck
+   1:  47%, [  84,  144,  469,  469], bicycle
+  ./yolov5 nbg input
+  VIPLite driver software version 2.0.3.2-AW-2024-08-30
+  yolov5_preprocess.cpp run. 
+  yolov5_postprocess.cpp run. 
+  rc=0
+  -rw-rw-r-- 1 root root 717276 Sep 16 13:13 result.png
+########## E. vinreg (compile + the isp01 alias read) ---
+  0x5900000  = 0x05900000 = 0x00000005
+  0x58ffffc  = 0x058ffffc = 0x00000000
+  0x5901300  = 0x05901300 = 0x00000000
+  0x58ffff8  = 0x058ffff8 = 0x00000000
+  0x5901860  = 0x05901860 = 0x00000000
+  0x5901840  = 0x05901840 = 0x00000000
+  --- words at isp00 base and isp01 base (8 words each) ---
+    0x05900000 = 0x00000005
+    -- nonzero words: 1 --
+    0x05900000 = 0x00000005
+    -- nonzero words: 1 --
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=4 wall=12.055s fps=0.33 timeouts=12
+########## DONE16

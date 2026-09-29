@@ -1,0 +1,37 @@
+=== 1. DTB unchanged? ===
+d4ee5b6869e7b7cd39ce3762d0e078f9  /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
+=== 2. module ===
+843BC1A03606D35EC062D57
+2715c25c40085869f0573a43b52528ae  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko
+=== 3. clocks ===
+isp=324000000 csi=324000000  d3d_min_vblank_us=500
+=== 4. ar0234_mipi params (unchanged from boot) ===
+flash_delay=0 flash_enable=N frame_rate=0 trigger_mode=0 
+=== 5. g2d back to boot state ===
+ls: cannot access '/dev/g2d': No such file or directory
+  g2d_sunxi not loaded (OK)
+=== 6. stray processes ===
+     72 ?        I      0:00 [kworker/u16:1-devfreq_wq]
+     74 ?        I<     0:00 [kworker/R-devfr]
+     91 ?        I      0:00 [kworker/u16:7-devfreq_wq]
+    627 ?        Ss     0:00 /usr/local/bin/ar0234-3ad
+=== 7. services ===
+active
+=== 8. /tmp leftovers (tmpfs, wiped on reboot) ===
+dbus-8PK2JzB3F1 dbus-lDMQOfsOjq fcitx-qimpanel:0.pid fcitx-socket-:0 final.sh m_1280x720_120.h265 m_1920x1080_30.h265 m_1920x1200_120.h264 m_1920x1200_120.h265 m_1920x1200_30.h265 m_1920x1200_60.h265 manual.h264 npulink.c nputry nputry.c openclose rec_1080.h264 rec_cp.h264 rec_zc.h264 rec_zc.h265 
+=== 9. final 60 s regression 1920x1200 NV12 @120 ===
+RESULT dev=/dev/video0 1920x1200 NV12 frames=7202 wall=60.003s fps=120.03 timeouts=0
+GAPS n=7201 median=0.008330s (120.05 fps) min=0.008116 max=0.008581 >1.5x=0 >3x=0
+=== vi0 after ===
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 7203, lost_cnt: 0, error_cnt: 0
+=== 10. dmesg errors since boot (summary) ===
+  frame lost               844
+  sunxi_isp_reset          846
+  is not mapped            0
+  Internal error           0
+  Unable to handle         0
+  usage count underflow    2
+  vin_pin_disable          2
+=== DONE FINAL ===

@@ -1,0 +1,87 @@
+########## 0. modules / nodes
+  sunxi_ve               45056  0
+  crw-rw-rw- 1 root root  237, 0 Sep 16 13:04 /dev/cedar_dev
+  crw-rw---- 1 root video 236, 0 Sep 16 13:04 /dev/cedar_dev_ve2
+########## 1. H.264 1920x1200@120 zero-copy, 240 frames
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 240 frames in 2.32s (103.29 fps), 4999224 bytes, encode 9.6 ms/frame -> /tmp/rec_zc.h264
+  [h264zc] wall=2.78s size=4999224
+    dmesg-new: [  352.158538] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  352.159090] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|
+########## 2. H.265 1920x1200@120 zero-copy, 240 frames
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 4 frames in 2.05s (1.95 fps), 41309 bytes, encode 6.9 ms/frame -> /tmp/rec_zc.h265
+  [h265zc] wall=2.52s size=41309
+    dmesg-new: [  355.000261] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  355.000804] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  355.385541] sunxi:vin:[ERR]: isp0 configuration error|
+########## 3. H.264 copy mode (-C), 120 frames
+    input path: memcpy
+    done: 120 frames in 1.69s (71.02 fps), 2502326 bytes, encode 13.8 ms/frame -> /tmp/rec_cp.h264
+  [h264cp] wall=2.17s size=2502326
+    dmesg-new: [  357.611202] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  357.612175] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|
+########## 4. H.264 1080p, 300 frames (reference point)
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 300 frames in 2.54s (118.16 fps), 6221733 bytes, encode 8.1 ms/frame -> /tmp/rec_1080.h264
+  [h264_1080] wall=3.02s size=6221733
+    dmesg-new: [  359.810100] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  359.810374] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|
+########## 5. bitstream sanity (NAL start codes)
+  rec_zc.h264            size=4999224   first8= 00 00 00 01 67 64 00 33
+  rec_zc.h265            size=41309     first8= 00 00 00 01 40 01 0c 01
+  rec_1080.h264          size=6221733   first8= 00 00 00 01 67 64 00 33
+########## 6. hardware JPEG (VE2, zero-copy) 1920x1080
+    frame seq=2 bytes=3133440
+    OK: /tmp/snap.jpg (239725 bytes)
+  file size=239725
+  SOI=ffd8  EOI=ffd9
+  parse JPEG SOF (dimensions/comp):
+    SOF0 marker=0xFFC0 precision=8 1920x1080 components=3
+    total 239725 bytes
+    dmesg-new: [  363.259148] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|[  363.259809] sunxi:VE:[INFO]: 525 enable_cedar_hw_clk(): execute set_vcu_en_regmode_to1_to0|
+########## 7. decode round-trip with the vendor demo
+--- 7a. our own H.264 ---
+    DEBUG  : ionAlloc <ion_create_context:172>: pid: 5616, g_context = 0x7f980282c0
+    DEBUG  : cedarc <CdcIonOpen:302>: open ion, file_name = /dev/dma_heap/system
+    DEBUG  : cedarc <CdcIniParserInit:41>: load conf file /etc/cedarc.conf ok!
+    
+    INFO   : cedarc <log_setlevel:73>: Set log level to 5 from /vendor/etc/cedarc.conf
+    ERROR  : cedarc <DebugCheckConfig:396>: [40;31mnow cedarc log level:5[0m
+    ERROR  : cedarc <displayPictureThreadFunc:677>: [40;31m============> Picture Size: 1920x1200 [0m
+    ERROR  : cedarc <displayPictureThreadFunc:678>: [40;31m============> Picture PixelFormat: 1 [0m
+    ERROR  : cedarc <displayPictureThreadFunc:695>: [40;31m display thread get enungh frame, exit ...[0m
+    ERROR  : cedarc <ChannelThread:1095>: [40;31m demoDecoder finish.decode frame: 6, display frame: 5, cost 0 s [0m
+    rc=0 out=NONE
+--- 7b. our own H.265 (-codFmat 2) ---
+    INFO   : cedarc <CedarPluginVDInit:76>: register Mpeg4Vp6 decoder success!
+    WARNING: cedarc <AddVDPlugin:1711>:  1117 load so: /usr/lib/aarch64-linux-gnu/libawh265.so 
+    INFO   : cedarc <CedarPluginVDInit:87>: register h265 decoder success!
+    WARNING: cedarc <AddVDPlugin:1711>:  1117 load so: /usr/lib/aarch64-linux-gnu/libawh264.so 
+    INFO   : cedarc <CedarPluginVDInit:80>: register h264 decoder success!
+    Segmentation fault
+    rc=0 out=NONE
+--- 7c. vendor reference t30.h264 ---
+    INFO   : cedarc <log_setlevel:73>: Set log level to 5 from /vendor/etc/cedarc.conf
+    ERROR  : cedarc <DebugCheckConfig:396>: [40;31mnow cedarc log level:5[0m
+    ERROR  : cedarc <displayPictureThreadFunc:677>: [40;31m============> Picture Size: 1920x1088 [0m
+    ERROR  : cedarc <displayPictureThreadFunc:678>: [40;31m============> Picture PixelFormat: 1 [0m
+    ERROR  : cedarc <displayPictureThreadFunc:695>: [40;31m display thread get enungh frame, exit ...[0m
+    ERROR  : cedarc <ChannelThread:1095>: [40;31m demoDecoder finish.decode frame: 6, display frame: 5, cost 0 s [0m
+    rc=0 out=NONE
+--- 7d. structure of the demo (why the custom wrapper hung the kernel) ---
+    threads used by demo:
+      pthread_create refs: 2
+      AddVDPlugin
+      libvdecoder.so
+      AddVDPlugin
+    plugins:
+      -rwxr-xr-x 1 1002 1002 145496 Apr 10  2025 /usr/lib/aarch64-linux-gnu/libawh264.so
+      -rwxr-xr-x 1 1002 1002 183840 Apr 10  2025 /usr/lib/aarch64-linux-gnu/libawh265.so
+    dec_test links:
+      	libvdecoder.so => /lib/aarch64-linux-gnu/libvdecoder.so (0x0000007f8b3f1000)
+      	libvideoengine.so => /lib/aarch64-linux-gnu/libvideoengine.so (0x0000007f8b3d8000)
+########## 8. final health
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=4 wall=6.050s fps=0.66 timeouts=6
+  ls: cannot access '/tmp/dec_*': No such file or directory
+  -rw-r--r-- 1 root root 6221733 Sep 16 13:10 /tmp/rec_1080.h264
+  -rw-r--r-- 1 root root 2502326 Sep 16 13:10 /tmp/rec_cp.h264
+  -rw-r--r-- 1 root root 4999224 Sep 16 13:10 /tmp/rec_zc.h264
+  -rw-r--r-- 1 root root   41309 Sep 16 13:10 /tmp/rec_zc.h265
+  -rw-r--r-- 1 root root  239725 Sep 16 13:10 /tmp/snap.jpg
+########## DONE12B

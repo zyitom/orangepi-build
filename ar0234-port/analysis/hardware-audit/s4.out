@@ -1,0 +1,153 @@
+########## PHASE 0: health check
+------------------------------------------------------------------
+RUN health0 : /dev/video0 NV12 1920x1200 fps=120 t=5
+  BEFORE vi0: output => width: 640, height: 640, fmt: NULL|prs_in => x: 1280, y: 720, hb: 1053, hs: 1149|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/120 -> got 1/120
+  | RESULT dev=/dev/video0 1920x1200 NV12 frames=595 wall=5.006s fps=118.85 timeouts=0
+  | GAPS n=594 median=0.008398s (119.08 fps) min=0.008171 max=0.008584 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=8
+########## PHASE 1: smallest advertised size
+------------------------------------------------------------------
+RUN minsize : /dev/video0 BGR3 192x128 fps=120 t=5
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/120 -> got 1/120
+  | RESULT dev=/dev/video0 192x128 BGR3 frames=595 wall=5.006s fps=118.86 timeouts=0
+  | GAPS n=594 median=0.008398s (119.08 fps) min=0.008250 max=0.008559 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 192, height: 128, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=7
+------------------------------------------------------------------
+RUN weird-1000x150 : /dev/video0 NV12 1000x150 fps=120 t=5
+  BEFORE vi0: output => width: 192, height: 128, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/120 -> got 1/120
+  | RESULT dev=/dev/video0 1000x150 NV12 frames=599 wall=5.001s fps=119.77 timeouts=0
+  | GAPS n=598 median=0.008330s (120.05 fps) min=0.008126 max=0.008534 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1000, height: 150, fmt: NV12|prs_in => x: 1280, y: 720, hb: 1053, hs: 1148|frame => cnt: 600, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=7
+########## PHASE 2: the documented 1080p limit (132 ok / 133 broken)
+------------------------------------------------------------------
+RUN 1080p132 : /dev/video0 NV12 1920x1080 fps=132 t=5
+  BEFORE vi0: output => width: 1000, height: 150, fmt: NV12|prs_in => x: 1280, y: 720, hb: 1053, hs: 1148|frame => cnt: 600, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/132 -> got 1/132
+  | RESULT dev=/dev/video0 1920x1080 NV12 frames=659 wall=5.001s fps=131.77 timeouts=0
+  | GAPS n=658 median=0.007575s (132.01 fps) min=0.007428 max=0.007742 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 660, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=8
+------------------------------------------------------------------
+RUN 1080p133 : /dev/video0 NV12 1920x1080 fps=133 t=8
+  BEFORE vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 660, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/133 -> got 1/133
+  | RESULT dev=/dev/video0 1920x1080 NV12 frames=1055 wall=8.000s fps=131.87 timeouts=0
+  | GAPS n=1054 median=0.007575s (132.01 fps) min=0.007344 max=0.007780 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 1056, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=8
+------------------------------------------------------------------
+RUN 1080p136 : /dev/video0 NV12 1920x1080 fps=136 t=6
+  BEFORE vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 1056, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/136 -> got 1/136
+  |   [0.0s] no frame for >1s (frames=4)
+  |   [1.0s] no frame for >1s (frames=4)
+  |   [2.0s] no frame for >1s (frames=4)
+  |   [3.0s] no frame for >1s (frames=4)
+  AFTER  vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 0, hb: 477, hs: 1724|frame => cnt: 0, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=400 hblank=0 reset=400 not_mapped=0 oops=0 warn=0 | lines=808
+  ! [ 5840.594000] sunxi:vin:[ERR]: isp0 frame lost!
+  ! [ 5840.594018] sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 5
+  ! [ 5840.608775] sunxi:vin:[ERR]: isp0 frame lost!
+  ! [ 5840.608784] sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 0
+  ! [ 5840.623836] sunxi:vin:[ERR]: isp0 frame lost!
+  ! [ 5840.623858] sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 0
+########## PHASE 3: can a broken ISP be recovered WITHOUT a reboot?
+------------------------------------------------------------------
+RUN recover-1200p120 : /dev/video0 NV12 1920x1200 fps=120 t=8
+  BEFORE vi0: output => width: 1920, height: 1080, fmt: NV12|prs_in => x: 1920, y: 0, hb: 477, hs: 1724|frame => cnt: 0, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | requested 1/120 -> got 1/120
+  | RESULT dev=/dev/video0 1920x1200 NV12 frames=959 wall=8.006s fps=119.78 timeouts=0
+  | GAPS n=958 median=0.008330s (120.05 fps) min=0.008080 max=0.008565 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 961, lost_cnt: 1, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=8
+------------------------------------------------------------------
+RUN recover-1200p30 : /dev/video0 NV12 1920x1200 fps=30 t=5
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 961, lost_cnt: 1, error_cnt: 0|
+  vfr rc=0
+  | requested 1/30 -> got 1/30
+  | RESULT dev=/dev/video0 1920x1200 NV12 frames=150 wall=5.009s fps=29.95 timeouts=0
+  | GAPS n=149 median=0.033328s (30.00 fps) min=0.033161 max=0.033495 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 151, lost_cnt: 0, error_cnt: 0|
+  dmesg: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 | lines=7
+########## PHASE 4: rmmod viability
+  rmmod vin_v4l2: rmmod: ERROR: Module vin_v4l2 is in use
+  vin_v4l2              278528  1
+  videobuf2_dma_contig    16384  1 vin_v4l2
+  vin_io                 61440  1 vin_v4l2
+########## PHASE 5: state after the whole experiment
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 4, work_mode: online
+frame => cnt: 151, lost_cnt: 0, error_cnt: 0
+internal => avg: 33(ms), max: 33(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 4, work_mode: online
+frame => cnt: 1787, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+--- isp clk
+324000000
+--- dmesg tail
+[ 5846.574892] sunxi:vin:[ERR]: isp0 frame lost!
+[ 5846.574899] sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 0
+[ 5846.589920] sunxi:vin:[ERR]: isp0 frame lost!
+[ 5846.589927] sunxi:vin:[INFO]: sunxi_isp_reset:isp0 reset!!!,ISP frame number is 0
+[ 5846.598678] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1080 300a
+[ 5846.728114] S4-recover-1200p120-14419
+[ 5846.786077] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[ 5846.786094] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+[ 5846.786336] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+[ 5846.792494] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+[ 5846.793577] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+[ 5847.110504] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 1220 (120 fps)
+[ 5855.122537] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+[ 5855.297942] S4-recover-1200p30-14419
+[ 5855.355969] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+[ 5855.355984] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+[ 5855.356229] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 4896 fps 30: vblank 25163 us, 3DNR allowed (limit 500 us)
+[ 5855.363419] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+[ 5855.680984] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 4896 (30 fps)
+[ 5860.697727] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+########## DONE4

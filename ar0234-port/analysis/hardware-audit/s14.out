@@ -1,0 +1,340 @@
+########## A. NPU: hunt for the runtime (libVIPlite.so / simulators)
+--- whole-fs search for the VIPLite runtime and friends ---
+  /usr/lib/libNBGlinker.so
+  /usr/lib/libVIPhal.so
+--- /opt ---
+  /opt:
+  total 12808
+  drwx--x--x 4 root root     4096 Apr  7 04:41 containerd
+  -rw-r--r-- 1 root root 13096380 Apr  7 04:41 linux-headers-current-sun60iw2_1.0.0_arm64.deb
+  drwxrwxr-x 2 root root     4096 Apr  7 03:57 v4l2_opencv_demo
+  drwxrwxr-x 2 root root     4096 Oct 16  2025 vpm_run
+  drwxrwxr-x 4 root root     4096 Mar  4  2026 yolov5
+  
+  /opt/containerd:
+  total 8
+  drwx--x--x 2 root root 4096 Apr  7 04:41 bin
+  drwx--x--x 2 root root 4096 Apr  7 04:41 lib
+  
+  /opt/containerd/bin:
+  total 0
+  
+  /opt/containerd/lib:
+  total 0
+  
+  /opt/v4l2_opencv_demo:
+  total 36
+  -rw-rw-r-- 1 root root  1285 Apr  7 02:07 Makefile
+  -rw-rw-r-- 1 root root  4557 Apr  7 02:07 test_camera.cpp
+  -rw-rw-r-- 1 root root  3279 Apr  7 02:07 test_camera.py
+  -rw-rw-r-- 1 root root  1877 Apr  7 02:07 v4l2_camera_bind.cpp
+  -rw-rw-r-- 1 root root 10354 Apr  7 02:07 v4l2_camera.cpp
+  -rw-rw-r-- 1 root root  2190 Apr  7 02:07 v4l2_camera.h
+  
+  /opt/vpm_run:
+  total 1140
+  -rw-rw-r-- 1 root root 150528 Oct 16  2025 input_0.dat
+  -rw-rw-r-- 1 root root 964224 Oct 16  2025 network_binary.nb
+  -rw-rw-r-- 1 root root    678 Oct 16  2025 readme.txt
+  -rw-rw-r-- 1 root root     53 Oct 16  2025 sample.txt
+  -rwxrwxr-x 1 root root  38696 Oct 16  2025 vpm_run
+  
+  /opt/yolov5:
+  total 824
+  drwxrwxr-x 2 root root   4096 Oct 21  2025 input_data
+  drwxrwxr-x 2 root root   4096 Oct 16  2025 model
+  -rw-rw-r-- 1 root root 717276 Oct 16  2025 result.png
+  -rwxrwxr-x 1 root root 112320 Mar  4  2026 yolov5
+  
+  /opt/yolov5/input_data:
+  total 244
+  -rw-rw-r-- 1 root root  82629 Oct 16  2025 dog_640_640.jpg
+  -rw-rw-r-- 1 root root 163759 Oct 16  2025 dog.jpg
+  
+  /opt/yolov5/model:
+  total 4916
+  -rw-rw-r-- 1 root root 5033536 Oct 16  2025 yolov5.nb
+--- /opt/vpm_run contents ---
+  total 1148
+  drwxrwxr-x 2 root root   4096 Oct 16  2025 .
+  drwxrwxr-x 6 root root   4096 Apr  7 04:41 ..
+  -rw-rw-r-- 1 root root 150528 Oct 16  2025 input_0.dat
+  -rw-rw-r-- 1 root root 964224 Oct 16  2025 network_binary.nb
+  -rw-rw-r-- 1 root root    678 Oct 16  2025 readme.txt
+  -rw-rw-r-- 1 root root     53 Oct 16  2025 sample.txt
+  -rwxrwxr-x 1 root root  38696 Oct 16  2025 vpm_run
+  /opt/vpm_run/input_0.dat:       data
+  /opt/vpm_run/network_binary.nb: data
+  /opt/vpm_run/readme.txt:        ASCII text
+  /opt/vpm_run/sample.txt:        ASCII text
+  /opt/vpm_run/vpm_run:           ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, stripped
+--- any vip/npu test binaries ---
+  /usr/bin/dvipdf
+  /usr/sbin/vipw
+  /usr/share/bash-completion/completions/vipw
+  /usr/share/terminfo/t/tvipt
+  /usr/share/terminfo/v/vip7800-w
+  /usr/share/terminfo/v/vip-w
+  /usr/share/terminfo/v/vip7800-H
+  /usr/share/terminfo/v/vip
+  /usr/share/terminfo/v/vip-H
+  /usr/share/terminfo/v/vip7800-Hw
+  /usr/share/terminfo/v/vip-Hw
+  /usr/share/terminfo/Q/Q310-vip-H-am
+  /usr/share/terminfo/Q/Q310-vip-Hw
+  /usr/share/terminfo/Q/Q310-vip-w-am
+  /usr/share/terminfo/Q/Q310-vip-w
+  /usr/share/terminfo/Q/Q310-vip-H
+  /usr/share/man/de/man8/vipw.8.gz
+  /usr/share/man/de/man1/dvipdf.1.gz
+  /usr/share/man/ja/man8/vipw.8.gz
+  /usr/share/man/da/man8/vipw.8.gz
+--- dpkg: who owns /opt/vpm_run? ---
+  dpkg-query: no path found matching pattern /opt/vpm_run
+  ii  evtest                                1:1.34-1                           arm64        utility to monitor Linux input device events
+  ii  fcitx                                 1:4.2.9.8-3                        all          Flexible Input Method Framework
+  ii  fcitx-bin                             1:4.2.9.8-3                        arm64        Flexible Input Method Framework - essential binaries
+  ii  fcitx-data                            1:4.2.9.8-3                        all          Flexible Input Method Framework - essential data files
+  ii  fcitx-frontend-gtk2                   1:4.2.9.8-3                        arm64        Flexible Input Method Framework - GTK+ 2 IM Module frontend
+  ii  fcitx-frontend-gtk3                   1:4.2.9.8-3                        arm64        Flexible Input Method Framework - GTK+ 3 IM Module frontend
+  ii  fcitx-frontend-qt5:arm64              1.2.5-1+b2                         arm64        Free Chinese Input Toy of X - Qt5 IM Module frontend
+  ii  fcitx-module-dbus                     1:4.2.9.8-3                        arm64        Flexible Input Method Framework - D-Bus module and IPC frontend
+  ii  fcitx-module-kimpanel                 1:4.2.9.8-3                        arm64        Flexible Input Method Framework - KIMPanel protocol module
+  ii  fcitx-modules                         1:4.2.9.8-3                        arm64        Flexible Input Method Framework - core modules
+  ii  fcitx-table                           1:4.2.9.8-3                        arm64        Flexible Input Method Framework - table engine
+  ii  fcitx-table-all                       1:4.2.9.8-3                        all          Flexible Input Method Framework - tables metapackage
+  ii  fcitx-ui-qimpanel                     2.1.3-2+b1                         arm64        Flexible Input Method Framework - Qt IMPanel user interface
+  ii  im-config                             0.46-1+deb11u1                     all          Input method configuration framework
+  ii  inputattach                           1:1.7.1-1                          arm64        utility to connect serial-attached peripherals to the input subsystem
+  ii  libavdevice58:arm64                   7:4.3.9-0+deb11u2                  arm64        FFmpeg library for handling input and output devices - runtime files
+  ii  libfcitx-config4:arm64                1:4.2.9.8-3                        arm64        Flexible Input Method Framework - configuration support library
+  ii  libfcitx-core0:arm64                  1:4.2.9.8-3                        arm64        Flexible Input Method Framework - library of core functions
+  ii  libfcitx-gclient1:arm64               1:4.2.9.8-3                        arm64        Flexible Input Method Framework - D-Bus client library for Glib
+  ii  libfcitx-utils0:arm64                 1:4.2.9.8-3                        arm64        Flexible Input Method Framework - utility support library
+  ii  libinput-bin                          1.16.4-3+deb11u1                   arm64        input device management and event handling library - udev quirks
+  ii  libinput10:arm64                      1.16.4-3+deb11u1                   arm64        input device management and event handling library - shared library
+  ii  libxcb-xinput0:arm64                  1.14-3                             arm64        X C Binding, xinput extension
+  ii  libxi6:arm64                          2:1.7.10-1                         arm64        X11 Input extension library
+  ii  xinput                                1.6.3-1                            arm64        Runtime configuration and test of XInput devices
+  ii  xserver-xorg-input-all                1:7.7+22                           arm64        X.Org X server -- input driver metapackage
+  ii  xserver-xorg-input-libinput           0.30.0-1                           arm64        X.Org X server -- libinput input driver
+--- vip_lite.h version / API surface ---
+  502:            vip_init can be called multiple times, but should paired with vip_destroy.
+  503:            vip_init should be called in every process.
+  504:            only need call vip_init once in multi-thread.
+  512:vip_status_e vip_init(
+  518:            vip_destroy should paired with vip_init called.
+########## B. clocks
+--- camera/encoder clocks now ---
+  isp            324000000 Hz (parent pll-video0-4x)
+  csi            324000000 Hz (parent pll-video0-4x)
+  csi-master0    24000000 Hz (parent sys24M)
+  ve-enc0        624000000 Hz (parent pll-ve1)
+  ve-dec         624000000 Hz (parent pll-ve0)
+  g2d            300000000 Hz (parent pll-peri0-300m)
+  npu            1008000000 Hz (parent pll-npu)
+  gpu0           400000000 Hz (parent pll-peri0-400m)
+--- clk_summary: video/isp branch ---
+               npu                     1       2        0        1008000000  0          0     50000      Y               3600000.npu                     no_connection_id         
+                                                                                                                         npu@3600000                     clk_npu                  
+                                                                                                                         npu@3600000                     no_connection_id         
+  --
+               ve-enc0                 0       1        0        624000000   0          0     50000      N               1c10000.ve2                     ve                       
+                                                                                                                         ve2@1c10000                     no_connection_id         
+                                                                                                                         deviceless                      no_connection_id         
+  --
+               ve-dec                  1       2        0        624000000   0          0     50000      Y               1c0e000.ve                      ve                       
+                                                                                                                         ve@1c0e000                      no_connection_id         
+                                                                                                                         deviceless                      no_connection_id         
+  --
+            pll-video0                 0       2        0        1296000000  0          0     50000      N            deviceless                      no_connection_id         
+               pll-video0-3x           0       3        0        432000000   0          0     50000      Y               5800800.vind                    csi_mclk2_pll            
+                                                                                                                         5800800.vind                    csi_mclk1_pll            
+                                                                                                                         5800800.vind                    csi_mclk0_pll            
+  --
+               pll-video0-4x           0       4        0        324000000   0          0     50000      Y               5800800.vind                    csi_isp_src              
+                                                                                                                         5800800.vind                    csi_top_src              
+                                                                                                                         vind@5800800                    no_connection_id         
+  --
+                  isp                  0       1        0        324000000   0          0     50000      N                  5800800.vind                    csi_isp                  
+                                                                                                                            vind@5800800                    no_connection_id         
+                                                                                                                            deviceless                      no_connection_id         
+                  csi                  0       1        0        324000000   0          0     50000      N                  5800800.vind                    csi_top                  
+                                                                                                                            vind@5800800                    no_connection_id         
+                                                                                                                            deviceless                      no_connection_id         
+  --
+                     gpu0              0       0        0        400000000   0          0     50000      N                     gpu@1800000                     clk                      
+                                                                                                                               deviceless                      no_connection_id         
+                     pcie0-axi-slv     1       2        0        400000000   0          0     50000      Y                     6000000.pcie                    pclk_slv                 
+  --
+                        g2d            0       1        0        300000000   0          0     50000      N                        5440000.g2d                     g2d                      
+                                                                                                                                  g2d@5440000                     no_connection_id         
+                                                                                                                                  deviceless                      no_connection_id         
+  --
+         isp-mclk                      1       2        0        26000000    0          0     50000      N         5800800.vind                    csi_isp_mbus             
+                                                                                                                   vind@5800800                    no_connection_id         
+                                                                                                                   deviceless                      no_connection_id         
+         csi-mclk                      1       2        0        26000000    0          0     50000      N         5800800.vind                    csi_mbus                 
+--- can the ISP clock even be changed by userspace? ---
+  -r--r--r-- 1 root root 0 Jan  1  1970 /sys/kernel/debug/clk/isp/clk_rate
+########## C. power / runtime PM / thermal
+--- genpd states ---
+  pd_de_sys        off-0
+  pd_npu           on
+  pd_pcie          on
+  pd_usb2          on
+  pd_ve_dec        on
+  pd_ve_enc        off-0
+  pd_vi            off-0
+  pd_vo            off-0
+  pd_vo1           on
+--- runtime PM (idle) ---
+  platform/3900000.iommu/iommu_master/isp_iommu/power                    suspended
+  platform/3900000.iommu/iommu_master/g2d_iommu/power                    suspended
+  platform/soc@3000000/5440000.g2d/power                                 suspended
+  platform/soc@3000000/2020000.nsi-controller/nsi_master/g2d/power       suspended
+  platform/soc@3000000/2020000.nsi-controller/nsi_master/isp/power       suspended
+  platform/soc@3000000/5800800.vind/5910800.scaler/power                 unsupported
+  platform/soc@3000000/5800800.vind/5900000.isp/power                    unsupported
+  platform/soc@3000000/5800800.vind/5910400.scaler/power                 unsupported
+  platform/soc@3000000/5800800.vind/5908000.tdm/power                    unsupported
+  platform/soc@3000000/5800800.vind/5830000.vinc/power                   suspended
+  platform/soc@3000000/5800800.vind/5910000.scaler/power                 unsupported
+  platform/soc@3000000/5800800.vind/5832000.vinc/power                   suspended
+  platform/soc@3000000/5800800.vind/5800800.vind:scaler@16/power         unsupported
+  platform/soc@3000000/5800800.vind/5831000.vinc/power                   suspended
+  virtual/cedar_ve2/cedar_dev_ve2/power                                  unsupported
+  virtual/g2d/g2d/power                                                  unsupported
+  virtual/cedar_ve/cedar_dev/power                                       unsupported
+--- thermal now ---
+  cpub_thermal_zone 48.7 C
+  ddr_thermal_zone 47.9 C
+  npu_thermal_zone 48.4 C
+  cpul_thermal_zone 48.9 C
+  gpu_thermal_zone 46.8 C
+  cpul_idle_zone 48.6 C
+  cpub_idle_zone 48.9 C
+  skin_zone      33.8 C
+--- devfreq (DDR / VE / GPU opp) ---
+  1800000.gpu                              400000000
+  3600000.npu                              1008000000
+########## D. memory / DMA-BUF / IOMMU counters DURING a stream
+--- mpp/vi (live) ---
+  vi0:
+  ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+  input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+  output => width: 1920, height: 1200, fmt: NV12
+  interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+  prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+  bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+  frame => cnt: 429, lost_cnt: 0, error_cnt: 0
+  internal => avg: 8(ms), max: 33(ms), min: 7(ms)
+  CSI Bandwidth: 0
+  *****************************************************
+--- CSI/ISP Bandwidth fields ---
+  CSI Bandwidth: 0
+  CSI Bandwidth: 0
+  CSI Bandwidth: 0
+--- dma_buf/bufinfo (live) ---
+  
+  Dma-buf Objects:
+  size    	flags   	mode    	count   	exp_name	ino     	name
+  00368640	00000002	00080007	00000001	system	00000125	<none>
+  	Attached Devices:
+  	1c0e000.ve
+  Total 1 devices attached
+  
+  00368640	00000002	00080007	00000001	system	00000124	<none>
+  	Attached Devices:
+  	1c0e000.ve
+  Total 1 devices attached
+  
+  00368640	00000002	00080007	00000001	system	00000123	<none>
+  	Attached Devices:
+  	1c0e000.ve
+  Total 1 devices attached
+  
+  00368640	00000002	00080007	00000001	system	00000122	<none>
+  	Attached Devices:
+  	1c0e000.ve
+  Total 1 devices attached
+  
+  00368640	00000002	00080007	00000001	system	00000121	<none>
+  	Attached Devices:
+  	1c0e000.ve
+  Total 1 devices attached
+  
+  00368640	00000002	00080007	00000001	system	00000120	<none>
+  	Attached Devices:
+--- iommu groups (live) ---
+  /sys/kernel/iommu_groups/0: 1c0e000.ve 1c10000.ve2 5000000.de 5400000.deinterlace 5440000.g2d 5800800.vind:scaler@16 5830000.vinc 5831000.vinc 5832000.vinc 5900000.isp 5908000.tdm 5910000.scaler 5910400.scaler 5910800.scaler soc@3000000:sunxi-drm soc@3000000:ve1@1c0e000 
+--- mem ---
+                 total        used        free      shared  buff/cache   available
+  Mem:            3847         537        2702          42         607        3220
+  Swap:           1923           0        1923
+--- slab/ion ---
+  slabinfo - version: 2.1
+  jbd2_transaction_s    192    192    256   32    2 : tunables    0    0    0 : slabdata      6      6      0
+  ext4_allocation_context    208    208    152   26    1 : tunables    0    0    0 : slabdata      8      8      0
+  pending_reservation      0      0     32  128    1 : tunables    0    0    0 : slabdata      0      0      0
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=1428 wall=12.002s fps=118.98 timeouts=0
+########## E. ISP parameter state on the board
+--- files ---
+  /mnt/extsd/:
+  total 128
+  drwxr-xr-x 3 root root   4096 Sep 16 13:11 .
+  drwxr-xr-x 3 root root   4096 Sep 16 06:10 ..
+  drwxr-xr-x 2 root root   4096 Sep 15 16:36 ar0234
+  -rw-r--r-- 1 root root 116358 Sep 16 13:11 isp_param_config.bin
+  
+  /mnt/extsd/ar0234/:
+  total 240
+  drwxr-xr-x 2 root root   4096 Sep 15 16:36 .
+  drwxr-xr-x 3 root root   4096 Sep 16 13:11 ..
+  -rw-r--r-- 1 root root 116358 Sep 15 16:31 isp_param_3dnr.bin
+  -rw-r--r-- 1 root root 116358 Sep 15 16:31 isp_param_no3dnr.bin
+--- libisp config lookup name / fps_fixed ---
+--- enable-map bytes (offset 88..120) of the deployed bin ---
+  0000088 00 00 00 7d 00 00 05 00 00 00 00 00 00 00 00 01
+  0000104 00 00 40 00 00 00 00 10 00 00 05 00 00 00 00 00
+  0000120
+--- header ---
+  0000000 3c c6 01 00 32 30 32 36 2d 30 39 2d 31 35 20 31  ><...2026-09-15 1<
+  0000016 34 3a 35 33 00 00 00 00 41 4c 4c 2d 6e 6f 33 64  >4:53....ALL-no3d<
+  0000032 6e 72 3a 20 4c 43 41 2b 64 65 66 6f 67 2b 47 43  >nr: LCA+defog+GC<
+  0000048 41 2c 20 33 44 4e 52 20 6f 66 66 20 28 31 32 30  >A, 3DNR off (120<
+  0000064 30 70 31 32 30 29 00 00 00 00 00 00 00 00 00 00  >0p120)..........<
+  0000080
+########## F. trigger / flash surface (no hardware attached)
+--- driver params ---
+  flash_delay      0
+  flash_enable     N
+  frame_rate       0
+  trigger_mode     0
+--- trigger support visible in the module? ---
+  6sunxi:vin:[INFO]: [%s]trigger mode %d, flash %d
+  flash_delay
+  flash_enable
+  trigger_mode
+  parm=flash_delay:flash lead (<0) / lag (>0) in ~3.4us steps, -128..127
+  parmtype=flash_delay:int
+  parm=flash_enable:drive the FLASH pin high during exposure
+  parmtype=flash_enable:bool
+--- trigger/flash pins in the DT ---
+  sensor0_mclk_id
+  sensor0_reset
+  sensor0_pwdn
+  flash_handle
+  sensor0_pwdn       54 4 6 0
+  sensor0_reset      
+  sensor0_mclk_id    1
+  sensor0_twi_addr   32
+--- flash control on video0 ---
+                   vin_flash_ctrl 0x00981967 (menu)   : min=0 max=2 default=0 value=0
+  Flash Controls
+                         led_mode 0x009c0901 (menu)   : min=0 max=4 default=0 value=0
+--- PWM available ---
+  pwmchip0       npwm=10
+  pwmchip10      npwm=10
+  pwmchip20      npwm=10
+########## DONE14

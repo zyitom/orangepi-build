@@ -1,0 +1,23 @@
+### repro-close start=2026-09-16T12:44:56+00:00 uptime=84.90
+### srcversion=843BC1A03606D35EC062D57
+### 3A=active
+
+=== E1: video0 alone, 30 s ===
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=3573 wall=30.006s fps=119.08 timeouts=0
+
+=== E2: video0 30 s, open+close video4 once at t=8 s ===
+  --- counters before touching video4 ---
+    vi0 frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+  open/close /dev/video4 #1 ok
+  --- counters right after ---
+    vi0 frame => cnt: 1, lost_cnt: 1, error_cnt: 0
+  --- counters 8 s later ---
+    vi0 frame => cnt: 1, lost_cnt: 1, error_cnt: 0
+    vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=5 wall=30.088s fps=0.17 timeouts=30
+
+=== dmesg since REPRO-1789562696 ===
+
+=== dmesg underflow count since marker ===
+0
+### done 2026-09-16T12:45:57+00:00

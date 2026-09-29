@@ -1,0 +1,358 @@
+########## A. debugfs root
+asoc
+bdi
+block
+bluetooth
+ccudbg
+cec
+clear_warn_once
+clk
+debug_enabled
+devfreq
+device_component
+devices_deferred
+dma_buf
+dmaengine
+dma_pools
+dri
+dynamic_debug
+extfrag
+fault_around_bytes
+gpio
+hid
+i2c
+ieee80211
+memblock
+mmc0
+mmc1
+mmc2
+mpp
+mtd
+opp
+phy
+pinctrl
+pm_genpd
+psci
+pvr
+pwm
+regmap
+regulator
+remoteproc
+sched
+slab
+sleep_time
+stmmaceth
+suspend_stats
+swiotlb
+ubi
+ubifs
+ufshcd
+usb
+v4l2-async
+ve
+viplite
+wakeup_sources
+--- clk dir
+ahb
+ahbs-auto-clk
+apb0
+apb1
+apb2jtag
+apb-uart
+avs
+bus_debug
+ce
+ce-bus
+--- clk_summary exists?
+-r--r--r-- 1 root root 0 Jan  1  1970 /sys/kernel/debug/clk/clk_summary
+--- clk_summary head
+                                 enable  prepare  protect                                duty  hardware                            connection
+   clock                          count    count    count        rate   accuracy phase  cycle    enable   consumer                         id
+---------------------------------------------------------------------------------------------------------------------------------------------
+ ext-32k                             0       1        0        32768       0          0     50000      Y   deviceless                      no_connection_id         
+    ext32k-gate                      0       1        0        32768       0          0     50000      Y      deviceless                      no_connection_id         
+       osc32k                        0       1        0        32768       0          0     50000      Y         2000000.pinctrl                 losc                     
+                                                                                                                 2000000.pinctrl                 losc                     
+                                                                                                                 deviceless                      no_connection_id         
+          rtc32k                     0       0        0        32768       0          0     50000      Y            deviceless                      no_connection_id         
+             r-irrx                  0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+             rtc-32k-fanout          0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+             rtc-1k                  0       0        0        1024        0          0     50000      Y               deviceless                      no_connection_id         
+             fanout3                 0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+             fanout2                 0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+             fanout1                 0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+             fanout0                 0       0        0        32768       0          0     50000      N               deviceless                      no_connection_id         
+          irrx                       0       0        0        32768       0          0     50000      N            deviceless                      no_connection_id         
+          hdmi-ref                   0       1        0        32768       0          0     50000      N            5520000.hdmi0                   clk_cec                  
+                                                                                                                    hdmi0@5520000                   no_connection_id         
+                                                                                                                    deviceless                      no_connection_id         
+--- isp rate
+isp              rate=324000000 parents=pll-video0-4x
+csi              rate=324000000 parents=pll-video0-4x
+pll-video0       rate=1296000000 parents=pll-ref
+pll-video0-4x    rate=324000000 parents=pll-video0
+pll-video1-4x    rate=1188000000 parents=pll-video1
+pll-video2-4x    rate=1188000000 parents=pll-video2
+g2d              rate=300000000 parents=pll-peri0-300m
+npu              rate=1008000000 parents=pll-npu
+--- clk list all names
+ahb ahbs-auto-clk apb0 apb1 apb2jtag apb-uart avs bus_debug ce ce-bus ce-mclk ce-sys clk27m_fanout clk_dump clk-fanout clk_orphan_dump clk_orphan_summary clk_summary combphy0 combphy1 cpu_b cpu_dsu cpu-icache-auto cpu_l cpu-peri cpus-hclk-gate csi csi-bus csi-master0 csi-master1 csi-master2 csi-mclk dbgsys dcxo dcxo19_2M dcxo24M dcxo24M-div32k dcxo26M dcxo-serdes0 dcxo-serdes1 dcxo-wakeup de0 de0-gate de-ahb-gate desys-mbus-gate di di-gate dma0 dma0-mclk dma1 dma1-mclk dmic dmic-bus dpss-top0 dpss-top1 dram0 dram0-gate dsc dsi0 dsi0-bus dsi1 dsi1-bus edp edp-tv eink eink-gate eink-panel ext-32k ext32k-gate fanout0 fanout1 fanout-12m fanout-16m fanout2 fanout-24m fanout-25m fanout3 g2d g2d-gate gic gmac0 gmac0-mclk gmac0-phy gmac1 gmac1-mclk gmac1-phy gmac-ptp gpadc0 gpadc0-24m gpu0 gpu0-ahb-gate gpu0-gate gpu0-mbus-gate hdcp-esm hdmi hdmi-cec-clk32k hdmi-ref hdmi-sfr hdmi-tv i2spcm0 i2spcm0-bus i2spcm1 i2spcm1-bus i2spcm2 i2spcm2-asrc i2spcm2-bus i2spcm3 i2spcm3-bus i2spcm4 i2spcm4-bus iommu0-mbus-gate iommu0-sys-hclk iommu0-sys-mclk iommu0-sys-pclk iommu1-mbus-gate iommu1-sys-hclk iommu1-sys-mclk iommu1-sys-pclk iosc iosc-div32k irrx irrx-gate irtx irtx-gate isp isp-mclk its-pcie0-aclk ledc ledc-bus lpc lpc-gate lradc mbus msgbox0 msi-lite0 msilite0-ahb-gate msilite0-mbus-gate msi-lite1 msi-lite2 msilite2-mbus-gate nand0-bus nand0-clk0 nand0-clk1 nand-mclk npu npu-ahb-gate npu-gate npu-mbus-gate nsi nsi-cfg osc32k owa-bus owa-rx owa-tx pcie0-aux pcie0-axi-slv pll-audio0-4x pll-audio1 pll-audio1-4x-auto pll-audio1-div2 pll-audio1-div2-auto pll-audio1-div5 pll-audio1-div5-auto pll-cpu-b pll-cpu-back pll-cpu-dsu pll-cpu-l pll-ddr pll-ddr-auto pll-de pll-de-3x pll-de-3x-auto pll-de-4x pll-de-4x-auto pll-gpu pll-gpu0-auto pll-npu pll-npu-auto pll-peri0 pll-peri0-150m pll-peri0-150m-auto pll-peri0-160m pll-peri0-160m-auto pll-peri0-16m pll-peri0-200m pll-peri0-200m-auto pll-peri0-25m pll-peri0-2x pll-peri0-2x-auto pll-peri0-300m pll-peri0-300m-all-auto pll-peri0-300m-auto pll-peri0-400m pll-peri0-400m-all-auto pll-peri0-400m-auto pll-peri0-480m pll-peri0-480m-all-auto pll-peri0-480m-auto pll-peri0-600m pll-peri0-600m-auto pll-peri0-800m pll-peri0-800m-auto pll-peri1 pll-peri1-150m pll-peri1-150m-auto pll-peri1-160m pll-peri1-160m-auto pll-peri1-200m pll-peri1-200m-auto pll-peri1-2x pll-peri1-300m pll-peri1-300m-all-auto pll-peri1-300m-auto pll-peri1-400m pll-peri1-400m-all-auto pll-peri1-400m-auto pll-peri1-480m pll-peri1-480m-all-auto pll-peri1-480m-auto pll-peri1-600m pll-peri1-600m-all-auto pll-peri1-600m-auto pll-peri1-800m pll-peri1-800m-auto pll-ref pll-ve0 pll-ve0-auto pll-ve1 pll-ve1-auto pll-video0 pll-video0-3x pll-video0-3x-auto pll-video0-4x pll-video0-4x-auto pll-video1 pll-video1-3x pll-video1-3x-auto pll-video1-4x pll-video1-4x-auto pll-video2 pll-video2-3x pll-video2-3x-auto pll-video2-4x pll-video2-4x-auto pwm0 pwm1 r-ahb r-apbs0 r-apbs1 r-bus-pwm rc-16m r-cpucfg r-cpus-bist res-dcap-24m r-irrx r-irrx-bus riscv riscv-24m riscv-cfg r-mbox r-ppu r-pwm r-spi r-spi-bus rtc rtc-1k rtc32k rtc-32k-fanout rtc-spi r-timer r-timer0 r-timer1 r-timer2 r-timer3 r-twd r-twi0 r-twi1 r-twi2 r-tzma r-uart0 r-uart1 serdes-ahb-gate serdes-mbus-gate serdes-phy-cfg sgpio sgpio-bus smhc0 smhc0-gate smhc1 smhc1-gate smhc2 smhc2-gate smhc3 smhc3-bus spi0 spi0-bus spi1 spi1-bus spi2 spi2-bus spi3 spi3-bus spi4 spi4-bus spif spif-bus spinlock store-ahb-gate store-mbus-gate sys12M sys24M sysdap tcontv0 tcontv1 ths0 timer0 timer1 timer2 timer3 timer4 timer5 timer6 timer7 timer8 timer9 timer-bus trace tt-auto twi0 twi1 twi10 twi11 twi12 twi2 twi3 twi4 twi5 twi6 twi7 twi8 twi9 uart0 uart1 uart2 uart3 uart4 uart5 uart6 ufs ufs-axi ufs-cfg usb usb0-device usb0-ehci usb0-ohci usb1 usb1-ehci usb1-ohci usb2-mf usb2-suspend usb2-u2-pipe usb2-u2-ref usb2-u3-utmi usb-ref usb-sys-ahb-gate vdd-ddr vdd-sys2cpus vdd-sys2usb vdd-usb2cpus ve-ahb-gate ve-dec ve-dec-gate ve-dec-mbus-gate ve-dec-mclk ve-enc0 ve-enc0-bus ve-enc-ahb-gate ve-mbus-gate ve-mclk vid-in-ahb-gate vid-in-mbus-gate vid-out0-ahb-gate vid-out1-ahb-gate vo0-tconlcd0 vo0-tconlcd0-bus vo0-tconlcd1 vo0-tconlcd1-bus vo0-tconlcd2 vo0-tconlcd2-bus ########## B. vendor .so locations
+ls: cannot access '/usr/lib/*libisp*': No such file or directory
+ls: cannot access '/usr/lib/*libAWIspApi*': No such file or directory
+ls: cannot access '/usr/lib/*libvencoder*': No such file or directory
+ls: cannot access '/usr/lib/*libvdecoder*': No such file or directory
+ls: cannot access '/usr/lib/*libvideoengine*': No such file or directory
+ls: cannot access '/usr/lib/*libMemAdapter*': No such file or directory
+ls: cannot access '/usr/lib/*libcdc*': No such file or directory
+/usr/lib/aarch64-linux-gnu/libisp.so
+/usr/lib/aarch64-linux-gnu/libvdecoder.so
+/usr/lib/aarch64-linux-gnu/libAWIspApi.so
+/usr/lib/aarch64-linux-gnu/libvencoder.so
+--- ldconfig
+	libvideoengine.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libvideoengine.so
+	libvencoder.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libvencoder.so
+	libvdecoder.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libvdecoder.so
+	libsutu_display.so (libc6,AArch64) => /lib/libsutu_display.so
+	libisp_ini.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libisp_ini.so
+	libisp.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libisp.so
+	libVIPhal.so (libc6,AArch64) => /lib/libVIPhal.so
+	libOpenCL.so.1 (libc6,AArch64) => /lib/aarch64-linux-gnu/libOpenCL.so.1
+	libGLdispatch.so.0 (libc6,AArch64) => /lib/aarch64-linux-gnu/libGLdispatch.so.0
+	libAWIspApi.so (libc6,AArch64) => /lib/aarch64-linux-gnu/libAWIspApi.so
+########## C. udev rule + modules
+# AR0234 camera stack: A733 VE2 (H.264/H.265 encoder core) for the video group
+KERNEL=="cedar_dev_ve2", GROUP="video", MODE="0660"
+# AR0234 camera on MIPI-A
+vin_v4l2
+########## D. /home/orangepi/ar0234test full
+/home/orangepi/ar0234test/:
+total 6160
+drwxr-xr-x 2 orangepi orangepi    4096 Sep 15 10:38 an
+-rw-r--r-- 1 orangepi orangepi   23928 Jul 29 20:09 ar0234_10bit.ko
+-rw-r--r-- 1 orangepi orangepi   32324 Jul 29 20:09 ar0234_10bit.ko.b64
+-rwxr-xr-x 1 orangepi orangepi   14688 Sep 15 10:03 ar0234_3a
+-rw-r--r-- 1 orangepi orangepi    3978 Sep 15 10:03 ar0234_3a.c
+-rw-r--r-- 1 orangepi orangepi  136408 Sep 15 16:31 ar0234-camera_0.1.0_arm64.deb
+-rw-r--r-- 1 root     root       19152 Jul 29 20:18 ar0234_mipi.ko.orig-raw8
+-rwxr-xr-x 1 orangepi orangepi   24544 Sep 15 10:03 ar0234_rec
+-rw-r--r-- 1 orangepi orangepi   11428 Sep 15 10:03 ar0234_rec.c
+-rw-r--r-- 1 orangepi orangepi    2028 Jul 29 21:04 ar0234_tuning.h
+-rw-r--r-- 1 orangepi orangepi    2740 Jul 29 21:04 ar0234_tuning.h.b64
+-rw-r--r-- 1 orangepi orangepi   24808 Jul 29 20:16 ar0234_v2.ko
+-rw-r--r-- 1 orangepi orangepi   33516 Jul 29 20:16 ar0234_v2.ko.b64
+-rw-r--r-- 1 orangepi orangepi   24808 Jul 29 20:17 ar0234_v3.ko
+-rw-r--r-- 1 orangepi orangepi   33516 Jul 29 20:17 ar0234_v3.ko.b64
+-rw-r--r-- 1 orangepi orangepi   25568 Jul 29 20:22 ar0234_v4.ko
+-rw-r--r-- 1 orangepi orangepi   34541 Jul 29 20:22 ar0234_v4.ko.b64
+-rw-r--r-- 1 orangepi orangepi   25568 Jul 29 20:26 ar0234_v5.ko
+-rw-r--r-- 1 orangepi orangepi   34541 Jul 29 20:26 ar0234_v5.ko.b64
+-rw-r--r-- 1 orangepi orangepi     635 Sep 15 06:17 bars_nv12.py
+-rw-r--r-- 1 orangepi orangepi     404 Sep 15 05:49 bayer_stats.py
+-rwxr-xr-x 1 orangepi orangepi   18808 Jul 29 21:05 cap
+-rw-r--r-- 1 orangepi orangepi    8260 Jul 29 21:04 cap.c
+-rw-r--r-- 1 orangepi orangepi   11161 Jul 29 21:04 cap.c.b64
+-rwxr-xr-x 1 orangepi orangepi   14248 Sep 15 19:11 cltest2
+drwxr-xr-x 2 orangepi orangepi    4096 Sep 15 10:42 d3dlbc
+-rwxr-xr-x 1 orangepi orangepi   15712 Sep 15 18:46 dec_test
+-rw-r--r-- 1 orangepi orangepi     719 Sep 15 06:02 flipcheck.py
+-rwxr-xr-x 1 orangepi orangepi   43016 Sep 15 19:07 g2d_test
+drwxr-xr-x 2 orangepi orangepi    4096 Sep 15 18:28 hwtest-include
+-rwxr-xr-x 1 orangepi orangepi    1321 Sep 15 06:14 isp_try.sh
+-rwxr-xr-x 1 orangepi orangepi   44040 Sep 15 18:31 jpeg_test
+-rwxr-xr-x 1 orangepi orangepi     771 Sep 15 06:47 seq_test2.sh
+-rwxr-xr-x 1 orangepi orangepi     518 Sep 15 06:54 seq_test3.sh
+-rwxr-xr-x 1 orangepi orangepi     685 Sep 15 06:46 seq_test.sh
+-rwxr-xr-x 1 orangepi orangepi     802 Sep 15 06:58 soak.sh
+-rwxr-xr-x 1 orangepi orangepi     853 Sep 15 06:20 solid_libisp.sh
+-rw-r--r-- 1 orangepi orangepi     387 Sep 15 06:18 solid_stats.py
+-rw-r--r-- 1 orangepi orangepi     428 Jul 29 20:10 stats.py
+-rw-r--r-- 1 orangepi orangepi     580 Jul 29 20:10 stats.py.b64
+-rwxr-xr-x 1 orangepi orangepi   26496 Jul 29 21:05 swisp
+-rw-r--r-- 1 orangepi orangepi    5545 Jul 29 21:04 swisp.c
+-rw-r--r-- 1 orangepi orangepi    7494 Jul 29 21:04 swisp.c.b64
+-rw-r--r-- 1 orangepi orangepi 5000761 Sep 15 18:39 t30.h264
+drwxr-xr-x 2 orangepi orangepi    4096 Sep 15 19:09 tools
+drwxr-xr-x 7 orangepi orangepi    4096 Sep 15 10:37 userspace
+-rw-r--r-- 1 orangepi orangepi     423 Sep 15 06:06 uvcheck.py
+-rwxr-xr-x 1 orangepi orangepi   18760 Sep 16 05:50 vfr
+-rw-r--r-- 1 orangepi orangepi    8224 Sep 16 05:19 vfr.c
+-rw-r--r-- 1 orangepi orangepi  439072 Sep 15 05:46 vin_v4l2.ko.orig
+
+/home/orangepi/ar0234test/userspace/:
+total 24
+drwxr-xr-x 2 orangepi orangepi 4096 Sep 15 10:55 apps
+drwxr-xr-x 4 orangepi orangepi 4096 Sep 15 16:18 build
+drwxr-xr-x 3 orangepi orangepi 4096 Sep 15 10:33 include
+-rw-r--r-- 1 orangepi orangepi 1285 Sep 15 10:37 Makefile
+drwxr-xr-x 2 orangepi orangepi 4096 Sep 15 10:56 src
+drwxr-xr-x 2 orangepi orangepi 4096 Sep 15 10:37 systemd
+########## E. DT read-only (running dtb)
+== /soc/vind@5800800
+compatible #address-cells #size-cells ranges device_id csi_top csi_isp reg interrupts clocks clock-names resets reset-names pinctrl-names pinctrl-0 pinctrl-1 pinctrl-2 pinctrl-3 pinctrl-4 pinctrl-5 power-domains status vind_mclkpin-supply vind_mclkpin_vol vind_mcsipin-supply vind_mcsipin_vol vind_mipipin-supply vind_mipipin_vol phandle 
+  csi_top = 324000000
+  csi_isp = 324000000
+  csi_master = Error at 'csi_master': FDT_ERR_NOTFOUND
+  status = okay
+== tdm work_mode
+0
+okay
+== isp nodes status
+  isp@5900000 status=okay work_mode=0
+  isp@58ffffc status=disabled work_mode=255
+  isp@58ffff8 status=disabled work_mode=255
+  isp@58ffff4 status=disabled work_mode=255
+== sensor nodes
+  sensor@5812000 status=okay mname=ar0234_mipiError at 'sensor1_mname': FDT_ERR_NOTFOUNDError at 'sensor2_mname': FDT_ERR_NOTFOUND pwdn=54 4 6 0Error at 'sensor1_pwdn': FDT_ERR_NOTFOUNDError at 'sensor2_pwdn': FDT_ERR_NOTFOUND reset=
+  sensor@5812010 status=disabled mname=Error at 'sensor0_mname': FDT_ERR_NOTFOUNDov13850_mipiError at 'sensor2_mname': FDT_ERR_NOTFOUND pwdn=Error at 'sensor0_pwdn': FDT_ERR_NOTFOUND54 4 6 0Error at 'sensor2_pwdn': FDT_ERR_NOTFOUND reset=Error at 'sensor0_reset': FDT_ERR_NOTFOUND
+  sensor@5812020 status=disabled mname=Error at 'sensor0_mname': FDT_ERR_NOTFOUNDError at 'sensor1_mname': FDT_ERR_NOTFOUNDimx219_2 pwdn=Error at 'sensor0_pwdn': FDT_ERR_NOTFOUNDError at 'sensor1_pwdn': FDT_ERR_NOTFOUND54 4 10 0 reset=Error at 'sensor0_reset': FDT_ERR_NOTFOUND
+== vinc nodes
+  vinc@5830000 status=okay
+  vinc@5831000 status=okay
+  vinc@5832000 status=okay
+== resets of vind
+18 115
+== isp reg
+0 93323264 0 4864
+0 93323260 0 4868
+== isp iommus
+44 2 0
+44 2 0
+########## F. power domains / runtime PM
+pd_de_sys
+pd_npu
+pd_pcie
+pd_usb2
+pd_ve_dec
+pd_ve_enc
+pd_vi
+pd_vo
+pd_vo1
+pm_genpd_summary
+== /sys/kernel/debug/pm_genpd/pd_de_sys
+off-0
+/devices/platform/soc@3000000/soc@3000000:pd_de_sys_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/de
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/eink
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/di
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/g2d
+== /sys/kernel/debug/pm_genpd/pd_npu
+on
+/devices/platform/soc@3000000/soc@3000000:pd_npu_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/npu
+/devices/platform/soc@3000000/3600000.npu
+== /sys/kernel/debug/pm_genpd/pd_pcie
+on
+/devices/platform/soc@3000000/soc@3000000:pd_pcie_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/usb_pcie
+/devices/platform/soc@3000000/6000000.pcie
+== /sys/kernel/debug/pm_genpd/pd_usb2
+on
+/devices/platform/soc@3000000/soc@3000000:pd_usb2_test@0
+/devices/platform/soc@3000000/12.usbc2/6a00000.xhci2-controller
+== /sys/kernel/debug/pm_genpd/pd_ve_dec
+off-0
+/devices/platform/soc@3000000/soc@3000000:pd_ve_dec_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/ve0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/ve1
+/devices/platform/3900000.iommu/iommu_master/ve_dec0_iommu
+/devices/platform/3900000.iommu/iommu_master/ve_dec1_iommu
+== /sys/kernel/debug/pm_genpd/pd_ve_enc
+off-0
+/devices/platform/soc@3000000/soc@3000000:pd_ve_enc_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/ve2
+/devices/platform/3900000.iommu/iommu_master/ve_enc_iommu
+/devices/platform/soc@3000000/1c10000.ve2
+== /sys/kernel/debug/pm_genpd/pd_vi
+off-0
+/devices/platform/soc@3000000/soc@3000000:pd_vi_test@0
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/isp
+/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/csi
+/devices/platform/3900000.iommu/iommu_master/csi_iommu
+/devices/platform/3900000.iommu/iommu_master/isp_iommu
+== /sys/kernel/debug/pm_genpd/pd_vo
+off-0
+/devices/platform/soc@3000000/soc@3000000:pd_vo_test@0
+/devices/platform/soc@3000000/5500000.vo0
+== /sys/kernel/debug/pm_genpd/pd_vo1
+on
+/devices/platform/soc@3000000/soc@3000000:pd_vo1_test@0
+/devices/platform/soc@3000000/5510000.vo1
+/devices/platform/soc@3000000/5520000.hdmi0
+/devices/platform/soc@3000000/5740000.edp0
+== /sys/kernel/debug/pm_genpd/pm_genpd_summary
+--- runtime PM of vin devices
+5800800.vind       suspended
+5830000.vinc       suspended
+5831000.vinc       suspended
+5832000.vinc       suspended
+5900000.isp        unsupported
+5908000.tdm        unsupported
+5910000.scaler     unsupported
+/sys/devices/platform/soc@3000000/5800800.vind/5830000.vinc/power/runtime_status = suspended
+/sys/devices/platform/soc@3000000/5800800.vind/5832000.vinc/power/runtime_status = suspended
+/sys/devices/platform/soc@3000000/5800800.vind/5831000.vinc/power/runtime_status = suspended
+/sys/devices/platform/3900000.iommu/iommu_master/isp_iommu/power/runtime_status = suspended
+/sys/devices/platform/soc@3000000/2020000.nsi-controller/nsi_master/isp/power/runtime_status = suspended
+/sys/devices/platform/soc@3000000/5800800.vind/5900000.isp/power/runtime_status = unsupported
+########## G. dmesg of interest
+[    0.853212] sunxi:sunxi_mmc_host-4022000.sdmmc:[ERR]: smc 0 p2 err, cmd 1, RTO !!
+[    0.853228] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: retry:start
+[    0.853246] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: RETRY: REG_SAMP_DL: 0x00000888
+[    0.853269] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: *****retry:re-send cmd*****
+[    0.857539] sunxi:sunxi_mmc_host-4022000.sdmmc:[ERR]: smc 0 p2 err, cmd 1, RTO !!
+[    0.865310] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: retry:start
+[    0.865328] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: RETRY: REG_SAMP_DL: 0x000024a4
+[    0.865351] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: *****retry:re-send cmd*****
+[    0.876537] sunxi:sunxi_mmc_host-4022000.sdmmc:[INFO]: RETRY: REG_SAMP_DL: 0x00003ebe
+[    0.975326] core: _opp_supported_by_regulators: OPP minuV: 0 maxuV: 0, not supported by regulator
+[    0.975329] cpu cpu6: _opp_add: OPP not supported by regulators (1008000000)
+[    0.975379] core: _opp_supported_by_regulators: OPP minuV: 0 maxuV: 0, not supported by regulator
+[    0.975382] cpu cpu6: _opp_add: OPP not supported by regulators (1200000000)
+[    0.975530] cpu cpu6: _opp_add: OPP not supported by regulators (1512000000)
+[    0.976253] core: _opp_supported_by_regulators: OPP minuV: 0 maxuV: 0, not supported by regulator
+[    0.976535] core: _opp_supported_by_regulators: OPP minuV: 0 maxuV: 0, not supported by regulator
+[    0.976538] cpu cpu6: _opp_add: OPP not supported by regulators (1976000000)
+[    1.002865] sunxi-display-engine 5000000.de: Adding to iommu group 0
+[    1.005384] [drm] [TCON_TOP]sunxi_tcon_top_bind start
+[    1.005530] [drm] [TCON_TOP]sunxi_tcon_top_bind start
+[    1.005640] sunxi-drm soc@3000000:sunxi-drm: Adding to iommu group 0
+[    1.009811] [drm] edp's combo-phy not setting, maybe not used!
+[    1.017534] sunxi-ufs-pltfm 4520000.ufs: Cal words efuse addr 0x60 value 0x817e0000, addr 0x64 value 0x4f23a162
+[    1.053940] sunxi-drm soc@3000000:sunxi-drm: bound 5740000.edp0 (ops sunxi_drm_edp_component_ops)
+[    1.053971] sunxi-drm soc@3000000:sunxi-drm: bound 5730000.tcon3 (ops sunxi_tcon_component_ops)
+[    1.053985] sunxi-drm soc@3000000:sunxi-drm: bound 5731000.tcon4 (ops sunxi_tcon_component_ops)
+[    1.332535] sunxi-ufs-pltfm 4520000.ufs: link_startup_fail: total cnt=1
+[    3.120916] debugfs: Directory '2535000.i2s3_plat' with parent 'allwinner-hdmi' already present!
+[    3.145320] hub 3-0:1.0: USB hub found
+[    3.145395] hub 3-0:1.0: 1 port detected
+[    5.253537] systemd[1]: Created slice system-modprobe.slice.
+[    5.361755] vin_tdm 5908000.tdm: Adding to iommu group 0
+[    5.362504] vin_isp 5900000.isp: Adding to iommu group 0
+[    5.365017] vin_scaler 5910000.scaler: Adding to iommu group 0
+[    5.365485] vin_scaler 5910400.scaler: Adding to iommu group 0
+[    5.365997] vin_scaler 5910800.scaler: Adding to iommu group 0
+[    5.366478] vin_scaler 5800800.vind:scaler@16: Adding to iommu group 0
+[    5.367032] sunxi-vin-core 5830000.vinc: Adding to iommu group 0
+[    5.367442] sunxi-vin-core 5831000.vinc: Adding to iommu group 0
+[    5.367856] sunxi-vin-core 5832000.vinc: Adding to iommu group 0
+########## H. g2d / modules available
+filename:       /lib/modules/6.6.98-sun60iw2/kernel/bsp/drivers/g2d/g2d_sunxi.ko
+import_ns:      DMA_BUF
+license:        GPL
+version:        1.0.1
+description:    g2d(rcq) driver
+bluetooth
+hwmon
+input
+media
+net
+usb
+/lib/modules/6.6.98-sun60iw2/kernel/bsp/drivers/g2d
+/lib/modules/6.6.98-sun60iw2/kernel/bsp/drivers/g2d/g2d_sunxi.ko
+--- nproc / mem
+8
+               total        used        free      shared  buff/cache   available
+Mem:            3847         438        2857           2         551        3364
+Swap:           1923           0        1923
+8
+########## DONE2

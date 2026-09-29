@@ -1,0 +1,31 @@
+########## CONTROLS: 20 s runs, read vi0 at t=8 s and t=16 s, NO touch
+  control1: vi0 907 -> 1861 (delta 954) | frames=2381 wall=20.005s fps=119.02 timeouts=0
+  control2: vi0 905 -> 1859 (delta 954) | frames=2381 wall=20.005s fps=119.02 timeouts=0
+########## 10 x [20 s stream + open/close video4 at t=8 s]
+  1  ok     vi0 899 -> 1844 (delta 945 in 8 s) | frames=2360 wall=20.004s fps=117.98 timeouts=0
+  2  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  3  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  4  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  5  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  6  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  7  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  8  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  9  FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+  10 FREEZE vi0 2361 -> 2361 (delta 0 in 8 s) | 
+########## SUMMARY: ok=1 freeze=9 skipped(T6)=0
+--- current vi0 ---
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 478, hs: 1723
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2361, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 9(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+--- dmesg underflow/sensor-not-used since boot ---
+  underflow: 0
+  sensor-not-used: 0
+########## DONE10

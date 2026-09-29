@@ -1,0 +1,190 @@
+########## 0. boot dmesg snapshot -> /tmp/dmesg-boot-audit.txt
+1619 /tmp/dmesg-boot-audit.txt
+[    0.000000] CPU features: detected: Qualcomm erratum 1009, or ARM erratum 1286807, 2441009
+[    0.000000] CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+[    0.684925] sunxi:axp2101-13-0034:[ERR-1944977408]: failed to add irq chip: -22
+[    0.685038] axp20x-i2c: probe of 13-0034 failed with error -22
+[    0.803657] rtc-hym8563: probe of 15-0051 failed with error -22
+[    0.808016] sunxi:ccu_ddr-2002000.clk_ddr:[ERR]: failed to find dram_clk
+[    0.808160] sunxi:pin-2000000.pinctrl:[ERR]: unknown pin 
+[    0.808165] sunxi:pin-2000000.pinctrl:[ERR]: unknown pin 
+[    0.808219] sunxi:pin-2000000.pinctrl:[ERR]: unknown pin 
+[    0.808223] sunxi:pin-2000000.pinctrl:[ERR]: unknown pin 
+[    0.913394] sunxi-ufs-pltfm 4520000.ufs: [ufs]err:evt num 12,UFS_EVT_DEV_RESET
+[    0.967503] sunxi:axp8191_temp_ctrl:[ERR]: axp8191-temp-ctrl device is not configed
+[    0.971743] sunxi:sunxi_sid:[ERR]: Fail to read 'dvfs2_ori' in dts
+[    1.010027] [drm] edp's combo-phy not setting, maybe not used!
+[    1.010081] sunxi:sunxidrm:[ERR]: [EDP_ERR]: edp_lane_rate not set manaually, set to default: 2.7G!
+[    1.010086] sunxi:sunxidrm:[ERR]: [EDP_ERR]: edp_lane_cnt not set manaually, set to default: 2!
+[    1.050258] [drm:sunxi_drm_bind] *ERROR* none mode found init_connecting
+[    1.050271] [drm:commit_init_connecting.isra.0] *ERROR* offline mode: init connecting not found sunxi_drm_offline_mode_pre_init
+[    1.050280] [drm:sunxi_drm_get_logo_info] *ERROR* init connecting not found sunxi_drm_get_logo_info
+[    1.051220] sunxi:pcie-6000000.pcie:[WARN]: Failed to get "power-gpios"
+[    1.051239] sunxi:pcie-6000000.pcie:[WARN]: Failed to get "reset-gpios"
+[    1.053784] sunxi-pcie 6000000.pcie:      err 0x0020000000..0x0020ffffff -> 0x0020000000
+[    1.331068] sunxi-ufs-pltfm 4520000.ufs: [ufs]err:evt num 7,UFS_EVT_LINK_STARTUP_FAIL
+[    1.331163] sunxi-ufs-pltfm 4520000.ufs: saved_err=0x0, saved_uic_err=0x0
+[    1.331290] sunxi-ufs-pltfm 4520000.ufs: error handling flags=0x0, req. abort count=0
+[    1.331566] sunxi-ufs-pltfm 4520000.ufs: No record of pa_err
+[    1.331583] sunxi-ufs-pltfm 4520000.ufs: No record of dl_err
+[    1.331600] sunxi-ufs-pltfm 4520000.ufs: No record of nl_err
+[    1.331616] sunxi-ufs-pltfm 4520000.ufs: No record of tl_err
+[    1.331631] sunxi-ufs-pltfm 4520000.ufs: No record of dme_err
+[    1.331647] sunxi-ufs-pltfm 4520000.ufs: No record of auto_hibern8_err
+[    1.331663] sunxi-ufs-pltfm 4520000.ufs: No record of fatal_err
+[    1.331838] sunxi-ufs-pltfm 4520000.ufs: dev_reset[0] = 0x0 at 913390 us
+[    1.331861] sunxi-ufs-pltfm 4520000.ufs: dev_reset: total cnt=1
+[    1.331879] sunxi-ufs-pltfm 4520000.ufs: No record of host_reset
+[    3.079404] sunxi:pcie-rc-6000000.pcie:[ERR]: Speed change timeout
+[    3.117319] sunxi:sound-codec-hdmi:[ERR]: 442 sunxi_codec_dev_probe(): register codec-hdmi success
+[    3.117954] sunxi:sound-i2s:[WARN]: 2238 snd_sunxi_dts_params_init(): clk-en-post-delay missing
+[    3.117962] sunxi:sound-i2s:[WARN]: 2246 snd_sunxi_dts_params_init(): clk-keep missing
+[    3.118410] sunxi:sound-mach:[WARN]: 372 asoc_simple_parse_ucfmt(): set data late to default
+########## 1. health: 1200p120 30 s
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=3601 wall=30.000s fps=120.03 timeouts=0
+  GAPS n=3600 median=0.008331s (120.04 fps) min=0.008071 max=0.008589 >1.5x=0 >3x=0
+  counters: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 3602, lost_cnt: 0, error_cnt: 0|
+########## 2. 1080p ceiling ladder (driver's own fll)
+  fps=130  fll = 1126 (130 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=389 wall=3.001s fps=129.64 timeouts=0
+      frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  fps=132  fll = 1109 (132 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=393 wall=3.007s fps=130.69 timeouts=0
+      frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  fps=133  fll = 1100 (133 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=395 wall=3.001s fps=131.63 timeouts=0
+      frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  fps=134  fll = 1096 (133 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=395 wall=3.000s fps=131.65 timeouts=0
+      frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  fps=135  fll = 1096 (133 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=395 wall=3.001s fps=131.63 timeouts=0
+      frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=8
+  fps=136  fll = 1096 (133 fps) | RESULT dev=/dev/video0 1920x1080 NV12 frames=5 wall=3.050s fps=1.64 timeouts=3
+      frame_lost=201 hblank=0 reset=201 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=410
+########## 3. dual stream video0 + video4, 20 s
+  --- video0 ---
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=2381 wall=20.004s fps=119.02 timeouts=0
+  GAPS n=2380 median=0.008397s (119.09 fps) min=0.008110 max=0.008650 >1.5x=0 >3x=0
+  --- video4 ---
+  RESULT dev=/dev/video4 1920x1200 NV12 frames=2381 wall=20.002s fps=119.04 timeouts=0
+  GAPS n=2380 median=0.008397s (119.09 fps) min=0.008170 max=0.008623 >1.5x=0 >3x=0
+  counters since dual marker: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=0 csi_iommu=0 lines=12
+  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 4, work_mode: online|frame => cnt: 2383, lost_cnt: 1, error_cnt: 0|
+  vi4: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 2382, lost_cnt: 0, error_cnt: 0|
+  --- mpp/vi full during idle-after ---
+*****************************************************
+VIN hardware feature list:
+mcsi 3, ncsi 2, parser 3, isp 1, vipp 4, dma 6
+CSI_VERSION: CSI300_500, ISP_VERSION: ISP602_100
+CSI_CLK: 324000000, ISP_CLK: 324000000
+*****************************************************
+vi0:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp0
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 4, work_mode: online
+frame => cnt: 2383, lost_cnt: 1, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi4:
+ar0234_mipi => mipi0 => csi0 => tdm_rx0 => isp0 => vipp4
+input => hoff: 0, voff: 0, w: 1920, h: 1200, fmt: GRBG10
+output => width: 1920, height: 1200, fmt: NV12
+interface: MIPI, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 1920, y: 1200, hb: 477, hs: 1724
+bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online
+frame => cnt: 2382, lost_cnt: 0, error_cnt: 0
+internal => avg: 8(ms), max: 8(ms), min: 7(ms)
+CSI Bandwidth: 0
+*****************************************************
+vi8:
+(efault) => mipi1 => csi1 => tdm_rx0 => isp0 => vipp8
+input => hoff: 0, voff: 0, w: 0, h: 0, fmt: NULL
+output => width: 0, height: 0, fmt: NULL
+interface: NULL, isp_mode: NORMAL, hflip: 0, vflip: 0
+prs_in => x: 0, y: 0, hb: 0, hs: 0
+bkuf => cnt: 0 size: 0 rest: 0, work_mode: online
+frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+internal => avg: 0(ms), max: 0(ms), min: 0(ms)
+CSI Bandwidth: 0
+*****************************************************
+########## 4. live MIPI PHY + VIN registers during a stream
+  --- /sys/kernel/debug/mpp/mipi while streaming ---
+  *************** MIPI Register Status List **************
+  ------------------ PHY COMMON Register -----------------
+  phy_link_mode:	 0x0 (unrecognized link mode)
+  
+  -------------- PHY Digital Layer Register --------------
+  [mipi0]
+  phy_en:		 enabled
+  data_lane_en:	 0xf (invalid value)
+  clk_lane_en:	 enabled
+  deskew:		 0x2
+  settle_time:	 0x28
+  mipi_bps:	 844 Mbps
+  data_lane0:	 0x5 (HS_S, ok)
+  data_lane1:	 0x5 (HS_S, ok)
+  clk_lane:	 0x5 (HS_S, ok)
+  
+  [mipi1]
+  phy_en:		 disabled
+  
+  [mipi2]
+  phy_en:		 disabled
+  
+  -------------- PORT Payload Layer Register -------------
+  [mipi0]
+  port_en:	 enabled
+  lane_num:	 4 lane
+  channel_num:	 1 channel
+  out_data_num:	 2 data
+  wdr_mode:	 normal
+  unpack_en:	 enabled
+  yuv_seq:	 YUYV
+  ch_field:	 progressive
+  int_pending:	 0x4f (ok)
+  cur_data_type:	 0x2b (RAW10)
+  vir_ch:		 0
+  
+  [mipi1]
+  port_en:	 disabled
+  
+  [mipi2]
+  port_en:	 disabled
+  
+  ********************************************************
+  
+  --- vi0 while streaming ---
+output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 431, lost_cnt: 0, error_cnt: 0|  RESULT dev=/dev/video0 1920x1200 NV12 frames=1429 wall=12.008s fps=119.00 timeouts=0
+########## 5. T16b regression: open+close video4 (no stream) while video0 streams
+  vi0 before open/close video4: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 478, hs: 1723|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 907, lost_cnt: 0, error_cnt: 0|
+  opened+closed /dev/video4 once
+  vi0 8s later: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 940, lost_cnt: 0, error_cnt: 0|
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=939 wall=30.924s fps=30.37 timeouts=23
+  counters since openclose marker: frame_lost=0 hblank=0 reset=0 not_mapped=0 oops=0 warn=1 csi_iommu=0 lines=60
+  dmesg new lines:
+  ! [  161.311734] S6-openclose-3077
+  ! [  161.369089] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [  161.369108] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [  161.369490] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+  ! [  161.377962] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+  ! [  161.378610] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [  161.699282] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 1220 (120 fps)
+  ! [  169.586362] sunxi:vin:[ERR]: [VIN_DEV_I2C_ERR]sensor_read error! sensor is not used!
+  ! [  169.586380] sunxi:vin:[ERR]: [VIN_DEV_I2C_ERR]sensor_read error! sensor is not used!
+  ! [  169.586384] sunxi:vin:[ERR]: [VIN_DEV_I2C_ERR]sensor_read error! sensor is not used!
+########## 6. same-size limitation: S_FMT 960x600 on video4 while video0 streams
+  S_FMT video4 960x600: VIDIOC_S_FMT: failed: Device or resource busy
+  rc=0
+  vi0 during: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|bkuf => cnt: 4 size: 3457024 rest: 3, work_mode: online|frame => cnt: 562, lost_cnt: 0, error_cnt: 0|
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=561 wall=14.695s fps=38.18 timeouts=10
+  dmesg:
+  ! [  197.897045] sunxi:vin:[ERR]: video0 is streaming 1920x1200 from the same sensor, refusing the 960x600 S_FMT on video4 (the uplink cannot serve two sizes at once)
+  ! [  197.897136] sunxi:vin:[WARN]: v4l2 sub device scaler get_selection error!
+  ! [  197.897156] sunxi:vin:[WARN]: v4l2 sub device scaler get_selection error!
+  ! [  197.904721] sunxi:vin:[ERR]: [VIN_DEV_I2C_ERR]sensor_read error! sensor is not used!
+  ! [  197.904739] sunxi:vin:[ERR]: [VIN_DEV_I2C_ERR]sensor_read error! sensor is not used!
+########## 7. state
+  isp clk: 324000000
+  dtb: d4ee5b6869e7b7cd39ce3762d0e078f9  /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
+########## DONE6

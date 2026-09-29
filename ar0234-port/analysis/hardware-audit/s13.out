@@ -1,0 +1,107 @@
+########## A. H.265 vs H.264 condition matrix (zero-copy, 120 frames each)
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 1.09s (109.75 fps), 2498883 bytes, encode 8.9 ms/frame -> /tmp/m_1920x1200_120.h264
+  h264 1920x1200@120         size=2498883  dmesg-new=
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 6 frames in 2.08s (2.89 fps), 124202 bytes, encode 9.2 ms/frame -> /tmp/m_1920x1200_120.h265
+  h265 1920x1200@120         size=124202  dmesg-new=[  396.281069] sunxi:vin:[ERR]: isp0 configuration error|[  396.281105] sunxi:vin:[ERR]: isp0 height error|
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 2.03s (59.00 fps), 4596263 bytes, encode 8.3 ms/frame -> /tmp/m_1920x1200_60.h265
+  h265 1920x1200@60          size=4596263  dmesg-new=
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 4.02s (29.84 fps), 9466407 bytes, encode 8.7 ms/frame -> /tmp/m_1920x1200_30.h265
+  h265 1920x1200@30          size=9466407  dmesg-new=
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 4.04s (29.70 fps), 9499139 bytes, encode 8.1 ms/frame -> /tmp/m_1920x1080_30.h265
+  h265 1920x1080@30          size=9499139  dmesg-new=
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 1.01s (118.49 fps), 2333476 bytes, encode 3.9 ms/frame -> /tmp/m_1280x720_120.h265
+  h265 1280x720@120          size=2333476  dmesg-new=
+    input path: zero-copy DMA-BUF (ISP buffer -> VE)
+    done: 120 frames in 1.15s (104.61 fps), 2499329 bytes, encode 9.4 ms/frame -> /tmp/m_1920x1200_120.h264
+  h264 1920x1200@120         size=2499329  dmesg-new=[  396.281069] sunxi:vin:[ERR]: isp0 configuration error|[  396.281105] sunxi:vin:[ERR]: isp0 height error|
+########## B. G2D
+--- module load ---
+  g2d_sunxi              94208  0
+  crw------- 1 root root 234, 0 Sep 16 13:11 /dev/g2d
+--- g2d_test (opens /dev/video0 1920x1080@30, BITBLT NV12 fd->fd, then 2x scale) ---
+  g2d version 0x10112114
+  src[0..7]: 1f 1f 1d 1d 1f 24 21 20  dst[0..7]: 1f 1f 1d 1d 1f 24 21 20
+  copy: MISMATCH (differing bytes 213834/3110400)
+  diff magnitude: exact 2896566, <=2 213508, <=8 326, >8 0
+  scale: OK (nonzero bytes 777600/777600)
+  done
+  dmesg-new: [  420.606223] sunxi:g2d_sunxi:[INFO]: [G2D]: g2d version: 10112114 chip version: 00000000|
+########## C. GPU / OpenCL
+--- pvr debugfs ---
+  Driver Version: Rogue_DDK_Linux_WS rogueddk 24.2@6603887 (rogue) (release) build options: 0x00020810 sunxi_linux
+  
+  Device Name: sunxi
+  Device ID: 0:128
+  GPU variant BVNC: 36.56.104.183 (HW)
+  Firmware Version: 24.2 @ 6603887 (release) build options: 0x80020810 sunxi_linux
+  Driver Status:   OK
+  
+  Device ID: 0:128
+  Firmware Status: OK
+  Server Errors:   0
+  HWR Event Count: 0
+  CRR Event Count: 0
+  SLR Event Count: 0
+  WGP Error Count: 0
+  TRP Error Count: 0
+  FWF Event Count: 0
+  APM Event Count: 98
+  GPU Utilisation: 0%
+  DM Utilisation:  VM0
+             2D:   0% 
+           GEOM:   0% 
+             3D:   0% 
+            CDM:   0% 
+            RAY:   0% 
+          GEOM2:   0% 
+
+--- cltest2 ---
+  platforms: 1 (rc 0)
+  platform: PowerVR
+  version : OpenCL 3.0 
+  platform extensions (1113): cl_khr_icd cl_khr_fp16 cl_img_spirv cl_img_yuv_image cl_khr_device_uuid cl_khr_depth_images cl_khr_mipmap_image cl_khr_priority_hints cl_img_generate_mipmap cl_khr_external_memory cl_khr_3d_image_writes cl_ext_image_from_buffer cl_img_cached_allocations cl_khr_integer_dot_product cl_img_cancel_commands cl_khr_mipmap_image_writes cl_khr_create_command_queue cl_ext_image_requirements_info cl_khr_suggested_local_work_size cl_img_mem_properties cl_img_mem_properties_relax_alloc_requirements cl_khr_extended_versioning cl_khr_image2d_from_buffer cl_khr_byte_addressable_store cl_khr_local_int32_base_atomics cl_khr_global_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_global_int32_extended_atomics cl_khr_spir cl_khr_il_program cl_khr_egl_image cl_arm_import_memory cl_arm_import_memory_dma_buf cl_khr_external_memory_dma_buf cl_img_protected_content cl_img_semaphore cl_img_external_semaphore cl_img_external_semaphore_sync_fd cl_khr_semaphore cl_khr_external_semaphore cl_khr_external_semaphore_sync_fd cl_khr_command_buffer cl_arm_scheduling_controls cl_ext_image_tiling_control cles_khr_int64
+  device  : PowerVR B-Series BXM-4-64
+  ext query rc=0
+  extensions (4 bytes): [01 00 00 00 ] raw=''
+  hit:
+   
+--- dma-buf import extensions present? ---
+  platform extensions (1113): cl_khr_icd cl_khr_fp16 cl_img_spirv cl_img_yuv_image cl_khr_device_uuid cl_khr_depth_images cl_khr_mipmap_image cl_khr_priority_hints cl_img_generate_mipmap cl_khr_external_memory cl_khr_3d_image_writes cl_ext_image_from_buffer cl_img_cached_allocations cl_khr_integer_dot_product cl_img_cancel_commands cl_khr_mipmap_image_writes cl_khr_create_command_queue cl_ext_image_requirements_info cl_khr_suggested_local_work_size cl_img_mem_properties cl_img_mem_properties_relax_alloc_requirements cl_khr_extended_versioning cl_khr_image2d_from_buffer cl_khr_byte_addressable_store cl_khr_local_int32_base_atomics cl_khr_global_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_global_int32_extended_atomics cl_khr_spir cl_khr_il_program cl_khr_egl_image cl_arm_import_memory cl_arm_import_memory_dma_buf cl_khr_external_memory_dma_buf cl_img_protected_content cl_img_semaphore cl_img_external_semaphore cl_img_external_semaphore_sync_fd cl_khr_semaphore cl_khr_external_semaphore cl_khr_external_semaphore_sync_fd cl_khr_command_buffer cl_arm_scheduling_controls cl_ext_image_tiling_control cles_khr_int64
+--- headers available? ---
+  ls: cannot access '/usr/include/CL': No such file or directory
+########## D. NPU
+--- nodes / modules ---
+  crw-rw-rw- 1 root root 199, 0 Sep 16 13:04 /dev/vipcore
+  vipcore               245760  0
+  dev0 hw0 info: pid=0x1000003b, date=0x20230518, ver1=0x9000, ver2=0x9202.
+--- user-space completeness ---
+  libVIPlite.so      MISSING
+  libVIPhal.so       /usr/lib/libVIPhal.so
+  libNBGlinker.so    /usr/lib/libNBGlinker.so
+--- can a program actually init the NPU? ---
+  dlopen(libVIPlite.so) = libVIPlite.so: cannot open shared object file: No such file or directory
+  dlopen(/usr/lib/libVIPlite.so) = /usr/lib/libVIPlite.so: cannot open shared object file: No such file or directory
+  dlopen(/usr/lib/aarch64-linux-gnu/libVIPlite.so) = /usr/lib/aarch64-linux-gnu/libVIPlite.so: cannot open shared object file: No such file or directory
+  dlopen(libVIPhal.so) = OK
+    viphal_init: present
+  --- headers for the API ---
+  -rw-rw-r-- 1 root root 44351 Oct 22  2025 /usr/include/vip_lite.h
+  --- model conversion tool (.nb) present? ---
+  ls: cannot access '/usr/bin/*NBG*': No such file or directory
+  /usr/bin/dpkg-genbuildinfo
+  /usr/bin/dvipdf
+  /usr/bin/expect_unbuffer
+  /usr/bin/nc.openbsd
+  /usr/bin/unbuffer
+  /opt/vpm_run/network_binary.nb
+  /opt/yolov5/model/yolov5.nb
+  /usr/share/aptitude/aptitude-defaults.nb
+########## E. health
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=714 wall=6.006s fps=118.89 timeouts=0
+########## DONE13

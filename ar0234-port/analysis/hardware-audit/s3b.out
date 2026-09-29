@@ -1,0 +1,335 @@
+==================================================================
+CASE bgr3-960x600p120  dev=/dev/video0 fmt=BGR3 960x600 fps=120  t=5s
+  BEFORE vi0: output => width: 1280, height: 720, fmt: NULL|prs_in => x: 1280, y: 720, hb: 1053, hs: 1148|frame => cnt: 961, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt BGR3 960x600 planes=1 sizeimage=1728000 bytesperline=2880
+  | RESULT dev=/dev/video0 960x600 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  | GAPS n=599 median=0.008330s (120.04 fps) min=0.008213 max=0.008449 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    482 this_second=121
+  > RESULT dev=/dev/video0 960x600 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  > GAPS n=599 median=0.008330s (120.04 fps) min=0.008213 max=0.008449 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5709.866988] S3-bgr3-960x600p120-12783
+  ! [ 5709.924728] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5709.924738] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5709.924868] sunxi:vin:[INFO]: isp0 sensor 960x600 vts 1220 fps 120: vblank 4234 us, 3DNR allowed (limit 500 us)
+  ! [ 5709.928152] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+  ! [ 5710.246274] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 1220 (120 fps)
+  ! [ 5715.259547] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 960*600 300a
+==================================================================
+CASE bgr3-320x200p120  dev=/dev/video0 fmt=BGR3 320x200 fps=120  t=5s
+  BEFORE vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt BGR3 320x200 planes=1 sizeimage=192000 bytesperline=960
+  | RESULT dev=/dev/video0 320x200 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  | GAPS n=599 median=0.008330s (120.05 fps) min=0.008199 max=0.008492 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    482 this_second=121
+  > RESULT dev=/dev/video0 320x200 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  > GAPS n=599 median=0.008330s (120.05 fps) min=0.008199 max=0.008492 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 320, height: 200, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5715.415300] S3-bgr3-320x200p120-12783
+  ! [ 5715.472679] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5715.472694] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5715.472962] sunxi:vin:[INFO]: isp0 sensor 960x600 vts 1220 fps 120: vblank 4234 us, 3DNR allowed (limit 500 us)
+  ! [ 5715.475963] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+  ! [ 5715.794083] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 1220 (120 fps)
+  ! [ 5720.807391] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 960*600 300a
+==================================================================
+CASE bgr3-1600x1000p120  dev=/dev/video0 fmt=BGR3 1600x1000 fps=120  t=5s
+  BEFORE vi0: output => width: 320, height: 200, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt BGR3 1600x1000 planes=1 sizeimage=4800000 bytesperline=4800
+  | RESULT dev=/dev/video0 1600x1000 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  | GAPS n=599 median=0.008331s (120.04 fps) min=0.008187 max=0.008453 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    482 this_second=121
+  > RESULT dev=/dev/video0 1600x1000 BGR3 frames=600 wall=5.008s fps=119.81 timeouts=0
+  > GAPS n=599 median=0.008331s (120.04 fps) min=0.008187 max=0.008453 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1600, height: 1000, fmt: NULL|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5720.986151] S3-bgr3-1600x1000p120-12783
+  ! [ 5721.044419] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5721.044437] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5721.044785] sunxi:vin:[INFO]: isp0 sensor 1920x1080 vts 1220 fps 120: vblank 956 us, 3DNR allowed (limit 500 us)
+  ! [ 5721.055984] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1080 300a
+  ! [ 5721.373651] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1080, fll = 1220 (120 fps)
+  ! [ 5726.387355] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1080 300a
+==================================================================
+CASE nv12-1200p60  dev=/dev/video0 fmt=NV12 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1600, height: 1000, fmt: NULL|prs_in => x: 1920, y: 1080, hb: 477, hs: 1724|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 NV12 frames=300 wall=5.008s fps=59.91 timeouts=0
+  | GAPS n=299 median=0.016660s (60.02 fps) min=0.016454 max=0.016882 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    243 this_second=61
+  > RESULT dev=/dev/video0 1920x1200 NV12 frames=300 wall=5.008s fps=59.91 timeouts=0
+  > GAPS n=299 median=0.016660s (60.02 fps) min=0.016454 max=0.016882 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5726.511182] S3-nv12-1200p60-12783
+  ! [ 5726.568572] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5726.568589] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5726.568910] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5726.578005] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5726.895836] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5731.910191] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE nv12-1200p30  dev=/dev/video0 fmt=NV12 1920x1200 fps=30  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt NV12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 NV12 frames=150 wall=5.010s fps=29.94 timeouts=0
+  | GAPS n=149 median=0.033327s (30.01 fps) min=0.033106 max=0.033543 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    123 this_second=31
+  > RESULT dev=/dev/video0 1920x1200 NV12 frames=150 wall=5.010s fps=29.94 timeouts=0
+  > GAPS n=149 median=0.033327s (30.01 fps) min=0.033106 max=0.033543 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 151, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5732.097700] S3-nv12-1200p30-12783
+  ! [ 5732.156361] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5732.156383] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5732.156742] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 4896 fps 30: vblank 25163 us, 3DNR allowed (limit 500 us)
+  ! [ 5732.167334] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5732.488215] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 4896 (30 fps)
+  ! [ 5737.506671] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE grey-640x400p120  dev=/dev/video0 fmt=GREY 640x400 fps=120  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NV12|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 151, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt GREY 640x400 planes=1 sizeimage=256000 bytesperline=640
+  | RESULT dev=/dev/video0 640x400 GREY frames=595 wall=5.006s fps=118.86 timeouts=0
+  | GAPS n=594 median=0.008398s (119.08 fps) min=0.008201 max=0.008581 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    478 this_second=120
+  > RESULT dev=/dev/video0 640x400 GREY frames=595 wall=5.006s fps=118.86 timeouts=0
+  > GAPS n=594 median=0.008398s (119.08 fps) min=0.008201 max=0.008581 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 640, height: 400, fmt: GREY|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5737.737924] S3-grey-640x400p120-12783
+  ! [ 5737.795293] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5737.795299] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5737.795432] sunxi:vin:[INFO]: isp0 sensor 960x600 vts 1220 fps 120: vblank 4234 us, 3DNR allowed (limit 500 us)
+  ! [ 5737.797544] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+  ! [ 5738.117007] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 1220 (120 fps)
+  ! [ 5743.128842] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 960*600 300a
+==================================================================
+CASE ba10-960x600p120  dev=/dev/video0 fmt=BA10 960x600 fps=120  t=5s
+  BEFORE vi0: output => width: 640, height: 400, fmt: GREY|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt BA10 960x600 planes=1 sizeimage=1152000 bytesperline=1920
+  | RESULT dev=/dev/video0 960x600 BA10 frames=600 wall=5.008s fps=119.81 timeouts=0
+  | GAPS n=599 median=0.008330s (120.05 fps) min=0.008118 max=0.008571 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    482 this_second=121
+  > RESULT dev=/dev/video0 960x600 BA10 frames=600 wall=5.008s fps=119.81 timeouts=0
+  > GAPS n=599 median=0.008330s (120.05 fps) min=0.008118 max=0.008571 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 960, height: 600, fmt: RAW10|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5743.314225] S3-ba10-960x600p120-12783
+  ! [ 5743.372520] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5743.372536] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5743.372782] sunxi:vin:[INFO]: isp0 sensor 960x600 vts 1220 fps 120: vblank 4234 us, 3DNR allowed (limit 500 us)
+  ! [ 5743.375949] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 960*600 300a
+  ! [ 5743.693555] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 960, height = 600, fll = 1220 (120 fps)
+  ! [ 5748.704177] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 960*600 300a
+==================================================================
+CASE yuyv-1200p30  dev=/dev/video0 fmt=YUYV 1920x1200 fps=30  t=5s
+  BEFORE vi0: output => width: 960, height: 600, fmt: RAW10|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=1
+  | S_FMT: Invalid argument
+  | input 0: 
+  > S_FMT: Invalid argument
+  > input 0: 
+  > requested 1/30 -> got 1/30
+  AFTER  vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=5
+  ! [ 5748.900143] S3-yuyv-1200p30-12783
+  ! [ 5748.956464] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5748.956479] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5748.956743] sunxi:vin:[ERR]: vin is not support this pixelformat
+  ! [ 5748.956749] sunxi:vin:[ERR]: vin_pipeline_try_format failed
+==================================================================
+CASE uyvy-1200p30  dev=/dev/video0 fmt=UYVY 1920x1200 fps=30  t=5s
+  BEFORE vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=1
+  | S_FMT: Invalid argument
+  | input 0: 
+  > S_FMT: Invalid argument
+  > input 0: 
+  > requested 1/30 -> got 1/30
+  AFTER  vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=5
+  ! [ 5749.072877] S3-uyvy-1200p30-12783
+  ! [ 5749.130770] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5749.130786] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5749.131055] sunxi:vin:[ERR]: vin is not support this pixelformat
+  ! [ 5749.131060] sunxi:vin:[ERR]: vin_pipeline_try_format failed
+==================================================================
+CASE nv21-1200p60  dev=/dev/video0 fmt=NV21 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 960, height: 600, fmt: NULL|prs_in => x: 960, y: 600, hb: 1341, hs: 860|frame => cnt: 601, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt NV21 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 NV21 frames=300 wall=5.008s fps=59.91 timeouts=0
+  | GAPS n=299 median=0.016660s (60.03 fps) min=0.016409 max=0.016951 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    243 this_second=61
+  > RESULT dev=/dev/video0 1920x1200 NV21 frames=300 wall=5.008s fps=59.91 timeouts=0
+  > GAPS n=299 median=0.016660s (60.03 fps) min=0.016409 max=0.016951 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NV21|prs_in => x: 1920, y: 1200, hb: 478, hs: 1723|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5749.234862] S3-nv21-1200p60-12783
+  ! [ 5749.292431] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5749.292445] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5749.292686] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5749.299865] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5749.618084] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5754.632559] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE yu12-1200p60  dev=/dev/video0 fmt=YU12 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NV21|prs_in => x: 1920, y: 1200, hb: 478, hs: 1723|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt YU12 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 YU12 frames=300 wall=5.009s fps=59.89 timeouts=0
+  | GAPS n=299 median=0.016659s (60.03 fps) min=0.016509 max=0.016942 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    243 this_second=61
+  > RESULT dev=/dev/video0 1920x1200 YU12 frames=300 wall=5.009s fps=59.89 timeouts=0
+  > GAPS n=299 median=0.016659s (60.03 fps) min=0.016509 max=0.016942 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: YUV420|prs_in => x: 1920, y: 1200, hb: 478, hs: 1723|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5754.887245] S3-yu12-1200p60-12783
+  ! [ 5754.944425] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5754.944437] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5754.944656] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5754.950964] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5755.269395] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5760.286646] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE rgbp-1200p60  dev=/dev/video0 fmt=RGBP 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: YUV420|prs_in => x: 1920, y: 1200, hb: 478, hs: 1723|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt RGBP 1920x1200 planes=1 sizeimage=4608000 bytesperline=3840
+  | RESULT dev=/dev/video0 1920x1200 RGBP frames=300 wall=5.009s fps=59.89 timeouts=0
+  | GAPS n=299 median=0.016660s (60.02 fps) min=0.016426 max=0.016899 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    243 this_second=61
+  > RESULT dev=/dev/video0 1920x1200 RGBP frames=300 wall=5.009s fps=59.89 timeouts=0
+  > GAPS n=299 median=0.016660s (60.02 fps) min=0.016426 max=0.016899 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NULL|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5760.470667] S3-rgbp-1200p60-12783
+  ! [ 5760.528417] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5760.528437] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5760.528798] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5760.541476] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5760.862535] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5765.879651] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE rgb4-1200p60  dev=/dev/video0 fmt=RGB4 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NULL|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=1
+  | S_FMT: Invalid argument
+  | input 0: 
+  > S_FMT: Invalid argument
+  > input 0: 
+  > requested 1/60 -> got 1/60
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: NULL|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=5
+  ! [ 5766.082722] S3-rgb4-1200p60-12783
+  ! [ 5766.140418] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5766.140438] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5766.140794] sunxi:vin:[ERR]: vin is not support this pixelformat
+  ! [ 5766.140804] sunxi:vin:[ERR]: vin_pipeline_try_format failed
+==================================================================
+CASE fc21-1200p60  dev=/dev/video0 fmt=FC21 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: NULL|prs_in => x: 1920, y: 1200, hb: 477, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt FC21 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 FC21 frames=300 wall=5.009s fps=59.89 timeouts=0
+  | GAPS n=299 median=0.016659s (60.03 fps) min=0.016451 max=0.016907 >1.5x=0 >3x=0
+  >   t=  4.1s frames=    243 this_second=61
+  > RESULT dev=/dev/video0 1920x1200 FC21 frames=300 wall=5.009s fps=59.89 timeouts=0
+  > GAPS n=299 median=0.016659s (60.03 fps) min=0.016451 max=0.016907 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: FBC|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5766.281703] S3-fc21-1200p60-12783
+  ! [ 5766.339575] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5766.339591] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5766.339826] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5766.347094] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5766.664499] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5771.680377] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE lc21-1200p60  dev=/dev/video0 fmt=LC21 1920x1200 fps=60  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: FBC|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 301, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt LC21 1920x1200 planes=1 sizeimage=3456000 bytesperline=2880
+  | RESULT dev=/dev/video0 1920x1200 LC21 frames=0 wall=5.006s fps=0.00 timeouts=5
+  >   [3.0s] no frame for >1s (frames=0)
+  >   [4.0s] no frame for >1s (frames=0)
+  > RESULT dev=/dev/video0 1920x1200 LC21 frames=0 wall=5.006s fps=0.00 timeouts=5
+  AFTER  vi0: output => width: 1920, height: 1200, fmt: LBC_2X|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 0, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5771.862948] S3-lc21-1200p60-12783
+  ! [ 5771.920316] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5771.920326] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5771.920526] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 2445 fps 60: vblank 8486 us, 3DNR allowed (limit 500 us)
+  ! [ 5771.925143] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  ! [ 5772.243935] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 2445 (60 fps)
+  ! [ 5777.255898] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+==================================================================
+CASE stretch-640x640p120  dev=/dev/video0 fmt=BGR3 640x640 fps=120  t=5s
+  BEFORE vi0: output => width: 1920, height: 1200, fmt: LBC_2X|prs_in => x: 1920, y: 1200, hb: 478, hs: 1724|frame => cnt: 0, lost_cnt: 0, error_cnt: 0|
+  vfr rc=0
+  | input 0: 
+  | fmt BGR3 640x640 planes=1 sizeimage=1228800 bytesperline=1920
+  | RESULT dev=/dev/video0 640x640 BGR3 frames=595 wall=5.006s fps=118.86 timeouts=0
+  | GAPS n=594 median=0.008398s (119.08 fps) min=0.008211 max=0.008527 >1.5x=0 >3x=0
+  >   t=  4.0s frames=    478 this_second=120
+  > RESULT dev=/dev/video0 640x640 BGR3 frames=595 wall=5.006s fps=118.86 timeouts=0
+  > GAPS n=594 median=0.008398s (119.08 fps) min=0.008211 max=0.008527 >1.5x=0 >3x=0
+  AFTER  vi0: output => width: 640, height: 640, fmt: NULL|prs_in => x: 1280, y: 720, hb: 1053, hs: 1149|frame => cnt: 596, lost_cnt: 0, error_cnt: 0|
+  dmesg-since-marker: frame_lost=0 hblank_short=0 isp_reset=0 not_mapped=0 oops=0 warn=0 lines=7
+  ! [ 5777.467391] S3-stretch-640x640p120-12783
+  ! [ 5777.524482] sunxi:vin:[INFO]: [ar0234_mipi]V4L2_IDENT_SENSOR = 0xa56
+  ! [ 5777.524498] sunxi:vin:[INFO]: [ar0234_mipi]find the onsemi AR0234 ***********
+  ! [ 5777.524756] sunxi:vin:[INFO]: isp0 sensor 1280x720 vts 1220 fps 120: vblank 3415 us, 3DNR allowed (limit 500 us)
+  ! [ 5777.528388] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1280*720 300a
+  ! [ 5777.848591] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1280, height = 720, fll = 1220 (120 fps)
+  ! [ 5782.860367] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1280*720 300a
+########## mpp/mipi during idle (after all cases)
+*************** MIPI Register Status List **************
+------------------ PHY COMMON Register -----------------
+phy_link_mode:	 0x0 (unrecognized link mode)
+
+-------------- PHY Digital Layer Register --------------
+[mipi0]
+phy_en:		 disabled
+
+[mipi1]
+phy_en:		 disabled
+
+[mipi2]
+phy_en:		 disabled
+
+-------------- PORT Payload Layer Register -------------
+[mipi0]
+port_en:	 disabled
+
+[mipi1]
+port_en:	 disabled
+
+[mipi2]
+port_en:	 disabled
+
+********************************************************
+
+########## DONE3

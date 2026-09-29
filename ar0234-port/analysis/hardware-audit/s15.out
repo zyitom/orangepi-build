@@ -1,0 +1,342 @@
+total 76
+-rw-r--r-- 1 orangepi orangepi 2028 Sep 15 05:14 ar0234_tuning.h
+-rw-r--r-- 1 orangepi orangepi 2817 Sep 15 18:07 calibrate_lsc.py
+-rw-r--r-- 1 orangepi orangepi 8260 Sep 15 05:14 cap.c
+-rw-r--r-- 1 orangepi orangepi 2798 Sep 15 19:11 cltest2.c
+-rw-r--r-- 1 orangepi orangepi 3113 Sep 15 18:49 dec_test.cpp
+-rw-r--r-- 1 orangepi orangepi 5527 Sep 15 19:07 g2d_test.cpp
+-rw-r--r-- 1 orangepi orangepi 1121 Sep 15 04:29 get_file.py
+-rw-r--r-- 1 orangepi orangepi 1321 Sep 15 06:14 isp_try.sh
+-rw-r--r-- 1 orangepi orangepi 2968 Sep 15 18:31 jpeg_test.cpp
+########## A. NPU: the vendor demos that are actually on the board
+--- readme ---
+  vpm_run is testing framework for VIPLite driver. It can run all networks by configuring sample.txt. 
+  
+  
+  How to build vpm_run?
+  1. modify toolchain in build_tst_sample.sh
+  2. export VIPLITE_ROOT="viplite root path"
+  3. ./build_tst_sample.sh
+  
+  
+  vpm_run usage: 
+                vpm_run + sample.txt
+  
+  Example:
+          ./vpm_run sample.txt
+  
+  
+  How to write a sample.txt?
+  
+  [network]
+  #the path of NBG file.
+  [input]
+  #network's inputs. It can be multiple.
+  [golden]
+  #golden files for this NBG. It can be multiple.
+  
+  example 1:
+  [network]
+  ./lenet.nb
+  [input]
+  ./input.dat
+  [golden]
+  ./output.dat
+  
+  example 2:
+  [network]
+  ./ssd_mobilenet.nb
+  [input]
+  ./input_1.dat
+  [golden]
+  ./output_1.dat
+  ./output_2.dat
+  
+  
+  
+  
+  
+  
+--- sample.txt ---
+  [network]
+  ./network_binary.nb
+  [input]
+  ./input_0.dat
+  
+--- vpm_run libs needed ---
+  	linux-vdso.so.1 (0x0000007fbcc10000)
+  	libNBGlinker.so => /lib/libNBGlinker.so (0x0000007fbcb61000)
+  	libVIPhal.so => /lib/libVIPhal.so (0x0000007fbcb47000)
+  	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000007fbca9c000)
+  	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000007fbc928000)
+  	/lib/ld-linux-aarch64.so.1 (0x0000007fbcbd0000)
+  	libpthread.so.0 => /lib/aarch64-linux-gnu/libpthread.so.0 (0x0000007fbc8f7000)
+--- yolov5 libs needed ---
+  	linux-vdso.so.1 (0x0000007f81e4e000)
+  	libNBGlinker.so => /lib/libNBGlinker.so (0x0000007f81d9a000)
+  	libopencv_imgcodecs.so.4.5 => /lib/aarch64-linux-gnu/libopencv_imgcodecs.so.4.5 (0x0000007f81d3c000)
+  	libopencv_imgproc.so.4.5 => /lib/aarch64-linux-gnu/libopencv_imgproc.so.4.5 (0x0000007f819e7000)
+  	libopencv_core.so.4.5 => /lib/aarch64-linux-gnu/libopencv_core.so.4.5 (0x0000007f81752000)
+  	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000007f8157a000)
+  	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000007f814cf000)
+  	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000007f814ab000)
+  	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000007f81337000)
+  	libVIPhal.so => /lib/libVIPhal.so (0x0000007f8131d000)
+  	libpthread.so.0 => /lib/aarch64-linux-gnu/libpthread.so.0 (0x0000007f812ec000)
+  	libjpeg.so.62 => /lib/aarch64-linux-gnu/libjpeg.so.62 (0x0000007f8129c000)
+  	libwebp.so.6 => /lib/aarch64-linux-gnu/libwebp.so.6 (0x0000007f8123a000)
+  	libpng16.so.16 => /lib/aarch64-linux-gnu/libpng16.so.16 (0x0000007f811f1000)
+  	libgdcmMSFF.so.3.0 => /lib/aarch64-linux-gnu/libgdcmMSFF.so.3.0 (0x0000007f80f91000)
+  	libtiff.so.5 => /lib/aarch64-linux-gnu/libtiff.so.5 (0x0000007f80f01000)
+  	libopenjp2.so.7 => /lib/aarch64-linux-gnu/libopenjp2.so.7 (0x0000007f80e9b000)
+  	libIlmImf-2_5.so.25 => /lib/aarch64-linux-gnu/libIlmImf-2_5.so.25 (0x0000007f80bbc000)
+  	libgdal.so.28 => /lib/libgdal.so.28 (0x0000007f7f722000)
+  	libgdcmDSED.so.3.0 => /lib/aarch64-linux-gnu/libgdcmDSED.so.3.0 (0x0000007f7f5ea000)
+  	/lib/ld-linux-aarch64.so.1 (0x0000007f81e10000)
+  	libdl.so.2 => /lib/aarch64-linux-gnu/libdl.so.2 (0x0000007f7f5d6000)
+  	libz.so.1 => /lib/aarch64-linux-gnu/libz.so.1 (0x0000007f7f5ac000)
+  	libtbb.so.2 => /lib/aarch64-linux-gnu/libtbb.so.2 (0x0000007f7f56b000)
+  	libgdcmDICT.so.3.0 => /lib/aarch64-linux-gnu/libgdcmDICT.so.3.0 (0x0000007f7f2a0000)
+  	libgdcmjpeg8.so.3.0 => /lib/aarch64-linux-gnu/libgdcmjpeg8.so.3.0 (0x0000007f7f268000)
+  	libgdcmjpeg12.so.3.0 => /lib/aarch64-linux-gnu/libgdcmjpeg12.so.3.0 (0x0000007f7f230000)
+  	libgdcmjpeg16.so.3.0 => /lib/aarch64-linux-gnu/libgdcmjpeg16.so.3.0 (0x0000007f7f1f8000)
+  	libcharls.so.2 => /lib/aarch64-linux-gnu/libcharls.so.2 (0x0000007f7f19c000)
+  	libuuid.so.1 => /lib/aarch64-linux-gnu/libuuid.so.1 (0x0000007f7f184000)
+  	libjson-c.so.5 => /lib/aarch64-linux-gnu/libjson-c.so.5 (0x0000007f7f163000)
+  	libgdcmIOD.so.3.0 => /lib/aarch64-linux-gnu/libgdcmIOD.so.3.0 (0x0000007f7f13f000)
+  	libgdcmCommon.so.3.0 => /lib/aarch64-linux-gnu/libgdcmCommon.so.3.0 (0x0000007f7f10b000)
+  	libzstd.so.1 => /lib/aarch64-linux-gnu/libzstd.so.1 (0x0000007f7f03f000)
+  	liblzma.so.5 => /lib/aarch64-linux-gnu/liblzma.so.5 (0x0000007f7f009000)
+  	libjbig.so.0 => /lib/aarch64-linux-gnu/libjbig.so.0 (0x0000007f7efec000)
+  	libdeflate.so.0 => /lib/aarch64-linux-gnu/libdeflate.so.0 (0x0000007f7efc8000)
+  	libImath-2_5.so.25 => /lib/aarch64-linux-gnu/libImath-2_5.so.25 (0x0000007f7efa7000)
+  	libIlmThread-2_5.so.25 => /lib/aarch64-linux-gnu/libIlmThread-2_5.so.25 (0x0000007f7ef8f000)
+  	libHalf-2_5.so.25 => /lib/aarch64-linux-gnu/libHalf-2_5.so.25 (0x0000007f7ef3c000)
+  	libIex-2_5.so.25 => /lib/aarch64-linux-gnu/libIex-2_5.so.25 (0x0000007f7eeb9000)
+  	libheif.so.1 => /lib/aarch64-linux-gnu/libheif.so.1 (0x0000007f7ee1c000)
+  	libcrypto.so.1.1 => /lib/aarch64-linux-gnu/libcrypto.so.1.1 (0x0000007f7eb6b000)
+  	libarmadillo.so.10 => /lib/libarmadillo.so.10 (0x0000007f7eb4c000)
+  	libpoppler.so.102 => /lib/aarch64-linux-gnu/libpoppler.so.102 (0x0000007f7e7f1000)
+  	libfreexl.so.1 => /lib/aarch64-linux-gnu/libfreexl.so.1 (0x0000007f7e7d8000)
+  	libqhull.so.8.0 => /lib/aarch64-linux-gnu/libqhull.so.8.0 (0x0000007f7e75a000)
+  	libgeos_c.so.1 => /lib/aarch64-linux-gnu/libgeos_c.so.1 (0x0000007f7e712000)
+  	libepsilon.so.1 => /lib/aarch64-linux-gnu/libepsilon.so.1 (0x0000007f7e6eb000)
+  	libodbc.so.2 => /lib/aarch64-linux-gnu/libodbc.so.2 (0x0000007f7e672000)
+  	libodbcinst.so.2 => /lib/aarch64-linux-gnu/libodbcinst.so.2 (0x0000007f7e64b000)
+  	libkmlbase.so.1 => /lib/aarch64-linux-gnu/libkmlbase.so.1 (0x0000007f7e621000)
+  	libkmldom.so.1 => /lib/aarch64-linux-gnu/libkmldom.so.1 (0x0000007f7e577000)
+  	libkmlengine.so.1 => /lib/aarch64-linux-gnu/libkmlengine.so.1 (0x0000007f7e533000)
+  	libexpat.so.1 => /lib/aarch64-linux-gnu/libexpat.so.1 (0x0000007f7e4fb000)
+  	libxerces-c-3.2.so => /lib/aarch64-linux-gnu/libxerces-c-3.2.so (0x0000007f7e166000)
+  	libnetcdf.so.18 => /lib/aarch64-linux-gnu/libnetcdf.so.18 (0x0000007f7e027000)
+  	libhdf5_serial.so.103 => /lib/aarch64-linux-gnu/libhdf5_serial.so.103 (0x0000007f7dc63000)
+  	libmfhdfalt.so.0 => /lib/libmfhdfalt.so.0 (0x0000007f7dc2a000)
+  	libdfalt.so.0 => /lib/libdfalt.so.0 (0x0000007f7db6d000)
+  	libogdi.so.4.1 => /lib/libogdi.so.4.1 (0x0000007f7db41000)
+  	libgif.so.7 => /lib/aarch64-linux-gnu/libgif.so.7 (0x0000007f7db27000)
+  	libgeotiff.so.5 => /lib/aarch64-linux-gnu/libgeotiff.so.5 (0x0000007f7dae2000)
+  	libcfitsio.so.9 => /lib/aarch64-linux-gnu/libcfitsio.so.9 (0x0000007f7d7e5000)
+  	libpq.so.5 => /lib/aarch64-linux-gnu/libpq.so.5 (0x0000007f7d784000)
+  	libproj.so.19 => /lib/aarch64-linux-gnu/libproj.so.19 (0x0000007f7d442000)
+  	libsqlite3.so.0 => /lib/aarch64-linux-gnu/libsqlite3.so.0 (0x0000007f7d2f6000)
+  	libspatialite.so.7 => /lib/aarch64-linux-gnu/libspatialite.so.7 (0x0000007f7cc02000)
+  	libdap.so.27 => /lib/aarch64-linux-gnu/libdap.so.27 (0x0000007f7ca62000)
+  	libdapclient.so.6 => /lib/aarch64-linux-gnu/libdapclient.so.6 (0x0000007f7ca13000)
+  	libpcre.so.3 => /lib/aarch64-linux-gnu/libpcre.so.3 (0x0000007f7c9a1000)
+  	libcurl-gnutls.so.4 => /lib/aarch64-linux-gnu/libcurl-gnutls.so.4 (0x0000007f7c8ff000)
+  	libfyba.so.0 => /lib/aarch64-linux-gnu/libfyba.so.0 (0x0000007f7c899000)
+  	libxml2.so.2 => /lib/aarch64-linux-gnu/libxml2.so.2 (0x0000007f7c6e9000)
+  	libmariadb.so.3 => /lib/aarch64-linux-gnu/libmariadb.so.3 (0x0000007f7c68b000)
+  	libaom.so.0 => /lib/aarch64-linux-gnu/libaom.so.0 (0x0000007f7c379000)
+  	libde265.so.0 => /lib/aarch64-linux-gnu/libde265.so.0 (0x0000007f7c30d000)
+  	libx265.so.192 => /lib/aarch64-linux-gnu/libx265.so.192 (0x0000007f7c03d000)
+  	libdav1d.so.4 => /lib/aarch64-linux-gnu/libdav1d.so.4 (0x0000007f7bf45000)
+  	libblas.so.3 => /lib/aarch64-linux-gnu/libblas.so.3 (0x0000007f7bedf000)
+  	liblapack.so.3 => /lib/aarch64-linux-gnu/liblapack.so.3 (0x0000007f7b999000)
+  	libarpack.so.2 => /lib/aarch64-linux-gnu/libarpack.so.2 (0x0000007f7b94c000)
+  	libsuperlu.so.5 => /lib/aarch64-linux-gnu/libsuperlu.so.5 (0x0000007f7b8d6000)
+  	libfreetype.so.6 => /lib/aarch64-linux-gnu/libfreetype.so.6 (0x0000007f7b811000)
+  	libfontconfig.so.1 => /lib/aarch64-linux-gnu/libfontconfig.so.1 (0x0000007f7b7bc000)
+  	liblcms2.so.2 => /lib/aarch64-linux-gnu/liblcms2.so.2 (0x0000007f7b74c000)
+  	libnss3.so => /lib/aarch64-linux-gnu/libnss3.so (0x0000007f7b5fa000)
+  	libsmime3.so => /lib/aarch64-linux-gnu/libsmime3.so (0x0000007f7b5bc000)
+  	libnspr4.so => /lib/aarch64-linux-gnu/libnspr4.so (0x0000007f7b56c000)
+  	libgeos-3.9.0.so => /lib/aarch64-linux-gnu/libgeos-3.9.0.so (0x0000007f7b35a000)
+  	libltdl.so.7 => /lib/aarch64-linux-gnu/libltdl.so.7 (0x0000007f7b340000)
+  	libminizip.so.1 => /lib/aarch64-linux-gnu/libminizip.so.1 (0x0000007f7b323000)
+  	liburiparser.so.1 => /lib/aarch64-linux-gnu/liburiparser.so.1 (0x0000007f7b2fb000)
+  	libicuuc.so.67 => /lib/aarch64-linux-gnu/libicuuc.so.67 (0x0000007f7b103000)
+  	libhdf5_serial_hl.so.100 => /lib/aarch64-linux-gnu/libhdf5_serial_hl.so.100 (0x0000007f7b0d1000)
+  	libsz.so.2 => /lib/aarch64-linux-gnu/libsz.so.2 (0x0000007f7b0be000)
+  	libbz2.so.1.0 => /lib/aarch64-linux-gnu/libbz2.so.1.0 (0x0000007f7b09b000)
+  	libssl.so.1.1 => /lib/aarch64-linux-gnu/libssl.so.1.1 (0x0000007f7affe000)
+  	libgssapi_krb5.so.2 => /lib/aarch64-linux-gnu/libgssapi_krb5.so.2 (0x0000007f7afa0000)
+  	libldap_r-2.4.so.2 => /lib/aarch64-linux-gnu/libldap_r-2.4.so.2 (0x0000007f7af3b000)
+  	librttopo.so.1 => /lib/aarch64-linux-gnu/librttopo.so.1 (0x0000007f7aeb5000)
+  	libtirpc.so.3 => /lib/aarch64-linux-gnu/libtirpc.so.3 (0x0000007f7ae74000)
+  	libnghttp2.so.14 => /lib/aarch64-linux-gnu/libnghttp2.so.14 (0x0000007f7ae38000)
+  	libidn2.so.0 => /lib/aarch64-linux-gnu/libidn2.so.0 (0x0000007f7ae08000)
+  	librtmp.so.1 => /lib/aarch64-linux-gnu/librtmp.so.1 (0x0000007f7addb000)
+  	libssh2.so.1 => /lib/aarch64-linux-gnu/libssh2.so.1 (0x0000007f7ad99000)
+  	libpsl.so.5 => /lib/aarch64-linux-gnu/libpsl.so.5 (0x0000007f7ad75000)
+  	libnettle.so.8 => /lib/aarch64-linux-gnu/libnettle.so.8 (0x0000007f7ad22000)
+  	libgnutls.so.30 => /lib/aarch64-linux-gnu/libgnutls.so.30 (0x0000007f7aafd000)
+  	liblber-2.4.so.2 => /lib/aarch64-linux-gnu/liblber-2.4.so.2 (0x0000007f7aade000)
+  	libbrotlidec.so.1 => /lib/aarch64-linux-gnu/libbrotlidec.so.1 (0x0000007f7aac3000)
+  	libfyut.so.0 => /lib/aarch64-linux-gnu/libfyut.so.0 (0x0000007f7aaa7000)
+  	libfygm.so.0 => /lib/aarch64-linux-gnu/libfygm.so.0 (0x0000007f7aa90000)
+  	libnuma.so.1 => /lib/aarch64-linux-gnu/libnuma.so.1 (0x0000007f7aa70000)
+  	libgfortran.so.5 => /lib/aarch64-linux-gnu/libgfortran.so.5 (0x0000007f7a906000)
+  	libnssutil3.so => /lib/aarch64-linux-gnu/libnssutil3.so (0x0000007f7a8c3000)
+  	libplc4.so => /lib/aarch64-linux-gnu/libplc4.so (0x0000007f7a8ae000)
+  	libplds4.so => /lib/aarch64-linux-gnu/libplds4.so (0x0000007f7a89a000)
+  	libicudata.so.67 => /lib/aarch64-linux-gnu/libicudata.so.67 (0x0000007f78d73000)
+  	libaec.so.0 => /lib/aarch64-linux-gnu/libaec.so.0 (0x0000007f78d5b000)
+  	libkrb5.so.3 => /lib/aarch64-linux-gnu/libkrb5.so.3 (0x0000007f78c72000)
+  	libk5crypto.so.3 => /lib/aarch64-linux-gnu/libk5crypto.so.3 (0x0000007f78c34000)
+  	libcom_err.so.2 => /lib/aarch64-linux-gnu/libcom_err.so.2 (0x0000007f78c20000)
+  	libkrb5support.so.0 => /lib/aarch64-linux-gnu/libkrb5support.so.0 (0x0000007f78c03000)
+  	libresolv.so.2 => /lib/aarch64-linux-gnu/libresolv.so.2 (0x0000007f78bdc000)
+  	libsasl2.so.2 => /lib/aarch64-linux-gnu/libsasl2.so.2 (0x0000007f78bb0000)
+  	libunistring.so.2 => /lib/aarch64-linux-gnu/libunistring.so.2 (0x0000007f78a22000)
+  	libhogweed.so.6 => /lib/aarch64-linux-gnu/libhogweed.so.6 (0x0000007f789ca000)
+  	libgmp.so.10 => /lib/aarch64-linux-gnu/libgmp.so.10 (0x0000007f78942000)
+  	libgcrypt.so.20 => /lib/aarch64-linux-gnu/libgcrypt.so.20 (0x0000007f78872000)
+  	libp11-kit.so.0 => /lib/aarch64-linux-gnu/libp11-kit.so.0 (0x0000007f78723000)
+  	libtasn1.so.6 => /lib/aarch64-linux-gnu/libtasn1.so.6 (0x0000007f786fd000)
+  	libbrotlicommon.so.1 => /lib/aarch64-linux-gnu/libbrotlicommon.so.1 (0x0000007f786cc000)
+  	libkeyutils.so.1 => /lib/aarch64-linux-gnu/libkeyutils.so.1 (0x0000007f786b7000)
+  	libgpg-error.so.0 => /lib/aarch64-linux-gnu/libgpg-error.so.0 (0x0000007f78684000)
+  	libffi.so.7 => /lib/aarch64-linux-gnu/libffi.so.7 (0x0000007f78669000)
+--- run vpm_run ---
+  vpm_run -s sample.txt -l loop_run_count -d device_index
+  -s sample.txt:     to include one ore more network binary graph (NBG) data file resource.
+                     See sample.txt for details.
+  -l loop_run_count: the number of loop run network.
+  -d device_index:   specify this NBG runs device.
+  -t time_out:       specify milliseconds time out of network.
+  -b bypass_level:   set value 1 to bypass saving output txt/binary file and showing top5.
+  --show_top5 level: set value 1 to show top5 when bypass_level is 0.
+  --save_txt level:  set value 1 to save txt output when bypass_level is 0.
+  -c core_index:     specify this start core index of device.
+  --layer_profile_dump:      set value 1 to enable NPD function.
+  --preload:         set value 1 to enable preload coeff into vipsram.
+  --op_segment:      set which operations will be run. example: --op_segment 10,20 means run 10 ~ 20
+  --layer_dump:  layer dump. eg: --layer_dump -1 dump all layer, --layer_dump 19, --layer_dump 18,20
+  -h : help
+  example: ./vpm_run -s sample.txt -l 10 -d 1 specify the NBG runs 10 times on device 1.
+  
+  rc=0
+--- run yolov5 ---
+  ./yolov5 nbg input
+  Arguments count 1 is incorrect!
+  rc=0
+--- npu state after ---
+  NPU Loading -----> Core0:  0% 
+  video memory profile
+   ------------------------------------------------------------------------------
+  |       current(byte)    |      peak(byte)    |   alloc count   |   free count 
+  |------------------------------------------------------------------------------
+  |      0x00000000        |     0x000417a0     |      6         |    6     
+  [  472.726305]  el0t_64_sync+0x190/0x194
+  [  472.726315] ---[ end trace 0000000000000000 ]---
+  [  472.726324] sunxi:vin:[ERR]: vin_pin_disable: disable vind_mclkpin error, fail to disable regulator!
+  [  472.726336] sunxi-vin-core 5830000.vinc: Runtime PM usage count underflow!
+  [  506.179005] seq_file: buggy .next function vipdrv_seq_next [vipcore] did not update position index
+  [  506.182220] seq_file: buggy .next function vipdrv_seq_next [vipcore] did not update position index
+########## B. ISP parameter enable map
+--- 3dnr vs no3dnr variant diff (both on the board) ---
+  byte-diff:     28  72  55
+  byte-diff:     29  40 156
+  byte-diff:     30  63 157
+  byte-diff:     31 104  63
+  byte-diff:     32 116 144
+  byte-diff:     33 122 156
+  byte-diff:     34  53 162
+  byte-diff:     35 114  72
+  byte-diff:     36 103  40
+  byte-diff:     37 101 114
+  byte-diff:     38  53 103
+  byte-diff:     39 144 101
+  byte-diff:     40 145  53
+  byte-diff:     41 146 144
+  byte-diff:     42 157 145
+  byte-diff:     43 147 146
+  byte-diff:     44  53 157
+  byte-diff:     45 107 147
+  byte-diff:     46 103  53
+  byte-diff:     47 101 107
+  byte-diff:     48  50 103
+  byte-diff:     49 143 101
+  byte-diff:     50 164  54
+  byte-diff:     51 162  40
+  byte-diff:     52  40  63
+  byte-diff:     53  71 104
+  byte-diff:     54  66 116
+  byte-diff:     55  60 122
+  byte-diff:     56  54  40
+  byte-diff:     57  66 157
+  byte-diff:     58  60 146
+  byte-diff:     59  60 146
+  byte-diff:     60  51  40
+  byte-diff:     61   0  50
+  byte-diff:     62   0  61
+  byte-diff:     63   0  62
+  byte-diff:     64   0  60
+  byte-diff:     65   0  60
+  byte-diff:     66   0 160
+  byte-diff:     67   0  61
+  byte-diff:     68   0  62
+  byte-diff:     69   0  60
+  byte-diff:     70   0  51
+  byte-diff:    176   1   0
+--- deployed file vs both variants ---
+  vs 3dnr     : differs
+  vs no3dnr   : IDENTICAL
+--- enable bytes 88..120 of each variant ---
+  isp_param_3dnr.bin                             00 00 00 7d 00 00 05 00 00 00 00 00 00 00 00 01
+ 00 00 40 00 00 00 00 10 00 00 05 00 00 00 00 00
+  isp_param_no3dnr.bin                           00 00 00 7d 00 00 05 00 00 00 00 00 00 00 00 01
+ 00 00 40 00 00 00 00 10 00 00 05 00 00 00 00 00
+  index map: 0 manual 1 afs 2 ae 3 af 4 awb 5 hist 6 wdr_split 7 wdr_stitch 8 otf_dpc 9 ctc 10 gca 11 nrp 12 denoise 13 tdf 14 blc 15 wb 16 dig_gain 17 lsc 18 msc 19 pltm 20 cfa 21 lca 22 sharp 23 ccm 24 defog 25 cnr 26 drc 27 gtm 28 gamma 29 cem 30 encpp 31 enc_3dnr
+########## C. isp01 register-alias hypothesis, read-only
+  read 0x5900000  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x58ffffc  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x5901300  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x5901304  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x58ffff8  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x58ffff4  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x5901860  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  read 0x5901840  = sudo: /home/orangepi/ar0234test/tools/vinreg: command not found
+  --- 8 words starting at each isp00/isp01 base ---
+  0x5900000: sudo: /home/orangepi/ar0234test/tools/vinreg: command not found 
+  0x58ffffc: sudo: /home/orangepi/ar0234test/tools/vinreg: command not found 
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=1200 wall=10.006s fps=119.93 timeouts=0
+########## D. leftovers
+--- module search path: which .ko wins ---
+  /lib/modules/6.6.98-sun60iw2/updates/vin_v4l2.ko
+  /lib/modules/6.6.98-sun60iw2/updates/ar0234_mipi.ko
+--- panic/watchdog settings ---
+  panic_on_oops=1
+  RuntimeWatchdogSec=16s
+--- dtb backups present ---
+  -rwxr-xr-x 1 root root 213628 Jan  1  1970 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
+  -rw-r--r-- 1 root root 213628 Sep 16 08:23 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.bak-1789547036
+  -rw-r--r-- 1 root root 213624 Sep 16 08:27 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.bak-1789547241
+  -rw-r--r-- 1 root root 213628 Sep 16 08:27 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.bak-1789547242
+  -rw-r--r-- 1 root root 213628 Sep 16 08:30 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.bak-1789547410
+  -rw-r--r-- 1 root root 213628 Sep 16 06:27 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.dual-bak-1789540054
+  -rw-r--r-- 1 root root 213628 Sep 16 06:29 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.dual-bak-1789540194
+  -rw-r--r-- 1 root root 213628 Sep 15 16:36 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.orig-ar0234-camera
+  -rw-r--r-- 1 root root 213628 Sep 16 08:09 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.pre-0008
+  -rw-r--r-- 1 root root 213628 Sep 15 20:26 /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb.t14-vinc4on-txch1
+--- vin_warn/vin_err knobs ---
+  act_name
+  act_slave
+  ccm0
+  ccm1
+  d3d_min_vblank_us
+  i2c0_addr
+  i2c1_addr
+  use_sensor_list
+########## DONE15

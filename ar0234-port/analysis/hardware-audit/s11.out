@@ -1,0 +1,31 @@
+pushed
+########## arm1 (n=4 gap=0 touch=touch)
+  arm1 run1  ok      vi0 555 -> 1156 (d=601) | frames=1441 wall=12.002s fps=120.06 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm1 run2  ok      vi0 550 -> 1147 (d=597) | frames=1428 wall=12.000s fps=119.00 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm1 run3  ok      vi0 550 -> 1146 (d=596) | frames=1428 wall=12.001s fps=118.99 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm1 run4  ok      vi0 554 -> 1156 (d=602) | frames=1440 wall=12.005s fps=119.95 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+########## arm2 (n=4 gap=5 touch=touch)
+  arm2 run1  ok      vi0 549 -> 1146 (d=597) | frames=1428 wall=12.002s fps=118.98 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm2 run2  ok      vi0 554 -> 1155 (d=601) | frames=1440 wall=12.007s fps=119.93 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm2 run3  ok      vi0 548 -> 1145 (d=597) | frames=1428 wall=12.003s fps=118.97 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm2 run4  ok      vi0 554 -> 1155 (d=601) | frames=1440 wall=12.006s fps=119.94 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+########## arm3 (n=4 gap=0 touch=none)
+  arm3 run1  ok      vi0 544 -> 1135 (d=591) | frames=1416 wall=12.007s fps=117.93 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm3 run2  ok      vi0 549 -> 1145 (d=596) | frames=1428 wall=12.002s fps=118.98 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm3 run3  ok      vi0 554 -> 1155 (d=601) | frames=1440 wall=12.006s fps=119.94 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+  arm3 run4  ok      vi0 554 -> 1155 (d=601) | frames=1440 wall=12.006s fps=119.94 timeouts=0
+      frame_lost=0 sensor_not_used=0 underflow=0
+########## recovery check (3 s gap, untouched)
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=960 wall=8.007s fps=119.90 timeouts=0
+########## DONE11

@@ -1,0 +1,65 @@
+########## A. does libNBGlinker.so export the documented vip_lite API?
+  == /usr/lib/libNBGlinker.so
+    vip_create_buffer
+    vip_create_buffer_cache
+    vip_create_buffer_from_fd
+    vip_create_buffer_from_handle
+    vip_create_buffer_from_physical
+    vip_create_network
+    vip_destroy
+    vip_destroy_buffer
+    vip_destroy_group
+    vip_destroy_network
+    vip_finish_network
+    vip_init
+    vip_map_buffer
+    vip_prepare_network
+    vip_query_network
+    vip_run_network
+    vip_set_input
+    vip_set_output
+    total exported: 40
+  == /usr/lib/libVIPhal.so
+    total exported: 70
+--- can we link a tiny inference-less program against VIPLite API? ---
+    /tmp/npulink.c: In function ‘main’:
+    /tmp/npulink.c:3:38: warning: implicit declaration of function ‘vip_query_driver_version’ [-Wimplicit-function-declaration]
+        3 | int main(void){ vip_uint32_t v=0; if(vip_query_driver_version(&v)==VIP_SUCCESS) printf("driver 0x%x\n", v); else printf("query failed\n"); return 0; }
+          |                                      ^~~~~~~~~~~~~~~~~~~~~~~~
+    /usr/bin/ld: /tmp/cc63kP74.o: in function `main':
+    npulink.c:(.text.startup+0x10): undefined reference to `vip_query_driver_version'
+    collect2: error: ld returned 1 exit status
+    not built (missing libVIPlite symbols or header mismatch)
+########## B. is the ISP actually live / what does its register window show in-stream
+  ISP_TOP_CFG0 0x5900000 = 0x05900000 = 0x00000005
+  CSIC VIPP IN 0x58008a0/4 = 0x058008a0 = 0x00000000
+  VIPP0 top  0x5910400 = 0x05910400 = 0x00000000
+  VIPP0 load 0x5910600 = 0x05910600 = 0x00000000
+  TDM 0x5908000 = 0x05908000 = 0x00000000
+  CSI 0x5800000 = 0x05800000 = 0x80000003
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=1189 wall=10.003s fps=118.87 timeouts=0
+########## C. 3A service: fixed/industrial mode?
+  ls: cannot access '/etc/ar0234.conf': No such file or directory
+  active: active
+  -rwxr-xr-x 1 root root 43792 Sep 15 16:31 /usr/local/bin/ar0234-3ad
+  -rwxr-xr-x 1 root root 43928 Sep 15 16:31 /usr/local/bin/ar0234-rec
+  --- manual exposure/gain accepted? (should be, via libisp) ---
+    done: 30 frames in 0.52s (57.86 fps), 728946 bytes, encode 9.0 ms/frame -> /tmp/manual.h264
+    after: gain: 46200
+    after: exposure_time_absolute: 9996
+########## D. cleanup: g2d module was not loaded at boot -> put it back
+  ls: cannot access '/dev/g2d': No such file or directory
+  g2d refs: 0
+########## E. final state
+  uptime=597.39
+  dtb=d4ee5b6869e7b7cd39ce3762d0e078f9  /boot/dtb/allwinner/sun60i-a733-orangepi-zero3w.dtb
+  module=843BC1A03606D35EC062D57
+  isp clk=324000000 csi clk=324000000
+  d3d_min_vblank_us=500
+  ar0234_mipi params: trigger_mode=0 flash_enable=N frame_rate=0
+  stray procs:
+         74 ?        I<     0:00 [kworker/R-devfr]
+       5622 ?        I      0:00 [kworker/u16:0-devfreq_wq]
+  health:
+    RESULT dev=/dev/video0 1920x1200 NV12 frames=720 wall=6.007s fps=119.86 timeouts=0
+########## DONE17

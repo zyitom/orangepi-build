@@ -1,0 +1,27 @@
+### repro-close start=2026-09-16T11:03:20+00:00 uptime=163.65
+### srcversion=843BC1A03606D35EC062D57
+### 3A=active
+
+=== E1: video0 alone, 30 s ===
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=3602 wall=30.008s fps=120.03 timeouts=0
+
+=== E2: video0 30 s, open+close video4 once at t=8 s ===
+  --- counters before touching video4 ---
+    vi0 frame => cnt: 907, lost_cnt: 0, error_cnt: 0
+  open/close /dev/video4 #1 ok
+  --- counters right after ---
+    vi0 frame => cnt: 1028, lost_cnt: 0, error_cnt: 0
+  --- counters 8 s later ---
+    vi0 frame => cnt: 1982, lost_cnt: 0, error_cnt: 0
+    vi4 frame => cnt: 0, lost_cnt: 0, error_cnt: 0
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=3572 wall=30.008s fps=119.04 timeouts=0
+
+=== dmesg since REPRO-1789556600 ===
+  [  163.736512] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+  [  163.742807] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+  [  194.153330] sunxi:vin:[INFO]: isp0 sensor 1920x1200 vts 1220 fps 120: vblank 136 us, 3DNR off (limit 500 us)
+  [  194.161790] sunxi:vin:[INFO]: isp0: 3DNR forced off, sensor vblank 136 us < 500 us
+
+=== dmesg underflow count since marker ===
+0
+### done 2026-09-16T11:04:21+00:00

@@ -1,0 +1,149 @@
+########## P1: 3A ACTIVE, 8 runs x 6 s, NO gap
+   nogap run1  frames=719 wall=6.001s fps=119.81 timeouts=0 | vi0 cnt 2402,
+0,
+0, -> 720,
+0,
+0, | frame_lost=0
+   nogap run2  frames=719 wall=6.001s fps=119.81 timeouts=0 | vi0 cnt 720,
+0,
+0, -> 720,
+0,
+0, | frame_lost=0
+   nogap run3  frames=714 wall=6.007s fps=118.86 timeouts=0 | vi0 cnt 720,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   nogap run4  frames=714 wall=6.007s fps=118.86 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   nogap run5  frames=719 wall=6.000s fps=119.83 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 720,
+0,
+0, | frame_lost=0
+   nogap run6  frames=714 wall=6.007s fps=118.86 timeouts=0 | vi0 cnt 720,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   nogap run7  frames=719 wall=6.000s fps=119.83 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 720,
+0,
+0, | frame_lost=0
+   nogap run8  frames=708 wall=6.008s fps=117.84 timeouts=0 | vi0 cnt 720,
+0,
+0, -> 709,
+0,
+0, | frame_lost=0
+########## P2: 3A ACTIVE, 8 runs x 6 s, 3 s gap
+   gap run1  frames=714 wall=6.006s fps=118.87 timeouts=0 | vi0 cnt 709,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   gap run2  frames=714 wall=6.006s fps=118.88 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   gap run3  frames=720 wall=6.008s fps=119.84 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap run4  frames=708 wall=6.008s fps=117.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 709,
+0,
+0, | frame_lost=0
+   gap run5  frames=708 wall=6.008s fps=117.85 timeouts=0 | vi0 cnt 709,
+0,
+0, -> 709,
+0,
+0, | frame_lost=0
+   gap run6  frames=714 wall=6.006s fps=118.89 timeouts=0 | vi0 cnt 709,
+0,
+0, -> 715,
+0,
+0, | frame_lost=0
+   gap run7  frames=708 wall=6.008s fps=117.85 timeouts=0 | vi0 cnt 715,
+0,
+0, -> 709,
+0,
+0, | frame_lost=0
+   gap run8  frames=720 wall=6.007s fps=119.85 timeouts=0 | vi0 cnt 709,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+########## P3: 3A STOPPED, 6 runs x 6 s, NO gap
+   no3a run1  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   no3a run2  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   no3a run3  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   no3a run4  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   no3a run5  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   no3a run6  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+########## P4: 3A STOPPED, 6 runs x 6 s, 3 s gap
+   gap3a run1  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap3a run2  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap3a run3  frames=720 wall=6.007s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap3a run4  frames=720 wall=6.007s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap3a run5  frames=720 wall=6.008s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+   gap3a run6  frames=720 wall=6.007s fps=119.85 timeouts=0 | vi0 cnt 721,
+0,
+0, -> 721,
+0,
+0, | frame_lost=0
+########## restore 3A
+active
+########## final health
+  RESULT dev=/dev/video0 1920x1200 NV12 frames=1190 wall=10.003s fps=118.97 timeouts=0
+########## DONE8

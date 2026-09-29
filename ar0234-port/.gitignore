@@ -28,6 +28,13 @@
 !/analysis/round10/
 !/analysis/round10/*.md
 !/analysis/round10/*.png
+# 2026-09-16..18 rounds: reports, scripts and their text outputs
+!/analysis/*.cpp
+!/analysis/round9/
+!/analysis/round11/
+!/analysis/fix-round/
+!/analysis/hardware-audit/
+!/analysis/t17/
 
 # ---- 媒体与大数据文件一律不入库 ----
 *.h264

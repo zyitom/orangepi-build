@@ -1,0 +1,54 @@
+########## STATE now: ar0234_mipi unloaded
+  vin_v4l2              278528  1
+  videobuf2_dma_contig    16384  1 vin_v4l2
+  vin_io                 61440  1 vin_v4l2
+  ls: cannot access '/dev/v4l-subdev0': No such file or directory
+  crw-rw---- 1 root video 81, 0 Sep 16 11:00 /dev/video0
+  crw-rw---- 1 root video 81, 1 Sep 16 11:00 /dev/video4
+########## A. reload the sensor module alone, then try to stream (HANDOFF 3.17)
+  modprobe: '  list-inputs: ioctl: VIDIOC_ENUMINPUT
+  list-inputs: 	Input       : 0
+  list-inputs: 	Name        : sunxi-vin
+  list-inputs: 	Type        : 0x00000002 (Camera)
+  list-inputs: 	Audioset    : 0x00000000
+  list-inputs: 	Tuner       : 0x00000000
+  list-inputs: 	Standard    : 0x0000000000000000 ()
+  list-inputs: 	Status      : 0x00000000 (ok)
+  list-inputs: 	Capabilities: 0x00000000 (not defined)
+  --- attempt S_INPUT + short stream ---
+  S_PARM 1/120 failed: Invalid argument
+  S_FMT: Invalid argument
+  input 0: sunxi-vin
+  rc=0
+  --- dmesg tail ---
+  [ 5855.363419] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 1, 1920*1200 300a
+  [ 5855.680984] sunxi:vin:[INFO]: [ar0234_mipi]s_fmt set width = 1920, height = 1200, fll = 4896 (30 fps)
+  [ 5860.697727] sunxi:vin:[INFO]: [ar0234_mipi]sensor_s_stream on = 0, 1920*1200 300a
+  [ 5887.803726] sunxi:vin:[WARN]: v4l2 sub device scaler get_selection error!
+  [ 5887.803774] sunxi:vin:[WARN]: v4l2 sub device scaler get_selection error!
+  [ 5887.803795] sunxi:vin:[WARN]: ar0234_mipi is not used, video0 cannot be close!
+  [ 5887.810560] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+  [ 5887.810594] sunxi:vin:[ERR]: sensor setup link failed
+  [ 5887.810993] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+  [ 5887.811014] sunxi:vin:[ERR]: sensor setup link failed
+  [ 5887.811034] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+  [ 5887.811049] sunxi:vin:[ERR]: sensor setup link failed
+  [ 5887.811188] sunxi:vin:[ERR]: sensor ar0234_mipi: no link to sunxi_mipi.0, cannot (dis)able it
+  [ 5887.811207] sunxi:vin:[ERR]: sensor setup link failed
+  [ 5887.811789] sunxi:vin:[WARN]: ar0234_mipi is not used, video0 cannot be close!
+  --- nodes after ---
+  crw-rw---- 1 root video 81, 0 Sep 16 11:00 /dev/video0
+  crw-rw---- 1 root video 81, 1 Sep 16 11:00 /dev/video4
+########## B. fll/vts actually programmed for 1080p at 132/133/134/135
+'  --- request 1080p @ 131 ---
+    [ 5887.882307] S5-FLL-131-15504
+  --- request 1080p @ 132 ---
+    [ 5887.945754] S5-FLL-132-15504
+  --- request 1080p @ 133 ---
+    [ 5887.986004] S5-FLL-133-15504
+  --- request 1080p @ 134 ---
+    [ 5888.016432] S5-FLL-134-15504
+  --- request 1080p @ 135 ---
+    [ 5888.050582] S5-FLL-135-15504
+########## C. final health (before reboot)
+########## DONE5
