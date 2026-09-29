@@ -5,6 +5,14 @@ config BR2_PACKAGE_ZERO3W_GPU
 	select BR2_PACKAGE_LIBDRM
 	select BR2_PACKAGE_EXPAT
 	select BR2_PACKAGE_ZLIB
+	# libVK_IMG links X11/xcb, and dlopens libpvr_mesa_wsi.so (RTLD_NOW)
+	# while creating the instance; that one also needs libxshmfence. A
+	# missing library there makes the ICD fail and the loader report
+	# VK_ERROR_INCOMPATIBLE_DRIVER, with no hint which file is missing.
+	select BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBXCB
+	select BR2_PACKAGE_XLIB_LIBX11
+	select BR2_PACKAGE_XLIB_LIBXSHMFENCE
 	help
 	  PowerVR BXM-4-64 (A733) userland libraries, Vulkan/OpenCL ICDs and
 	  rgx firmware extracted from the vendor deb (xserver-xorg-img-bxm),

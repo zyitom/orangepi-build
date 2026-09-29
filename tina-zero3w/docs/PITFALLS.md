@@ -225,6 +225,8 @@
 
 ## 09-27 Vulkan 调查终局（内核侧全部排除，定性为 vendor 闭源 ICD 缺陷）
 
+> **2026-09-29 更正**：本节定论作废——真正根因是 rootfs 缺 libxshmfence（见文末「09-29 Vulkan 根因」）。
+
 仪器化三板斧全部上板实测：
 1. 0021（GetMultiCoreInfo KM 层日志）——**零输出**：ICD 根本没调这个 bridge
    （LD_DEBUG 的符号绑定是加载期解析，顺序 ≠ 调用顺序，之前据此推断的
@@ -247,6 +249,8 @@ vendor 侧佐证：官方镜像不含 libVK_IMG（icd.d 的 json 指向不存在
 
 ## 09-27 Vulkan 补充实验（LD_PRELOAD ioctl shim 全量解码，调查彻底关闭）
 
+> **2026-09-29 更正**：本节定论作废——真正根因是 rootfs 缺 libxshmfence（见文末「09-29 Vulkan 根因」）。
+
 写了 ioctl_shim（tina-zero3w/tests/ioctl_shim.c）：LD_PRELOAD 透传 ioctl 并按
 PVRSRV_BRIDGE_PACKAGE 结构（bridgeID/funcID/pvParamIn@8/pvParamOut@16/尺寸@24,28，
 cmd 0xc0206440）dump 入出参。解码结果（对照 generated/rogue/srvcore_bridge）：
@@ -265,6 +269,8 @@ Mesa pvr Vulkan 驱动 + 主线内核 pvr DRM（6.17+）。
 
 ## 09-27 Vulkan：Radxa 工作栈移植实验（全部排除，最终定论）
 
+> **2026-09-29 更正**：本节定论作废——真正根因是 rootfs 缺 libxshmfence（见文末「09-29 Vulkan 根因」）。
+
 网上找到同 SoC 的成功先例：Radxa Cubie A7A/A7S（同 A733、同 BVNC 36.56.104.183、
 同 DDK 24.2.6603887）上 vendor libVK_IMG 可用（DXVK/Zink 跑通，
 github.com/ayiejosh/a733-powervr-fex）。逐项移植到我们的板子实测：
@@ -282,6 +288,8 @@ IOMMU、内存布局）——即"能跑 Vulkan 的 A733"需要整套 Radxa 式�
 **当前 RT 产品栈不支持；如需 Vulkan，用独立的主线/Radxa 内核启动介质**。
 
 ## 09-27 深夜追加：target 里 vendor 库截断损坏（真缺陷，已修）+ Vulkan 移植实验全记录
+
+> **2026-09-29 更正**："截断"的判断依据（strip 只差百字节级）不成立——deb 里的库带完整符号表，Buildroot strip 后 libpvr_mesa_wsi 正好少 667KB；对 deb 原件做同样 strip，md5 与 target 完全一致。Vulkan 部分同样作废，见文末「09-29 Vulkan 根因」。
 
 - **target/usr/local/lib 整层被截断**： Mesa/WSI/EGL/GL 层（libpvr_mesa_wsi 差
   667KB、dri/*.so 差 1.6MB、libglapi 差 132KB、libEGL 差 66KB、libvulkan 差
@@ -302,6 +310,8 @@ IOMMU、内存布局）——即"能跑 Vulkan 的 A733"需要整套 Radxa 式�
   Mesa pvr）与 RT 系统并存，不要混栈。
 
 ## 09-27 终极实验：vendor 原版 noble 系统上板实测（Vulkan 调查最终定论）
+
+> **2026-09-29 更正**：本节定论作废——真正根因是 rootfs 缺 libxshmfence（见文末「09-29 Vulkan 根因」）。
 
 将 vendor 官方 Orangepizero3w_1.0.2_ubuntu_noble 镜像烧卡、本板启动，运行系统
 自带的 vulkaninfo（1.3.275 + 系统还带 vkcube 三件套）：
@@ -326,3 +336,23 @@ IOMMU、内存布局）——即"能跑 Vulkan 的 A733"需要整套 Radxa 式�
 
 另：noble 镜像（用户日常系统）确实有 libVK_IMG（md5 22302f1e 与我们一致）
 ——用户记忆中的"GPU 能用"是 OpenCL + GLES，Vulkan 枚举从未工作过。
+
+## 09-29 Vulkan 根因：rootfs 缺 libxshmfence（前面 09-26/27 各节的 Vulkan 定论全部作废）
+
+- **根因**：libVK_IMG 创建 instance 时，在 GetMultiCoreInfo → Disconnect 之后
+  `dlopen("libpvr_mesa_wsi.so", RTLD_NOW)`（反汇编 0x3e920）。libpvr_mesa_wsi 的 NEEDED
+  含 libxshmfence.so.1，Buildroot target 没有 → dlopen 失败 → ICD 返回 -3 → loader 在
+  没有 ICD 能建 instance 时报 -9。dlopen 不走内核，所以内核日志、ioctl shim 都"全部 OK"。
+- **证据**：qemu-aarch64 以 target 为 sysroot 做同样的 RTLD_NOW dlopen——原样报
+  `libxshmfence.so.1: cannot open shared object file`，补上即 OK；我们的 noble 镜像装有
+  libxshmfence1，09-28 板上 Vulkan compute 已跑通（e902 台账 T38 追记 10）。
+- **修复**：zero3w-gpu `Config.in` select `BR2_PACKAGE_XLIB_LIBXSHMFENCE`（及
+  XORG7/LIBXCB/XLIB_LIBX11）；#61 镜像已含 libxshmfence，qemu 下 dlopen 通过。
+- **为什么以前没发现**：① 只查了 libVK_IMG 的 NEEDED，没查它 dlopen 的库；
+  ② build-image.sh 的依赖扫描不看 `/usr/local/lib`（已补，并把 libpvr_mesa_wsi 加入扫描名单，
+  用去掉 libxshmfence 的假 rootfs 验证过能报出来）；③ 从未用 `LD_DEBUG=libs` 或 strace
+  的 `openat` 看 dlopen。**教训：Vulkan/EGL 这类 loader+ICD 结构报 -9 时，第一步先
+  `LD_DEBUG=libs` 看有没有加载失败，再往内核方向查。**
+- **真实限制**（不是 bug）：WSI 只有 xcb/xlib/headless，无 VK_KHR_display；上屏要支持
+  DRI3 的 X server（Xvfb 不行），无头计算不受影响。
+

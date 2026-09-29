@@ -103,10 +103,13 @@ if [[ -x "$READELF" ]]; then
   missing=0
   for lib in "$OUT"/target/usr/lib/libsrv_um.so* "$OUT"/target/usr/lib/libPVROCL.so* \
              "$OUT"/target/usr/lib/libVK_IMG.so* "$OUT"/target/usr/lib/libisp.so \
-             "$OUT"/target/usr/lib/libAWIspApi.so "$OUT"/target/usr/lib/libvdecoder.so; do
+             "$OUT"/target/usr/lib/libAWIspApi.so "$OUT"/target/usr/lib/libvdecoder.so \
+             "$OUT"/target/usr/local/lib/libpvr_mesa_wsi.so; do
+    # libpvr_mesa_wsi 不是谁的 NEEDED，而是 libVK_IMG 运行时 dlopen 的：它缺依赖时
+    # Vulkan 只报 VK_ERROR_INCOMPATIBLE_DRIVER，看不出缺哪个文件（曾缺 libxshmfence）
     [[ -e "$lib" ]] || continue
     for dep in $("$READELF" -d "$lib" | awk '/NEEDED/{print $NF}' | tr -d '[]'); do
-      base="${dep%.so*}"; found=$(find "$OUT/target/usr/lib" "$OUT/target/lib" -name "${dep}" -o -name "${dep}.*" 2>/dev/null | head -1)
+      base="${dep%.so*}"; found=$(find "$OUT/target/usr/lib" "$OUT/target/lib" "$OUT/target/usr/local/lib" -name "${dep}" -o -name "${dep}.*" 2>/dev/null | head -1)
       if [[ -z "$found" ]]; then echo "警告: $(basename "$lib") 缺依赖 $dep"; missing=1; fi
     done
   done

@@ -6,7 +6,7 @@ PREEMPT_RT 内核（补丁 0000-0015）、AR0234 相机驱动栈、E902 SCP（ve
 amp_timestamp、PowerVR BXM GPU（OpenCL/Vulkan）、aic8800 WiFi。
 
 方案与调研结论见 [PLAN.md](PLAN.md)；构建/上板踩坑滚动记录见 [docs/PITFALLS.md](docs/PITFALLS.md)；
-**验收完成状态与 Vulkan 终局定论见 [docs/STATUS.md](docs/STATUS.md)**（2026-09-28：7.5/8 达标，5b 为全志 DDK 交付缺口）。
+**验收完成状态见 [docs/STATUS.md](docs/STATUS.md)**（7.5/8 达标；5b Vulkan 的根因是 rootfs 缺 libxshmfence，2026-09-29 已修复待上板确认，见 [docs/VULKAN-HANDOFF.md](docs/VULKAN-HANDOFF.md)）。
 
 ## 一条命令
 

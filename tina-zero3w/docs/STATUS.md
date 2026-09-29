@@ -25,12 +25,12 @@
 | 3 | PREEMPT_RT 内核 | ✅ | 6.6.98-rt58 `#1 SMP PREEMPT_RT`，补丁系列 **0000-0022**（含 3 个诊断补丁），每次构建反向校验 |
 | 4 | WiFi + ssh | ✅ | aic8800d80 自动连（modules-load 早载修复 SDIO 竞态）|
 | 5a | cltest 板上编译 + OpenCL | ✅ | 板上 gcc 10.3 编译，**mismatches=0**，GPU 48ms / 16.8 GFLOPS |
-| 5b | vulkaninfo | ❌ **vendor-blocked** | 见「四、Vulkan 终局」 |
+| 5b | vulkaninfo | 🔧 **根因已找到并修复**（rootfs 缺 libxshmfence），待上板确认 | 见「四、Vulkan」 |
 | 6 | boot_package SCP + amp_timestamp | ✅ | vendor-scp.bin sha `302deda8…`、add_sum `265fe798`、checksum/readback PASS；dmesg `freqid=24000000 (24.000 MHz)` |
 | 7 | waitlat 独占 cpu5 | ✅ | hybrid **max=0.25µs**（目标 <2µs）|
 | 8 | AR0234 + ISP/cedarc | ✅ | 传感器 ID 0xa56 + 实拍 **1920x1200 NV12 @120.4fps、602 帧/5s、0 超时**；libisp/libAWIspApi/cedarc 全套 |
 
-**合计 7.5 / 8**——5b 为全志 DDK 交付缺口（对 Debian/Ubuntu/Buildroot 一视同仁），非移植缺陷。
+**合计 7.5 / 8**，5b 待上板确认。（2026-09-29 更正：5b 不是全志 DDK 交付缺口，是本移植 rootfs 缺库，见第四节。）
 
 ## 三、已修复的工程缺陷（全部沉淀于 docs/PITFALLS.md，40+ 条）
 
@@ -41,7 +41,7 @@
 - strace 5.17 对 6.6 内核 UAPI 三连不兼容 → SDK 内升级 strace 6.6
 - kconfig 静默丢弃三例（XORG7/DTS_SUPPORT/SCHEDUTILS）
 - 并发构建互删 → flock；补丁文件必须 apply 进工作区（快照式 tarball）；换 tarball 需 linux-dirclean
-- GPU 用户态库 target 截断损坏（并发战争残骸）→ dirclean 重装 + 大小比对诊断法
+- ~~GPU 用户态库 target 截断损坏~~（2026-09-29 更正：target 与 deb 的大小差异是 Buildroot 正常 strip，对 deb 原件做同样 strip 后 md5 完全一致，并无损坏）
 
 ### 启动链
 - uImage `-A arm`（vendor U-Boot 不认 arm64 legacy）、**禁用 gzip**（bootm 卡死→看门狗循环）
@@ -52,29 +52,28 @@
 - WiFi regulatory.db、rootfs 首启自动扩容（parted+resize2fs）、zram 2G zstd
 - 板上工具链完整化：cross-native gcc + CL/cedarc 头文件 + taskset
 
-## 四、Vulkan 终局（调查 3 天、8+ 对照实验、三层仪器化）
+## 四、Vulkan（2026-09-29 更正）
 
-**定性：全志 24.2 DDK 的 Vulkan 用户态从未在此 SoC 上支持设备枚举——对 Debian/Ubuntu/Buildroot 一视同仁。**
+**根因：Buildroot rootfs 缺 `libxshmfence.so.1`。** libVK_IMG 创建 instance 时
+`dlopen("libpvr_mesa_wsi.so", RTLD_NOW)`，该库依赖 libxshmfence → 加载失败 → ICD 返回 -3
+→ loader 报 -9。反汇编定位 + qemu 离线复现（缺库时 dlopen 失败、补上即成功）已证实；
+修复为 zero3w-gpu 包 `select BR2_PACKAGE_XLIB_LIBXSHMFENCE`，构建脚本的依赖扫描同时
+补上 `/usr/local/lib`。详见 `docs/VULKAN-HANDOFF.md`。
 
-关键证据：
-1. **vendor 官方 noble 镜像本板实测**：系统自带 vulkaninfo `Devices` 为空（零设备）——原栈同样失败；
-2. 内核侧零失败：0021/0022 日志补丁实测，ICD 的每个 bridge 调用内核都返回 PVRSRV_OK；
-3. 数据全对：Connect BVNC=36.56.104.183 正确、KernelArch=64、能力标志正常；GetMultiCoreInfo eError=OK；
-4. 全部假设排除：模块三种构建（我们/原厂预编译/Radxa dkms 源码）、ICD 两种构建（逐字节同）、PRIME-import 补丁、强制核数、X 环境、库版本、API 版本；
-5. noble 镜像确有 libVK_IMG（此前误判"vendor 没发布"仅对 bookworm 成立），但"库存在"≠"枚举可用"。
-
-**如需真 Vulkan**：Mesa `pvr` 驱动对该 BVNC 有 Vulkan 1.2 一致性认证，但需主线内核 6.17+ 的 pvr DRM（与厂家 rogue_km UAPI 互斥）→ 独立启动介质（Radxa Cubie A7A 镜像可直接跑）或等主线成熟后栈迁移。社区参考：github.com/ayiejosh/a733-powervr-fex。
+此前"厂家 DDK 不支持设备枚举、平台级限制、需非 RT 内核 + Mesa pvr"的定性作废：
+我们的 noble 镜像（装有 libxshmfence1）09-28 已在板上跑通 Vulkan compute。
+真实限制只有一条：上屏只能经支持 DRI3 的 X11（ICD 无 VK_KHR_display），无头计算不受影响。
 
 ## 五、当前状态与待办
 
 | 项 | 状态 |
 |---|---|
 | 卡上系统 | vendor noble 镜像（Vulkan 对照实验用，可随时 `flash-image.sh` 换回）|
-| 最终交付镜像 | **#59 已构建待烧**（含 pristine GPU 库 + regdb + 首启扩容 + zram + 0021/0022 诊断日志）|
+| 最终交付镜像 | **#61 已构建待烧**（#59 + libxshmfence 修复；内核同 #59，仍含 0020–0022 诊断日志与 PRIME 实验代码）|
 | 卡头备份 | `~/tina5/sd-backup/sd-head-sdb-*.img`（5 份，含恢复说明）|
 | swupdate A/B OTA | 设计完成（README「三条路径」节），未实施——需改分区布局 + u-boot bootcount |
 | 只读 rootfs | 未实施（同上，可选迭代）|
-| git | `next` 分支，tina-zero3w/ 与 userpatches 全部未提交——**等用户明确要求才 commit/push** |
+| git | 已提交并推送：zyitom/orangepi-build 的 `zero3w` 分支（默认分支）|
 
 ## 六、复现速查
 

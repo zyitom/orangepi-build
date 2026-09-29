@@ -1,83 +1,77 @@
-# A733 (BXM-4-64) Vulkan 故障交接文档
+# A733 (BXM-4-64) Vulkan：根因与修复
 
-日期：2026-09-28 ｜ 板：Orange Pi Zero 3W（全志 A733/T527 family）
-GPU：PowerVR BXM-4-64，BVNC **36.56.104.183** ｜ DDK：**24.2@6603887**（内核模块 pvrsrvkm + 用户态 libVK_IMG/libsrv_um，全部来自厂商 deb `xserver-xorg-img-bxm_1.21.1-2_arm64.deb`）
+GPU：PowerVR BXM-4-64，BVNC 36.56.104.183 ｜ DDK 24.2@6603887（内核模块 pvrsrvkm +
+用户态 libVK_IMG/libsrv_um/libpvr_mesa_wsi，来自厂家 deb `xserver-xorg-img-bxm_1.21.1-2_arm64.deb`）
 
-## 一、现象
+> 2026-09-29 重写。本文件 09-28 版的结论（"厂家 DDK 从未支持设备枚举、平台级限制、
+> 要 Vulkan 只能换非 RT 内核 + Mesa pvr"）是**错的**，原因见第三节。
 
-**三个系统上 Vulkan 均无法枚举设备，OpenCL 完全正常：**
+## 一、结论
 
-| 系统 | 内核 | 现象 |
-|---|---|---|
-| vendor Ubuntu noble 1.0.2 原版镜像 | 6.6.98-rt58-sun60iw2（原厂）| 系统自带 `vulkaninfo`（1.3.275）：`Devices:` **空** |
-| vendor Debian bookworm 1.0.2 | 同上 | 无 libVK_IMG（未交付）|
-| 我们的 Buildroot（同一内核源码自建）| 6.6.98-rt58 | `vkCreateInstance` 返回 **VK_ERROR_INCOMPATIBLE_DRIVER(-9)**（API 1.0/1.3.277/1.3.280、root/非 root、有无 X 全部一致）|
+**Buildroot 镜像上 `vkCreateInstance` 返回 -9 的根因：rootfs 缺 `libxshmfence.so.1`。**
 
-**同时 OpenCL 完全正常**（同一连接、同一固件）：libPVROCL 枚举设备成功，GPU 计算
-`mismatches=0`、16.8 GFLOPS → 内核驱动、固件（rgx.fw.36.56.104.183）、硬件均正常。
+libVK_IMG 在创建 instance 时枚举设备（Connect … GetMultiCoreInfo → Disconnect），
+随后 `dlopen("libpvr_mesa_wsi.so", RTLD_NOW)` 加载 WSI 模块。libpvr_mesa_wsi 的
+NEEDED 里有 libxshmfence.so.1，Buildroot rootfs 没有它 → dlopen 失败 → ICD 返回
+VK_ERROR_INITIALIZATION_FAILED(-3) → Vulkan loader 在没有任何 ICD 能建 instance 时
+统一报 **VK_ERROR_INCOMPATIBLE_DRIVER(-9)**。dlopen 这一步不走内核，所以之前看到的
+"所有 bridge 调用都成功、最后一个是 Disconnect、然后 -9"与它完全吻合。
 
-## 二、已排除项（全部有对照实验）
+修复：`br2-external/package/zero3w-gpu/Config.in` 增加
+`select BR2_PACKAGE_XLIB_LIBXSHMFENCE`（连同 XORG7/LIBXCB/XLIB_LIBX11，使 GPU 包自带
+全部依赖）；`build-image.sh` 的闭源库依赖扫描补上 `/usr/local/lib` 和 libpvr_mesa_wsi，
+这类缺库以后在构建时就会报出来。
 
-| 排除项 | 方法 |
+## 二、证据
+
+1. **反汇编 libVK_IMG**（0x3eb5c → 0x3e8d0 → 0x3e920）：GetMultiCoreInfo 之后
+   PVRSRVDisconnect，紧接着 `dlopen("libpvr_mesa_wsi.so", 2 /*RTLD_NOW*/)`；失败分支
+   （0x3eca0）以及 dlsym(`pvr_mesa_wsi_sym_addr`)/`pvr_mesa_wsi_init` 失败分支都返回 -3。
+2. **依赖核对**：libpvr_mesa_wsi 的 16 个 NEEDED 里，Buildroot target 只缺 libxshmfence.so.1；
+   libVK_IMG、libPVROCL、libvulkan 的依赖链完整（qemu 下 `ld.so --list` 递归解析）。
+3. **离线复现**（qemu-aarch64 + Buildroot target 作 sysroot，同样 `RTLD_NOW`）：
+   原样 → `dlopen FAILED: libxshmfence.so.1: cannot open shared object file`；
+   只补这一个库 → `dlopen OK`。
+4. **对照**：我们编的 Ubuntu noble 1.0.2 镜像装有 libxshmfence1（及 vulkan-tools），
+   2026-09-28 在板上 vulkaninfo 枚举出 BXM-4-64 MC1（conformance 1.3.8.1），最小
+   compute 着色器端到端通过（e902/doc/e902/FINDINGS-LEDGER.md T38 追记 9、10；
+   测试程序 `tests/vkcomp/`）。
+
+## 三、以前哪些结论是错的
+
+| 旧结论 | 实际 |
 |---|---|
-| 内核模块构建 | 三种模块实测一致：我们源码构建 / **原厂预编译二进制**（vermagic 补丁热替换）/ Radxa img-bxm-dkms 0.1.0-3 源码编译 |
-| ICD 构建 | Ubuntu noble 镜像的 libVK_IMG 与我们 deb 的**逐字节相同**（md5 22302f1e，unstripped）|
-| libsrv_um | 同上（md5 1bb80d24）|
-| 固件 | rgx.fw/rgx.sh md5 相同 |
-| 内核配置 | 与 noble 镜像 `config-6.6.98-rt58-sun60iw2` **diff = 0** |
-| 设备树 | 反编译 diff，仅 pinmux 差异（GPU/reserved-memory 节点一致）|
-| PRIME-import | 套用社区补丁（a733-powervr-fex）重编模块——枚举无关 |
-| 多核拓扑 | 强制 NumCores=4 依旧 -9；RGX_CR_MULTICORE_SYSTEM 寄存器实读 1 为硬件真值；caps[0]=0x78 含 PRIMARY\|GEOMETRY\|COMPUTE，拓扑合法 |
-| X11 环境 | Xvfb 经 ssh 转发连通后依旧失败（noble 上有 X、buildroot 无头——不是差异点）|
-| API 版本 | 1.0 / 1.3.277 / 1.3.280 全部 -9 |
-| 用户态库损坏 | target/lib 截断文件已修复（libpvr_mesa_wsi 曾差 667KB）——修复后不变 |
+| "vendor 官方 noble 镜像 Devices 为空，原栈同样失败" | 所测镜像名、rt58 内核与我们 `output/images` 的 noble 构建一致，不是厂家原版；同一张卡次日实测枚举 + compute 通过。那一次为空的原因未能复现，需上板再确认（见第五节） |
+| "ICD 在收到全部成功应答后内部判定，判定点不可从外部观测" | 判定点是 dlopen，`LD_DEBUG=libs` 或 strace 的 `openat` 就能看到 |
+| "libpvr_mesa_wsi 曾被截断 667KB，修复后不变" | 那是 Buildroot 正常 strip（`--strip-unneeded`）；对 deb 原件做同样 strip，md5 与 target 完全相同 |
+| "库依赖全解析" | 只查了 libVK_IMG 的 NEEDED；运行时 dlopen 的 libpvr_mesa_wsi 没查；构建脚本的依赖扫描也不看 `/usr/local/lib` |
+| 多核拓扑 / PRIME-import / 内核模块构建 / CapabilityFlags | 与此无关。相关诊断补丁已移到 `userpatches/kernel/sun60iw2-current/experimental/`，不进构建 |
+| "平台级限制，需非 RT 内核 + Mesa pvr" | 不需要；厂家 DDK 在 RT 内核上 compute 可用 |
 
-## 三、关键测量（ioctl_shim + 内核日志补丁）
+## 四、真实存在的限制（不是 bug）
 
-**bridge 调用序列**（LD_PRELOAD 解码 PVRSRV_BRIDGE_PACKAGE，cmd 0xc0206440）：
+- **上屏（present）只能经 X11**：ICD 的 WSI 扩展只有 `VK_KHR_xcb_surface`、
+  `VK_KHR_xlib_surface`、`VK_EXT_headless_surface`，没有 `VK_KHR_display`，不能直连 KMS。
+  X server 还必须支持 DRI3/Present（厂家 deb 里的 Xorg 支持；Xvfb 不支持，所以
+  Xvfb 下"选不出 present 队列"是预期行为）。
+- **无头场景**（计算、离屏渲染）不需要 X：用 compute 队列或 `VK_EXT_headless_surface`。
 
-```
-Connect(func0)        → eError=OK, BVNC=36.56.104.183 ✓, CapabilityFlags=0x20000, KernelArch=64
-AcquireGlobalEventObject(func2) → handle=1, OK
-AcquireInfoPage(func15)         → hPMR=1, OK
-AlignmentCheck(func10)          → OK
-GetMultiCoreInfo(func12)        → eError=OK, NumCores=1   ← capsSize=0
-ReleaseGlobalEO(func3) / ReleaseInfoPage(func16) → OK
-Disconnect(func1)               → 随后 vkCreateInstance 返回 -9
-```
-
-**内核侧**（诊断补丁 0021/0022，已入内核补丁系列）：
-- `BridgedDispatchKM` 失败日志：**零记录**——ICD 发出的每个 bridge 内核都返回 OK；
-- `PVRSRVGetMultiCoreInfoKM`：**从未被调用**（LD_DEBUG 的符号绑定顺序 ≠ 调用顺序）；
-- 固件正常加载：`RGX Device registered BVNC 36.56.104.183` + `rgx.fw/rgx.sh loaded`；
-- 无 build options mismatch 告警（Connect 的 client/KM options 校验通过）。
-
-**结论**：ICD 在收到**全部成功应答**（含正确 BVNC）后，在闭源用户态内部判定
-"无兼容设备"并断开——判定点不可从外部观测。
-
-## 四、复现步骤（Buildroot 镜像，5 分钟）
+## 五、上板确认（一次即可）
 
 ```sh
-bash tina-zero3w/build-image.sh && bash tina-zero3w/flash-image.sh /dev/sdb
-# 上电后（WiFi 自动连，板 IP 见路由）：
-BOARD=<IP> tools/ssh_board.sh "gcc -O2 -I/usr/include -o /tmp/vktest /tmp/vktest.c -lvulkan && /tmp/vktest"
-# 期望复现：apiVersion=0x400000 -> VkResult=-9
+bash tina-zero3w/build-image.sh && bash tina-zero3w/flash-image.sh /dev/sdX
+# 板上：
+ldd /usr/local/lib/libpvr_mesa_wsi.so | grep 'not found'        # 期望：无输出
+vulkaninfo --summary                                            # 期望：GPU0 PowerVR BXM-4-64 MC1
+# 编译并运行 tests/vkcomp（compute 冒烟：256 线程算 i*2+42 并逐个校验，bad=0）
 ```
 
-noble 镜像复现：烧 `Orangepizero3w_1.0.2_ubuntu_nole...img` → 上电自动登录 → `vulkaninfo` → Devices 空。
+noble 镜像上若仍遇到 Devices 为空，先跑 `LD_DEBUG=libs vulkaninfo --summary 2>&1 | grep -i 'wsi\|shmfence\|cannot'`
+看 dlopen 哪个文件失败，再看 `/dev/dri/renderD128` 权限。
 
-## 五、需要厂商回答的问题
+## 六、工具（仓库内）
 
-1. `libVK_IMG 24.2.6603887` 的设备支持表是否包含 **BVNC 36.56.104.183**（A733/T527 BXM-4-64）？若有，Connect 应答需要满足什么条件？
-2. Connect 应答中 `CapabilityFlags=0x00020000`（bit17，超出我们内核树 device_connection.h 定义范围）是什么含义？ICD 对它有何检查？
-3. `GetMultiCoreInfo` 返回 `NumCores=1`（RGX_CR_MULTICORE_SYSTEM 寄存器直读）是否符合 BXM-4-64 预期？ICD 是否要求特定核数/拓扑？
-4. Ubuntu noble 镜像带 vkcube + libVK_IMG，Debian bookworm 镜像的 icd.d 指向不存在的库——**Vulkan 在 A733 BSP 中是否为已完成交付项**？
-5. 是否存在已修复此问题的新版 DDK 用户态（对应哪个内核模块版本）？
-
-## 六、工具与补丁（仓库内）
-
-- `tina-zero3w/tests/vktest.c` —— 最小复现探针（多 API 版本 + 设备枚举打印）
-- `tina-zero3w/tests/ioctl_shim.c` —— bridge 协议全量解码 LD_PRELOAD
-- `userpatches/kernel/sun60iw2-current/0020/0021/0022` —— 内核侧诊断日志补丁
-- `tina-zero3w/docs/PITFALLS.md` —— 全部实验记录
-- 核对基准：Radxa Cubie A7A（同 SoC 同 BVNC 同 DDK）社区栈 github.com/ayiejosh/a733-powervr-fex 报告 DXVK/Zink 可用——其内核为 Radxa BSP 非本板环境，差异未定位
+- `tests/vktest.c` —— instance 创建探针（多 API 版本）
+- `tests/vkcomp/` —— compute 冒烟测试（SPIR-V 内嵌）
+- `tests/ioctl_shim.c` —— PVR bridge 协议解码 LD_PRELOAD（查内核交互用；这次的根因不在内核）
+- `vulkan-debug.sh` —— 板上诊断

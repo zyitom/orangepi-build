@@ -33,10 +33,11 @@ were merged into 0016 on 2026-09-29, 0020–0023 moved to experimental/.
 `advanced_patch` (scripts/compilation.sh) only picks up `*.patch` directly in
 this directory (plus `target_*/board_*/branch_*` subdirectories), so files in
 `experimental/` are kept for reference and never reach a build. They are from
-the 2026-09-27 Vulkan investigation (tina-zero3w/docs/VULKAN-HANDOFF.md),
-which ended with "the vendor Vulkan ICD rejects the device on this kernel
-stack"; none of them changes that. Apply by hand, in order, on top of the
-series if the investigation is ever resumed.
+the 2026-09-27 Vulkan investigation. Its conclusion ("the vendor ICD
+rejects the device on this kernel stack") was wrong: the real cause was a
+missing libxshmfence in the Buildroot rootfs, a user-space dlopen failure
+(tina-zero3w/docs/VULKAN-HANDOFF.md). None of these kernel changes is
+needed; they stay here only as a record of what was tried.
 
 | file | what |
 |---|---|
