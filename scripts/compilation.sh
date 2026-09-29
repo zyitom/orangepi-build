@@ -526,6 +526,14 @@ CUSTOM_KERNEL_CONFIG
 	#fi
 
 	if [[ $LINUXFAMILY =~ sun60iw2 ]]; then
+		# The vendor tree commits the GPU build dir, with source symlinks pointing
+		# at their build host (/root/orangepi/kernel/<tree>/...). The DDK only
+		# creates links that do not exist yet, so repoint them at this tree or
+		# every rebuild of pvrsrvkm fails with "No such file or directory".
+		find bsp/modules/gpu -xtype l -lname '/root/orangepi/kernel/*' | while read -r l; do
+			t=$(readlink "$l")
+			ln -sfn "${kerneldir}/${t#/root/orangepi/kernel/*/}" "$l"
+		done
 		make -C bsp/modules/gpu LICHEE_TOOLCHAIN_PATH=$toolchain LICHEE_CROSS_COMPILER=$KERNEL_COMPILER LICHEE_PLATFORM=linux LICHEE_MOD_DIR=${SRC}/.tmp/gpu_modules_${LINUXFAMILY} LICHEE_KERN_DIR=${kerneldir} CROSS_COMPILE=$toolchain/$KERNEL_COMPILER ARCH=$ARCHITECTURE
 		make -C bsp/modules/gpu modules_install LICHEE_TOOLCHAIN_PATH=$toolchain LICHEE_CROSS_COMPILER=$KERNEL_COMPILER LICHEE_PLATFORM=linux LICHEE_MOD_DIR=${SRC}/.tmp/gpu_modules_${LINUXFAMILY} LICHEE_KERN_DIR=${kerneldir} CROSS_COMPILE=$toolchain/$KERNEL_COMPILER ARCH=$ARCHITECTURE
 	fi

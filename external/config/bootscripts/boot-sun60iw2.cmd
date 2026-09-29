@@ -3,7 +3,13 @@
 # Please edit /boot/orangepiEnv.txt to set supported parameters
 #
 
-setenv load_addr "0x43100000"
+# U-Boot's defaults (kernel 0x41000000, fdt 0x43000000, ramdisk 0x43300000,
+# overlays at 0x43100000) leave the kernel only 32 MiB; a bigger uImage (e.g.
+# with ftrace) gets its tail overwritten by the dtb -> "Bad Data CRC".
+# Kernel gets 48 MiB, initrd 48 MiB, all below bl31 at 0x48000000.
+setenv fdt_addr_r "0x44000000"
+setenv load_addr "0x44800000"
+setenv ramdisk_addr_r "0x45000000"
 setenv overlay_error "false"
 # default values
 setenv verbosity "1"

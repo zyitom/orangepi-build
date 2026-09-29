@@ -16,8 +16,9 @@ DTSI="$SRC/kernel/orange-pi-6.6-sun60iw2/arch/arm64/boot/dts/allwinner/sun60iw2p
 SCP="$SRC/external/packages/pack-uboot/sun60iw2/bin/scp.fex"
 UBOOT_SCP="$SRC/u-boot/v2018.05-sun60iw2/scp.fex"
 
-# 厂商 scp.fex（2026-09-21 未改动状态）—— 换过固件时这一项会报警
-VENDOR_SCP_MD5="10e488b29ca6442f0a56405cb68f065b"
+# 期望的 scp.fex（2026-09-25 起打包源 = vendor-scp.bin，构建自
+# e902/vendor-scp/build.sh；出厂件备份在 e902/backup/scp.fex.factory-20260925）
+VENDOR_SCP_MD5="b9904524a554fc6537c7b11093e72c83"
 
 fail=0
 ok()   { printf '  [ok]   %s\n' "$1"; }

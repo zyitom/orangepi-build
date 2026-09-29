@@ -38,12 +38,30 @@ Main() {
 		focal)
 			# your code here
 			;;
-		bookworm)
+		bookworm|jammy|noble)
 			# 最小镜像默认不带 WiFi supplicant：NetworkManager 会报
 			# "Failed to D-Bus activate wpa_supplicant service"，把 wlan0
 			# 标成 unavailable、扫描被拒。补上，否则镜像没有 WiFi。
 			apt-get -y -qq install wpasupplicant >/dev/null 2>&1 || \
 				echo "customize-image: wpasupplicant install failed"
+			# RT / 相机测试工具：cyclictest、trace-cmd、压力负载，以及板上编
+			# ar0234 userspace 用的 g++/make。rtla 不在循环里：Ubuntu/Debian
+			# 的发行版都没有 rtla 包，装了必然失败；二进制走下面的 overlay 拷贝。
+			# 逐个装，某个包缺了不影响其它的。
+			for p in rt-tests trace-cmd stress-ng v4l-utils build-essential gpiod; do
+				apt-get -y -qq install $p >/dev/null 2>&1 || \
+					echo "customize-image: $p install failed"
+			done
+			# rtla（timerlat/osnoise）：userpatches/overlay/rtla/rtla 是从
+			# kernel 6.6 的 tools/tracing/rtla 交叉编的，不依赖内核版本，
+			# 只要 tracefs 和 libtraceevent/libtracefs（trace-cmd 会带上）。
+			if [ -f /tmp/overlay/rtla/rtla ]; then
+				install -m 755 /tmp/overlay/rtla/rtla /usr/local/bin/rtla && \
+					echo "customize-image: rtla installed from overlay"
+			fi
+			# Ubuntu noble 移除了 pam_lastlog.so，但 /etc/pam.d/login 还在引用，
+			# 每次控制台登录报 "PAM unable to dlopen"。
+			sed -i '/pam_lastlog/d' /etc/pam.d/login 2>/dev/null || true
 			;;
 	esac
 } # Main
