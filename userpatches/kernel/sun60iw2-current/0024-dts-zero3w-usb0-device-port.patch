@@ -1,0 +1,34 @@
+From: zyi
+Subject: [PATCH] arm64: dts: zero3w: USB0 is a device port, fix otg manager probe
+
+USB0 sits on the power-in Type-C (schematic p.11: CC1/CC2 each 5.1k Rd to
+GND, VBUS tied to the board 5 V rail), so it is a sink/device port and has
+no ID pin (usb_id_gpio is empty). The vendor node declares it OTG with
+vbus/id detection and usb_detect_mode = 2 ("pmu notify", only for
+axp2202); usb_manager.c rejects that combination and the otg manager
+fails to probe with -1 on every boot, leaving the dual-role/typec parts
+unregistered. Declare it a device port: the manager probes, starts the
+UDC once, and otg_role can still switch to usb_host when the board is fed
+from the 40-pin 5 V (vendor Debian images do that at boot).
+
+---
+diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+index d33a30b60..4bfcdb9da 100644
+--- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+@@ -1667,7 +1667,14 @@ &sdc1 {
+  */
+ &usbc0 {
+ 	device_type = "usbc0";
+-	usb_port_type = <0x2>;
++	/*
++	 * USB0 is the power-in Type-C (schematic p.11: CC1/CC2 5.1k Rd to GND,
++	 * VBUS = board VCC-5V): a device port with no ID pin. As OTG with
++	 * vbus/id detection + "pmu notify" mode (only for axp2202) the otg
++	 * manager failed to probe (-1). Start as device; otg_role still
++	 * switches to usb_host (board fed from the 40-pin 5 V).
++	 */
++	usb_port_type = <0x0>;
+ // #ifdef TYPEC_DP
+ // 	usb_detect_type = <0x3>;
+ // #else

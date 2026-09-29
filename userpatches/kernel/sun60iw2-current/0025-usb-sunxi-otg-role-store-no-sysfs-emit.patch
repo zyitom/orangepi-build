@@ -1,0 +1,104 @@
+From: zyi
+Subject: [PATCH] usb: sunxi otg manager: do not sysfs_emit() into the store buffer
+
+set_otg_role() (the otg_role store) called device_chose()/host_chose()/
+null_chose(), which are *show* handlers ending in sysfs_emit(buf, ...).
+In a store, buf is the user's input, not a page-aligned output page, so
+every "echo usb_device > otg_role" printed "invalid sysfs_emit" plus a
+full WARNING backtrace. Move the role switching into helpers; the show
+handlers keep their message, the store just switches.
+
+---
+diff --git a/bsp/drivers/usb/sunxi_usb/manager/usbc0_platform.c b/bsp/drivers/usb/sunxi_usb/manager/usbc0_platform.c
+index 0f6decfe4..299cb5820 100644
+--- a/bsp/drivers/usb/sunxi_usb/manager/usbc0_platform.c
++++ b/bsp/drivers/usb/sunxi_usb/manager/usbc0_platform.c
+@@ -87,8 +87,8 @@ static ssize_t otg_enable(struct device *dev,
+ 	return sysfs_emit(buf, "%s\n", "otg_enable finished!");
+ }
+ 
+-static ssize_t device_chose(struct device *dev,
+-		struct device_attribute *attr, char *buf)
++/* switch roles; the sysfs show wrappers below only add the message */
++static void usb_role_device(void)
+ {
+ 	mutex_lock(&g_usb_cfg.lock);
+ 	/* stop usb scan */
+@@ -104,12 +104,17 @@ static ssize_t device_chose(struct device *dev,
+ 	usb_msg_center(&g_usb_cfg);
+ 	set_cc_status(POWER_SUPPLY_SCOPE_DEVICE);
+ 	mutex_unlock(&g_usb_cfg.lock);
++}
++
++static ssize_t device_chose(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	usb_role_device();
+ 
+ 	return sysfs_emit(buf, "%s\n", "device_chose finished, otg disabled!");
+ }
+ 
+-static ssize_t host_chose(struct device *dev,
+-		struct device_attribute *attr, char *buf)
++static void usb_role_host(void)
+ {
+ 	mutex_lock(&g_usb_cfg.lock);
+ 	/* stop usb scan */
+@@ -125,12 +130,17 @@ static ssize_t host_chose(struct device *dev,
+ 	usb_msg_center(&g_usb_cfg);
+ 	set_cc_status(POWER_SUPPLY_SCOPE_SYSTEM);
+ 	mutex_unlock(&g_usb_cfg.lock);
++}
++
++static ssize_t host_chose(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	usb_role_host();
+ 
+ 	return sysfs_emit(buf, "%s\n", "host_chose finished, otg disabled!");
+ }
+ 
+-static ssize_t null_chose(struct device *dev,
+-		struct device_attribute *attr, char *buf)
++static void usb_role_null(void)
+ {
+ 	mutex_lock(&g_usb_cfg.lock);
+ 	/* stop usb scan */
+@@ -142,6 +152,12 @@ static ssize_t null_chose(struct device *dev,
+ 	hw_rmmod_usb_device();
+ 	usb_msg_center(&g_usb_cfg);
+ 	mutex_unlock(&g_usb_cfg.lock);
++}
++
++static ssize_t null_chose(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	usb_role_null();
+ 
+ 	return sysfs_emit(buf, "%s\n", "null_chose finished, otg disabled!");
+ }
+@@ -196,20 +212,20 @@ static ssize_t set_otg_role(struct device *dev,
+ 
+ 	switch (value) {
+ 	case SW_USB_ROLE_NULL:
+-		null_chose(dev, attr, (char *)buf);
++		usb_role_null();
+ 		break;
+ 
+ 	case SW_USB_ROLE_DEVICE:
+-		device_chose(dev, attr, (char *)buf);
++		usb_role_device();
+ 		break;
+ 
+ 	case SW_USB_ROLE_HOST:
+-		host_chose(dev, attr, (char *)buf);
++		usb_role_host();
+ 		break;
+ 
+ 	default:
+ 		DMSG_INFO("err: unknown otg role(%d)\n", value);
+-		null_chose(dev, attr, (char *)buf);
++		usb_role_null();
+ 	}
+ 
+ 	return count;

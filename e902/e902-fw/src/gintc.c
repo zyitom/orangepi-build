@@ -1,20 +1,24 @@
 /*
- * GINTC: the GIC -> E902 interrupt router at 0x07090000 (A733 manual
- * ch.12.1 "Interrupt Controller"; the unnamed 4K block between RTC
- * 0x07085000 and S_TIMER 0x07091000 in the ch.2 address map -- T38).
+ * GINTC: the GIC -> E902 interrupt router.
  *
- * Two register families (manual 12.1.5):
- *   - group-mask regs at 0x0010+4k, byte per 8 GIC ids: REG0[7:0] ->
- *     gic [39:32], REG1[7:0] -> [71:64]...
- *   - per-input regs at base + 4*N (input 70 = 0x0118 GPADC).
- * Input numbers match GIC ids, so the router can hand ANY SoC SPI to
- * the E902 -- the vendor firmware just never does. The exact enable
- * semantics are not documented; 'G' sweeps both families against a
- * live GPADC storm (sunxi_gpadc on the host fires SPI 38 at ~4 kHz).
+ * 2026-09-29 (ledger T39): the base used to be 0x07090000, which is the
+ * RTC (manual address map: RTC 0x07090000, S_TIMER 0x07091000, nothing in
+ * between; DT rtc@7090000 / rtc_ccu@7090000). Every T38 experiment read
+ * and wrote RTC / RTC-CCU registers. Manual 12.1.4 lists the real
+ * instances: CPUS_INTERRUPT_CTRL 0x02055000 and RV_INTERRUPT_CTRL
+ * 0x02056000 (RV = this E902), with INTC_CONFIG_REG0..7 at 0x10-0x2C (one
+ * bit per interrupt, 1 = forward) and SYS_INT_STATE0..6 from 0x100.
+ *
+ * The "per-input register at base + 4*N" family is not in the manual; its
+ * writes are compiled out unless GINTC_PER_INPUT_REGS is set. Untested on
+ * the new base.
  */
 #include "fw.h"
 
-#define GINTC_BASE		0x07090000
+#define GINTC_BASE		0x02056000	/* RV_INTERRUPT_CTRL, manual 12.1.4 */
+#ifndef GINTC_PER_INPUT_REGS
+#define GINTC_PER_INPUT_REGS	0
+#endif
 #define GINTC_CFG(n)		(GINTC_BASE + 4u * (n))
 #define GINTC_GROUP(k)		(GINTC_BASE + 0x10u + 4u * (k))
 /* GIC id 121 (timer@3009000, fires ~70/s) -> REG2 (96-127) bit 25 */
@@ -53,7 +57,8 @@ unsigned int gintc_count(void)
 static void gintc_arm(unsigned int input, unsigned int cfg, int edge)
 {
 	gintc_hits[input] = 0;
-	writel(cfg, GINTC_CFG(input));
+	if (GINTC_PER_INPUT_REGS)
+		writel(cfg, GINTC_CFG(input));
 	gintc_cfg_val[input] = cfg;
 	gintc_armed[input] = 1;
 	clic_set_handler(input, gintc_isr);
@@ -63,7 +68,8 @@ static void gintc_arm(unsigned int input, unsigned int cfg, int edge)
 static void gintc_disarm(unsigned int input)
 {
 	writeb(0, CLIC_INTIE(input));
-	writel(0, GINTC_CFG(input));
+	if (GINTC_PER_INPUT_REGS)
+		writel(0, GINTC_CFG(input));
 	gintc_cfg_val[input] = 0;
 	gintc_armed[input] = 0;
 }

@@ -22,11 +22,18 @@ so no kernel change lives outside this directory.
 | 0015-bsp-fix-lradc-rpmsg-trng-build-on-6.6.patch | 6.6 API fixes; the config enables AW_LRADC/AW_TRNG, which do not build without it |
 | 0016-dts-zero3w-disable-phantom-devices-and-empty-pinmux.patch | board DTS cleanup: phantom AXP515@34, hym8563, gt9271, empty uart0/uart5 pinmux (one error line per boot each) |
 | 0019-rtla-poll-on-every-commit.patch | tools/tracing/rtla: `buffer_percent=0`, fixes the osnoise/timerlat "hang" (e902/doc/e902/FINDINGS-LEDGER.md T38) |
+| 0024-dts-zero3w-usb0-device-port.patch | USB0 (power-in Type-C, Rd on CC) is a device port: the otg manager probed OTG + "pmu notify" detection and failed with -1 |
+| 0025-usb-sunxi-otg-role-store-no-sysfs-emit.patch | `otg_role` store called the show handlers → "invalid sysfs_emit" WARNING on every role switch |
+| 0026-aic8800-sdio-suspend-wait-for-wake-locks.patch | aic8800 failed system suspend (-EBUSY) on any transient wake lock and left the netdevs detached |
+| 0027-gpadc-zero3w-sample-on-demand.patch | GPADC: no data IRQ per conversion (~800 IRQ/s on cpu0), runtime-PM on-demand reads, stale first read and a lock leak fixed |
+| 0028-g2d-export-of-match-table-for-autoload.patch | g2d_sunxi had no MODULE_DEVICE_TABLE, so it never autoloaded |
+| 0029-dts-zero3w-enable-soc-rtc.patch | SoC RTC enabled (was disabled for an unfitted hym8563 → no RTC at all); config HCTOSYS/SYSTOHC → rtc0 |
 | experimental/ | NOT applied by the build (see below) |
 
 Numbering gaps are deliberate, so older notes still resolve: 0002/0004 were
 config patches (now in the config override, see "AR0234 series"), 0017/0018
 were merged into 0016 on 2026-09-29, 0020–0023 moved to experimental/.
+0024–0029 come from the 2026-09-29 whole-board hardware review (ZERO3W.md).
 
 ## experimental/ — not applied
 

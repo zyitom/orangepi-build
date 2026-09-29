@@ -1,0 +1,13 @@
+[Unit]
+Description=Give the AIC8800 Bluetooth controller this board's own address
+# the vendor images attach the BT UART from orangepi-hardware-optimization
+# (hciattach_opi ... aic), whose init always programs 10:11:12:13:14:15
+After=orangepi-hardware-optimization.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'for i in $(seq 60); do [ -e /sys/class/bluetooth/hci0 ] && break; sleep 1; done; \
+  sleep 3; exec /usr/local/bin/aic-btaddr hci0'
+
+[Install]
+WantedBy=multi-user.target

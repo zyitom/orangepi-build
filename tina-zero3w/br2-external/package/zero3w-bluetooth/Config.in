@@ -1,0 +1,19 @@
+config BR2_PACKAGE_ZERO3W_BLUETOOTH
+	bool "zero3w-bluetooth (AIC8800 Bluetooth UART bring-up)"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	depends on BR2_INIT_SYSTEMD
+	select BR2_PACKAGE_BLUEZ5_UTILS
+	select BR2_PACKAGE_BLUEZ5_UTILS_CLIENT
+	help
+	  Attaches the AIC8800D80's Bluetooth UART (ttyS1, H4, 1.5 Mbit/s,
+	  RTS/CTS) the way the vendor images do: load aic8800_btlpm, wake the
+	  controller through /proc/bluetooth/sleep/btwrite, run hciattach_opi
+	  with the "aic" init (prebuilt vendor binary from orangepi-build's
+	  external/packages/blobs). aic-btaddr then replaces the preset
+	  address 10:11:12:13:14:15 that the aic init always programs with
+	  the per-chip address from /sys/class/addr_mgt/addr_bt. bluetoothd
+	  and bluetoothctl come from bluez5_utils.
+
+comment "zero3w-bluetooth needs an aarch64 glibc toolchain and systemd"
+	depends on !BR2_aarch64 || !BR2_TOOLCHAIN_USES_GLIBC || !BR2_INIT_SYSTEMD

@@ -53,13 +53,18 @@ echo "SCP payload: $SCP_BIN (sha256 ${SCP_SHA:0:16}…)"
 log "1. SDK 子集 (~/tina5)"
 bash "$TINA/fetch-sdk.sh"
 
-log "2. 内核 tarball (厂家树 @2ac08e8c7 × 0000-0015 × 调优 config)"
+log "2. 内核 tarball (厂家树 @2ac08e8c7 纯净导出 + userpatches 补丁系列 + 调优 config)"
 bash "$TINA/prepare-kernel.sh"
 KHASH=$(cat "$SDK/dl/linux-6.6.98-rt58-a733.tar.gz.hash")
-# tarball 内容变了 → 强制 buildroot 重新解包/重编内核与模块
-if [[ -f "$OUT/.zero3w-kernel-hash" && "$(cat "$OUT/.zero3w-kernel-hash")" != "$KHASH" ]]; then
-  echo "内核输入变化: 强制重建 buildroot 内核/模块"
-  rm -rf "$OUT"/build/linux-6.6.98* "$OUT"/build/linux-headers-*
+# tarball 内容变了（或没有记录）→ 强制 buildroot 重新解包/重编内核、头文件和树外模块。
+# 自定义 tarball 的内核在 buildroot 里叫 linux-custom / linux-headers-custom（以前按
+# linux-6.6.98* 删，从没匹配上，内核源码停在第一次解包的版本，补丁更新一直没进镜像）。
+if [[ ! -f "$OUT/.zero3w-kernel-hash" || "$(cat "$OUT/.zero3w-kernel-hash")" != "$KHASH" ]]; then
+  echo "内核输入变化: 强制重建 buildroot 内核/头文件/pvrsrvkm"
+  rm -rf "$OUT"/build/linux-custom "$OUT"/build/linux-headers-custom "$OUT"/build/zero3w-gpu-*
+  # buildroot 把 file:// 源先拷进 DL_DIR/linux/ 再解包，同名文件已在就直接复用、不比内容：
+  # 不删这份缓存，解包的永远是第一次拷进去的 tarball（2026-09-25 那版，一直没更新过）
+  rm -f "$SDK/dl/linux/linux-6.6.98-rt58-a733.tar.gz"
 fi
 echo "$KHASH" > "$OUT/.zero3w-kernel-hash"
 

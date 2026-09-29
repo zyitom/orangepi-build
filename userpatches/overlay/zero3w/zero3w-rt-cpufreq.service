@@ -1,0 +1,16 @@
+[Unit]
+Description=Fixed frequency on the A55 cluster (RT cores)
+# policy0 = cpu0-5 (A55), the cluster the isolated RT core cpu5 lives in.
+# Under schedutil it flipped between 416 MHz and 1.794 GHz ~100 times/s;
+# each change is a PMIC voltage write over I2C (1.2 ms, ~500 IRQ/s on
+# cpu0). The A76 cluster (policy6) keeps schedutil.
+# Debian/Ubuntu images set every CPU's governor at boot (cpufrequtils); run after
+After=systemd-modules-load.service cpufrequtils.service orangepi-hardware-optimization.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'echo performance > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor'
+
+[Install]
+WantedBy=multi-user.target

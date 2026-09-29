@@ -1,0 +1,76 @@
+From: zyi
+Subject: [PATCH] gpadc: sample on demand on the zero3w instead of free-running IRQs
+
+The board node ran GPADC0 in continuous mode with a data interrupt on
+every conversion of all 8 channels: ~800 IRQ/s on cpu0 around the clock,
+each one pushing an EV_MSC event into eight input devices nobody reads
+(noble measured ~4 kHz and had to blacklist the module). The channels are
+board-ID / boot-strap dividers (schematic p.10), read on demand.
+
+- dts: channel_data_select = 0. With no data and no key IRQ the driver
+  already runtime-suspends the ADC and resumes it per IIO read.
+- driver: after such a resume wait for two passes over the channels
+  before reading (the data registers were stale otherwise), and drop the
+  mutex / runtime-PM reference on the resume error path (it returned with
+  info->lock held, deadlocking every later read).
+
+---
+diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+index 4bfcdb9da..4622aed67 100644
+--- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+@@ -3313,7 +3313,14 @@ &gpadc0 {
+     channel_num = <8>;
+ 	gpadc_mode_select = <0x2>;
+     channel_select = <0xff>;
+-    channel_data_select = <0xff>;
++    /*
++     * The channels are board-ID/boot-strap dividers (schematic p.10) read
++     * on demand through IIO. A data IRQ on every conversion of every
++     * channel in continuous mode is ~800 IRQ/s on cpu0 that nobody reads;
++     * with no data/key IRQ the driver instead runtime-suspends the ADC
++     * and powers it up per read.
++     */
++    channel_data_select = <0x0>;
+     channel_compare_select = <0x0>;
+     channel_cld_select = <0x0>;
+     channel_chd_select = <0x0>;
+diff --git a/bsp/drivers/gpadc/sunxi_gpadc.c b/bsp/drivers/gpadc/sunxi_gpadc.c
+index 435b2efa3..6ff7ace91 100644
+--- a/bsp/drivers/gpadc/sunxi_gpadc.c
++++ b/bsp/drivers/gpadc/sunxi_gpadc.c
+@@ -1126,6 +1126,16 @@ struct sunxi_gpadc_iio {
+ 	struct mutex	lock;
+ };
+ 
++/*
++ * Time for two passes over all channels at the configured sample rate: in
++ * continuous mode every channel is converted in turn, and after a runtime
++ * resume the data registers only hold fresh values once a pass completed.
++ */
++static unsigned long sunxi_gpadc_scan_us(struct sunxi_gpadc *chip)
++{
++	return 2UL * chip->channel_num * (USEC_PER_SEC / chip->gpadc_sample_rate);
++}
++
+ static int sunxi_gpadc_read_raw(struct iio_dev *indio_dev,
+ 			struct iio_chan_spec const *chan,
+ 			int *val, int *val2, long mask)
+@@ -1142,8 +1152,17 @@ static int sunxi_gpadc_read_raw(struct iio_dev *indio_dev,
+ 		ret = pm_runtime_get_sync(sunxi_gpadc->dev);
+ 		if (ret < 0) {
+ 			sunxi_err(sunxi_gpadc->dev, "%s(): %d: runtime get sync fail\n", __func__, __LINE__);
++			pm_runtime_put_noidle(sunxi_gpadc->dev);
++			mutex_unlock(&info->lock);
+ 			return ret;
+ 		}
++		/* 0 = just resumed: conversions restart now, wait for fresh data */
++		if (ret == 0) {
++			unsigned long us = sunxi_gpadc_scan_us(sunxi_gpadc);
++
++			usleep_range(us, us + 1000);
++		}
++		ret = 0;
+ 	}
+ 
+ 	switch (mask) {

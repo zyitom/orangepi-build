@@ -17,3 +17,4 @@ __pycache__/
 
 # our patches against the vendor tree (the top-level .gitignore drops *.patch)
 !/vendor-scp/patches/*.patch
+!/vendor-scp/patches-debug/*.patch

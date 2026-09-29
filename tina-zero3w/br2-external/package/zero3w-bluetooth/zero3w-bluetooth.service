@@ -1,0 +1,23 @@
+[Unit]
+Description=AIC8800 Bluetooth UART attach (ttyS1, H4 1.5M)
+# the BT firmware patch is loaded over SDIO by aic8800_bsp at WiFi bring-up
+After=systemd-modules-load.service
+Before=bluetooth.service
+
+[Service]
+Type=simple
+# btlpm owns bt_wake: without it the controller stays asleep and every HCI
+# command times out (0x1003 tx timeout)
+ExecStartPre=/bin/sh -c 'modprobe aic8800_btlpm; \
+  for i in $(seq 30); do [ -e /proc/bluetooth/sleep/btwrite ] && break; sleep 1; done; \
+  echo 1 > /proc/bluetooth/sleep/btwrite; \
+  for r in /sys/class/rfkill/rfkill*; do [ "$(cat $r/type)" = bluetooth ] && echo 0 > $r/soft; done; true'
+ExecStart=/usr/bin/hciattach_opi -n -s 1500000 /dev/ttyS1 aic
+# the aic init programs a fixed preset address; give hci0 this chip's own
+ExecStartPost=/bin/sh -c 'for i in $(seq 20); do [ -e /sys/class/bluetooth/hci0 ] && break; sleep 1; done; \
+  sleep 2; /usr/bin/aic-btaddr hci0'
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

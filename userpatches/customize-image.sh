@@ -62,9 +62,31 @@ Main() {
 			# Ubuntu noble 移除了 pam_lastlog.so，但 /etc/pam.d/login 还在引用，
 			# 每次控制台登录报 "PAM unable to dlopen"。
 			sed -i '/pam_lastlog/d' /etc/pam.d/login 2>/dev/null || true
+			if [ "$BOARD" = orangepizero3w ]; then Zero3wTweaks; fi
 			;;
 	esac
 } # Main
+
+# Zero 3W 板级修正（文件与 Buildroot 镜像共用：userpatches/overlay/zero3w/README.md）
+Zero3wTweaks() {
+	local Z=/tmp/overlay/zero3w
+	# WiFi：AIC8800 开省电时漏回 AP 的保活探测，每 5-10 分钟被以 reason=4 断开
+	install -D -m 644 $Z/70-wifi-powersave-off.rules /etc/udev/rules.d/70-wifi-powersave-off.rules
+	mkdir -p /etc/NetworkManager/conf.d
+	printf '[connection]\nwifi.powersave = 2\n' > /etc/NetworkManager/conf.d/zero3w-wifi-powersave-off.conf
+	# 实时核（cpu5）所在的 A55 簇固定频率：schedutil 下每秒调压 ~100 次（I2C 写 PMIC）
+	# 休眠默认 s2idle：deep 进固件后醒不来（RTC 闹钟/WoWLAN 都试过）
+	install -D -m 644 $Z/zero3w-sleep.conf /etc/tmpfiles.d/zero3w-sleep.conf
+	install -m 644 $Z/zero3w-rt-cpufreq.service /etc/systemd/system/
+	systemctl enable zero3w-rt-cpufreq.service >/dev/null 2>&1
+	# 蓝牙：厂家 hciattach 的 aic 初始化总写 10:11:12:13:14:15，改成每颗芯片自己的地址
+	if gcc -O2 -Wall -o /usr/local/bin/aic-btaddr $Z/aic-btaddr.c; then
+		install -m 644 $Z/zero3w-btaddr.service /etc/systemd/system/
+		systemctl enable zero3w-btaddr.service >/dev/null 2>&1
+	else
+		echo "customize-image: aic-btaddr build failed"
+	fi
+}
 
 InstallOpenMediaVault() {
 	# use this routine to create a Debian based fully functional OpenMediaVault

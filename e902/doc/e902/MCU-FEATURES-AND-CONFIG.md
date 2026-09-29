@@ -56,9 +56,10 @@ evtest                                           # 有按键接 LRADC0 时看 in
 
 ## 4. GPADC（CONFIG_AW_GPADC=m）
 
-通用 ADC，IIO 暴露，用法同上（`gpadc` 名字的 iio:device）。注意：厂商 BSP 的 GPADC
-中断线程空闲时也会周期跑（`ps` 里 `[irq/N-sunxi-gpadc]` 有累计 CPU 时间），是轮询式的，
-不是故障。
+通用 ADC，IIO 暴露，用法同上（`gpadc` 名字的 iio:device）。本板的通道接的是板型/启动
+方式识别用的分压电阻（原理图 p.10）。补丁 0027（2026-09-29）起按需采样：读 IIO 时才给
+ADC 上电、读完 5 s 自动休眠，空闲时零中断。之前连续模式 + 每次转换一个数据中断，空闲时
+cpu0 上 ~800 IRQ/s（noble 实测 ~4 kHz，当时只能 blacklist 模块），现在不需要 blacklist。
 
 ## 5. mailbox / 传输
 
@@ -77,10 +78,16 @@ evtest                                           # 有按键接 LRADC0 时看 in
 E902 可用的中断：16 USB 待机、18 S_TWD、19 S_WDT、20–23 S_TIMER0–3、24 RTC 闹钟、
 25–28 PL/PM GPIO、29–30 S_UART0/1、31–33 S_TWI0–2、34 S_IRRX、35 S_PWM、36 S_TZMA、
 37 AHBS 超时、38 S_SPI、39 CPUS MSGBOX 读、48 CPUX MSGBOX 写、49 硬件自旋锁、
-54–77 GINTC 转发的 GIC 中断。**GINTC 基址已锁定 0x07090000**（手册 12.1 章
-"Interrupt Controller"：CONFIG 寄存器从 offset 0x0010 起、E902 中断号 N 的选择寄存器在
-offset 4*N；地址映射里 RTC 与 S_TIMER 之间的无名 4K 块，T38）—— 还差 E902 侧路由一个
-真实 GIC 中断做闭环验证。
+54–77 GINTC 转发的 GIC 中断。
+
+> **2026-09-29 更正**：之前认定的"GINTC 基址 0x07090000"是错的。手册地址映射里
+> `0x07090000–0x07090FFF` 就是 **RTC**（紧接着 0x07091000 是 S_TIMER，中间没有无名块），
+> 设备树 rtc@7090000 / rtc_ccu@7090000 也在这里。手册 12.1.4 给出的中断控制器实例是
+> `CPUS_INTERRUPT_CTRL = 0x02055000`、**`RV_INTERRUPT_CTRL = 0x02056000`**（RV = E902），
+> 寄存器 `INTC_CONFIG_REG0..7`（0x10–0x2C，每位一个中断，1 = 转发）、`SYS_INT_STATE0..6`
+> （0x100 起）。T38 的 GINTC 实验读写的其实是 RTC/RTC-CCU 寄存器（所以"全部零命中"）。
+> Linux 已启用 SoC RTC（补丁 0029），**不要再刷那版 gintc 实验固件**；要继续做 E902 侧
+> 中断转发，改用 0x02056000 重新实验。
 
 ## 7. 电源/休眠/DRAM 调频（厂商固件的主体功能）
 
@@ -91,8 +98,8 @@ offset 4*N；地址映射里 RTC 与 S_TIMER 之间的无名 4K 块，T38）—�
 - 换/重编固件：`e902/FLASHING.md`；构建 `bash e902/vendor-scp/build.sh`（arisc `0170020e`
   + dramlib `7142734a` + 3 补丁，Xuantie GCC V3.2.0，产物 `fw-out/vendor-scp.bin`，
   `tools/flash-scp.sh` 在线刷）。**改 scp 条目必须重算 add_sum（bootpkg.py 自动做）**。
-  注意 orangepi-build 打镜像用的还是出厂 `external/packages/pack-uboot/sun60iw2/bin/scp.fex`，
-  新镜像刷完要再刷一次 vendor-scp（README「还没做的」挂着）。
+  orangepi-build 打镜像用的 `external/packages/pack-uboot/sun60iw2/bin/scp.fex` 自 2026-09-25
+  起就是 vendor-scp.bin（sha256 302deda8…），新镜像不必再单独刷。
 
 ## 8. 内核配置速查（userpatches/linux-sun60iw2-current-a733.config）
 

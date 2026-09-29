@@ -1,0 +1,66 @@
+From: zyi
+Subject: [PATCH] aic8800: do not fail system suspend on a transient wake lock
+
+pm_test on the Zero 3W: freezer passes, "devices" aborts with
+  aicwf_sdio mmc2:390b:1: PM: dpm_run_callback(): pm_generic_suspend returns -16
+With aic8800_fdrv unloaded, devices/platform/processors/core all pass, so
+this is the only kernel-side blocker.
+
+aicwf_sdio_suspend() returned -EBUSY whenever one of the driver's wake
+locks was active. Those are short hints (the host-wake IRQ alone takes
+ws_rx for 1 s on every event), so with the link up one is often active at
+the moment of suspend and the suspend fails at random. Worse, the netdevs
+were detached before that check, and a device whose suspend fails is not
+resumed, so the interface stayed detached after a failed attempt.
+
+Do the pm-caps checks first, give in-flight work up to 2 s to drop the
+wake locks, and detach the netdevs only once the suspend will proceed.
+
+---
+diff --git a/bsp/drivers/net/wireless/aic8800/aic8800_fdrv/aicwf_sdio.c b/bsp/drivers/net/wireless/aic8800/aic8800_fdrv/aicwf_sdio.c
+index abc8f64ed..8f2029e20 100644
+--- a/bsp/drivers/net/wireless/aic8800/aic8800_fdrv/aicwf_sdio.c
++++ b/bsp/drivers/net/wireless/aic8800/aic8800_fdrv/aicwf_sdio.c
+@@ -446,12 +446,9 @@ static int aicwf_sdio_suspend(struct device *dev)
+ 	mmc_pm_flag_t sdio_flags;
+ 	struct rwnx_vif *rwnx_vif, *tmp;
+ 
+-	sdio_dbg("%s Enter\n", __func__);
+-	list_for_each_entry_safe(rwnx_vif, tmp, &sdiodev->rwnx_hw->vifs, list) {
+-		if (rwnx_vif->ndev)
+-			netif_device_detach(rwnx_vif->ndev);
+-	}
++	int i;
+ 
++	sdio_dbg("%s Enter\n", __func__);
+ 	sdio_flags = sdio_get_host_pm_caps(sdiodev->func);
+ 	if (!(sdio_flags & MMC_PM_KEEP_POWER)) {
+ 		sdio_dbg("%s sdio get host pm caps: no MMC_PM_KEEP_POWER\n", __func__);
+@@ -463,11 +460,26 @@ static int aicwf_sdio_suspend(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * The wake locks are short "stay awake" hints (the host-wake IRQ takes
++	 * ws_rx for 1 s on every event), so one is often active at the moment
++	 * of suspend. Give in-flight work up to 2 s to drop them instead of
++	 * failing the whole system suspend with -EBUSY. Check before detaching
++	 * the netdevs: a device whose suspend fails is never resumed, so the
++	 * old order left the interface detached after every failed attempt.
++	 */
++	for (i = 0; i < 100 && aicwf_wakeup_lock_status(sdiodev->rwnx_hw); i++)
++		msleep(20);
+ 	if (aicwf_wakeup_lock_status(sdiodev->rwnx_hw)) {
+-		sdio_dbg("%s ws active dont suspend\n", __func__);
++		sdio_err("%s wake lock still active after 2 s, not suspending\n", __func__);
+ 		return -EBUSY;
+ 	}
+ 
++	list_for_each_entry_safe(rwnx_vif, tmp, &sdiodev->rwnx_hw->vifs, list) {
++		if (rwnx_vif->ndev)
++			netif_device_detach(rwnx_vif->ndev);
++	}
++
+ 	while (sdiodev->state == SDIO_ACTIVE_ST) {
+ 		if (down_interruptible(&sdiodev->tx_priv->txctl_sema))
+ 			continue;

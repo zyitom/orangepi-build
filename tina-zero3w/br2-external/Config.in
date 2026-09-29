@@ -6,5 +6,7 @@ source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-ocl-icd/Config.in"
 source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-firmware/Config.in"
 source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-vulkaninfo/Config.in"
 source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-native-gcc/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-npu/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-bluetooth/Config.in"
 
 endmenu

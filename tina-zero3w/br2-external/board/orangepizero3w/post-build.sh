@@ -5,6 +5,19 @@ set -e
 
 TARGET_DIR="$1"
 BOARD_DIR="$(cd "$(dirname "$0")" && pwd)"
+# Zero 3W 板级文件与 Debian/Ubuntu 镜像共用（userpatches/overlay/zero3w/README.md）
+ZERO3W_SHARED="$(cd "${BOARD_DIR}/../../../.." && pwd)/userpatches/overlay/zero3w"
+
+# ---- 共用板级修正：WiFi 关省电（AP 以 reason=4 踢掉省电中的 AIC8800）、
+#      实时核所在的 A55 簇固定频率 ----
+install -D -m 0644 "${ZERO3W_SHARED}/70-wifi-powersave-off.rules" \
+	"${TARGET_DIR}/etc/udev/rules.d/70-wifi-powersave-off.rules"
+install -D -m 0644 "${ZERO3W_SHARED}/zero3w-rt-cpufreq.service" \
+	"${TARGET_DIR}/etc/systemd/system/zero3w-rt-cpufreq.service"
+install -D -m 0644 "${ZERO3W_SHARED}/zero3w-sleep.conf" "${TARGET_DIR}/etc/tmpfiles.d/zero3w-sleep.conf"
+mkdir -p "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants"
+ln -sf ../zero3w-rt-cpufreq.service \
+	"${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/zero3w-rt-cpufreq.service"
 
 # ---- /boot：uImage 包装 + boot.scr（内核 Image/dtb 由 BR2_LINUX_KERNEL_INSTALL_TARGET 装好）----
 # -A 必须用 arm（arch=0x02）而不是 arm64（0x16）：vendor U-Boot 的 legacy bootm

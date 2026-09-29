@@ -1,0 +1,32 @@
+From: zyi
+Subject: [PATCH] g2d: export the OF match table so the module autoloads
+
+g2d_sunxi has an of_device_id table but no MODULE_DEVICE_TABLE, so the
+module carries no of: alias and udev never loads it for the g2d@5440000
+node: /dev/g2d only appeared after a manual "modprobe g2d_sunxi".
+
+---
+diff --git a/bsp/drivers/g2d/g2d_legacy/g2d_driver.c b/bsp/drivers/g2d/g2d_legacy/g2d_driver.c
+index f6c3b98c4..046e29088 100644
+--- a/bsp/drivers/g2d/g2d_legacy/g2d_driver.c
++++ b/bsp/drivers/g2d/g2d_legacy/g2d_driver.c
+@@ -2200,6 +2200,7 @@ static const struct of_device_id sunxi_g2d_match[] = {
+ 	{.compatible = "allwinner,sunxi-g2d",},
+ 	{},
+ };
++MODULE_DEVICE_TABLE(of, sunxi_g2d_match);
+ #endif
+ 
+ static struct platform_driver g2d_driver = {
+diff --git a/bsp/drivers/g2d/g2d_rcq/g2d.c b/bsp/drivers/g2d/g2d_rcq/g2d.c
+index 13b001ec0..59662be4f 100644
+--- a/bsp/drivers/g2d/g2d_rcq/g2d.c
++++ b/bsp/drivers/g2d/g2d_rcq/g2d.c
+@@ -1663,6 +1663,7 @@ static const struct of_device_id sunxi_g2d_match[] = {
+ 	{.compatible = "allwinner,sunxi-g2d",},
+ 	{},
+ };
++MODULE_DEVICE_TABLE(of, sunxi_g2d_match);
+ 
+ static struct platform_driver g2d_driver = {
+ 	.probe = g2d_probe,

@@ -1748,3 +1748,16 @@ T33 的公开 arisc 源码缺 3 个 OEM 私有 DRAM 函数（`dram_power_save_pr
   需要厂商 X 栈+DRM），(b) -D 时长停止等 rtla 式周边问题。
 - 与 hwapi 对照：GPU dev headers 未装（CL/EGL/GLES/vulkan 头文件）——开发时
   需在板上补 vulkan 头或用交叉编译（本次即交叉编译方案）。
+
+## T39（2026-09-29）：GINTC 基址更正 —— 0x07090000 是 RTC，不是 GINTC
+- 手册 V1.00 地址映射（SYSCPUS_AHBS）：`RTC 0x07090000–0x07090FFF`，紧接 `S_TIMER 0x07091000`，
+  两者之间**没有**无名 4K 块；设备树 `rtc@7090000`（reg 0x320）与 `rtc_ccu@7090000`（reg 0x400，
+  含 DCXO/OSC32K 控制）也在这里。T38 "GINTC 基址锁定 0x07090000" 的依据不成立。
+- 手册 12.1.4 Register List 才是中断控制器实例：`CPUS_INTERRUPT_CTRL = 0x02055000`、
+  **`RV_INTERRUPT_CTRL = 0x02056000`**（RV = E902）；`INTC_CONFIG_REG0..7` 在 0x10–0x2C（每位一个
+  中断，1 = 送给中断控制器），`SYS_INT_STATE0..6` 在 0x100 起。
+- 推论：T38 的 per-input cfg 平扫、组寄存器位操作，实际读写的是 RTC / RTC-CCU 寄存器——"全部零命中"
+  由此而来；"64 行路由表"也是 RTC 区的寄存器内容，不是路由表。
+- 影响：Linux 自补丁 0029 起启用 SoC RTC。**gintc.c v5 那版实验固件不要再刷**（会改写 RTC/时钟控制
+  寄存器）；继续做 E902 侧 GIC 中断转发时，以 0x02056000 为基址重新设计实验（先只读
+  SYS_INT_STATE，确认有活动源的位会动，再置 INTC_CONFIG_REG 对应位）。

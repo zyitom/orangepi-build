@@ -1,0 +1,26 @@
+diff --git a/ar100s/driver/uart/uart.c b/ar100s/driver/uart/uart.c
+index 36586a5..216d6c7 100644
+--- a/ar100s/driver/uart/uart.c
++++ b/ar100s/driver/uart/uart.c
+@@ -8,7 +8,8 @@
+ #include "uart_i.h"
+ #include <libfdt.h>
+ 
+-volatile u32 uart_pin_not_used = 1;
++/* debug build: console on S_UART0 = PL2/PL3 (schematic SCPU-TX/RX, FT232H on the host) */
++volatile u32 uart_pin_not_used = 0;
+ volatile u32 uart_lock = 1;
+ volatile static u32 uart_rate;
+ static int s_uart_num;
+@@ -122,8 +123,9 @@ s32 uart_init(void)
+ 	uart_rate = UART_BAUDRATE;
+ #ifndef CFG_FDT_INIT_ARISC_UART_USED
+ 	if (!uart_pin_not_used) {
+-		pin_set_multi_sel(PIN_GRP_PL, 2, 2);
+-		pin_set_multi_sel(PIN_GRP_PL, 3, 2);
++		/* S-UART0 is function 3 on A733 PL2/PL3 (2 is something else) */
++		pin_set_multi_sel(PIN_GRP_PL, 2, 3);
++		pin_set_multi_sel(PIN_GRP_PL, 3, 3);
+ 	}
+ #else
+ 	if (uart_init_from_dts() < 0)

@@ -11,6 +11,8 @@
 # Any payload size works: tools/bootpkg.py resizes the item and fixes the
 # boot-package add_sum (without that fix boot0 drops to FEL on next power-on).
 # A 24 MiB backup of the card head is pulled to e902/backup/ before writing.
+# Boards without python3 (the Buildroot image): the card head is patched on
+# the host instead and written back with dd, then read back and compared.
 # If the board does not come back: tools/flash-scp-reader.sh with the card in
 # the USB reader, or dd the backup image back (see FLASHING.md).
 set -eu
@@ -44,8 +46,14 @@ fi
 echo; echo "=== 1. board + boot package ==="
 B 'uname -r; uptime'
 B "mkdir -p $RDIR"
-B "cat > $RDIR/bootpkg.py" < "$E/tools/bootpkg.py"
-BSUDO python3 $RDIR/bootpkg.py info $DEV || { echo "ERROR: package check failed on board"; exit 1; }
+HOSTMODE=0
+if B 'command -v python3' >/dev/null 2>&1; then
+	B "cat > $RDIR/bootpkg.py" < "$E/tools/bootpkg.py"
+	BSUDO python3 $RDIR/bootpkg.py info $DEV || { echo "ERROR: package check failed on board"; exit 1; }
+else
+	HOSTMODE=1
+	echo "(no python3 on the board: patching the card head on the host)"
+fi
 
 echo; echo "=== 2. backup card head (24 MiB) ==="
 BK=$E/backup/sd-head-before-flash-$TS.img
@@ -54,6 +62,30 @@ BSUDO dd if=$DEV bs=1M count=24 status=none > "$BK"
 [ "$(stat -c%s "$BK")" = $((24 * 1024 * 1024)) ] || { echo "ERROR: short backup $BK"; exit 1; }
 python3 "$E/tools/bootpkg.py" info "$BK" | head -1
 echo "-> $BK"
+
+if [ "$HOSTMODE" = 1 ]; then
+	HEAD=$E/backup/sd-head-new-$TS.img
+	cp "$BK" "$HEAD"
+	python3 "$E/tools/bootpkg.py" set-scp "$HEAD" "$PAYLOAD"
+	if [ "$DRY" = 1 ]; then
+		echo; echo "=== DRY RUN: nothing written ==="; rm -f "$HEAD"; exit 0
+	fi
+	python3 "$E/tools/bootpkg.py" set-scp "$HEAD" "$PAYLOAD" --write
+	python3 "$E/tools/bootpkg.py" info "$HEAD" | grep -q 'checksum PASS' \
+		|| { echo "FATAL: checksum invalid in the patched head -- nothing written"; exit 1; }
+	echo; echo "=== 3/4. WRITE (host-patched head, 24 MiB) ==="
+	HSHA=$(sha256sum "$HEAD" | cut -d' ' -f1)
+	B "cat > $RDIR/sd-head.img" < "$HEAD"
+	got=$(B "sha256sum $RDIR/sd-head.img" | cut -d' ' -f1)
+	[ "$got" = "$HSHA" ] || { echo "ERROR: push corrupted ($got)"; exit 1; }
+	BSUDO dd if=$RDIR/sd-head.img of=$DEV bs=1M conv=notrunc,fsync status=none
+	B sync
+	back_sha=$(BSUDO dd if=$DEV bs=1M count=24 status=none | sha256sum | cut -d' ' -f1)
+	[ "$back_sha" = "$HSHA" ] || { echo "FATAL: read-back differs -- DO NOT reboot; dd $BK back"; exit 1; }
+	B "rm -f $RDIR/sd-head.img"
+	rm -f "$HEAD"
+	echo "written and read back OK"
+else
 
 echo; echo "=== 3. push payload ==="
 B "cat > $RDIR/scp-payload.bin" < "$PAYLOAD"
@@ -70,6 +102,7 @@ BSUDO python3 $RDIR/bootpkg.py set-scp $DEV $RDIR/scp-payload.bin --write
 B sync
 BSUDO python3 $RDIR/bootpkg.py info $DEV | grep -q 'checksum PASS' \
 	|| { echo "FATAL: checksum invalid after write -- DO NOT reboot; restore with bootpkg.py set-scp <backup scp>"; exit 1; }
+fi
 
 echo; echo "=== 5. reboot, recording both consoles -> $LOGS ==="
 mkdir -p "$LOGS"

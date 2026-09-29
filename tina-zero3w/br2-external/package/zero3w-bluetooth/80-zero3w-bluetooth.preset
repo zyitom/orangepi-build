@@ -1,0 +1,5 @@
+# buildroot runs "systemctl preset-all" at target-finalize; without this
+# bluetoothd is not enabled (no dbus-org.bluez.service alias) and
+# bluetoothctl has nothing to talk to
+enable bluetooth.service
+enable zero3w-bluetooth.service

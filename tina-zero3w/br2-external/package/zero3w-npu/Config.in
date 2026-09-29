@@ -1,0 +1,14 @@
+config BR2_PACKAGE_ZERO3W_NPU
+	bool "zero3w-npu (VIP NPU userland: libNBGlinker/libVIPhal)"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	help
+	  Allwinner A733 NPU user space from orangepi-build's vendor package
+	  cache (sun60iw2_packages/npu): libNBGlinker.so + libVIPhal.so (the
+	  whole inference chain on top of the vipcore driver), vip_lite
+	  headers, the vendor vpm_run sample in /opt/vpm_run, and npurun
+	  (npu-run/ in this repo) in /usr/bin. The yolov5 demo is left out:
+	  it is built for another SoC, needs OpenCV 4.5 sonames and crashes.
+
+comment "zero3w-npu needs an aarch64 glibc toolchain"
+	depends on !BR2_aarch64 || !BR2_TOOLCHAIN_USES_GLIBC
