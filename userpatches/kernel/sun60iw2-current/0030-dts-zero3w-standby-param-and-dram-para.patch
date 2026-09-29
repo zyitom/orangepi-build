@@ -61,7 +61,7 @@ source (dram.h): 00 dram_clk, 01 dram_type, 02 dx_odt, 03 dx_dri,
 + * 10001001, dram_tpr13 = 65"), the rest come from sys_config.fex [dram_para].
 + */
 +&dram {
-+	dram_para00 = <1200>;
++	dram_para00 = <2400>;
 +	dram_para01 = <8>;
 +	dram_para02 = <0x08080808>;
 +	dram_para03 = <0x0e0e0e0e>;

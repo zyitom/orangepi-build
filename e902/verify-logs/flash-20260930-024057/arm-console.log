@@ -1,0 +1,130 @@
+[ 7263.783841] systemd-shutdown[1]: Failed to set timeout to 10min: Invalid argument
+[ 7264.382169] sunxi:vin:[WARN]: video8 device have been closed!
+[ 7264.382174] sunxi:vin:[WARN]: video0 device have been closed!
+......
+
+
+[66]HELLO! BOOT0 is starting!
+[69]BOOT0 commit : {4721ad08}
+[72]board gpio withstand voltage auto mode
+[86]vaild para:4  select dram para0
+[90]rtc[3] value = 0xa301
+[92]rtc[7] value = 0x2
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[128]boot param - magic error 
+[131]DRAM BOOT DRIVE INFO: V0.6034
+[136]DRAM_VCC set to 560 mv
+[138]DRAM CLK =2400 MHZ
+[141]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[287]Training result is = 7
+[290]DRAM Pstate 1 training, frequency is 1200 Mhz
+[468]Training result is = 7
+[470]DRAM Pstate 2 training, frequency is 800 Mhz
+[814]Training result is = 7
+[816]DRAM Pstate 3 training, frequency is 400 Mhz
+[4570]Training result is = 7
+[4573]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4582]Actual DRAM SIZE =4096 M
+[4585]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4599]DRAM simple test OK.
+[4664]error: dtb not found for scp
+[4667]mmc not para
+[4669]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 26 2026 - 02:25:07 +0800) Allwinner Technology
+
+[04.724]CPU:   Allwinner Family
+[04.726]Model: sun60iw2
+I2C:   ready
+[04.788]DRAM:  4 GiB
+[04.795]Relocation Offset is: 6dd91000
+[05.122]secure enable bit: 0
+[05.126]PMU: AXP8191
+[05.128]PMU: AXP8191 VER_A
+[05.133]bmu_axp515_probe pmic_bus_read fail
+[05.137][AXP8191] onoff status: 0x50 = 0x0, 0x51 = 0x0
+[05.141][AXP8191] charge status: 0x4 = 0x1
+[05.145]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.152]gic: sec monitor mode
+SPI ALL:   ready
+[05.195]flash init start
+[05.197]workmode = 0,storage type = 1
+[05.201][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.209][mmc]: get sdc_type fail and use default host:tm1.
+[05.217][mmc]: can't find node "mmc0",will add new node
+[05.222][mmc]: fdt err returned <no error>
+[05.225][mmc]: Using default timing para
+[05.229][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.247][mmc]: card_caps:0x3000000a
+[05.250][mmc]: host_caps:0x3000003f
+[05.253]sunxi flash init ok
+get value error
+[05.258]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.297]NOT support bridge yet
+[05.300]Warn: no find panel or bridge
+[05.304]hdmi0@5520000 disconnected
+[05.307]bad framebuffer width 0
+test
+[05.311]drm_framebuffer_alloc fail!
+[05.314]Get sunxi drm device fail!
+[05.319]battery temp is -1
+[05.326](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+1642 bytes read in 7 ms (228.5 KiB/s)
+## Executing script at 43100000
+Zero 3W boot script from mmc 0
+** File not found /boot/uInitrd **
+33966152 bytes read in 4729 ms (6.8 MiB/s)
+213666 bytes read in 16 ms (12.7 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    33966088 Bytes = 32.4 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 44000000
+   Booting using the fdt blob at 0x44000000
+[14.680]Starting kernel ...
+
+[14.683]total: 14683 ms
+
+[14.685][mmc]: MMC Device 2 not found
+[14.689][mmc]: mmc 2 not find, so not exit
+[15.318]get_sunxi_drm_connector_by_device fail!
+[15.323]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: [0170020e421772d892d569dad5ef8b0faffc120a-dirty]
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+Welcome to Orange Pi Zero 3W (Tina/Buildroot port)
+zero3w login: 

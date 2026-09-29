@@ -1,0 +1,90 @@
+
+[0172.88] query asyn msg
+[0172.88] MESSAGE FROM AC327
+[0172.88] state:2
+[0172.88] type:26
+[0172.89] attr:2
+[0172.89] count: 0x1
+[0172.89] set wakeup src req
+[0172.90] wakeup_root_irq: 200
+[0172.90] install isr 1C
+[0172.91] intno:28 interrupt enable
+[0172.92] send feedback message
+[0172.92] feedback hard syn message : 26
+[0172.93] query asyn msg
+[0172.93] MESSAGE FROM AC327
+[0172.94] state:2
+[0172.94] type:26
+[0172.94] attr:2
+[0172.95] count: 0x1
+[0172.95] set wakeup src req
+[0172.96] wakeup_root_irq: 160
+[0172.96] install isr 10
+[0172.97] intno:16 interrupt enable
+[0172.97] send feedback message
+[0172.98] feedback hard syn message : 26
+[0172.99] query asyn msg
+[0172.99] MESSAGE FROM AC327
+[0173.00] state:2
+[0173.00] type:26
+[0173.00] attr:2
+[0173.01] count: 0x1
+[0173.01] set wakeup src req
+[0173.01] wakeup_root_irq: 159
+[0173.02] install isr 10
+[0173.02] intno:16 interrupt enable
+[0173.03] send feedback message
+[0173.04] feedback hard syn message : 26
+[0173.04] query asyn msg
+[0173.05] MESSAGE FROM AC327
+[0173.05] state:2
+[0173.06] type:26
+[0173.06] attr:2
+[0173.06] count: 0x1
+[0173.07] set wakeup src req
+[0173.07] wakeup_root_irq: 196
+[0173.08] install isr 18
+[0173.08] intno:24 interrupt enable
+[0173.09] send feedback message
+[0173.09] feedback hard syn message : 26
+[0173.34] query asyn msg
+[0173.34] MESSAGE FROM AC327
+[0173.34] state:2
+[0173.34] type:22
+[0173.34] attr:0
+[0173.35] count: 0x5
+[0173.35] cpu op req
+[0173.35] mpidr:81000000, entrypoint:48000228; cpu_state:3, cluster_state:3, system_state:3
+[0173.40] WRN:no standby_param: FFFFFFFB fdt:44000000
+[0174.04] iosc_freq: 13430000
+[0174.04] [usb_standby_port_support] 0x4101800:0x0 [0]
+[0174.05] [usb_standby_port_support] 0x4200800:0x80008B0D [80000000]
+[0174.06] SMC: Save region 0
+[0174.06] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0174.07] reset
+[0174.08] restore bus status to 0x3a
+[0174.08] init twi succeeded
+[0174.09] cpu off 
+[0174.10] the first time ddr standby
+[0174.22] dram save done
+[0174.22] clk_suspend
+[0174.22] twi clk change request
+[0174.23] uart source clock change requestlğ[01·´’•­»°¹º±]XY®,WR+Ëë+IûãWÕ¤´Šºâ²ÂÚvµuAmQAİA{@1¬ ²¥±¯»³¶µOH&&&&	I•…±ıÍÑİA}Acl7¸·•Š«˜™›š—™›WHİWi‹ë)‹çuU"½¹•5)­aeoh.²¸½«¹¹±•Í½½ííåáÊnä€³¼±¶²±^EåÁ•Aiañea`0Š«˜™›š—™œWÈ.,¦	©Í‰EiAeYAëæbº ‘œº²²˜–¸KÑiAaña¶0±·”šœ¯+&‚ÂÉAAmmaqu@0xÃ°˜˜˜˜C¡+fæ“IÂêmEµAañe`0³³˜š˜¼š˜˜˜˜˜˜˜C¡+¦¦“IÂjíAµAañea`3³°£š˜¼™˜˜˜LLC¡+fÆ“IÂjíEµAañe`0³³£š˜¼LL,,¤#¡+&æ“IÂêíAµAañea`33´°š˜¼œ˜˜˜˜˜˜˜C¡+fÆ“IÂê­eµAañe`0³³”š˜¼˜C¡+&¦“IÂjmAµAañmab02µ°š˜¼˜†…+¦¦“IÂêíEµAañmab0²µš˜¼œ†…+&æ“IÂjmAµAañe`0³³˜˜¼š˜˜˜˜˜˜˜C¡+&æ“IÂjmEµAañeaaf3°¸š˜¼˜C¡+&æ“IÂjíAµAañe0°““˜£œ˜¼LL,,¤#¡+&æ“IÂjíEµAañd0°““˜£œ˜¼˜C¡+fÆ“IÂjİÅÕéAïaë¥µ¸…„[0±—”–šœWˆWV«+ÁiAeum[0±—”–˜œWÈ«×Ö•Í½½éÍåëm¥½»º°·²±^EåÁÕAqağ2°°…†­˜Ì“ÓIÂjÕíÉau@0¬ µ»°˜L¨­.¬'D	I‘‘iAaYAào²´š˜¼™C¡+fÆ“IÂjmAµAañd°°““˜¡˜¼˜C¡+FÖ“IÊj­e½Aax²˜›™˜('$WRSHèŠºâ²ÊÂuíaµAağ2°°“›˜œ˜¼˜C¡+fÖ“i‚j­eµAax²››˜œ˜¼š˜XHHLLC¡+fÆÓiŠjíaµAax·‘˜˜M'$SHhŠºâ²ÊÆtíEµAağ7°±š™˜˜¼˜C¡+fÖÓi’j­aµAağ²°››š˜˜¼œ˜XXHLLC¡+fÆ“i’jíEµAañ2°°“›˜˜˜¼œ˜˜XXHLC¡+fÖ“išj­a½A`ø²˜›™˜¨'WRSHèŠºÂ²ÊÎuíEµAañd00³“£˜¼LL¬¤¤!¡+FÖ“i¢jíAµAañd0°³“˜œ˜¼š˜˜˜˜XHC¡+fÆÓiªj­e½A`x²›™˜œ˜¼(&&SHèŠºâ²ÊÖtÁáåAßÜŠ»™›š—&S¢İ¥ÍÑÕAÇhá®§µ¸²\İ™.WHèŠºÂ²ÊÚuÕÅééAæoµ²³±±¶kk)‹çu•ÉÕåíËætó[0174.39] uart buadrate change done
+[0174.39] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0174.39] twi clk change done
+[0174.41] dram up enter
+[0174.41] DRAM BOOT DRIVE INFO: V0.6035
+[0174.41] DRAM CLK =1200 MHZ
+[0174.42] DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[0174.50] the first time ddr standby
+[0174.68] not the first time ddr standby
+[0174.68] DRAM DFS VERSION INFO: V0.603
+[0174.69] the counter for dfi_freq is = 22 
+[0174.69] the dat_idx2 for dfi_freq is = 1 
+[0174.70] the counter for ccu is = 40 
+[0174.71] Actual DRAM SIZE =4096 M
+[0174.71] DRAM SIZE =4096 MBytes, para1 = A0FA, para2 = 10001001, dram_tpr13 = 65
+[0174.72] dram up done
+[0174.72] cpu on 
+[0174.77] SMC: non-secure chip
+[0174.77] wait ac327 resume...

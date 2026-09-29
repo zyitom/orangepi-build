@@ -12,7 +12,7 @@ board never came back (deep suspend hang of 09-29/30).
 Until the FDT carries real parameters (kernel patch 0030 adds them,
 and the bootparam channel could be fixed upstream-style), fill the
 array from a built-in table when the parse yields all zeros. Values:
-board sys_config.fex [dram_para] with dram_para1/2 and dram_tpr13
+board sys_config.fex [dram_para] with dram_clk, dram_para1/2 and dram_tpr13
 corrected to boot0's runtime print for the 4 GiB LPDDR4
 ("para1 = a0fa, para2 = 10001001, dram_tpr13 = 65").
 
@@ -20,7 +20,7 @@ Index -> field mapping is __dram_para_t (include/driver/dram.h).
 
 --- a/ar100s/driver/dram/dram_dts_para_v2.c
 +++ b/ar100s/driver/dram/dram_dts_para_v2.c
-@@ -48,6 +48,64 @@
+@@ -48,6 +48,65 @@
  		printk("dram para[%d] 0x%x\n", i, dts_dram_para[i]);
  	}
  
@@ -32,13 +32,14 @@ Index -> field mapping is __dram_para_t (include/driver/dram.h).
 +	 * went silent right after "the first time ddr standby" and never
 +	 * woke up). Fill in the parameters boot0 actually used instead:
 +	 * base values from the board sys_config.fex [dram_para], with
-+	 * dram_para1/2 and dram_tpr13 taken from boot0's runtime print
-+	 * ("DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001,
-+	 * dram_tpr13 = 65" for the fitted 4 GiB LPDDR4).
++	 * dram_clk, dram_para1/2 and dram_tpr13 taken from boot0's runtime
++	 * print ("DRAM CLK =2400 MHZ", "DRAM SIZE =4096 MBytes, para1 =
++	 * a0fa, para2 = 10001001, dram_tpr13 = 65" for the fitted 4 GiB
++	 * LPDDR4).
 +	 */
 +	{
 +		static const uint32_t opi_dram_para[32] = {
-+			1200,        /* dram_clk */
++			2400,        /* dram_clk */
 +			8,           /* dram_type: LPDDR4 */
 +			0x08080808,  /* dram_dx_odt */
 +			0x0e0e0e0e,  /* dram_dx_dri */

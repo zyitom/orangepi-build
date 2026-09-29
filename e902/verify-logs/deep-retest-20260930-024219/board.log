@@ -1,0 +1,9 @@
+mem_sleep current: s2idle
+sh: can't create /sys/class/rtc/rtc0/wakealarm: Permission denied
+sh: can't create /sys/class/rtc/rtc0/wakealarm: Permission denied
+alarm armed for , now 1790707341
+sh: can't create /sys/power/mem_sleep: Permission denied
+resume rc=1  uptime=51.48
+sh: can't create /sys/power/state: Permission denied
+dmesg: klogctl: Operation not permitted
+sh: can't create /sys/class/rtc/rtc0/wakealarm: Permission denied
