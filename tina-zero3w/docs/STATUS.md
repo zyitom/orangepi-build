@@ -93,16 +93,26 @@ RTC 闹钟到点也不醒，必须断电。
 3. 闭源 dramlib（`dram_power_save_process`）带全零参数做 save，SCP 卡死在
    init 序列中途（日志里连 `wait wakeup` 都没到），唤醒自然无从谈起。
 
-已做修复（待板验证）：
+已做修复（2026-09-30 板上首测：SCP 侧全链路已通，还差最后一步）：
 - `e902/vendor-scp/patches/0004-dram-para-zero-fallback.patch`：参数全零时用内置表
-  （sys_config 值 + boot0 运行时打印的 para1=0xa0fa/para2=0x10001001/tpr13=0x65）；
+  （sys_config 值 + boot0 运行时打印的 dram_clk=2400/para1=0xa0fa/para2=0x10001001/tpr13=0x65）；
 - `e902/vendor-scp/patches-debug/0002-suspend-path-probes.patch`：`dram save done` /
-  `ppu on` / `dram up enter/done` 探针，一次上电即可区分"库内卡死 / 时钟阶段卡死 /
-  唤醒未送达"；
+  `ppu on` / `dram up enter/done` 探针；
 - `userpatches/kernel/sun60iw2-current/0030`：板级 DTS 补 `standby_param` 节点
-  （先不放电源位图，全零=休眠时不动任何路，保守）+ `dram_para00..31`；
-- 待办：上板读 bootparam（U-Boot `md 0x4A1FF400`）核对参数表、验证 deep 循环、
-  通过后再抄 pro3 的电源位图。
+  （先不放电源位图，全零=休眠时不动任何路，保守）+ `dram_para00..31`。
+
+**板上实测（debug SCP，E902 控制台）**：`dram save done`（库返回，兜底表生效）→
+唤醒触发 → `dram up enter` → DRAM 完整 banner（4096MB，para 与表一致）→
+`dram up done` → `cpu on` → `wait ac327 resume...` —— SCP 侧修复链确认打通。
+新发现两件事（e5066e1）：
+1. `dram_clk` 必须是 2400（boot0 实测 "DRAM CLK =2400 MHZ"），不是 sys_config 的
+   1200——恢复按参数重配控制器，写 1200 会让起来的 A55 撞上错频的 DRAM。
+   已改表重编（vendor-scp c98bdbca / debug 79cd0eec，scp.fex 与 noble 镜像已同步）。
+2. 进入后 ~0.2s 即被唤醒（不是 +20s RTC）：内核把 ehci1/ohci1(SPI 159/160) 和
+   r_pio(SPI 200) 登记为唤醒源，电平中断在挂起时已有效就会立刻唤醒。
+   `deep-suspend-retest.sh` 现在会先解绑 USB1 控制器并打印唤醒源清单。
+- 待办：断电重启后重跑 `e902/tests/board/deep-suspend-retest.sh`；若 USB 解绑后
+  能撑满 20s 并被 RTC 唤醒 → 换回正式版固件收尾；若仍瞬醒 → 排查 r_pio(200)。
 
 ## 七、当前状态与待办
 
