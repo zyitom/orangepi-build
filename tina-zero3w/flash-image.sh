@@ -41,7 +41,7 @@ if [[ -n "$MP" ]]; then
   sudo_ bash -c "umount $(lsblk -rno MOUNTPOINT "/dev/$DEVBASE" | grep -v '^$' | tr '\n' ' ')" || true
 fi
 
-# 备份卡头 24 MiB（任务书要求；卡上是用户在用的 Ubuntu 24.04）
+# 备份卡头 24 MiB（任务书要求）
 TS=$(date +%Y%m%d-%H%M%S)
 BK="$SDK/sd-backup/sd-head-$DEVBASE-$TS.img"
 mkdir -p "$(dirname "$BK")"
@@ -51,7 +51,7 @@ sudo_ dd if="/dev/$DEVBASE" bs=1M count=24 status=none > "$BK"
 
 echo
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "即将把镜像写入 $DEV，目标盘上现有数据（Ubuntu 24.04 系统）将全部丢失！"
+echo "即将把镜像写入 $DEV，目标盘上现有数据将全部丢失！"
 echo "确认 $DEV 是插在电脑上的 SD 卡读卡器。"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 read -r -p "输入 yes 确认写入: " ans
