@@ -44,7 +44,7 @@ AR0234 工业相机、E902 小核（SCP）固件、Buildroot 镜像，以及 NPU
 
 ## 未完成 / 已知限制
 
-- Vulkan：compute 可用（noble 镜像已在板上跑通）；Buildroot 镜像之前的 -9 是 rootfs 缺 libxshmfence，已修复，待上板确认。上屏只能经支持 DRI3 的 X11（驱动没有 VK_KHR_display）。见 `tina-zero3w/docs/VULKAN-HANDOFF.md`。
+- Vulkan：compute 可用（noble 镜像已在板上跑通）；Buildroot 镜像之前的 -9 是 rootfs 缺 libxshmfence，2026-09-29 修复并上板通过（枚举 + compute）。上屏只能经支持 DRI3 的 X11（驱动没有 VK_KHR_display）。见 `tina-zero3w/docs/VULKAN-HANDOFF.md`。
 - E902 侧接收 GIC 外设中断（GINTC）：基址和路由表已找到，使能序列未找到（`e902/tests/board/GINTC-TEST.md`）。
 - 休眠唤醒（mem）不可用，工业场景用关机；诊断脚本 `e902/tests/board/suspend-diagnose.sh`。
 - Buildroot 内核 tarball 目前取自厂家内核树工作区（`tina-zero3w/prepare-kernel.sh`），应改为"纯净提交 + 补丁"生成。

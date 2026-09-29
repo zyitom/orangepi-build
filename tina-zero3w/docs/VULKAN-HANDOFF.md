@@ -22,6 +22,10 @@ VK_ERROR_INITIALIZATION_FAILED(-3) → Vulkan loader 在没有任何 ICD 能建 
 全部依赖）；`build-image.sh` 的闭源库依赖扫描补上 `/usr/local/lib` 和 libpvr_mesa_wsi，
 这类缺库以后在构建时就会报出来。
 
+板上实测（2026-09-29，镜像 #61，6.6.98-rt58 PREEMPT_RT）：`vkCreateInstance` → VkResult=0，枚举出
+PowerVR B-Series BXM-4-64 MC1（API 1.3.277，driver "PowerVR B-Series Vulkan Driver"）；
+vkcomp compute 256/256 正确（连跑 3 次）；`ld.so --list libpvr_mesa_wsi.so` 0 个 not found；dmesg 无 GPU 报错。
+
 ## 二、证据
 
 1. **反汇编 libVK_IMG**（0x3eb5c → 0x3e8d0 → 0x3e920）：GetMultiCoreInfo 之后
@@ -56,14 +60,14 @@ VK_ERROR_INITIALIZATION_FAILED(-3) → Vulkan loader 在没有任何 ICD 能建 
   Xvfb 下"选不出 present 队列"是预期行为）。
 - **无头场景**（计算、离屏渲染）不需要 X：用 compute 队列或 `VK_EXT_headless_surface`。
 
-## 五、上板确认（一次即可）
+## 五、上板确认（2026-09-29 已通过，以后换镜像时照此复查）
 
 ```sh
 bash tina-zero3w/build-image.sh && bash tina-zero3w/flash-image.sh /dev/sdX
 # 板上：
-ldd /usr/local/lib/libpvr_mesa_wsi.so | grep 'not found'        # 期望：无输出
-vulkaninfo --summary                                            # 期望：GPU0 PowerVR BXM-4-64 MC1
-# 编译并运行 tests/vkcomp（compute 冒烟：256 线程算 i*2+42 并逐个校验，bad=0）
+# 把 tests/vk-check.sh 与交叉编译好的 vktest、vkcomp 放同一目录，root 运行：
+sh vk-check.sh
+# 期望：依赖全部找到 / VkResult=0 / PowerVR B-Series BXM-4-64 MC1 / COMPUTE OK: 256/256
 ```
 
 noble 镜像上若仍遇到 Devices 为空，先跑 `LD_DEBUG=libs vulkaninfo --summary 2>&1 | grep -i 'wsi\|shmfence\|cannot'`
@@ -73,5 +77,6 @@ noble 镜像上若仍遇到 Devices 为空，先跑 `LD_DEBUG=libs vulkaninfo --
 
 - `tests/vktest.c` —— instance 创建探针（多 API 版本）
 - `tests/vkcomp/` —— compute 冒烟测试（SPIR-V 内嵌）
+- `tests/vk-check.sh` —— 上板四步确认（依赖 / instance / vulkaninfo / compute）
 - `tests/ioctl_shim.c` —— PVR bridge 协议解码 LD_PRELOAD（查内核交互用；这次的根因不在内核）
 - `vulkan-debug.sh` —— 板上诊断

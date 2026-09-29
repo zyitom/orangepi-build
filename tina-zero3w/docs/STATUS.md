@@ -25,12 +25,12 @@
 | 3 | PREEMPT_RT 内核 | ✅ | 6.6.98-rt58 `#1 SMP PREEMPT_RT`，补丁系列 **0000-0022**（含 3 个诊断补丁），每次构建反向校验 |
 | 4 | WiFi + ssh | ✅ | aic8800d80 自动连（modules-load 早载修复 SDIO 竞态）|
 | 5a | cltest 板上编译 + OpenCL | ✅ | 板上 gcc 10.3 编译，**mismatches=0**，GPU 48ms / 16.8 GFLOPS |
-| 5b | vulkaninfo | 🔧 **根因已找到并修复**（rootfs 缺 libxshmfence），待上板确认 | 见「四、Vulkan」 |
+| 5b | vulkaninfo | ✅（2026-09-29 修复） | 根因 rootfs 缺 libxshmfence；#61 板上 vulkaninfo 列出 **BXM-4-64 MC1**（API 1.3.277），compute 256/256 |
 | 6 | boot_package SCP + amp_timestamp | ✅ | vendor-scp.bin sha `302deda8…`、add_sum `265fe798`、checksum/readback PASS；dmesg `freqid=24000000 (24.000 MHz)` |
 | 7 | waitlat 独占 cpu5 | ✅ | hybrid **max=0.25µs**（目标 <2µs）|
 | 8 | AR0234 + ISP/cedarc | ✅ | 传感器 ID 0xa56 + 实拍 **1920x1200 NV12 @120.4fps、602 帧/5s、0 超时**；libisp/libAWIspApi/cedarc 全套 |
 
-**合计 7.5 / 8**，5b 待上板确认。（2026-09-29 更正：5b 不是全志 DDK 交付缺口，是本移植 rootfs 缺库，见第四节。）
+**合计 8 / 8**。（2026-09-29：5b 不是全志 DDK 交付缺口，是本移植 rootfs 缺库，修复后板上通过，见第四节。）
 
 ## 三、已修复的工程缺陷（全部沉淀于 docs/PITFALLS.md，40+ 条）
 
@@ -58,7 +58,9 @@
 `dlopen("libpvr_mesa_wsi.so", RTLD_NOW)`，该库依赖 libxshmfence → 加载失败 → ICD 返回 -3
 → loader 报 -9。反汇编定位 + qemu 离线复现（缺库时 dlopen 失败、补上即成功）已证实；
 修复为 zero3w-gpu 包 `select BR2_PACKAGE_XLIB_LIBXSHMFENCE`，构建脚本的依赖扫描同时
-补上 `/usr/local/lib`。详见 `docs/VULKAN-HANDOFF.md`。
+补上 `/usr/local/lib`。板上实测（2026-09-29，镜像 #61，6.6.98-rt58 PREEMPT_RT）：`vkCreateInstance` → VkResult=0，枚举出
+PowerVR B-Series BXM-4-64 MC1（API 1.3.277，driver "PowerVR B-Series Vulkan Driver"）；
+vkcomp compute 256/256 正确（连跑 3 次）；`ld.so --list libpvr_mesa_wsi.so` 0 个 not found；dmesg 无 GPU 报错。详见 `docs/VULKAN-HANDOFF.md`。
 
 此前"厂家 DDK 不支持设备枚举、平台级限制、需非 RT 内核 + Mesa pvr"的定性作废：
 我们的 noble 镜像（装有 libxshmfence1）09-28 已在板上跑通 Vulkan compute。
@@ -69,7 +71,7 @@
 | 项 | 状态 |
 |---|---|
 | 卡上系统 | vendor noble 镜像（Vulkan 对照实验用，可随时 `flash-image.sh` 换回）|
-| 最终交付镜像 | **#61 已构建待烧**（#59 + libxshmfence 修复；内核同 #59，仍含 0020–0022 诊断日志与 PRIME 实验代码）|
+| 最终交付镜像 | **#61，已烧卡并上板验证**（#59 + libxshmfence 修复；内核同 #59，仍含 0020–0022 诊断日志与 PRIME 实验代码）|
 | 卡头备份 | `~/tina5/sd-backup/sd-head-sdb-*.img`（5 份，含恢复说明）|
 | swupdate A/B OTA | 设计完成（README「三条路径」节），未实施——需改分区布局 + u-boot bootcount |
 | 只读 rootfs | 未实施（同上，可选迭代）|
