@@ -27,8 +27,10 @@ e902/
 ├── e902-fw/             自研 SCP 固件（make scpfw / make hosttest），scripts/ 里是板上调试工具
 ├── linux/               amp_timestamp 驱动 + DT overlay
 ├── tests/               板上测试（tests/board/）与回滚演练脚本
-├── doc/e902/            逆向与实测记录：FINDINGS-LEDGER.md（台账 T1–T37）、RESOURCE-MAP.md、RISKS.md …
+├── doc/e902/            逆向与实测记录：FINDINGS-LEDGER.md（台账 T1–T38）、RESOURCE-MAP.md、RISKS.md、
+│                        MCU-FEATURES-AND-CONFIG.md（小核相关功能的用法与配置）…
 ├── doc/delivery/        交付文档（复现与回滚手册、资源白皮书）
+├── doc/handover/        2026-09-25 交卡给别人验证时的板卡运行状态快照（卡上配置 + 最终 dmesg）
 ├── verify-logs/         上板串口日志
 ├── fw-out/SHA256SUMS    已刷过的镜像哈希记录（镜像本身不入库）
 └── legacy/              早期方案：最小 SCP 雏形 e902-fw-scp/、固定槽位的刷写/恢复脚本（留作参考）
@@ -59,11 +61,11 @@ e902/
 
 - 厂商固件其余回归：`poweroff` 后上电、休眠/唤醒（`/sys/power/mem_sleep` = deep）、DRAM 调频。这几项都需要有人在板子旁边。
 - 厂商固件不往小核串口打印任何东西（boot0 报 `dtb not found for scp`，出厂固件也一样），所以小核运行时的状态目前看不到。
-- GINTC（GIC → E902 中断转发）的基址，手册和源码里都没有，所以大核外设的中断还转不到 E902。
-- 让 orangepi-build 打包镜像时直接用 `vendor-scp` 的产物（目前还是
-  `external/packages/pack-uboot/sun60iw2/bin/scp.fex` 出厂件）。
+- ~~GINTC 基址~~ → **已锁定 0x07090000**（手册 12.1 章 + 地址映射无名 4K 块，T38），还差 E902 侧路由一个真实 GIC 中断做闭环验证。
+- ~~镜像打包出厂 scp.fex~~ → **已完成（2026-09-25）**：打包源已换 vendor-scp.bin 并经 boot_package 字节验证，出厂件备份在 `e902/backup/scp.fex.factory-20260925`。
 - 用 orangepi-build 重新编一版内核并装到板上：amp_timestamp、RT、AR0234 现在都在 `userpatches/kernel/sun60iw2-current/`
-  （0014 是 amp_timestamp；2026-09-24 已在厂商最新基线上确认能打上、能编译），装好之后就不再需要树外模块和 overlay 了。
+  （0014 是 amp_timestamp；2026-09-24 已在厂商最新基线上确认能打上、能编译），装好之后就不再需要树外模块和 overlay了。
+  （noble 镜像 1.0.2 已经在用这套补丁编内核；0016 = 板级 DTS 清理：幻影 PMU@34/hym8563/gt9271、空 uart pinmux，原 0016–0018 合并。）
 
 ## 第一次看这些文档，建议顺序
 
@@ -71,3 +73,5 @@ e902/
 2. `doc/e902/CORRECTION-2026-09-22.md`（先清掉早期文档里的错误认识）
 3. `doc/e902/RESOURCE-MAP.md` → `doc/e902/FINDINGS-LEDGER.md`
 4. `doc/e902/HANDOVER-2026-09-23.md`（自研固件阶段的交接快照）
+5. `doc/e902/MCU-FEATURES-AND-CONFIG.md`（amp_timestamp、TRNG、LRADC/GPADC、mailbox 归属、GINTC 现状）
+6. `doc/handover/CARD-RUNTIME-STATE-20260925.md`（最后一次交卡时板子的实际状态）

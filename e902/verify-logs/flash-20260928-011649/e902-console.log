@@ -1,0 +1,56 @@
+
+[tick] 4531
+[tick] 4541
+[tick] 4551
+[tick] 4561
+[pkt] hdr=0x48240002 count=1 d0=0x00000001 -> sys-op
+[pwr] ERR:SDA is still low level!
+[pwr] twi stat wait addr got 0x00000020
+[pwr] axp515 absent, skip
+[pwr] exit arg=1
+[pwr] axp8191 55: 0x0000003b -> 0x0000007b
+[pwr] reseþ
+
+=== A733 E902 firmware v6.9 ===
+PL_CFG0     = 0xffff3322  (PL2/PL3 mux ok)
+APBS1 (S_UART clock) = 24000000 Hz
+RISCV_BGR   = 0x00010003
+RST_START   = 0x40004000
+startup feedback (ch3 hdr=0x00900200 13w) : sent
+spi_init(500kHz) = ok
+SPI VER=0x00010003 GC=0x00000083 TC=0x00000004
+SPI CLK_CTL=0x00001017 FIFO_STA=0x00000000 INT_STA=0x00000032
+timer irq 21 (100ms, polled fallback) after 24m; mbox/uart/spi polled.
+keys: s=status r=rx count t=ticks p=spi selftest T=ts probe B=bench X=spi3(40pin) h=tick print
+[clk] 24m broadcast on
+[pkt] hdr=0x00900200 count=1 d0=0x00000000 -> ack, no echo
+[tick] 10
+[pkt] hdr=0x00260202 count=1 d0=0x400024c6 -> replied
+[tick] 20
+[tick] 30
+[tick] 40
+[tick] 50
+[tick] 60
+[tick] 70
+[tick] 80
+[tick] 90
+[tick] 100
+[tick] 110
+[tick] 120
+[tick] 130
+[tick] 140
+[tick] 150
+[tick] 160
+[tick] 170
+[tick] 180
+[tick] 190
+[tick] 200
+[tick] 210
+[tick] 220
+[tick] 230
+[tick] 240
+[tick] 250
+[tick] 260
+[tick] 270
+[tick] 280
+[tick] 290

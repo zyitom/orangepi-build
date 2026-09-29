@@ -1,0 +1,12 @@
+
+[tick] 1178
+[tick] 1188
+[tick] 1198
+[tick] 1208
+[pkt] hdr=0x48240002 count=1 d0=0x00000001 -> sys-op
+[pwr] ERR:SDA is still low level!
+[pwr] twi stat wait addr got 0x00000020
+[pwr] axp515 absent, skip
+[pwr] exit arg=1
+[pwr] axp8191 55: 0x0000003b -> 0x0000007b
+[pwr] reseü

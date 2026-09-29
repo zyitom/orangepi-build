@@ -1,0 +1,9 @@
+verbosity=1
+bootlogo=false
+overlay_prefix=sun60i-a733
+fdtfile=allwinner/sun60i-a733-orangepi-zero3w.dtb
+rootdev=UUID=95ccdcd8-2d8e-426c-b823-fe5580918216
+rootfstype=ext4
+
+# RT test config: isolate A55 cpu5 (A76 unusable for RT, see latency tests)
+extraargs=isolcpus=5 nohz_full=5 rcu_nocbs=5

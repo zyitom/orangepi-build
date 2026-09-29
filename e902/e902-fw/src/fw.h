@@ -68,6 +68,14 @@ void timer_poll(void);
 u32  timer_tick_sources(void);
 u32  timer_irq_latency(void);
 u32  timer_irq_latency_min(void);
+
+/* gintc.c */
+unsigned int gintc_count(void);
+void gintc_sweep(void);
+void gintc_off(void);
+void gintc_uart_toggle(void);
+void gintc_lradc_toggle(void);
+void gintc_report(void);
 u32 timer_raw_count(void);
 
 /* ts_test.c */

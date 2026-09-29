@@ -109,6 +109,12 @@ u32 pinmux_read_pl_cfg0(void) { return 0; }
 unsigned int apbs1_rate(void) { return 24000000; }
 int cpus_24m_broadcast_on(void) { return 0; }
 void ts_test_run(void) {}
+unsigned int gintc_count(void) { return 0; }
+void gintc_sweep(void) {}
+void gintc_off(void) {}
+void gintc_uart_toggle(void) {}
+void gintc_lradc_toggle(void) {}
+void gintc_report(void) {}
 
 int power_sys_op(u32 op)
 {

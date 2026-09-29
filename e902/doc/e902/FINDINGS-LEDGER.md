@@ -1541,3 +1541,210 @@ T33 的公开 arisc 源码缺 3 个 OEM 私有 DRAM 函数（`dram_power_save_pr
 - `boot0: error: dtb not found for scp`：09-22 用出厂固件时也有（arm-console-live-20260922.log 里 24 次），不是新问题。
   厂商固件因此拿不到 s_uart 配置，小核串口没有输出。
 - 未测：poweroff 后上电、休眠/唤醒（mem_sleep = deep）、DRAM 调频。
+
+---
+
+# 补充记录 T38（2026-09-25）：GINTC 基址锁定 0x07090000 + 幻影外设 + scp 打包集成
+
+## GINTC 基址：0x07090000（高置信，待 E902 侧实测闭环）
+- A733_User Manual V1.00 第 12.1 章 "Interrupt Controller"（RV_INT_CTRL=E902 侧）描述了
+  该模块，pdftotext 后可检索：寄存器从 offset 0x0010 起（CPUS_INTC_CONFIG_REGN，组中断掩码，
+  CONFIG_REG0[7:0] 对应 GIC IRQ [39:32]，以此类推），另有 E902 中断源选择表：
+  **E902 IRQ 号 N 的配置寄存器在 offset 4*N**（IRQ16→0x40, IRQ20 S_TIMER0→0x50,
+  IRQ66→0x108，全部吻合，含 12.1.5.10-15 的 System Interrupt1-6 State 0x0104-0x0118）。
+- 手册第 2 章地址映射里，CPUS APB 区间 RTC(0x07085000) 与 S_TIMER(0x07091000) 之间有一个
+  **无名的 4K 块 0x07090000-0x07090FFF** —— 上述全部 offset 落入 4K，判定为 GINTC 基址。
+- 待闭环：E902 侧写 CONFIG 寄存器把一个真实 GIC IRQ 转进来并验证（下次改 e902-fw 时做）。
+
+## 幻影外设（本次定性，补丁 0016 已禁用）
+- **0x34 的 "AXP515" 是启动毛刺假象**：运行时 i2c-13 对 0x34 任何读写都失败（i2cget 0x03 也
+  失败），而 0x36 的 AXP8191 正常（i2cdetect 显示 UU）；开机日志里同时刻有
+  "Timeout when sending 9th SCL clk"/"TWI BUS error state" —— axp2101 驱动把总线毛刺读出的
+  垃圾当成了 AXP515 的 ID，随后写 IRQ mask 0x40 撞上总线错误返回 -22，"failed to add irq
+  chip: -22" 每次开机必现。原理图（OPI ZERO 3W）只有一个 PMU。
+- **hym8563 (15-0051) 板上没有焊**：i2c-15 全地址无应答，init 失败 -22。
+- 补丁 `userpatches/kernel/sun60iw2-current/0016-dts-zero3w-disable-phantom-pmu1-and-hym8563.patch`
+  在板级 dts 里把两个节点 status 改 disabled。
+
+## osnoise 定性（修正之前"厂商内核怪癖"的说法）
+- 内核侧 osnoise tracer 正常（echo osnoise > current_tracer 成功，trace 有输出）。
+- `rtla osnoise top` 在 ppoll 里挂死（task stack: do_sys_poll）；同一次开机里被杀过的
+  timerlat 会让随后的 enable 返回 EBUSY（trace_osnoise.c:3021 timerlat_enabled() 检查）。
+  结论：cyclictest / hwlatdetect / rtla timerlat / 裸 tracefs osnoise 都可用，rtla osnoise
+  top 单独不可用，属 rtla↔厂商内核交互问题，不再追。
+
+## scp.fex 打包集成（完成）
+- `external/packages/pack-uboot/sun60iw2/bin/scp.fex` 已换成 `e902/fw-out/vendor-scp.bin`
+  （md5 b9904524…；sun60iw2 不走 update_scp，boot_package.cfg item=scp 直接打包）。
+- BUILD_OPT=u-boot 重打包后，boot_package.fex 偏移 0x138000 处逐字节确认 vendor 固件存在。
+- `tools/preflight-image.sh` 的期望 md5 已同步更新；出厂原件备份在 `e902/backup/scp.fex.factory-20260925`。
+
+## 全硬件盘点（noble 卡，2026-09-25）
+可用：CPU 双簇 cpufreq-dt、GPU（OCL/Vulkan/GLES 库齐）、DE+HDMI、VE/libcedarc、ISP 驱动模块
+（未启用）、WiFi aic8800、蓝牙 hci0（rfkill 解锁后 UP，UART 总线）、G2D（modprobe g2d_sunxi →
+/dev/g2d）、3×PWM、status_led、gpiochip、TRNG、LRADC（input sunxi-keyboard）、7×i2c、ttyS0/1、
+音频 HDMI、zram 交换。
+不可用/缺件：RTC（硬件缺失）、NPU（缺 libVIPlite，厂商公开包只有 VIPhal/NBGlinker）、
+无 eMMC（这颗板）、无网口、E902 收 GIC 中断（等 GINTC 闭环）。
+
+## T38 追记（2026-09-25 深夜）
+- `pin-2000000 "unknown pin"` ×4：uart0/uart5 pinmux 节点 `pins = "", ""`（厂商模板残留）。
+  补丁 0017 删掉四行空引脚（节点保留，uart0 沿用 boot0 配好的 mux，uart5 未用）。
+- `ccu_ddr "failed to find dram_clk"`：ccu-ddr.c 读 /dram 节点 dram_para[00]，本板没有 →
+  驱动惰性 -ENODEV。**判定为设计意图**：DRAM 调频归 SCP（dramlib），激活 Linux 侧会造成
+  双主管，不修。
+- rtla osnoise top：strace 定位未完成（板子交付离线），定性维持 T38 原结论。
+- 交板前快照：e902/backup/CARD-RUNTIME-STATE-20260925.md（含新镜像内含项与按卡手配项清单）。
+
+## T38 追记 2（2026-09-26）：twi12 超时定性 + rtla strace 铁证 + 交板归档
+- `twi-251C000 9th SCL timeout`：twi12 上挂的 **goodix,gt9271 触摸屏**（0x14，PK22/23）——
+  Zero 3W 没有面板，又一处 A733 模板幻影设备。补丁 0018 禁用（`status = "disabled"`）。
+- rtla osnoise top 挂死 strace 铁证：反复 openat `/proc/sys/fs/pipe-max-size`（fd 持续增长
+  = 循环建管道），随后停在 tracing_on 上直到 SIGTERM —— rtla 前端与厂商内核的管道交互
+  bug，永不到达采样阶段。结论不变：用 timerlat。
+- 交板归档（e902/backup/card-20260925/）：orangepiEnv.txt（RT 参数）、GPADC blacklist、
+  login.pam（无 pam_lastlog ✓）、dmesg-final.txt（axp515/hym8563 0 条 ✓）、final-check.txt。
+- 最终镜像 = 0016+0017+0018，开机 ERR 级应只剩 pinctrl "unknown pin"（0017 修）之前的
+  良性杂音；poweroff 后板子重启过一次（/tmp 清空），DTB 修复跨断电保持。
+
+## T38 终记（2026-09-26 15:02）：闭环
+- 卡上 DTB = 终版（cmp 确认），开机实测：TARGETED 错误（axp515/hym8563/irq-chip/9th SCL/
+  unknown pin/missing pins）**0 条**，failed 服务 **0 个**。
+- err 级总量 128 条全部为厂商驱动探测期噪音（mmc-4022000 ×36、sunxi-ufs ×33、sound-mach ×25、
+  host_regs ×10、mmc-4021000 ×9 等），出厂镜像同样存在，不处理。
+- 最终交接镜像：Orangepizero3w_1.0.2_ubuntu_noble_minimal_linux6.6.98.img（0016+0017v2+0018）。
+- 交板归档完成：e902/backup/card-20260925/ + CARD-RUNTIME-STATE-20260925.md。
+
+## T38 追记 3（2026-09-26）：NPU 翻案 —— 可用，无需 libVIPlite
+- 之前"NPU 缺 libVIPlite 不可用"的结论**错误**。检查 npu 包演示二进制的 NEEDED：
+  yolov5/vpm_run 只依赖 libNBGlinker + libVIPhal（+OpenCV），推理链就是
+  NBGlinker（加载 .nb）→ VIPhal → vipcore（内核），libVIPlite 只属于旧 vip_lite
+  API/模型编译侧。
+- 板上实测 `cd /opt/vpm_run && ./vpm_run -s sample.txt -b 1`：加载 224×224×3 网络，
+  **inference time=2890us, cycle=2444411，ret=0** —— NPU 硬件与运行时全通。
+- yolov5 演示按 T736 编译（异常路径里的 build 路径可见），在 A733 上崩在
+  OpenCV resize（参数解析不合），且需 OpenCV 4.5 soname——镜像配方已补
+  libopencv_{core,imgproc,imgcodecs}.so.4.5 → .407 软链（4.x ABI 兼容）。
+- 遗留（演示级，非 NPU 级）：yolov5 演示的参数/尺寸处理不适配，要用 yolov5.nb
+  得自己写调用 NBGlinker 的小程序（头文件在 npu/usr/include）。
+- 20 轮基准：sample 网 224×224×3，avg inference **2903 µs**（2875–2934，±1%），2.44M cycles/次。
+
+## T38 终记补(2026-09-26):rtla 使用矩阵(实测钉死)
+| 工具/用法 | 可靠性 |
+|---|---|
+| cyclictest | ✅ 永远可用;隔离 cpu5 实测 Avg 7 / Max 15 µs(1kHz) |
+| hwlatdetect | ✅ 可用 |
+| tracefs 裸用(echo osnoise > current_tracer + cat trace) | ✅ 可用 |
+| rtla osnoise top(不带 -q) | ⚠️ 时好时坏 —— 成功过一次(打出完整统计表),新开机也可能 ppoll 挂死 |
+| rtla timerlat top | ⚠️ 同样抖动;osnoise 开着时会 EBUSY(双向互斥),失败的运行会把 tracer 留在开启态 |
+| rtla 任意命令带 -q | ❌ 静默路径在无初始数据时阻塞 ppoll,必挂 |
+| rtla 失败/被杀之后 | 同次开机内后续 tracing 不可靠,重启恢复 |
+结论:延迟测量以 **cyclictest(主)+ hwlatdetect + tracefs 裸用** 为准;rtla 属 best-effort。
+
+## T38 追记 4（2026-09-26）：电源回归结论（休眠/poweroff/关机键）
+- **关机键已确认**：板上 PWRON 测试点短接 GND = 电源键。行为实测：短按产生 KEY_POWER
+  事件（axp8191-pek）、长按 ~6s 强制关机（用户短接过长，板子应声下电，重上电正常）。
+  三个焊盘 = BOOT（勿动）/ PWRON / GND。
+- **poweroff/冷启动回归**：✅ 当日多次冷启动（插拔电源）均正常恢复，无坏卡。
+- **休眠（mem_sleep=deep）**：进入成功；**唤醒不可用** —— WoWLAN magic-packet（驱动支持、
+  已 enable）实测唤不醒；PWRON 键唤醒未完成验证（用户定位焊盘时触发过长按关机）。
+  连续第二次休眠尝试内核立即退出（"PM: suspend exit" + 服务 exit 1），需重启才能重试。
+  **结论：当前 BSP 休眠不可靠，工业用法不要使用 mem 挂起**；journal 易失、无 pstore，
+  崩溃现场取证需串口（本次串口捕获未生效，stty/cat 偶发失败，原因未查）。
+- 板子"每隔几分钟重启"为虚惊：是用户插拔电源的冷启动；15:01 开机实际稳定运行 1h07m。
+- 自发重启监视：watchdog 挂 30 分钟无再重启事件。
+
+## T38 追记 5（2026-09-26）：休眠修复攻坚 —— 未闭环，下一步已定义
+- 排除项：WiFi 的 sdc1 节点 **已有** keep-power-in-suspend/cap-sdio-irq/ignore-pm-notify
+  （DT 不缺电源保持）；WoWLAN 可 enable 但魔术包唤不醒 → 问题在驱动/固件层，非 DT。
+- 观测：第二次休眠尝试内核立即放弃（"PM: suspend exit"，无 entry，服务 exit 1）→
+  每次开机只有第一次休眠机会；首次进入 deep 后不醒。
+- 下一步诊断（板子可用时按序执行）：
+  1. `cat /sys/power/pm_test` —— 若存在（CONFIG_PM_DEBUG），依次 echo
+     freezer/devices/platform/processors/core 后 `echo mem`，找出失败层：
+     devices 层失败 → dmesg 点名驱动，可 DT 修复；core 层失败 → bl31/SCP 的
+     DRAM 自刷新路径，属厂商固件问题。
+  2. 若无 pm_test：重编内核开 CONFIG_PM_DEBUG（+CONFIG_PM_ADVANCED_DEBUG）再诊断。
+  3. 若定位到 core 层：对照 vendor arisc 源码的 suspend/DRAM self-refresh 路径
+     （dram_power_save_process 已在 dramlib），需固件级开发。
+- 结论：休眠唤醒是 bl31/SCP/驱动 层问题，Linux 用户态与 DT 均无法修复；
+  工业用法以 poweroff 替代 mem。
+
+## T38 追记 6（2026-09-26）：GINTC 固件代码就绪，等板闭环
+- 从手册 12.1 章抽出的完整表（修正解析后 64 行）证实**输入号 = GIC id**：
+  input 15=SGI15、16-31=PPI0-15、32=CPUX_MBOX_R、34-40=UART0-6、43-55=TWI0-12、
+  56-59=SPI0-3、67/68=PWM0/1、69=LRADC、70=GPADC、71=THS、80=VE_ENC，
+  每个输入 N 的配置寄存器在 0x07090000+4N —— E902 可路由的中断远超之前
+  认知的 54-77 一段，vendor 固件只是从不用。
+- e902-fw 新增 src/gintc.c（'G' 键 = 对 input 70/GPADC 做 24 值配置扫描，
+  0.3 s 窗口计数，mailbox 保持轮询；'g' 键关闭）。fw-scp-padded.bin 已编出
+  （sha256 2c782dbd…，105912 B，槽位兼容）。
+- 上板验证手册：e902/tests/board/GINTC-TEST.md（flash → capture → modprobe
+  sunxi_gpadc → 按 G → 判读；全流程 ~5 分钟，回滚成熟）。
+- pm_test 诊断：CONFIG_PM_DEBUG=y 已在 a733 配置，/sys/power/pm_test 无需重编
+  内核即可用 —— 休眠分层诊断随时可执行。
+
+## T38 追记 7（2026-09-26）：休眠分层定位 —— devices 阶段硬挂死
+- pm_test 阶梯实测：freezer 层通过（entry deep → 5 s → exit 干净）；devices 层
+  `echo mem` 后**整机硬挂死**（ssh 失联、ping 无响应）—— 与真实休眠不唤醒吻合。
+- 定位工具链：cmdline loglevel=1 吞掉了挂死前的驱动打印 → 复现时先 `dmesg -n 7`
+  再串口录像，即可看到最后一个被调用的 suspend 回调 = 元凶驱动。
+- 下一步：上电后带串口复现 devices 层 → 定位驱动 → DT 修复（0019）。
+
+## T38 追记 7（2026-09-26 晚）：板外完成的四项（等板验证）
+1. **rtla 挂死根因破解（纯源码分析）**：libtracefs 1.8 的 trace_pipe_raw 读取用
+   子缓冲批量路径，阻塞回退走 `ring_buffer_poll_wait(..., buffer_percent)`——
+   唤醒条件是**缓冲区填充 ≥ buffer_percent（默认 50%）**。安静系统上 osnoise
+   事件稀疏永远到不了 50% → select() 挂几分钟 → "挂死"。开机后噪音多很快达标
+   → 偶尔成功。补丁 `userpatches/kernel/sun60iw2-current/0019-rtla-poll-on-
+   every-commit.patch`：rtla 建 instance 后写 buffer_percent=0（每次提交即唤醒）。
+   下次内核构建生效；临时 workaround = 对 rtla 的 instance 目录手工写 0。
+2. **GINTC 固件 v2**：gintc.c 重构为多输入计数矩阵（ISR 读 mcause 分流），
+   新键 U（UART0 RX=34 边沿，ttyS0 打字计数）、L（LRADC=69 边沿）、I（计数报告）、
+   g（全关）。fw-scp-padded.bin 已编出（13912 B 内核 + pad，sha 见 GINTC-TEST.md）。
+3. **npurun**：npu-run/npurun.c + 交叉编译好的 aarch64 二进制——纯 C 的 vip_lite
+   API 调用器（无 OpenCV），跑任意 .nb 并报耗时；yolov5.nb 可直接喂。
+4. **suspend-diagnose.sh**：pm_test 分层 + 串口录像 + loglevel 控制的一键诊断
+   （freezer/devices/platform/processors/core 阶梯，挂死层自动取证串口尾部）。
+   注意 CONFIG_PM_DEBUG 已在配置中，无需重编内核。
+
+## T38 追记 8（2026-09-26）：USB Device/BULK —— 无需新驱动,FunctionFS 方案就绪
+- 内核配置已全：CONFIG_USB_F_FS=y + CONFIGFS_F_FS=y + CONFIGFS/ACM/NCM/UVC/
+  MASS_STORAGE/ADB;DT usbc0 已是 usb_port_type=2(双角色)+ VBUS 检测。
+- 角色切换现成接口:`echo usb_device|usb_host > .../10.usbc0/otg_role`
+  (adb_conf.sh 在用);Type-C 方向自动切换由 TCPM 处理。
+- 新增 usb-bulk/(FunctionFS BULK 方案):ffs-bulk.c + 交叉编译二进制 +
+  bulk-gadget.sh(configfs 建 gadget → 绑 UDC → 起守护)+ host/bulk-test.py
+  (pyusb 回环压测)。FFS 描述符按板上 6.6 ABI 写(magic=3,flags
+  FFS_HAS_FS_DESC|HS_DESC;主机 UAPI 头的 struct 布局不同,已自定义结构绕开)。
+- 注意:OTG 口是 USB2 高速,实测回环预期 ~30-40 MB/s;USB3 Type-C 是纯 HOST。
+- libusb 定位澄清:libusb 是 PC 侧的库;板端 device 模式标准功能(ACM/NCM/
+  UVC/MSD)零代码,自定义协议用 FunctionFS(板端 read/write 端点文件)。
+
+## T38 追记 9（2026-09-28）：GINTC 实验矩阵 + Vulkan 定性 + 交付态恢复
+- **GINTC 使能序列未破解**。已系统排除：per-input cfg 24 值平扫（input 70/121）、
+  组寄存器 REG1/REG2/REG3 位操作、组线假设（input 72/73 = riscv_sys_irq_i）——
+  全部零命中，测试源真实在跑（GPADC 风暴/TIMER0 ~70/s）。寄存器模型已确认：
+  输入号=GIC id、组寄存器=转发使能位（1=forward）、组线=input 72/73。
+  疑点：缺全局使能/触发类型/轮询周期等未文档化步骤。固件扫描框架（gintc.c v5）
+  与手册解析已就绪，后续可继续（备选：反汇编 uboot/bl31 找 GINTC 写序列；
+  对比 vendor 固件启动前后的 0x07090000 区转储）。
+- 板子已恢复交付态：vendor 固件（sha 302deda8）+ 终版镜像。
+- **Vulkan 定性**：驱动正常（vulkaninfo 枚举 BXM-4-64 MC1、1.3.277、conformance
+  1.3.8.1、ICD 正常）；"不工作"= 无显示环境（DISPLAY/XDG_RUNTIME_DIR 缺失 +
+  Xvfb 下 present 队列选不出）—— present 需要 vendor X 栈（桌面镜像方案）。
+  计算路线用 OpenCL（已验证）或 headless surface（扩展存在）。
+- npurun 调试记录：SIZES_OF_DIMENSION 的 value 参数 = 调用者预分配数组
+  （传 &ptr 会被驱动写数组内容导致段错误）。
+
+## T38 追记 10（2026-09-28）：Vulkan compute 实测通过
+- 最小 compute 冒烟测试（vkcomp: SPIR-V 着色器分派 256 线程写 42.0）在板上
+  **端到端跑通**：instance/device/queue family 0/存储缓冲/描述符/管线/分派/
+  结果校验全链路 OK（bad=0），PVR 电源状态正常轮转。测试程序与 SPIR-V 在
+  /tmp/vktest（交叉编译：aarch64 gcc + 主机 vulkan 头 + 镜像内 libvulkan.so.1，
+  链接用 -l:libvulkan.so.1）。
+- 结论修正：**Vulkan compute 可用**；不可用的是 (a) 无显示环境时的 WSI 程序
+  （vkcube 报 DISPLAY/XDG_RUNTIME_DIR/present-queue 错误，Xvfb 也不够——present
+  需要厂商 X 栈+DRM），(b) -D 时长停止等 rtla 式周边问题。
+- 与 hwapi 对照：GPU dev headers 未装（CL/EGL/GLES/vulkan 头文件）——开发时
+  需在板上补 vulkan 头或用交叉编译（本次即交叉编译方案）。

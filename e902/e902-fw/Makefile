@@ -38,7 +38,7 @@ LDFLAGS = $(ARCH_FLAGS) -nostdlib -nostartfiles -static -no-pie \
 
 SRCS = src/start.S src/soc.c src/pinmux.c src/uart.c src/timer.c src/msgbox.c \
        src/clic.c src/spi.c src/heartbeat.c src/wdt.c src/clocks.c src/ts_test.c \
-       src/power.c src/main.c
+       src/power.c src/gintc.c src/main.c
 OBJS = $(addprefix build/,$(addsuffix .o,$(basename $(notdir $(SRCS)))))
 
 TARGET = build/fw

@@ -377,6 +377,25 @@ static void handle_key(int c)
 	case 'B':
 		run_bench();
 		break;
+	case 'G':
+		/* GINTC routing sweep: input 70 (GPADC). Needs
+		 * 'modprobe sunxi_gpadc' on the host for a live storm. */
+		gintc_sweep();
+		break;
+	case 'g':
+		gintc_off();
+		break;
+	case 'U':
+		/* UART0 RX (input 34) routing test, edge-triggered */
+		gintc_uart_toggle();
+		break;
+	case 'L':
+		/* LRADC (input 69) routing test, edge-triggered */
+		gintc_lradc_toggle();
+		break;
+	case 'I':
+		gintc_report();
+		break;
 	case 'X': {
 		/* CPUX SPI3 on the 40-pin header (24 CS0, 23 CLK, 19 MOSI,
 		 * 21 MISO), driven cross-domain; jumper 19<->21 to loop back */
