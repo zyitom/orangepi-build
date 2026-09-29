@@ -29,6 +29,11 @@ toolchains
 !/userpatches/customize-image.sh
 !/userpatches/kernel/
 !/userpatches/kernel/**/*.patch
+# files customize-image.sh copies into the image (rtla built from kernel tools)
+!/userpatches/overlay/
+# Tina/Buildroot port: our buildroot tree patches and package patches
+!/tina-zero3w/buildroot-patches/*.patch
+!/tina-zero3w/br2-external/global-patches/**/*.patch
 
 mkimage.sh
 
@@ -72,3 +77,5 @@ external/packages/bsp/overlays_cix/opt/make_bios_image/bios_flash/bios*.bin
 /doc/
 /.ignore_changes
 __pycache__/
+# per-machine private settings (WiFi credentials, host sudo password)
+/tina-zero3w/local.env

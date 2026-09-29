@@ -1,0 +1,23 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] rogue: log every failing bridge dispatch (mod/func/err)
+
+BridgedDispatchKM 的失败路径只有编译期关闭的 PVR_DPF。Vulkan ICD 排查
+需要知道具体哪个 bridge（模块 ID + 函数 ID）返回了什么错误码——改为
+无条件 PVR_LOG（仅失败时，量可控）。
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c | 6 +++---
+--- a/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c
++++ b/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c
+@@ -1525,7 +1525,9 @@
+ return_error:
+ 	if (err)
+ 	{
+-		PVR_DPF((PVR_DBG_ERROR, "%s: returning (err = %d)", __func__, err));
++		PVR_LOG(("%s: bridge fail mod=%d func=%d err=%d",
++		         __func__, psBridgePackageKM->ui32BridgeID,
++		         psBridgePackageKM->ui32FunctionID, err));
+ 	}
+ 	/* ignore transport layer bridge to avoid HTB flooding */
+ 	if (psBridgePackageKM->ui32BridgeID != PVRSRV_BRIDGE_PVRTL)

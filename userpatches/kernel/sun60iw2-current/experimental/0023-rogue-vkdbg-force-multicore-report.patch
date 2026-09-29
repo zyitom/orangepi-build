@@ -1,0 +1,43 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] rogue: VKDBG force 4-core multicore report (experiment)
+
+ICD 判决实验：ioctl shim 解码显示 Connect（BVNC 正确）与 GetMultiCoreInfo
+（NumCores=1, eError=OK）全部成功后 ICD 仍 Disconnect。BXM-4-64 为 4 核
+GPU，ICD 支持表疑似要求多核拓扑——强制 NumCores=4 + 合成 caps（核 0 用
+HW 读数，1-3 用 COMPUTE 合成），验证 ICD 是否因此放行。仅诊断用。
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/devices/rogue/rgxmulticore.c | 22 ++++++++++++++--
+--- a/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/devices/rogue/rgxmulticore.c
++++ b/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/devices/rogue/rgxmulticore.c
+@@ -200,6 +200,9 @@
+ #endif
+ 		{
+ 			ui32NumCores = OSReadHWReg32(psDevInfo->pvRegsBaseKM, RGX_CR_MULTICORE_SYSTEM);
++			/* VK-DBG: 实验性——HW 读到 %u 核，强制按 BXM-4-64 的 4 核上报 */
++			PVR_LOG(("VKDBG: MULTICORE_SYSTEM reg=%u", ui32NumCores));
++			ui32NumCores = 4;
+ 		}
+ #if !defined(NO_HARDWARE)
+ 		/* check that the number of cores reported is in-bounds */
+@@ -254,8 +257,17 @@
+ 					ui32MulticoreRegOffset = RGX_CR_MULTICORE_GPU;
+ 				}
+ 
+-				psDevInfo->pui64MultiCoreCapabilities[i] =
+-							OSReadHWReg64(pvCoreRegBase, ui32MulticoreRegOffset) & RGX_CR_MULTICORE_GPU_MASKFULL;
++				if (i == 0)
++				{
++					psDevInfo->pui64MultiCoreCapabilities[i] =
++						OSReadHWReg64(pvCoreRegBase, ui32MulticoreRegOffset) & RGX_CR_MULTICORE_GPU_MASKFULL;
++					PVR_LOG(("VKDBG: caps[0]=0x%llx", (unsigned long long)psDevInfo->pui64MultiCoreCapabilities[0]));
++				}
++				else
++				{
++					psDevInfo->pui64MultiCoreCapabilities[i] =
++						(i | RGX_MULTICORE_CAPABILITY_COMPUTE_EN);
++				}
+ 
+ 				if (!bMulticoreRegsMapped)
+ 				{

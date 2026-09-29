@@ -1,0 +1,116 @@
+From: zyi
+Subject: [PATCH] arm64: dts: zero3w disable phantom devices and empty pinmux nodes
+
+The Zero 3W board dts is derived from a generic A733 template. Four things
+in it match nothing on this board and cost an error line (or a probe
+timeout) every boot. Merged from the former 0016-0018 (2026-09-25/26).
+
+1. PMU@34 (AXP515) and hym8563 RTC: i2c-13 scan shows only the AXP8191
+   PMU at 0x36 (the "AXP515 found" at 0x34 is a boot-time bus glitch; the
+   device never ACKs again and its irq-chip probe fails with -22 every
+   boot), and i2c-15 scans empty so the hym8563 never init-ed. Disabled.
+   See e902/doc/e902/MCU-FEATURES-AND-CONFIG.md and the hwapi notes.
+
+2. uart0/uart5 pinmux: the template leaves both pin groups as
+   pins = "", ""; pinctrl-sunxi logs four "unknown pin" errors per boot
+   while parsing them. With the pins lines simply removed it instead logs
+   "missing pins property". The console uart0 mux comes from boot0 (no pin
+   is claimed via pinctrl) and uart5 is disabled, so both node definitions
+   and their pinctrl references are dropped entirely.
+
+3. goodix,gt9271 touch panel on twi12 (address 0x14, PK22/23 IRQ): there
+   is no panel, the probe times out ("9th SCL clk") once per boot.
+   Disabled; re-enable if a panel is fitted.
+
+---
+--- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts
+@@ -534,18 +534,6 @@
+ 	//"", "", "", "",
+ 	//"", "", "", "";
+ 
+-	uart0_pins_active: uart0_pins@0 {
+-		pins = "", "";
+-		function = "uart0";
+-		drive-strength = <10>;
+-	};
+-
+-	uart0_pins_sleep: uart0_pins@1 {
+-		pins = "", "";
+-		function = "gpio_in";
+-		drive-strength = <10>;
+-	};
+-
+ 	uart1_pins_active: uart1_pins@0 {
+ 		pins = "PG6", "PG7", "PG8", "PG9";
+ 		function = "uart1";
+@@ -582,18 +570,6 @@
+ 		drive-strength = <10>;
+ 	};
+ 
+-	uart5_pins_active: uart5_pins@0 {
+-		pins = "", "";
+-		function = "uart5";
+-		drive-strength = <10>;
+-	};
+-
+-	uart5_pins_sleep: uart5_pins@1 {
+-		pins = "", "";
+-		function = "io_disabled";
+-		drive-strength = <10>;
+-	};
+-
+ 	uart6_pins_active: uart6_pins@0 {
+ 		pins = "PE0", "PE1";
+ 		function = "uart6";
+@@ -1334,9 +1310,6 @@
+ };
+ 
+ &uart0 {
+-	pinctrl-names = "default", "sleep";
+-	pinctrl-0 = <&uart0_pins_active>;
+-	pinctrl-1 = <&uart0_pins_sleep>;
+ 	status = "okay";
+ };
+ 
+@@ -1376,9 +1349,6 @@
+ };
+ 
+ &uart5 {
+-	pinctrl-names = "default", "sleep";
+-	pinctrl-0 = <&uart5_pins_active>;
+-	pinctrl-1 = <&uart5_pins_sleep>;
+ 	status = "disabled";
+ };
+ 
+@@ -1887,6 +1857,9 @@
+ 		touchscreen-swapped-x-y;
+ 		touchscreen-size-x = <1280>;
+ 		touchscreen-size-y = <800>;
++		/* phantom: no gt9271 panel on Zero 3W; probe times out on twi12
++		 * (9th SCL) once per boot. Re-enable if a panel is ever fitted. */
++		status = "disabled";
+ 	};
+ };
+ 
+@@ -1957,7 +1930,10 @@
+ 	pmu1: pmu@34 {
+ 		compatible = "x-powers,axp515";
+ 		reg = <0x34>;
+-		status = "okay";
++		/* phantom: no second PMIC on Zero 3W; a boot-time I2C glitch made
++		 * the axp2101 driver misread a ghost device at 0x34 and its irq
++		 * chip probe fail every boot. The real PMU is the AXP8191 at 0x36. */
++		status = "disabled";
+ 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+ 		interrupt-parent = <&nmi_intc>;
+ 		x-powers,drive-vbus-en;
+@@ -2674,7 +2650,7 @@
+  		clock-output-names = "xin32k";
+  		//interrupt-parent = <&pio>;
+  		//interrupts = <PD 6 IRQ_TYPE_NONE>;
+-		status = "okay";
++		status = "disabled";
+  	};
+ 
+ 	ac101: ac101@1a {

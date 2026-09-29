@@ -1,0 +1,28 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] rogue: log GetMultiCoreInfo bridge failures with hook state
+
+0020 已确认 RGXInitMultiCoreInfo 成功（dmesg 无错误），但用户态 ICD 的
+GetMultiCoreInfo bridge 仍失败（bridge ioctl 返回 0 而 out.eError 非 OK，
+strace 证实）。在 PVRSRVGetMultiCoreInfoKM 里把两件事记到 dmesg：
+钩子是否为 NULL、非 OK 时的具体错误码和 capsSize——ICD 一调用即出判决。
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c | 9 ++++++++-
+--- a/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c
++++ b/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/srvcore.c
+@@ -1047,6 +1047,14 @@
+ 	{
+ 		eError = psDeviceNode->pfnGetMultiCoreInfo(psDeviceNode, ui32CapsSize, pui32NumCores, pui64Caps);
+ 	}
++	else
++	{
++		PVR_LOG(("GetMultiCoreInfo: pfn hook is NULL (capsSize=%u)", ui32CapsSize));
++	}
++	if (eError != PVRSRV_OK)
++	{
++		PVR_LOG(("GetMultiCoreInfo: returning error %d (capsSize=%u)", eError, ui32CapsSize));
++	}
+ 	return eError;
+ }
+ 

@@ -1,0 +1,35 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] rogue: log RGXInitMultiCoreInfo failure
+
+pvrsrv.c 调用 RGXInitMultiCoreInfo() 时没有检查返回值：初始化中途失败
+（寄存器组映射失败、caps 读取出错等）会静默把 pfnGetMultiCoreInfo 留空
+（RGXDeInitMultiCoreInfo 清钩子），之后用户态的
+PVRSRV_BRIDGE_SRVCLIENT_GETMULTICOREINFO bridge 一律返回
+PVRSRV_ERROR_NOT_SUPPORTED —— PowerVR Vulkan ICD（libVK_IMG）枚举设备时
+正依赖这个 bridge，拿到 0 设备就以 VK_ERROR_INCOMPATIBLE_DRIVER 退出，
+且 dmesg 没有任何线索。
+
+把返回值记录到 dmesg（PVR_LOG_IF_ERROR），让"钩子为什么是 NULL"在
+开机日志里可见。
+
+诊断背景：A733 (BXM-4-64, BVNC 36.56.104.183) 上 vendor libVK_IMG 的
+vkCreateInstance 返回 VK_ERROR_INCOMPATIBLE_DRIVER，LD_DEBUG=bindings
+显示 ICD 走完 services 连接（固件已加载）后在 PVRSRVGetMultiCoreInfo
+处直接 PVRSRVDisconnect。
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/pvrsrv.c | 4 +++-
+--- a/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/pvrsrv.c
++++ b/bsp/modules/gpu/img-bxm/linux/rogue_km/services/server/common/pvrsrv.c
+@@ -2746,7 +2746,9 @@
+ #if defined(SUPPORT_RGX)
+ 	if (bInitSuccessful && (eError == PVRSRV_OK))
+ 	{
+-		RGXInitMultiCoreInfo(psDeviceNode);
++		eError = RGXInitMultiCoreInfo(psDeviceNode);
++		PVR_LOG_IF_ERROR(eError, "RGXInitMultiCoreInfo");
++		eError = PVRSRV_OK;
+ 
+ 		if (!PVRSRV_VZ_MODE_IS(GUEST, DEVNODE, psDeviceNode))
+ 		{

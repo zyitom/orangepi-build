@@ -1,0 +1,29 @@
+From: zyi
+Subject: [PATCH] rtla: poll on every commit, not at 50% buffer full
+
+With the default buffer_percent (50), the tracer poll only wakes when
+half the ring buffer is full. On a quiet system osnoise events trickle
+in and never reach that, so rtla blocks in select() for minutes and
+looks hung (this also explains the flaky osnoise/timerlat results on
+the A733, see e902/doc/e902/FINDINGS-LEDGER.md T38). Poll on every
+commit instead: zero cost here, rtla reads once per second anyway.
+
+---
+--- a/tools/tracing/rtla/src/trace.c
++++ b/tools/tracing/rtla/src/trace.c
+@@ -171,6 +171,15 @@
+ 	if (!trace->inst)
+ 		goto out_err;
+ 
++	/*
++	 * The default buffer_percent (50) makes the tracer's poll wait
++	 * until half the ring buffer is full before waking readers. On a
++	 * quiet system osnoise events never reach that level, so rtla
++	 * blocks in select() for minutes and looks hung. Poll on every
++	 * commit instead.
++	 */
++	tracefs_instance_file_write(trace->inst, "buffer_percent", "0");
++
+ 	trace->tep = tracefs_local_events(NULL);
+ 	if (!trace->tep)
+ 		goto out_err;

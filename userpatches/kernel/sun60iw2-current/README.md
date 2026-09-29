@@ -8,7 +8,11 @@ is wiped. Never edit the tree in place -- add a patch here.
 Base: gitee/github orangepi-xunlong `orange-pi-6.6-sun60iw2` @ `2ac08e8c7`
 (aiot v1.5.0 merge + uart8/pcie dts fix). Verified 2026-09-24: 0000–0015 apply
 with no reject; the only fuzz is 0006 hunk 1 (a comment block after the
-MAX_IN_* defines, placement checked).
+MAX_IN_* defines, placement checked). Re-verified 2026-09-29 with the full
+series (0000–0019, `patch -p1 -N` as the build does): no reject. Compared
+file by file with the vendor kernel worktree and ~/rt-kernel-test, the only
+differences are the experimental/ diffs and 0019 (not yet in a built image),
+so no kernel change lives outside this directory.
 
 | file | what |
 |---|---|
@@ -16,6 +20,29 @@ MAX_IN_* defines, placement checked).
 | 0001–0013 | AR0234 sensor + vin fixes (table below) |
 | 0014-misc-add-amp-timestamp-driver.patch | E902/ARM shared 24 MHz timestamp driver + dtsi node (e902/linux) |
 | 0015-bsp-fix-lradc-rpmsg-trng-build-on-6.6.patch | 6.6 API fixes; the config enables AW_LRADC/AW_TRNG, which do not build without it |
+| 0016-dts-zero3w-disable-phantom-devices-and-empty-pinmux.patch | board DTS cleanup: phantom AXP515@34, hym8563, gt9271, empty uart0/uart5 pinmux (one error line per boot each) |
+| 0019-rtla-poll-on-every-commit.patch | tools/tracing/rtla: `buffer_percent=0`, fixes the osnoise/timerlat "hang" (e902/doc/e902/FINDINGS-LEDGER.md T38) |
+| experimental/ | NOT applied by the build (see below) |
+
+Numbering gaps are deliberate, so older notes still resolve: 0002/0004 were
+config patches (now in the config override, see "AR0234 series"), 0017/0018
+were merged into 0016 on 2026-09-29, 0020–0023 moved to experimental/.
+
+## experimental/ — not applied
+
+`advanced_patch` (scripts/compilation.sh) only picks up `*.patch` directly in
+this directory (plus `target_*/board_*/branch_*` subdirectories), so files in
+`experimental/` are kept for reference and never reach a build. They are from
+the 2026-09-27 Vulkan investigation (tina-zero3w/docs/VULKAN-HANDOFF.md),
+which ended with "the vendor Vulkan ICD rejects the device on this kernel
+stack"; none of them changes that. Apply by hand, in order, on top of the
+series if the investigation is ever resumed.
+
+| file | what |
+|---|---|
+| 0020–0022 | rogue: log RGXInitMultiCoreInfo / GetMultiCoreInfo / every failing bridge dispatch |
+| 0023 | rogue: force a 4-core multicore report — **diagnostic only, wrong on real hardware** |
+| prime-import-radxa-fex.patch | DRM PRIME import from the Radxa a733-powervr-fex stack (buffer sharing only) |
 
 Previously these last two existed only as direct edits (0015 in the vendor
 tree, 0014 in ~/rt-kernel-test); 0013 was rebased on 2026-09-24 because on the
