@@ -26,6 +26,12 @@ bash e902/tools/flash-scp.sh                 # 写进板子 SD 卡并重启（�
 | `0001-build-fix-for-gcc-14.patch` | 厂商按 2020 年的 GCC 写的；GCC 14 下需要 `-Wno-error=deprecated -fcommon`。另外 `rv32emc` 须写成 `rv32emc_zicsr_zifencei`，这一项由 `build.sh` 通过 `MARCH_FLAGS` 传入 |
 | `0002-timer-extended-clock-from-SYS_CLK24M.patch` | 厂商把 S_TIMER 的时钟源设成 mux 0（DCXO），并假设它是 24 MHz。**本板 DCXO 是 26 MHz**（原理图 Y1、datasheet 5.8.1、XO_CTRL 实测），不改的话所有毫秒定时都会快 8.3%。改成 mux 4 = SYS_CLK24M（手册 V1.00 4.2.5.4），字段宽度也从 2 位改成 3 位 |
 | `0003-add-orangepi-zero3w-defconfig.patch` | 在 `sun60iw2p1_defconfig` 基础上去掉 `AXP517`，和出厂 `scp.fex` 的配置对齐（出厂镜像里只有 AXP8191/AXP515 的字符串，没有 AXP517） |
+| `0004-dram-para-zero-fallback.patch` | deep 休眠修复（2026-09-30，待上板验证）：本板启动链没给 SCP 的 FDT 填 `/dram` 参数（boot0 报 "error: dtb not found for scp"，U-Boot 的 bootparam→FDT 修整发生在 SCP 解析之后），DRAM 库拿全零参数做 save 后整机假死。参数全零时改用内置表：sys_config 值 + boot0 运行时打印的 para1=0xa0fa/para2=0x10001001/tpr13=0x65（4 GiB LPDDR4）。根因链见 `tina-zero3w/docs/STATUS.md` 第六节 |
+
+调试版另有 `patches-debug/`（`build.sh --debug-uart`）：`0001` 打开 S_UART0 控制台
+（PL2/PL3，57600）；`0002-suspend-path-probes.patch` 在挂起/恢复路径打点
+（`dram save done` / `ppu on` / `dram up enter/done`），一次上电即可区分
+"DRAM 库内卡死 / 时钟阶段卡死 / 唤醒未送达"。
 
 ## 与出厂镜像的差别
 

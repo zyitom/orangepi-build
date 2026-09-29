@@ -1,0 +1,96 @@
+From: zyi
+Subject: [PATCH] arm64: dts: zero3w: standby_param node and DRAM parameters
+
+The E902 SCP parses two things from the FDT it is pointed at
+(RTC_DTB_BASE_STORE_REG -> 0x44000000 in our boot flow, the kernel DTB
+loaded there by boot.cmd):
+
+1. /standby_param (resolved through the aliases entry) -- power-domain
+   bitmaps for deep sleep and osc24m-on. Missing it makes the SCP warn
+   "WRN:no standby_param" and keep every rail on during deep sleep.
+   Add the node with osc24m-on = <1> (keep the 26 MHz DCXO running, the
+   firmware default) and deliberately NO rail bitmaps yet: zero bitmaps
+   mean "switch nothing off", the safe configuration while the wake-up
+   path is still being debugged. Rail-off values can be copied from the
+   A733 pro3 reference board.dts once deep suspend survives a cycle.
+
+2. /dram dram_para00..31 -- the DRAM parameter array the SCP's
+   dram_power_save_process/dram_power_up_process (libar100s.a) consume
+   for the self-refresh save/restore. Without them the whole array
+   parses to zero and the debug SCP console went silent right after
+   "the first time ddr standby" and the board never woke up. Values are
+   the sys_config.fex [dram_para] block for this board, with the three
+   fields boot0 adjusts at runtime taken from its own boot log
+   ("DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001,
+   dram_tpr13 = 65"): dram_para06 = 0xa0fa, dram_para07 = 0x10001001,
+   dram_para30 = 0x65.
+
+Array index -> struct field mapping is __dram_para_t in the arisc
+source (dram.h): 00 dram_clk, 01 dram_type, 02 dx_odt, 03 dx_dri,
+04 ca_dri, 05 para0, 06 para1, 07 para2, 08..21 mr*, 22..26 tpr0/1/2/3/6,
+27..31 tpr10/11/12/13/14.
+
+---
+--- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts	2026-09-30 01:32:27.600625708 +0800
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-zero3w.dts	2026-09-30 01:32:27.613626397 +0800
+@@ -11,6 +11,16 @@
+ 		arisc-config = &arisc_config;
+ 		pmu0 = &pmu0;
+ 		bat_supply = &bat_power_supply;
++		standby_param = &standby_param;
++	};
++
++	/*
++	 * Parsed by the E902 SCP (fdt_path_offset "standby_param") for the
++	 * deep-suspend power plan. No rail bitmaps yet: zero = switch nothing
++	 * off during deep sleep. osc24m-on=1 keeps the DCXO running.
++	 */
++	standby_param: standby_param {
++		osc24m-on = <1>;
+ 	};
+ 
+ 	reg_usb0_vbus: usb0-vbus {
+@@ -4087,3 +4097,43 @@
+ 	status = "okay";
+ };
+ 
++/*
++ * DRAM parameters for the SCP's DRAM save/restore (index -> field mapping is
++ * __dram_para_t in the arisc source dram.h). dram_para06/07/30 are the values
++ * boot0 used at runtime (4 GiB LPDDR4, boot log "para1 = a0fa, para2 =
++ * 10001001, dram_tpr13 = 65"), the rest come from sys_config.fex [dram_para].
++ */
++&dram {
++	dram_para00 = <1200>;
++	dram_para01 = <8>;
++	dram_para02 = <0x08080808>;
++	dram_para03 = <0x0e0e0e0e>;
++	dram_para04 = <0x88030e0e>;
++	dram_para05 = <0>;
++	dram_para06 = <0xa0fa>;
++	dram_para07 = <0x10001001>;
++	dram_para08 = <0>;
++	dram_para09 = <0x8c>;
++	dram_para10 = <0>;
++	dram_para11 = <0x33>;
++	dram_para12 = <0x3>;
++	dram_para13 = <0>;
++	dram_para14 = <0>;
++	dram_para15 = <0x4>;
++	dram_para16 = <0x72>;
++	dram_para17 = <0>;
++	dram_para18 = <0x9>;
++	dram_para19 = <0>;
++	dram_para20 = <0>;
++	dram_para21 = <0x24>;
++	dram_para22 = <0>;
++	dram_para23 = <0>;
++	dram_para24 = <0>;
++	dram_para25 = <0x110000>;
++	dram_para26 = <0x402a>;
++	dram_para27 = <0x121f0000>;
++	dram_para28 = <0>;
++	dram_para29 = <0>;
++	dram_para30 = <0x65>;
++	dram_para31 = <0>;
++};

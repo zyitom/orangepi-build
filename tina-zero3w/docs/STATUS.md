@@ -66,7 +66,45 @@ vkcomp compute 256/256 正确（连跑 3 次）；`ld.so --list libpvr_mesa_wsi.
 我们的 noble 镜像（装有 libxshmfence1）09-28 已在板上跑通 Vulkan compute。
 真实限制只有一条：上屏只能经支持 DRI3 的 X11（ICD 无 VK_KHR_display），无头计算不受影响。
 
-## 五、当前状态与待办
+## 五、2026-09-29/30 整机硬件检查（镜像 64/65）
+
+| 项 | 结果 |
+|---|---|
+| 全项检查脚本 `tests/hw-check.sh` | **18/18 通过**（Vulkan 枚举+compute、OpenCL mismatches=0、cyclictest/rtla、RTC、BT、USB roles 等）|
+| 内核补丁 0024–0029 | USB0 device 口、otg_role store 的 sysfs WARN、aic8800 休眠唤醒等待、GPADC 按需采样（cpu0 ~4 kHz 轮询中断风暴消失）、G2D 自动加载（MODULE_DEVICE_TABLE）、SoC RTC 启用（rtc0，掉电重启时间正确）|
+| A55 小核簇 | policy0 固定 performance（DVFS 期间的 I²C 中断风暴随之消失）|
+| WiFi | power_save off（reason=4 踢线；**30 分钟以上空闲观察未做**）|
+| 蓝牙 | hciattach_opi + aic-btaddr(0xFC70) 每板唯一地址；/var/lib/bluetooth 进 tmpfiles |
+| s2idle | 可被 RTC 闹钟唤醒（挂起 20 s 定时唤醒实测）|
+| 深睡眠（deep） | 见下节，根因已定位，修复待上板 |
+| Tina 构建缺陷 | 内核一直停在 9 月 25 日旧源码（buildroot 的 DL 缓存 tarball 未随补丁系列失效）；prepare-kernel.sh 改为内容寻址 hash 并删除旧缓存后重建 |
+
+## 六、深睡眠根因（2026-09-30，修复待上板验证）
+
+症状：deep 进入后，调试版 SCP（`vendor-scp-debug.bin`，57600 on ttyUSB1）打出
+`WRN:no standby_param` → `cpu off` → `the first time ddr standby` 后静音，
+RTC 闹钟到点也不醒，必须断电。
+
+根因链：
+1. SCP 的 FDT 来自 `RTC_DTB_BASE_STORE_REG`(0x0709010C) 指向的 0x44000000；
+2. 本板启动链没有厂商那种把 `dram_para` 合并进 FDT 的通道（boot0 报
+   `error: dtb not found for scp`，U-Boot 的 bootparam→FDT 修整发生在 SCP
+   解析之后），`/dram` 下 160 个参数全为 0（SCP 启动日志可见）；
+3. 闭源 dramlib（`dram_power_save_process`）带全零参数做 save，SCP 卡死在
+   init 序列中途（日志里连 `wait wakeup` 都没到），唤醒自然无从谈起。
+
+已做修复（待板验证）：
+- `e902/vendor-scp/patches/0004-dram-para-zero-fallback.patch`：参数全零时用内置表
+  （sys_config 值 + boot0 运行时打印的 para1=0xa0fa/para2=0x10001001/tpr13=0x65）；
+- `e902/vendor-scp/patches-debug/0002-suspend-path-probes.patch`：`dram save done` /
+  `ppu on` / `dram up enter/done` 探针，一次上电即可区分"库内卡死 / 时钟阶段卡死 /
+  唤醒未送达"；
+- `userpatches/kernel/sun60iw2-current/0030`：板级 DTS 补 `standby_param` 节点
+  （先不放电源位图，全零=休眠时不动任何路，保守）+ `dram_para00..31`；
+- 待办：上板读 bootparam（U-Boot `md 0x4A1FF400`）核对参数表、验证 deep 循环、
+  通过后再抄 pro3 的电源位图。
+
+## 七、当前状态与待办
 
 | 项 | 状态 |
 |---|---|
@@ -77,11 +115,12 @@ vkcomp compute 256/256 正确（连跑 3 次）；`ld.so --list libpvr_mesa_wsi.
 | 只读 rootfs | 未实施（同上，可选迭代）|
 | git | 已提交并推送：zyitom/orangepi-build 的 `zero3w` 分支（默认分支）|
 
-## 六、复现速查
+## 八、复现速查
 
 ```sh
 bash tina-zero3w/build-image.sh                 # 构建镜像
 bash tina-zero3w/flash-image.sh /dev/sdb        # 烧卡（备份+确认）
 bash tina-zero3w/test-board.sh                  # 板上验收采集
+BOARD=<IP> bash tina-zero3w/tests/hw-check.sh   # 整机 18 项检查
 BOARD=<IP> bash tina-zero3w/vulkan-debug.sh     # Vulkan 诊断三连
 ```

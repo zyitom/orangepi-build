@@ -1,0 +1,87 @@
+From: zyi
+Subject: [PATCH] dram: fall back to built-in zero3w DRAM parameters
+
+Our boot flow never populates the /dram node of the FDT the SCP reads
+(boot0 wants a dedicated "dtb" item in the boot package and errors out:
+"error: dtb not found for scp"; BL31 hands the SCP the U-Boot control
+dtb, which has no dram_paraXX either). Every dram_para00..159 parses to
+0, so dram_power_save_process ran with a null parameter set: the debug
+SCP console went silent right after "the first time ddr standby" and the
+board never came back (deep suspend hang of 09-29/30).
+
+Until the FDT carries real parameters (kernel patch 0030 adds them,
+and the bootparam channel could be fixed upstream-style), fill the
+array from a built-in table when the parse yields all zeros. Values:
+board sys_config.fex [dram_para] with dram_para1/2 and dram_tpr13
+corrected to boot0's runtime print for the 4 GiB LPDDR4
+("para1 = a0fa, para2 = 10001001, dram_tpr13 = 65").
+
+Index -> field mapping is __dram_para_t (include/driver/dram.h).
+
+--- a/ar100s/driver/dram/dram_dts_para_v2.c
++++ b/ar100s/driver/dram/dram_dts_para_v2.c
+@@ -48,6 +48,64 @@
+ 		printk("dram para[%d] 0x%x\n", i, dts_dram_para[i]);
+ 	}
+ 
++	/*
++	 * Zero-para fallback (Orange Pi Zero 3W): our boot flow leaves the
++	 * /dram node of the FDT the SCP reads without any dram_paraXX
++	 * properties, so the whole array parses to 0 and the DRAM
++	 * save/restore would run with a null parameter set (deep suspend
++	 * went silent right after "the first time ddr standby" and never
++	 * woke up). Fill in the parameters boot0 actually used instead:
++	 * base values from the board sys_config.fex [dram_para], with
++	 * dram_para1/2 and dram_tpr13 taken from boot0's runtime print
++	 * ("DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001,
++	 * dram_tpr13 = 65" for the fitted 4 GiB LPDDR4).
++	 */
++	{
++		static const uint32_t opi_dram_para[32] = {
++			1200,        /* dram_clk */
++			8,           /* dram_type: LPDDR4 */
++			0x08080808,  /* dram_dx_odt */
++			0x0e0e0e0e,  /* dram_dx_dri */
++			0x88030e0e,  /* dram_ca_dri */
++			0,           /* dram_para0 */
++			0xa0fa,      /* dram_para1 (boot0 runtime) */
++			0x10001001,  /* dram_para2 (boot0 runtime) */
++			0,           /* dram_mr0 */
++			0x8c,        /* dram_mr1 */
++			0,           /* dram_mr2 */
++			0x33,        /* dram_mr3 */
++			0x3,         /* dram_mr4 */
++			0,           /* dram_mr5 */
++			0,           /* dram_mr6 */
++			0x4,         /* dram_mr11 */
++			0x72,        /* dram_mr12 */
++			0,           /* dram_mr13 */
++			0x9,         /* dram_mr14 */
++			0,           /* dram_mr16 */
++			0,           /* dram_mr17 */
++			0x24,        /* dram_mr22 */
++			0,           /* dram_tpr0 */
++			0,           /* dram_tpr1 */
++			0,           /* dram_tpr2 */
++			0x110000,    /* dram_tpr3 */
++			0x402a,      /* dram_tpr6 */
++			0x121f0000,  /* dram_tpr10 */
++			0,           /* dram_tpr11 */
++			0,           /* dram_tpr12 */
++			0x65,        /* dram_tpr13 (boot0 runtime) */
++			0,           /* dram_tpr14 */
++		};
++		uint32_t any_nonzero = 0;
++
++		for (i = 0; i < 32; i++)
++			any_nonzero |= dts_dram_para[i];
++		if (!any_nonzero) {
++			WRN("dram para all zero -- using built-in zero3w values\n");
++			for (i = 0; i < 32; i++)
++				dts_dram_para[i] = opi_dram_para[i];
++		}
++	}
++
+ 	dram_para = &dts_dram_para[0];
+ 
+ 	return dram_para;

@@ -1,0 +1,41 @@
+From: zyi
+Subject: [PATCH] standby: log DRAM save/restore progress (debug)
+
+Deep suspend went silent after "the first time ddr standby" (printed
+from the closed-source dramlib) and the console is re-bauded a few steps
+later, so it was impossible to tell whether dram_power_save_process
+returned. Print after the save call and around the resume-path restore
+so the next run localises the hang:
+  - "dram save done"    : the lib returned; hang is later (clk/system)
+  - nothing             : hang inside dram_power_save_process
+  - "wakeup: N" already : wake source fired (RTC path)
+  - "ppu on"            : A55 power-up started after wake
+  - "dram up enter/done": DRAM restore ran
+
+Only builds into vendor-scp-debug (patches-debug/).
+
+--- a/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
++++ b/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
+@@ -431,11 +431,14 @@
+ 	}
+ 
+ 	dram_power_save_process((void *)(&dts_dram_para[0]));
++	LOG("dram save done\n");
+ }
+ 
+ static void dram_resume(void)
+ {
++	LOG("dram up enter\n");
+ 	dram_power_up_process((void *)(&dts_dram_para[0]));
++	LOG("dram up done\n");
+ 
+ 	/* calc dram checksum */
+ 	if (standby_dram_crc_enable()) {
+@@ -1377,6 +1380,7 @@
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0x5);
+ 
+ 	ppu_resume();
++	LOG("ppu on\n");
+ 
+ 	clk_resume();
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0x6);
