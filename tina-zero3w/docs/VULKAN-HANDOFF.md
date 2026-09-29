@@ -25,6 +25,9 @@ VK_ERROR_INITIALIZATION_FAILED(-3) → Vulkan loader 在没有任何 ICD 能建 
 板上实测（2026-09-29，镜像 #61，6.6.98-rt58 PREEMPT_RT）：`vkCreateInstance` → VkResult=0，枚举出
 PowerVR B-Series BXM-4-64 MC1（API 1.3.277，driver "PowerVR B-Series Vulkan Driver"）；
 vkcomp compute 256/256 正确（连跑 3 次）；`ld.so --list libpvr_mesa_wsi.so` 0 个 not found；dmesg 无 GPU 报错。
+原先报 -9 的全部组合重跑：root / orangepi（非 video 组）× API 1.0、1.3、1.3.277、1.3.280，
+8 组全部 VkResult=0；vulkaninfo 两个用户均退出码 0。**A/B 对照**：板上临时移走
+`/usr/lib/libxshmfence.so.1` → vktest 立即回到 **VkResult=-9**；放回 → 0、compute 256/256。
 
 ## 二、证据
 

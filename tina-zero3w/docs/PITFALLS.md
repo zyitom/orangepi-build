@@ -348,7 +348,8 @@ IOMMU、内存布局）——即"能跑 Vulkan 的 A733"需要整套 Radxa 式�
   libxshmfence1，09-28 板上 Vulkan compute 已跑通（e902 台账 T38 追记 10）。
 - **修复**：zero3w-gpu `Config.in` select `BR2_PACKAGE_XLIB_LIBXSHMFENCE`（及
   XORG7/LIBXCB/XLIB_LIBX11）；#61 镜像已含 libxshmfence。**板上通过**：VkResult=0、枚举 BXM-4-64 MC1、
-  vkcomp 256/256（`tests/vk-check.sh`）。Buildroot 没有 ldd，查依赖用 `/lib/ld-linux-aarch64.so.1 --list`。
+  vkcomp 256/256（`tests/vk-check.sh`）；root/非 root × API 1.0/1.3/1.3.277/1.3.280 全 0；
+  板上临时移走 libxshmfence.so.1 → 立即复现 -9，放回即好（因果在真机上确认）。Buildroot 没有 ldd，查依赖用 `/lib/ld-linux-aarch64.so.1 --list`。
 - **为什么以前没发现**：① 只查了 libVK_IMG 的 NEEDED，没查它 dlopen 的库；
   ② build-image.sh 的依赖扫描不看 `/usr/local/lib`（已补，并把 libpvr_mesa_wsi 加入扫描名单，
   用去掉 libxshmfence 的假 rootfs 验证过能报出来）；③ 从未用 `LD_DEBUG=libs` 或 strace
