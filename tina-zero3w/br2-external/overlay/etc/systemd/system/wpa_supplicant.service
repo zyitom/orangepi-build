@@ -1,0 +1,13 @@
+# 自带确定性 unit（buildroot 的 wpa_supplicant.service 在无 dbus 时不可靠）
+[Unit]
+Description=WPA supplicant for wlan0 (zero3w)
+Wants=network.target
+Before=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlan0
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

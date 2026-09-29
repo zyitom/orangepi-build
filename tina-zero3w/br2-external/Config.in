@@ -1,0 +1,10 @@
+menu "Zero 3W (A733) board support"
+
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-gpu/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-isp/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-ocl-icd/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-firmware/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-vulkaninfo/Config.in"
+source "$BR2_EXTERNAL_ZERO3W_PATH/package/zero3w-native-gcc/Config.in"
+
+endmenu

@@ -1,0 +1,12 @@
+config BR2_PACKAGE_ZERO3W_ISP
+	bool "zero3w-isp (libAWIspApi/libisp + libcedarc)"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	help
+	  Allwinner closed-source camera ISP and codec userland from the vendor
+	  debs (libAWIspApi 602, libcedarc 2.0.0): libAWIspApi.so, libisp.so,
+	  libisp_ini.so, AWISPdemo, the cedarc codec libs and /etc/cedarc.conf.
+	  Installed into /usr/lib (buildroot has no merged /usr).
+
+comment "zero3w-isp needs an aarch64 glibc toolchain"
+	depends on !BR2_aarch64 || !BR2_TOOLCHAIN_USES_GLIBC

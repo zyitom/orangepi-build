@@ -1,0 +1,12 @@
+[Unit]
+Description=Expand rootfs to fill the SD card (first boot only)
+After=local-fs.target
+ConditionPathExists=!/var/lib/zero3w/expanded
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/zero3w-expand.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

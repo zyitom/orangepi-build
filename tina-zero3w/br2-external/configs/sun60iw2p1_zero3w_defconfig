@@ -1,0 +1,96 @@
+# Orange Pi Zero 3W (Allwinner A733 / sun60iw2) — Tina-style Buildroot 2022.05 port
+# 用法: make -C <buildroot> BR2_EXTERNAL=<repo>/tina-zero3w/br2-external O=<out> sun60iw2p1_zero3w_defconfig
+# 说明见 tina-zero3w/PLAN.md §2 / README.md
+
+# ---- 架构 / 工具链（buildroot 内部工具链, glibc 2.35 ≥ GPU 闭源库要求的 2.30）----
+BR2_aarch64=y
+# A55/A76 混合核，cortex_a53 是两边共有的 armv8-a 基线调优，不会生成 A55 不支持的指令
+BR2_cortex_a53=y
+BR2_TOOLCHAIN_BUILDROOT_GLIBC=y
+BR2_TOOLCHAIN_BUILDROOT_CXX=y
+BR2_KERNEL_HEADERS_AS_KERNEL=y
+BR2_JLEVEL=0
+
+# ---- 下载缓存与构建输出（输出在仓库外，~/tina5 与全志 SDK 同区）----
+BR2_DL_DIR="$(HOME)/tina5/dl"
+# 宿主/目标包的兜底补丁（br2-external/patches 会被部分机制重复收集，
+# 统一走 global-patches 目录显式指定，保证每个补丁只应用一次）
+
+# ---- 系统：systemd + 串口 ttyS0 115200 + orangepi 用户 ----
+BR2_INIT_SYSTEMD=y
+BR2_TARGET_GENERIC_HOSTNAME="zero3w"
+BR2_TARGET_GENERIC_ISSUE="Welcome to Orange Pi Zero 3W (Tina/Buildroot port)"
+BR2_TARGET_GENERIC_ROOT_PASSWD="orangepi"
+BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_ZERO3W_PATH)/global-patches"
+BR2_TARGET_GENERIC_GETTY_PORT="ttyS0"
+BR2_TARGET_GENERIC_GETTY_BAUDRATE_115200=y
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_ZERO3W_PATH)/overlay"
+BR2_ROOTFS_USERS_TABLES="$(BR2_EXTERNAL_ZERO3W_PATH)/board/orangepizero3w/users.txt"
+BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_ZERO3W_PATH)/board/orangepizero3w/post-build.sh"
+BR2_ROOTFS_POST_FAKEROOT_SCRIPT="$(BR2_EXTERNAL_ZERO3W_PATH)/board/orangepizero3w/post-fakeroot.sh"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_ZERO3W_PATH)/board/orangepizero3w/post-image.sh"
+
+# ---- 用户态基础包 ----
+BR2_PACKAGE_BASH=y
+# systemd 拉入 util-linux，但 taskset（SCHEDUTILS，名字不是 TASKSET）需要显式开
+BR2_PACKAGE_UTIL_LINUX=y
+BR2_PACKAGE_UTIL_LINUX_SCHEDUTILS=y
+BR2_PACKAGE_KMOD=y
+BR2_PACKAGE_KMOD_TOOLS=y
+BR2_PACKAGE_SUDO=y
+BR2_PACKAGE_OPENSSH=y
+BR2_PACKAGE_WPA_SUPPLICANT=y
+BR2_PACKAGE_WPA_SUPPLICANT_NL80211=y
+BR2_PACKAGE_WPA_SUPPLICANT_CLI=y
+BR2_PACKAGE_IW=y
+BR2_PACKAGE_I2C_TOOLS=y
+BR2_PACKAGE_STRACE=y
+# WiFi 法规数据库（缺 regulatory.db 内核每次启动报 firmware load failed）
+BR2_PACKAGE_WIRELESS_REGDB=y
+# rootfs 首启自动扩容（镜像 rootfs 分区 2G，卡更大时浪费；parted+resize2fs 在线扩）
+BR2_PACKAGE_PARTED=y
+BR2_PACKAGE_E2FSPROGS=y
+BR2_PACKAGE_E2FSPROGS_RESIZE2FS=y
+BR2_PACKAGE_LIBDRM=y
+BR2_PACKAGE_EXPAT=y
+BR2_PACKAGE_ZLIB=y
+# libVK_IMG（Vulkan ICD，闭源）DT_NEEDED 依赖这三个 X11 客户端库；
+# 缺了 loader dlopen 失败，vulkaninfo 枚举不到设备。
+# xlib_* 都挂在 XORG7 菜单下，必须先开 XORG7（只装选中的库，不含 X server）。
+BR2_PACKAGE_XORG7=y
+BR2_PACKAGE_LIBXCB=y
+BR2_PACKAGE_XLIB_LIBX11=y
+BR2_PACKAGE_XLIB_LIBX11XCB=y
+BR2_PACKAGE_ZERO3W_OCL_ICD=y
+
+# ---- 内核：内容寻址 tarball（prepare-kernel.sh 产出）+ 我们的 config ----
+BR2_LINUX_KERNEL=y
+BR2_LINUX_KERNEL_CUSTOM_TARBALL=y
+BR2_LINUX_KERNEL_CUSTOM_TARBALL_LOCATION="file://$(HOME)/tina5/dl/linux-6.6.98-rt58-a733.tar.gz"
+BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
+BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="$(HOME)/tina5/dl/linux-6.6.98-rt58-a733.config"
+BR2_LINUX_KERNEL_IMAGE=y
+# DTS_SUPPORT 不开的话 INTREE_DTS_NAME/DTB 两个符号会被 kconfig 静默丢弃
+# （同 xlib/XORG7 坑）；dts 在 arch/arm64/boot/dts/allwinner/ 下
+BR2_LINUX_KERNEL_DTS_SUPPORT=y
+BR2_LINUX_KERNEL_DTB=y
+BR2_LINUX_KERNEL_INTREE_DTS_NAME="allwinner/sun60i-a733-orangepi-zero3w"
+BR2_LINUX_KERNEL_INSTALL_TARGET=y
+# cmdline 全部由 boot.scr 传（含 RT 隔离参数 isolcpus/nohz_full/rcu_nocbs=5）
+
+# ---- Zero 3W 板级包（GPU / ISP / 固件 / 板上编译器 / vulkaninfo）----
+BR2_PACKAGE_ZERO3W_GPU=y
+BR2_PACKAGE_ZERO3W_ISP=y
+BR2_PACKAGE_ZERO3W_FIRMWARE=y
+BR2_PACKAGE_ZERO3W_VULKANINFO=y
+BR2_PACKAGE_ZERO3W_NATIVE_GCC=y
+
+# ---- host 工具：mkimage（uImage/boot.scr）+ genimage（SD 镜像）+ cmake（ocl-icd）----
+BR2_PACKAGE_HOST_UBOOT_TOOLS=y
+BR2_PACKAGE_HOST_GENIMAGE=y
+BR2_PACKAGE_HOST_CMAKE=y
+
+# ---- rootfs：单个 ext4 分区（/boot 在 rootfs 内，SD 布局见 genimage.cfg）----
+BR2_TARGET_ROOTFS_EXT2=y
+BR2_TARGET_ROOTFS_EXT2_4=y
+BR2_TARGET_ROOTFS_EXT2_SIZE="2G"

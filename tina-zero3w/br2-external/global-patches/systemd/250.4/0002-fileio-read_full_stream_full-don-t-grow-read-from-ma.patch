@@ -1,0 +1,40 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] fileio: read_full_stream_full: do not size read() from malloc_usable_size()
+
+Same _FORTIFY_SOURCE=3 issue as read_virtual_file_fd() (see 0001): gcc
+derives the dynamic object size of `buf` from the realloc() call, so
+__fread_chk receives buflen = n_next + 1 but nbytes =
+malloc_usable_size(buf) - l, which can be larger whenever glibc returns
+a bigger chunk than requested -> "*** buffer overflow detected ***" ->
+SIGABRT.  Reproduced with the host-built `udevadm hwdb --update --root
+<TARGET_DIR>` (parse_env_filev -> udev_parse_config_full ->
+read_full_file_full -> read_full_stream_full -> __fread_chk ->
+__chk_fail) during buildroot target-finalize.
+
+The loop grows n_next whenever fread() returns short without EOF, so
+bounding the read by n_next loses no throughput.
+
+Fixed differently upstream in v251; minimal backport for 250.4.
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ src/basic/fileio.c | 8 +++++++-
+--- a/src/basic/fileio.c
++++ b/src/basic/fileio.c
+@@ -668,9 +668,13 @@
+                 }
+ 
+                 buf = t;
+-                /* Unless a size has been explicitly specified, try to read as much as fits into the memory
+-                 * we allocated (minus 1, to leave one byte for the safety NUL byte) */
+-                n = size == SIZE_MAX ? MALLOC_SIZEOF_SAFE(buf) - 1 : n_next;
++                /* Do not grow the read length from MALLOC_SIZEOF_SAFE() here:
++                 * with _FORTIFY_SOURCE=3 gcc derives the dynamic object size of
++                 * `buf` from the realloc() above, and __fread_chk aborts at
++                 * runtime when the read length exceeds it (glibc may return a
++                 * larger chunk than requested).  The loop below grows n_next
++                 * whenever the file is longer, so this is sufficient. */
++                n = n_next;
+ 
+                 errno = 0;
+                 k = fread(buf + l, 1, n - l, f);

@@ -1,0 +1,6 @@
+config BR2_PACKAGE_ZERO3W_FIRMWARE
+	bool "zero3w-firmware (aic8800d80 WiFi firmware)"
+	help
+	  Firmware for the board's AIC8800D80 SDIO WiFi chip, copied at build
+	  time from orangepi-build's orangepi-firmware-git cache (the set the
+	  working Ubuntu image uses; driver tables request aic8800d80/*).

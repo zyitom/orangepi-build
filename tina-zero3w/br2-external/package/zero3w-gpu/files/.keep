@@ -1,0 +1,2 @@
+zero3w-gpu 的真实输入是 orangepi-build 缓存里的厂家 deb（见 zero3w-gpu.mk），此目录仅用于
+让 buildroot 的 local-site 机制建立 $(@D)。

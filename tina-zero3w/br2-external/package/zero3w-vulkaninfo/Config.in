@@ -1,0 +1,8 @@
+config BR2_PACKAGE_ZERO3W_VULKANINFO
+	bool "zero3w-vulkaninfo (vulkaninfo against the vendor loader)"
+	depends on BR2_PACKAGE_ZERO3W_GPU
+	help
+	  vulkaninfo from KhronosGroup/Vulkan-Tools (vulkan-sdk-1.3.280.0),
+	  cross-compiled against the vendor's libvulkan 1.3.280 (installed by
+	  zero3w-gpu into staging).  Used to verify the PowerVR BXM-4-64 ICD
+	  (img_icd.json) on the board.

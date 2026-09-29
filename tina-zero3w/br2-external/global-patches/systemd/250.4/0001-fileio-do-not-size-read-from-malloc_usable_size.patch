@@ -1,0 +1,43 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] fileio: do not size read() from malloc_usable_size()
+
+read_virtual_file_fd() allocates buf = malloc(size + 1) and then grows
+`size` to malloc_usable_size(buf) - 1 before calling read(fd, buf, size + 1).
+With _FORTIFY_SOURCE=3 (the gcc default on Ubuntu 24.04) gcc derives a
+*dynamic* object size for `buf` from the malloc() call, so __read_chk
+receives buflen = size + 1 but nbytes = malloc_usable_size(buf), which can
+be larger whenever glibc hands back a bigger chunk than requested ->
+"*** buffer overflow detected ***" -> SIGABRT.  Reproduced with the
+host-built `systemd --bus-introspect list` (called from the
+export-dbus-interfaces meson target): get_oom_score_adjust() ->
+read_virtual_file_fd() -> __read_chk -> __chk_fail.
+
+The allocation above is already bounded by READ_VIRTUAL_BYTES_MAX + 1 and
+min()ed against max_size, so `size` needs no adjustment; the
+malloc_usable_size() opportunism only ever made the read request more
+bytes than the allocation expression advertises.
+
+Fixed differently upstream in v251; this is the minimal backport for 250.4.
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ src/basic/fileio.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+--- a/src/basic/fileio.c
++++ b/src/basic/fileio.c
+@@ -470,8 +470,12 @@
+                 if (!buf)
+                         return -ENOMEM;
+
+-                /* Use a bigger allocation if we got it anyway, but not more than the limit. */
+-                size = MIN3(MALLOC_SIZEOF_SAFE(buf) - 1, max_size, READ_VIRTUAL_BYTES_MAX);
++                /* The allocation above is exactly size + 1 bytes.  Do not grow `size`
++                 * from MALLOC_SIZEOF_SAFE() here: with _FORTIFY_SOURCE=3 gcc derives
++                 * the dynamic object size of `buf` from the malloc() call above, and
++                 * __read_chk aborts at runtime when the read length exceeds it
++                 * (glibc may return a larger chunk than requested). */
++                size = MIN3(size, max_size, READ_VIRTUAL_BYTES_MAX);
+
+                 for (;;) {
+                         ssize_t k;

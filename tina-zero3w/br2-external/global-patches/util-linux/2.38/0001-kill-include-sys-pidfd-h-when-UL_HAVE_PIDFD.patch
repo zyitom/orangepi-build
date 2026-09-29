@@ -1,0 +1,25 @@
+From: Claude Code <noreply@anthropic.com>
+Subject: [PATCH] kill: include <sys/pidfd.h> when UL_HAVE_PIDFD
+
+util-linux 2.38 configure enables UL_HAVE_PIDFD when <sys/pidfd.h>
+exists (glibc >= 2.39, e.g. Ubuntu 24.04) but never includes the
+header, so pidfd_open()/pidfd_send_signal() are implicit declarations
+and gcc-14 rejects them as errors.  Older glibc never has the header
+so UL_HAVE_PIDFD stays off and this include is compiled out there.
+
+Backport of upstream 2.38.1 fix.
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+---
+ misc-utils/kill.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/misc-utils/kill.c
++++ b/misc-utils/kill.c
+@@ -74,6 +74,7 @@
+ #ifdef UL_HAVE_PIDFD
+ # include <poll.h>
++# include <sys/pidfd.h>
+ # include "list.h"
+ struct timeouts {
+ 	int period;

@@ -1,0 +1,4 @@
+# username   uid   group     gid          password         home            shell    groups  comment
+# 密码字段 "=orangepi"：按 mkusers 语法，= 前缀表示明文 orangepi（与 root 相同明文，
+# 由 buildroot 用配置的 PASSWD_METHOD 加密）。注意 mkusers 是 9 字段：group 名在 gid 前。
+orangepi     1000  orangepi  1000         =orangepi        /home/orangepi  /bin/sh  -  Orange Pi user

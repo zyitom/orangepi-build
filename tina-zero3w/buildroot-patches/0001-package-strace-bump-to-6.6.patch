@@ -1,0 +1,39 @@
+From: zyi
+Subject: [PATCH] package/strace: bump to 6.6
+
+Buildroot 2022.05 ships strace 5.17, which does not build against the
+6.6 kernel UAPI headers used here (BTRFS_EXTENT_REF_V0_KEY was commented
+out upstream and strace's xlat tables are built with -Werror). strace 6.6
+matches the kernel and builds cleanly. Hash from the tarball published at
+https://strace.io/files/6.6/.
+
+This change used to exist only as an in-place edit of
+~/tina5/buildroot/upstream-2022.05; fetch-sdk.sh now applies it after
+cloning, so a fresh checkout reproduces the image.
+
+---
+diff --git a/package/strace/strace.hash b/package/strace/strace.hash
+index f3567db6..402439ce 100644
+--- a/package/strace/strace.hash
++++ b/package/strace/strace.hash
+@@ -1,5 +1,4 @@
+-# Locally calculated after checking signature with RSA key 0xA8041FA839E16E36
+-# https://strace.io/files/5.17/strace-5.17.tar.xz.asc
+-sha256  5fb298dbd1331fd1e1bc94c5c32395860d376101b87c6cd3d1ba9f9aa15c161f  strace-5.17.tar.xz
++# Locally calculated (tarball from https://strace.io/files/6.6/)
++sha256  421b4186c06b705163e64dc85f271ebdcf67660af8667283147d5e859fc8a96c  strace-6.6.tar.xz
+ sha256  d92f973d08c8466993efff1e500453add0c038c20b4d2cbce3297938a296aea9  COPYING
+ sha256  7c379436436a562834aa7d2f5dcae1f80a25230fa74201046ca1fba4367d39aa  LGPL-2.1-or-later
+diff --git a/package/strace/strace.mk b/package/strace/strace.mk
+index 4eef43a4..6279622f 100644
+--- a/package/strace/strace.mk
++++ b/package/strace/strace.mk
+@@ -4,7 +4,7 @@
+ #
+ ################################################################################
+ 
+-STRACE_VERSION = 5.17
++STRACE_VERSION = 6.6
+ STRACE_SOURCE = strace-$(STRACE_VERSION).tar.xz
+ STRACE_SITE = https://github.com/strace/strace/releases/download/v$(STRACE_VERSION)
+ STRACE_LICENSE = LGPL-2.1+

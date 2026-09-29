@@ -1,0 +1,18 @@
+config BR2_PACKAGE_ZERO3W_GPU
+	bool "zero3w-gpu (PowerVR BXM userland + pvrsrvkm module)"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	select BR2_PACKAGE_LIBDRM
+	select BR2_PACKAGE_EXPAT
+	select BR2_PACKAGE_ZLIB
+	help
+	  PowerVR BXM-4-64 (A733) userland libraries, Vulkan/OpenCL ICDs and
+	  rgx firmware extracted from the vendor deb (xserver-xorg-img-bxm),
+	  plus the pvrsrvkm kernel module built from the kernel tree's
+	  bsp/modules/gpu (rogue_km, nulldrmws).  Layout mirrors the verified
+	  vendor image: backends + libvulkan in /usr/lib, GL frontends and dri
+	  drivers in /usr/local/lib (see etc/ld.so.conf.d/00-pvr-priority.conf
+	  in the overlay).
+
+comment "zero3w-gpu needs an aarch64 glibc toolchain"
+	depends on !BR2_aarch64 || !BR2_TOOLCHAIN_USES_GLIBC

@@ -1,0 +1,70 @@
+Zero 3W Tina/Buildroot 验收报告 20260925-233121
+
+######## 1/2  系统与串口登录（免干预性靠烧卡后直接上电验证，本脚本核对系统标识）
+$ uname -a
+Linux zero3w 6.6.98-rt58 #1 SMP PREEMPT_RT Fri Sep 25 14:51:07 CST 2026 aarch64 GNU/Linux
+[PASS] 3. 内核为 PREEMPT_RT (uname -v 含 PREEMPT_RT)
+[PASS] 3. 内核版本 6.6.98-rt58（我们的树）
+
+######## 4. WiFi (aic8800) + ssh（ssh 本身就在用）
+$ dmesg | grep -i aic8800 | head -5
+dmesg: klogctl: Operation not permitted
+$ ip -4 addr show wlan0
+6: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    inet 172.16.0.194/24 brd 172.16.0.255 scope global dynamic wlan0
+       valid_lft 43030sec preferred_lft 43030sec
+$ ip route
+default via 172.16.0.1 dev wlan0  src 172.16.0.194  metric 1024 
+172.16.0.0/24 dev wlan0 scope link  src 172.16.0.194  metric 1024 
+172.16.0.1 dev wlan0 scope link  src 172.16.0.194  metric 1024 
+
+######## 6. E902 SCP + amp_timestamp
+[FAIL] 6. amp-timestamp 驱动已探测
+$ dmesg | grep -i 'amp.timestamp'
+dmesg: klogctl: Operation not permitted
+$ cat /sys/kernel/*/amp_timestamp/freqid 2>/dev/null; cat /sys/class/misc/amp_timestamp/freqid 2>/dev/null
+$ (sudo) dmesg | grep -iE 'arisc|scp ' | head -5
+
+######## 5a. 板上编译 cltest + OpenCL (PowerVR)
+$ gcc --version | head -1
+gcc (GCC) 10.3.0
+$ gcc -O2 -o /tmp/acc/cltest /tmp/acc/cltest.c -lOpenCL && /tmp/acc/cltest
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find crtbeginS.o: No such file or directory
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find -lgcc
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find -lgcc
+collect2: error: ld returned 1 exit status
+
+######## 5b. Vulkan (vulkaninfo → PowerVR BXM-4-64)
+$ vulkaninfo --summary 2>/dev/null | grep -iE 'powervr|bxm' || vulkaninfo 2>/dev/null | grep -iE 'powervr|bxm' | head -5
+
+######## 7. RT 延迟 (waitlat, 独占 cpu5; 目标 hybrid max < 2 µs)
+$ gcc -O2 -o /tmp/acc/waitlat /tmp/acc/waitlat.c
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find crtbeginS.o: No such file or directory
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find -lgcc
+/usr/lib/gcc/aarch64-buildroot-linux-gnu/10.3.0/../../../../aarch64-buildroot-linux-gnu/bin/ld: cannot find -lgcc
+collect2: error: ld returned 1 exit status
+$ (sudo) taskset -c 5 /tmp/acc/waitlat 5 hybrid 20
+sh: taskset: not found
+$ (sudo) taskset -c 5 /tmp/acc/waitlat 5 spin 10
+sh: taskset: not found
+
+######## 8. AR0234/vin 驱动 + ISP/cedarc 用户态
+$ (sudo) dmesg | grep -iE 'vin|ar0234' | head -10
+[    8.411183] systemd[1]: systemd 250 running in system mode (-PAM -AUDIT -SELINUX -APPARMOR -IMA -SMACK -SECCOMP -GCRYPT -GNUTLS +OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD -LIBCRYPTSETUP -LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -BZIP2 -LZ4 -XZ +ZLIB -ZSTD -BPF_FRAMEWORK -XKBCOMMON -UTMP -SYSVINIT default-hierarchy=unified)
+[    9.895439] [sunxi bxm]SysDevInit start!
+[    9.900775] [sunxi bxm]SysDevInit end!
+$ ls /dev/video* 2>/dev/null
+[PASS] 8. libisp/libAWIspApi 在 rootfs
+[PASS] 8. libcedarc 在 rootfs
+
+######## GPU 内核模块与库落位
+$ ls /lib/modules/$(uname -r)/extra/ 2>/dev/null
+pvrsrvkm.ko
+$ lsmod | grep -E 'pvrsrvkm|aic8800' | head -5
+aic8800_fdrv          335872  0
+aic8800_bsp            90112  1 aic8800_fdrv
+pvrsrvkm             1454080  0
+[PASS] GPU 用户态库在位
+
+######## 结论
+存在 [FAIL] 项 —— 见报告 /home/helios/Desktop/orangepi-build/tina-zero3w/test-report-20260925-rt.txt

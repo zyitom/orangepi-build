@@ -1,0 +1,8 @@
+config BR2_PACKAGE_ZERO3W_OCL_ICD
+	bool "zero3w-ocl-icd (Khronos OpenCL ICD loader)"
+	help
+	  libOpenCL.so dispatcher from KhronosGroup/OpenCL-ICD-Loader
+	  (v2023.04.17) with OpenCL-Headers installed for on-board gcc.
+	  Needed because buildroot 2022.05 predates ocl-icd/opencl-headers
+	  (added upstream in 2022.11).  Loads the PowerVR ICD from
+	  /etc/OpenCL/vendors/pvr.icd.

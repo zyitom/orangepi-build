@@ -1,0 +1,16 @@
+config BR2_PACKAGE_ZERO3W_NATIVE_GCC
+	bool "zero3w-native-gcc (on-board C compiler: binutils+gcc+libgcc)"
+	depends on BR2_TOOLCHAIN_BUILDROOT_GLIBC
+	depends on BR2_TOOLCHAIN_BUILDROOT_CXX
+	select BR2_PACKAGE_GMP
+	select BR2_PACKAGE_MPFR
+	select BR2_PACKAGE_MPC
+	help
+	  Target-hosted (native) C toolchain for the board, since buildroot
+	  removed BR2_PACKAGE_GCC_TARGET long ago.  Builds binutils and gcc
+	  (--host=aarch64, C only, no bootstrap, same sources as the internal
+	  toolchain) with a private sysroot copy so fixincludes never touches
+	  staging, then installs gcc + libgcc + as/ld into /usr and makes the
+	  target a usable sysroot (headers, .so linker scripts, .a/.o).
+	  Used on the board to compile cltest.c / waitlat.c (acceptance 5/7).
+	  This is a slow one-off build (~45-75 min on first run).

@@ -1,0 +1,18 @@
+[Unit]
+Description=zram compressed swap (2G, zstd 可用则用)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c '\
+  modprobe zram num_devices=1 2>/dev/null || true; \
+  Z=/sys/block/zram0; \
+  echo zstd > $Z/comp_algorithm 2>/dev/null || true; \
+  echo 2G > $Z/disksize; \
+  mkswap /dev/zram0; \
+  swapon /dev/zram0'
+ExecStop=/bin/sh -c 'swapoff /dev/zram0 2>/dev/null; echo 1 > /sys/block/zram0/reset 2>/dev/null || true'
+
+[Install]
+WantedBy=multi-user.target

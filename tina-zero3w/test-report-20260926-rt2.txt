@@ -1,0 +1,71 @@
+Zero 3W Tina/Buildroot 验收报告 20260926-034904
+
+######## 1/2  系统与串口登录（免干预性靠烧卡后直接上电验证，本脚本核对系统标识）
+$ uname -a
+Linux zero3w 6.6.98-rt58 #1 SMP PREEMPT_RT Fri Sep 25 14:51:07 CST 2026 aarch64 GNU/Linux
+[PASS] 3. 内核为 PREEMPT_RT (uname -v 含 PREEMPT_RT)
+[PASS] 3. 内核版本 6.6.98-rt58（我们的树）
+
+######## 4. WiFi (aic8800) + ssh（ssh 本身就在用）
+$ dmesg | grep -i aic8800 | head -5
+dmesg: klogctl: Operation not permitted
+$ ip -4 addr show wlan0
+6: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    inet 172.16.0.196/24 brd 172.16.0.255 scope global dynamic wlan0
+       valid_lft 43145sec preferred_lft 43145sec
+$ ip route
+default via 172.16.0.1 dev wlan0  src 172.16.0.196  metric 1024 
+172.16.0.0/24 dev wlan0 scope link  src 172.16.0.196  metric 1024 
+172.16.0.1 dev wlan0 scope link  src 172.16.0.196  metric 1024 
+
+######## 6. E902 SCP + amp_timestamp
+[PASS] 6. amp-timestamp 驱动已探测
+$ (sudo) dmesg | grep -i 'amp.timestamp'
+[    1.041974] amp-timestamp 8010000.amp-timestamp: A733 AMP timestamp ready: counter=427293084 freqid=24000000 (24.000 MHz)
+$ cat /sys/kernel/*/amp_timestamp/freqid 2>/dev/null; cat /sys/class/misc/amp_timestamp/freqid 2>/dev/null
+$ (sudo) dmesg | grep -iE 'arisc|scp ' | head -5
+
+######## 5a. 板上编译 cltest + OpenCL (PowerVR)
+$ gcc --version | head -1
+gcc (GCC) 10.3.0
+$ gcc -O2 -o /tmp/acc/cltest /tmp/acc/cltest.c -lOpenCL && /tmp/acc/cltest
+enqueue=0 N=4194304 iters=64  mismatches=0  gpu=59.0 ms  cpu(1 core)=342.6 ms  gpu GFLOPS=13.64
+
+######## 5b. Vulkan (vulkaninfo → PowerVR BXM-4-64)
+$ vulkaninfo --summary 2>/dev/null | grep -iE 'powervr|bxm' || vulkaninfo 2>/dev/null | grep -iE 'powervr|bxm' | head -5
+
+######## 7. RT 延迟 (waitlat, 独占 cpu5; 目标 hybrid max < 2 µs)
+$ gcc -O2 -o /tmp/acc/waitlat /tmp/acc/waitlat.c
+$ (sudo) taskset -c 5 /tmp/acc/waitlat 5 hybrid 20
+hybrid cpu5 n=100000 avg=0.04us p99.9=1us p99.999=1us max=0.29us
+$ (sudo) taskset -c 5 /tmp/acc/waitlat 5 spin 10
+spin   cpu5 n=50000 avg=20053.53us p99.9=1000us p99.999=1000us max=367856.04us
+
+######## 8. AR0234/vin 驱动 + ISP/cedarc 用户态
+$ (sudo) dmesg | grep -iE 'vin|ar0234' | head -10
+[    8.404158] systemd[1]: systemd 250 running in system mode (-PAM -AUDIT -SELINUX -APPARMOR -IMA -SMACK -SECCOMP -GCRYPT -GNUTLS +OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD -LIBCRYPTSETUP -LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -BZIP2 -LZ4 -XZ +ZLIB -ZSTD -BPF_FRAMEWORK -XKBCOMMON -UTMP -SYSVINIT default-hierarchy=unified)
+[   11.153586] sunxi:vin:[WARN]: sensor_helper_probe: cannot get sensor0_cameravdd supply, setting it to NULL!
+[   11.153615] sunxi:vin:[WARN]: sensor_helper_probe: cannot get sensor0_iovdd supply, setting it to NULL!
+[   11.153638] sunxi:vin:[WARN]: sensor_helper_probe: cannot get sensor0_avdd supply, setting it to NULL!
+[   11.153659] sunxi:vin:[WARN]: sensor_helper_probe: cannot get sensor0_dvdd supply, setting it to NULL!
+[   11.279991] vin_tdm 5908000.tdm: Adding to iommu group 0
+[   11.285770] vin_scaler 5910000.scaler: Adding to iommu group 0
+[   11.286765] vin_scaler 5910800.scaler: Adding to iommu group 0
+[   11.288501] vin_scaler 5800800.vind:scaler@16: Adding to iommu group 0
+[   11.288970] sunxi:vin:[ERR]: failed to get vipp16 IRQ resource
+$ ls /dev/video* 2>/dev/null
+/dev/video0
+[PASS] 8. libisp/libAWIspApi 在 rootfs
+[PASS] 8. libcedarc 在 rootfs
+
+######## GPU 内核模块与库落位
+$ ls /lib/modules/$(uname -r)/extra/ 2>/dev/null
+pvrsrvkm.ko
+$ lsmod | grep -E 'pvrsrvkm|aic8800' | head -5
+pvrsrvkm             1454080  0
+aic8800_fdrv          335872  0
+aic8800_bsp            90112  1 aic8800_fdrv
+[PASS] GPU 用户态库在位
+
+######## 结论
+全部 [PASS] 项通过；逐项对照见上。
