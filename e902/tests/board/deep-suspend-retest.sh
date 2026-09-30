@@ -63,9 +63,10 @@ SUSPEND_SH=$OUT/suspend.sh
 cat > $SUSPEND_SH <<'EOF'
 mem=$(cat /sys/power/mem_sleep | grep -o '\[.*\]' | tr -d '[]')
 echo "mem_sleep current: $mem"
-# wake-source census: what the kernel armed + USB devices that hold level IRQs
-grep -q "" /proc/bus/input/devices 2>/dev/null && true
-awk '$0~/enabled:/{print "wake-armed "$0}' /proc/interrupts 2>/dev/null | head
+# wake-source census: which IRQs are wakeup-enabled + what's on the USB bus
+for f in /sys/kernel/irq/*/wakeup; do
+	[ -e "$f" ] && echo "wake-enabled $(dirname $f | xargs basename) = $(cat $f) $(cat $(dirname $f)/actions 2>/dev/null)"
+done | head -30
 [ -x /bin/lsusb ] && lsusb 2>/dev/null | sed 's/^/usb-device /'
 echo 0 > /sys/class/rtc/rtc0/wakealarm
 echo +20 > /sys/class/rtc/rtc0/wakealarm
