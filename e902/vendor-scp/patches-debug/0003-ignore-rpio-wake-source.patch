@@ -1,0 +1,43 @@
+From: zyi
+Subject: [PATCH] standby: ignore the R-PIO wake source (debug, zero3w)
+
+BL31 arms every enabled GIC IRQ as a CPUS wake source when entering
+deep standby. On the Zero 3W the R-PIO (root irq 200) is enabled and a
+PL line (WiFi host-wake) is level-asserted, so the SCP wakes ~0.1 s
+after entering standby and the resume races the entry path (board test
+2026-09-30: with ehci1/ohci1 unbound only 200 and the RTC remained, the
+wake still came instantly). Refuse to arm root irq 200 so the RTC alarm
+is the only wake source.
+
+--- a/ar100s/service/standby/wakeup_source.c
++++ b/ar100s/service/standby/wakeup_source.c
+@@ -2,6 +2,8 @@
+ #include "wakeup_source.h"
+ #include "irq_table.h"
+ 
++#define OPI_ZERO3W_IGNORE_WAKE_IRQ 200
++
+ u32 volatile wakeup_source;
+ 
+ static struct softtimer wakeup_timer;
+@@ -151,6 +153,20 @@
+ 			wakeup_source = NO_WAKESOURCE;
+ 		}
+ 
++		if (wakeup_root_irq == OPI_ZERO3W_IGNORE_WAKE_IRQ) {
++			/*
++			 * Orange Pi Zero 3W: BL31 arms every *enabled* GIC IRQ as
++			 * a CPUS wake source, including the R-PIO (root irq 200,
++			 * PL pin group). On this board a PL line (WiFi host-wake)
++			 * sits level-asserted, so deep standby would wake the SCP
++			 * again ~0.1 s after entering it and the resume then
++			 * races the entry path. Refuse to arm it; RTC stays the
++			 * only wake source. (debug build only)
++			 */
++			WRN("ignore wake source %d (r_pio level IRQ)\n", wakeup_root_irq);
++			return OK;
++		}
++
+ 		switch (irq_no) {
+ 		default:
+ 			{

@@ -48,11 +48,18 @@ if [ $NOFLASH = 0 ]; then
 	B true || { echo "board did not come back"; exit 1; }
 fi
 
-echo "=== 2. capture SCP console across the test ==="
-stty -F $FTDI_TTY 57600 raw -echo </dev/null || exit 1
+echo "=== 2. capture SCP + ARM consoles across the test ==="
 stty -F $FTDI_TTY 57600 raw -echo </dev/null || exit 1
 cat $FTDI_TTY > $OUT/e902.log &
 CATPID=$!
+ARM_TTY=$(readlink -f /dev/serial/by-id/usb-1a86_*-if00-port0 2>/dev/null | head -1)
+ARM_PID=""
+if [ -n "$ARM_TTY" ] && [ -c "$ARM_TTY" ]; then
+	stty -F $ARM_TTY 115200 raw -echo </dev/null
+	cat $ARM_TTY > $OUT/arm.log &
+	ARM_PID=$!
+	echo "ARM console on $ARM_TTY"
+fi
 sleep 1
 BSUDO "dmesg -c >/dev/null 2>&1" >/dev/null
 
@@ -91,10 +98,13 @@ Q=$(base64 -w0 < $SUSPEND_SH)
 B "printf '%s\n' '$BOARD_PASS' | sudo -S -p '' sh -c \"\$(echo $Q | base64 -d)\"" > $OUT/board.log 2>&1
 RES=$?
 sleep 2; kill $CATPID 2>/dev/null; wait $CATPID 2>/dev/null
+[ -n "$ARM_PID" ] && { kill $ARM_PID 2>/dev/null; wait $ARM_PID 2>/dev/null; }
 
 echo "=== 4. decode ==="
 echo "--- E902 console (key lines) ---"
-tr -d '\r' < $OUT/e902.log | grep -aE "fallback|first time|dram save done|wait wakeup|wakeup:|ppu on|dram up|wait ac327|cpu0 restore|system tick" | tail -20
+tr -d '\r' < $OUT/e902.log | grep -aE "fallback|first time|dram save done|wait wakeup|wakeup:|ppu on|dram up|wait ac327|cpu0 restore|system tick|ignore wake" | tail -20
+echo "--- ARM console after resume (BL31/kernel) ---"
+[ -f $OUT/arm.log ] && tr -d '\r' < $OUT/arm.log | grep -aE "BL31|PM:|suspend|resume|Restarting|panic|SError|rcu" | tail -10 || echo "(no ARM capture)"
 echo "--- verdict ---"
 tr -d '\r' < $OUT/e902.log | grep -qa "dram para all zero" && echo "  [ok] fallback table active" || echo "  [??] fallback line not seen (FDT may already carry params)"
 tr -d '\r' < $OUT/e902.log | grep -qa "dram save done" && echo "  [ok] dram_power_save_process returned" || echo "  [FAIL] no 'dram save done': hang inside the DRAM lib"
