@@ -1,55 +1,66 @@
 From: zyi
-Subject: [PATCH] standby: de-glitch same-second wakes, record wake source (debug)
+Subject: [PATCH] standby: hard 5 s wake blackout, record wake source (debug)
 
 Every board run woke ~0.13 s after entering deep standby, always inside
 the clk_suspend/clk_resume window (the "wakeup: %d" print lands in the
 UART divider change and is lost in garble), even with ehci1/ohci1
-unbound and the R-PIO registration refused. Whatever the impostor is
-(clock-switch noise, PMU NMI line state), a wake that lands in the same
-RTC second the entry sequence ran cannot be a real request: record it in
-the always-on RTC_GPR0 (0xED000000|src, printed at the next
-standby_init) and keep waiting. Real sources (the +20 s RTC alarm in our
-tests, the power key) land in a later second and are accepted, printed
-readably and recorded as 0xEE000000|src.
+unbound, the R-PIO registration refused, and the same-second RTC_HMS
+de-glitch in place (the exit still ran 0.12 s after the DRAM save, so
+the impostor was accepted as a later-second wake -- it lands after
+wait_wakeup captured its reference second, or the HMS readback is not
+reliable). Hard blackout instead: ignore every wake for the first 5 s
+after entry (nothing on this board legitimately wakes that early -- the
+tests wake by RTC alarm at +20 s and the power key sits on the PMU NMI).
+Ignored wakes are recorded in the always-on RTC_GPR0 (0xED000000|src) /
+RTC_GPR1 (age in ticks) and survive a warm reboot; accepted wakes print
+readably and record as 0xEE000000|src. standby_init prints the previous
+attempt's record.
+
 --- a/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
 +++ b/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
 @@ -322,9 +322,12 @@
  
  static void wait_wakeup(void)
  {
-+	u32 sec_entry;
++	u32 t_entry;
 +
  	save_state_flag(REC_ESTANDBY | REC_WAIT_WAKEUP | 0x01);
  	wakeup_timer_start();
  	//wakeup_source = NO_WAKESOURCE;
-+	sec_entry = readl(RTC_HMS) & RTC_HMS_S_MASK;
++	t_entry = current_time_tick();
  	while (1) {
  		/*
  		 * maybe add user defined task process here
-@@ -332,7 +335,25 @@
+@@ -332,7 +335,31 @@
  
  
  		if (wakeup_source != NO_WAKESOURCE) {
 -			LOG("wakeup: %d\n", wakeup_source);
 +			/*
-+			 * De-glitch (debug): every board run so far woke ~0.13 s
-+			 * after entry, inside the clk_suspend/clk_resume window
-+			 * where the UART divider is mid-change -- a wake landing
-+			 * in the same RTC second the entry sequence ran is clock-
-+			 * switch noise or the PMU NMI line state, not a wake
-+			 * request (the RTC alarm in our tests fires 20 s later).
-+			 * Record the impostor in the always-on RTC_GPR0 and keep
-+			 * waiting. A real wake (RTC alarm, power key) always lands
-+			 * in a later second and is accepted.
++			 * De-glitch (debug, hard blackout): every board run so far
++			 * woke ~0.13 s after entry, inside the clk_suspend/
++			 * clk_resume window where the UART divider is mid-change.
++			 * Whatever the impostor is (clock-switch noise, PMU NMI
++			 * line state), nothing on this board can legitimately
++			 * request a wake within the first 5 s of the entry
++			 * sequence (our tests wake by RTC alarm at +20 s; the
++			 * power key sits on the PMU NMI, not here). Ignore and
++			 * record everything in that window in the always-on
++			 * RTC_GPR0 (source) / RTC_GPR1 (age in ticks); a wake
++			 * after 5 s is accepted.
 +			 */
-+			if ((readl(RTC_HMS) & RTC_HMS_S_MASK) == sec_entry) {
++			u32 age = current_time_tick() - t_entry;
++
++			if (age < 5 * TICK_PER_SEC) {
 +				writel(0xED000000u | wakeup_source, RTC_GPR0);
-+				LOG("ignore early wake %d\n", wakeup_source);
++				writel(age, RTC_GPR1);
++				LOG("ignore early wake %d age %d\n", wakeup_source, age);
 +				wakeup_source = NO_WAKESOURCE;
 +				continue;
 +			}
 +			writel(0xEE000000u | wakeup_source, RTC_GPR0);
-+			LOG("wake src: %d\n", wakeup_source);
++			writel(age, RTC_GPR1);
++			LOG("wake src: %d age %d\n", wakeup_source, age);
  			break;
  		}
  		/* e902 low power mode */
