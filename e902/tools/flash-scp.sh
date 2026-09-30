@@ -106,18 +106,18 @@ fi
 
 echo; echo "=== 5. reboot, recording both consoles -> $LOGS ==="
 mkdir -p "$LOGS"
-cap() {	# cap <by-id glob> <log>
+cap() {	# cap <by-id glob> <log> <baud>
 	local d
 	d=$(ls /dev/serial/by-id/$1 2>/dev/null | head -1)
 	[ -n "$d" ] || { echo "  (no console matching $1)"; return; }
 	if fuser "$d" >/dev/null 2>&1; then echo "  WARNING: $d is busy (another capture?)"; fi
-	stty -F "$d" 115200 cs8 -cstopb -parenb -crtscts raw -echo
+	stty -F "$d" "$3" cs8 -cstopb -parenb -crtscts raw -echo
 	timeout 240 cat "$d" > "$2" &
 	CAP_PIDS="$CAP_PIDS $!"
 }
 CAP_PIDS=
-cap 'usb-1a86_USB_Serial*' "$LOGS/arm-console.log"
-cap 'usb-FTDI_*' "$LOGS/e902-console.log"
+cap 'usb-1a86_USB_Serial*' "$LOGS/arm-console.log" 115200
+cap 'usb-FTDI_*' "$LOGS/e902-console.log" 57600
 BOOT_ID=$(B 'cat /proc/sys/kernel/random/boot_id')
 BSUDO reboot || true
 # the board may still answer for a few seconds -- a changed boot_id is the proof
