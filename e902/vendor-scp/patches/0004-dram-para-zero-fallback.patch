@@ -3,24 +3,33 @@ Subject: [PATCH] dram: fall back to built-in zero3w DRAM parameters
 
 Our boot flow never populates the /dram node of the FDT the SCP reads
 (boot0 wants a dedicated "dtb" item in the boot package and errors out:
-"error: dtb not found for scp"; BL31 hands the SCP the U-Boot control
-dtb, which has no dram_paraXX either). Every dram_para00..159 parses to
-0, so dram_power_save_process ran with a null parameter set: the debug
-SCP console went silent right after "the first time ddr standby" and the
-board never came back (deep suspend hang of 09-29/30).
+"error: dtb not found for scp"; BL31 hands the SCP the kernel DTB at
+0x44000000, which has no dram_paraXX unless kernel patch 0030 is in).
+Every dram_para00..159 parses to 0, so dram_power_save_process ran with
+a null parameter set: the debug SCP console went silent right after
+"the first time ddr standby" and the board never came back (deep
+suspend hang of 09-29/30).
 
-Until the FDT carries real parameters (kernel patch 0030 adds them,
-and the bootparam channel could be fixed upstream-style), fill the
-array from a built-in table when the parse yields all zeros. Values:
-board sys_config.fex [dram_para] with dram_clk, dram_para1/2 and dram_tpr13
-corrected to boot0's runtime print for the 4 GiB LPDDR4
-("para1 = a0fa, para2 = 10001001, dram_tpr13 = 65").
+Fill the array from a built-in table when the parse yields all zeros.
+The table is the parameter set boot0 itself trains with: the Orange Pi
+Zero 3W carries 4 GiB LPDDR5, and boot0_sdcard_orangepizero3w.fex picks
+its header set ("vaild para:4  select dram para0", "DRAM Type =9"),
+copied word for word from boot0 offset 0x38, with dram_para2 replaced by
+boot0's post-autoscan value (the 4 GiB size field: "para2 = 10001001";
+para1 a0fa and tpr13 0x65 are unchanged by the scan).
+
+An earlier version of this table was built from the generic
+sys_config.fex [dram_para] block, which is LPDDR4 (type 8) with LPDDR4
+drive/MR/timing values: the restore then brought the controller up as
+LPDDR4, the SCP read BL31 and the kernel text back as all zeros, and
+CPU0 powered up at the BL31 resume entry into nothing (board test
+2026-10-01, debug build "dram sum bl31 899B65D3 -> 0").
 
 Index -> field mapping is __dram_para_t (include/driver/dram.h).
 
 --- a/ar100s/driver/dram/dram_dts_para_v2.c
 +++ b/ar100s/driver/dram/dram_dts_para_v2.c
-@@ -48,6 +48,65 @@
+@@ -48,6 +48,71 @@ uint32_t *dram_dts_parse(void)
  		printk("dram para[%d] 0x%x\n", i, dts_dram_para[i]);
  	}
  
@@ -30,46 +39,52 @@ Index -> field mapping is __dram_para_t (include/driver/dram.h).
 +	 * properties, so the whole array parses to 0 and the DRAM
 +	 * save/restore would run with a null parameter set (deep suspend
 +	 * went silent right after "the first time ddr standby" and never
-+	 * woke up). Fill in the parameters boot0 actually used instead:
-+	 * base values from the board sys_config.fex [dram_para], with
-+	 * dram_clk, dram_para1/2 and dram_tpr13 taken from boot0's runtime
-+	 * print ("DRAM CLK =2400 MHZ", "DRAM SIZE =4096 MBytes, para1 =
-+	 * a0fa, para2 = 10001001, dram_tpr13 = 65" for the fitted 4 GiB
-+	 * LPDDR4).
++	 * woke up). Fill in the parameter set boot0 actually trains with:
++	 * the board has 4 GiB LPDDR5 and boot0_sdcard_orangepizero3w.fex
++	 * selects its header set ("vaild para:4  select dram para0", "DRAM
++	 * Type =9"), copied here word for word. dram_para2 is boot0's
++	 * post-autoscan value ("para2 = 10001001": the 4 GiB size field is
++	 * filled in at runtime, the header carries 0x1001); para1 and tpr13
++	 * are unchanged by the scan ("para1 = a0fa, dram_tpr13 = 65").
++	 *
++	 * The generic sys_config.fex [dram_para] block (LPDDR4, type 8) is
++	 * NOT this board's memory: restoring with it brings the controller
++	 * up as LPDDR4, DRAM reads back as zeros and CPU0 has no BL31 to
++	 * resume into (board test 2026-10-01).
 +	 */
 +	{
 +		static const uint32_t opi_dram_para[32] = {
 +			2400,        /* dram_clk */
-+			8,           /* dram_type: LPDDR4 */
-+			0x08080808,  /* dram_dx_odt */
-+			0x0e0e0e0e,  /* dram_dx_dri */
-+			0x88030e0e,  /* dram_ca_dri */
++			9,           /* dram_type: LPDDR5 */
++			0x0e0e0e0e,  /* dram_dx_odt */
++			0x0f0f0f0f,  /* dram_dx_dri */
++			0xec030e0f,  /* dram_ca_dri */
 +			0,           /* dram_para0 */
-+			0xa0fa,      /* dram_para1 (boot0 runtime) */
-+			0x10001001,  /* dram_para2 (boot0 runtime) */
++			0xa0fa,      /* dram_para1 */
++			0x10001001,  /* dram_para2 (boot0 runtime: + 4 GiB size) */
 +			0,           /* dram_mr0 */
-+			0x8c,        /* dram_mr1 */
++			0,           /* dram_mr1 */
 +			0,           /* dram_mr2 */
-+			0x33,        /* dram_mr3 */
-+			0x3,         /* dram_mr4 */
++			0x6,         /* dram_mr3 */
++			0,           /* dram_mr4 */
 +			0,           /* dram_mr5 */
 +			0,           /* dram_mr6 */
-+			0x4,         /* dram_mr11 */
-+			0x72,        /* dram_mr12 */
++			0x14,        /* dram_mr11 */
++			0x44,        /* dram_mr12 */
 +			0,           /* dram_mr13 */
-+			0x9,         /* dram_mr14 */
++			0x28,        /* dram_mr14 */
 +			0,           /* dram_mr16 */
-+			0,           /* dram_mr17 */
-+			0x24,        /* dram_mr22 */
-+			0,           /* dram_tpr0 */
++			0x6,         /* dram_mr17 */
++			0,           /* dram_mr22 */
++			0x4040,      /* dram_tpr0 */
 +			0,           /* dram_tpr1 */
-+			0,           /* dram_tpr2 */
-+			0x110000,    /* dram_tpr3 */
-+			0x402a,      /* dram_tpr6 */
-+			0x121f0000,  /* dram_tpr10 */
++			0x170b0703,  /* dram_tpr2 */
++			0x3800,      /* dram_tpr3 */
++			0x3514,      /* dram_tpr6 */
++			0x325f0000,  /* dram_tpr10 */
 +			0,           /* dram_tpr11 */
 +			0,           /* dram_tpr12 */
-+			0x65,        /* dram_tpr13 (boot0 runtime) */
++			0x65,        /* dram_tpr13 */
 +			0,           /* dram_tpr14 */
 +		};
 +		uint32_t any_nonzero = 0;
