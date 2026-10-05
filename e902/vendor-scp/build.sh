@@ -79,7 +79,8 @@ if [ $DEBUG_UART = 1 ]; then
 		git -C "$A" apply "$p" && echo "applied  debug/$(basename "$p")"
 	done
 	# put the tree back to the production state whatever happens
-	trap 'for p in "$HERE"/patches-debug/*.patch; do git -C "$A" apply -R "$p"; done' EXIT
+	# (newest first: later debug patches may carry earlier ones as context)
+	trap 'for p in $(ls "$HERE"/patches-debug/*.patch | sort -r); do git -C "$A" apply -R "$p"; done' EXIT
 fi
 
 cd "$A/ar100s"

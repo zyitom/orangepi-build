@@ -1,0 +1,225 @@
+From: zyi
+Subject: [PATCH] standby: real-time wake report, DRAM sums, resume heartbeat (debug)
+
+Replaces the 5 s wake blackout. The "fake wake ~0.13 s after entry" that
+the blackout chased is a timestamp artifact: the SCP tick comes from
+S_TIMER on SYS_CLK24M, which on this 26 MHz-DCXO board is PLL_REF, and
+clk_suspend turns PLL_REF off -- the tick counter stands still for the
+whole time the SoC sleeps. The earlier same-second RTC de-glitch saw the
+wake land in a later RTC second (so it was accepted), and the blackout,
+which measured its 5 s in frozen ticks, ignored and masked the real
++20 s RTC wake and hung in wait_wakeup until a warm reset.
+
+This build keeps the vendor wait_wakeup and instead
+  - records RTC_HMS + tick at entry and at wake, printed after clk_resume
+    (console at its real baud): "wake src N after S s real, T ticks";
+  - sums 64 KiB of BL31 (0x48000000) and kernel text (0x41000000) before
+    the DRAM save and after the restore: "dram sum ... ok/CHANGED";
+  - opens the A55 console (UART0 115200 8N1, pins PB9/PB10 function 2 --
+    the kernel does not own them, boot0 muxes them, and the VDD_SYS reset
+    undoes it) before starting CPU0, so BL31/kernel early-resume prints
+    and crash dumps become visible;
+  - prints a heartbeat every 5 RTC seconds while waiting for CPU0: PPU
+    state of cluster/cpu0/cpu1, hotplug power mode, RVBAR, CPU clock/PLL,
+    ARM->SCP msgbox status, UART0 LSR/pin mux, core0 reset/run/WFI
+    status (C0_CPU0_CTRL/STATUS0) and the cluster/subsystem resets;
+  - reboots the board through the PMU (the normal reboot path) when "RST"
+    is typed on the SCP console during that wait, so a failed resume can
+    be recovered from the host without pulling the power.
+
+--- a/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
++++ b/ar100s/service/standby/standby-sun60iw2p1/plat_standby.c
+@@ -320,11 +320,129 @@
+ 	return 0;
+ }
+ 
++/*
++ * debug: real-time bookkeeping of the standby window. The SCP tick
++ * (S_TIMER on SYS_CLK24M = PLL_REF on this 26 MHz-DCXO board) stops while
++ * clk_suspend has the PLLs off, so tick timestamps cannot measure how long
++ * the SoC slept -- the always-on RTC can. Everything is printed after
++ * clk_resume, when the console runs at its real baud again.
++ */
++static u32 dbg_hms_entry, dbg_hms_wake, dbg_tick_entry, dbg_tick_wake, dbg_wake_src;
++
++static u32 dbg_hms_to_sec(u32 hms)
++{
++	return ((hms & RTC_HMS_H_MASK) >> RTC_HMS_H_SHIFT) * 3600 +
++	       ((hms & RTC_HMS_M_MASK) >> RTC_HMS_M_SHIFT) * 60 +
++	       (hms & RTC_HMS_S_MASK);
++}
++
++static void dbg_report_wake(void)
++{
++	u32 s0 = dbg_hms_to_sec(dbg_hms_entry), s1 = dbg_hms_to_sec(dbg_hms_wake);
++
++	LOG("wake src %d after %d s real (rtc %d -> %d), %d ticks\n",
++	    dbg_wake_src, (s1 + 86400 - s0) % 86400, s0, s1,
++	    dbg_tick_wake - dbg_tick_entry);
++}
++
++/* sum of a DRAM window as seen from the SCP: BL31 (resume entry lives
++ * there) and the kernel text must survive the self-refresh round trip */
++#define DBG_BL31_BASE	0x48000000
++#define DBG_KERN_BASE	0x41000000
++#define DBG_SUM_LEN	0x10000
++static u32 dbg_sum_bl31, dbg_sum_kern;
++
++static u32 dbg_dram_sum(u32 base, u32 len)
++{
++	volatile u32 *p = (volatile u32 *)base;
++	u32 s = 0;
++
++	while (p < (volatile u32 *)(base + len))
++		s += *p++;
++	return s;
++}
++
++/* A55 console: UART0 @0x02500000 on APB_UART (SYS_CLK24M /1), pins PB9/PB10
++ * function 2. The VDD_SYS reset left the UART gated and in reset with a zero
++ * divisor and the pins unmuxed (the kernel does not own these pins, boot0
++ * sets them); open it at 115200 8N1 before CPU0 starts so BL31/kernel
++ * early-resume prints and crash dumps reach the console. */
++#define DBG_PB_CFG1	0x02000104	/* PB8..PB15, 4 bits per pin */
++static void dbg_uart0_open(void)
++{
++	writel((readl(DBG_PB_CFG1) & ~0xff0) | 0x220, DBG_PB_CFG1);	/* PB9/10 = UART0 */
++	writel(0x00010001, CCU_REG_BASE + 0xE00);	/* UART0_BGR: gate, de-assert */
++	writel(0x83, 0x0250000C);			/* LCR: DLAB, 8N1 */
++	writel(13, 0x02500000);				/* DLL: 24 MHz / 16 / 13 */
++	writel(0, 0x02500004);				/* DLH */
++	writel(0x03, 0x0250000C);			/* LCR: 8N1 */
++	writel(0x07, 0x02500008);			/* FCR: FIFO on + clear */
++}
++
++/* heartbeat while waiting for CPU0: who is powered, where it was told to
++ * start, and whether anything reached the ARM->SCP message queues */
++#define DBG_PPU_PWSR(n)		(0x07051000 + (n) * 0x1000 + 0x8)
++#define DBG_HOTPLUG_PWRMODE(n)	(0x07050000 + 0x220 + (n) * 4)
++#define DBG_RVBAR_LO		(0x08000000 + 0x1000 + 0x4)
++#define DBG_A2R_STATUS(m)	(CPUS_HWMSGBOX_REG_BASE + 0x60 + (m) * 4)
++#define DBG_A2R_IRQ_STATUS	(CPUS_HWMSGBOX_REG_BASE + 0x24)
++#define DBG_C0_CPU0_CTRL	0x08860000	/* bit0: core0 reset de-asserted */
++#define DBG_C0_CPU0_STATUS0	0x08860004	/* 12 INSTRRUN, 8 INSTRRET, 4 WFI, 0 WFE */
++#define DBG_C0_RST_CTRL		0x08868000	/* cluster resets (DSU) */
++#define DBG_CPU_SYS_RST		0x0800000C	/* CPU subsystem reset control */
++
++/* host rescue: typing "RST" on the SCP console while it waits for CPU0
++ * reboots the board through the PMU -- the path every normal reboot takes
++ * (sys_op -> system_reset -> pmu_reset) -- so a failed resume no longer
++ * needs someone at the board to pull the power */
++static void dbg_poll_reset_key(void)
++{
++	static u32 seq;
++	char buf[80];
++	s32 n = (s32)uart_get(buf), i;
++
++	for (i = 0; i < n && i < (s32)sizeof(buf); i++) {
++		seq = ((seq << 8) | (u8)buf[i]) & 0xffffff;
++		if (seq == (('R' << 16) | ('S' << 8) | 'T')) {
++			LOG("RST from console: pmu reset\n");
++			pmu_reset();
++		}
++	}
++}
++
++static void dbg_resume_heartbeat(void)
++{
++	static u32 last_hms, beats;
++	u32 hms = readl(RTC_HMS);
++
++	dbg_poll_reset_key();
++	if (hms == last_hms)
++		return;
++	last_hms = hms;
++	if ((beats++ % 5) != 0)
++		return;
++	if (beats == 1)
++		LOG("(type RST on this console to reboot the board)\n");
++	LOG("hb %d: ppu cl %x c0 %x c1 %x pwrmode %x rvbar %x cpua %x pll1 %x\n",
++	    beats - 1, readl(DBG_PPU_PWSR(0)), readl(DBG_PPU_PWSR(1)),
++	    readl(DBG_PPU_PWSR(2)), readl(DBG_HOTPLUG_PWRMODE(0)),
++	    readl(DBG_RVBAR_LO), readl(CPUA_CLK_REG), readl(CPU_PLL_REG(1)));
++	LOG("hb: a2r st %x %x %x %x irq %x uart0 lsr %x pb %x\n",
++	    readl(DBG_A2R_STATUS(0)), readl(DBG_A2R_STATUS(1)),
++	    readl(DBG_A2R_STATUS(2)), readl(DBG_A2R_STATUS(3)),
++	    readl(DBG_A2R_IRQ_STATUS), readl(0x02500014), readl(DBG_PB_CFG1));
++	LOG("hb: c0 ctrl %x st %x clrst %x sysrst %x\n",
++	    readl(DBG_C0_CPU0_CTRL), readl(DBG_C0_CPU0_STATUS0),
++	    readl(DBG_C0_RST_CTRL), readl(DBG_CPU_SYS_RST));
++}
++
+ static void wait_wakeup(void)
+ {
+ 	save_state_flag(REC_ESTANDBY | REC_WAIT_WAKEUP | 0x01);
+ 	wakeup_timer_start();
+ 	//wakeup_source = NO_WAKESOURCE;
++	dbg_hms_entry = readl(RTC_HMS);
++	dbg_tick_entry = current_time_tick();
+ 	while (1) {
+ 		/*
+ 		 * maybe add user defined task process here
+@@ -332,6 +450,9 @@
+ 
+ 
+ 		if (wakeup_source != NO_WAKESOURCE) {
++			dbg_hms_wake = readl(RTC_HMS);
++			dbg_tick_wake = current_time_tick();
++			dbg_wake_src = wakeup_source;
+ 			LOG("wakeup: %d\n", wakeup_source);
+ 			break;
+ 		}
+@@ -354,8 +475,10 @@
+ 	/* wait cpu0 restore finished. */
+ 	while (1) {
+ 		ret = hwmsgbox_query_message(&message, 0);
+-		if (ret != OK)
++		if (ret != OK) {
++			dbg_resume_heartbeat();
+ 			continue; /* no message, query again */
++		}
+ 
+ 		/* query valid message */
+ 		if (message.type == SSTANDBY_RESTORE_NOTIFY) {
+@@ -430,6 +553,9 @@
+ 		LOG("before_crc: 0x%x\n", before_crc);
+ 	}
+ 
++	dbg_sum_bl31 = dbg_dram_sum(DBG_BL31_BASE, DBG_SUM_LEN);
++	dbg_sum_kern = dbg_dram_sum(DBG_KERN_BASE, DBG_SUM_LEN);
++
+ 	dram_power_save_process((void *)(&dts_dram_para[0]));
+ 	LOG("dram save done\n");
+ }
+@@ -439,6 +565,14 @@
+ 	LOG("dram up enter\n");
+ 	dram_power_up_process((void *)(&dts_dram_para[0]));
+ 	LOG("dram up done\n");
++	{
++		u32 b = dbg_dram_sum(DBG_BL31_BASE, DBG_SUM_LEN);
++		u32 k = dbg_dram_sum(DBG_KERN_BASE, DBG_SUM_LEN);
++
++		LOG("dram sum bl31 %x -> %x %s, kernel %x -> %x %s\n",
++		    dbg_sum_bl31, b, b == dbg_sum_bl31 ? "ok" : "CHANGED",
++		    dbg_sum_kern, k, k == dbg_sum_kern ? "ok" : "CHANGED");
++	}
+ 
+ 	/* calc dram checksum */
+ 	if (standby_dram_crc_enable()) {
+@@ -1384,6 +1518,7 @@
+ 
+ 	clk_resume();
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0x6);
++	dbg_report_wake();
+ 
+ 	cpu_direct_access_resume();
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0x7);
+@@ -1400,6 +1535,8 @@
+ 	device_resume();
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0xB);
+ 
++	dbg_uart0_open();
++	LOG("cpu0 start at %x\n", resume_entry);
+ 	cpucfg_cpu_resume(resume_entry);
+ 	save_state_flag(REC_ESTANDBY | REC_ENTER_EXIT | 0xC);
+ 
