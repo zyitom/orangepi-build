@@ -1,0 +1,272 @@
+......
+
+
+[319]HELLO! BOOT0 is{4721ad08}
+[325]board gpio with[340]vaild para:4  select dram p-10-16 17:10
+c]: ***Try SD card 0***
+]: 50000000 Hz
+[mmc]: 61120 MB*
+[379]DRAM BOOT DRIVE INFO: V0.60
+[387]DRAM CLK =2400 MHZ
+[389]D
+9]DRAM Pstate 1 training, freque[716]Training result is = 7
+[71ncy is 800 Mhz
+065]DRAM Pstate 3 training, freq[4816]Training result is = 7
+[4uency is 2400 Mhz
+[4831]DRAM SIZE =4096 MBytes, paam_tpr13 = 65
+[4910]error: dtb not found for smp to ATF: monitor_base = 0x4800ptee_base = 0x0
+NOTICE:  BL31: BL31: U-BOOT 32bit detected
+263a-dirty
+NOTICE:  BL31: Built:  BL31: No DTB found.
+ERROR:  ice opteed_fast
+amp fw boot bef
+
+U-Boot 2018.07-orangepi-conf +0800) Allwinner Technology
+
+
+[04.972]Model: sun60iw2
+I2C:  ready
+[05.034]DRAM:  4 GiB
+d91000
+5.372]PMU: AXP8191
+[05.374]PMU:[05.379]bmu_axp515_probe pmic_bunoff status: 0x50 = 0x1, 0x51 = atus: 0x4 = 0x0
+[05.391]CPU=101 APB1=24Mhz  MBus=600Mhz
+[05.39SPI ALL:   ready
+[05.441]flash ,storage type = 1
+[05.447][mmc]10-18 9:01:00 -- uboot2018:2025-et sdc_type fail and use default[05.463][mmc]: can't find node "][mmc]: fdt err returned <no errt timing para
+[05.475][mmc]: SU0530
+00a
+[05.496][mmc]: host_caps:0xit ok
+get value error
+[05.504] ** No device specified **
+
+[05.546]Warn: no find panel or bconnected
+[05.553]bad framebuffamebuffer_alloc fail!
+[05.560]G[05.566]battery temp is -1
+ed >= 8 cells, got 4 cells)
+Speed change timeout
+PCIe speed[ufs]info:Driver version 0.0.24 Hit any key to stop autoboot:  1 0 
+mmc0 is current device
+Found U-Boot script /boot/boot.s1642 bytes read in 8 ms (200.2 K100000
+Zero 3W boot script from** File not found /boot/uInitrd 33966152 bytes read in 5136 ms (213666 bytes read in 16 ms (12.7Legacy Image at 41000000 ...
+  Image Type:   ARM Linux Kernel Ie:    33966088 Bytes = 32.4 MiBntry Point:  41000000
+   VerifyOK
+## Flattened Device Tree blothe fdt blob at 0x44000000
+15.354]total: 15354 ms
+
+[15.35
+[15.360][mmc]: mmc 2 not find, [15.989]get_sunxi_drm_connector_to found available display routeNOTICE:  [SCP] :wait arisc readyNOTICE:  [SCP] :arisc version: [affc120a-dirty]
+NOTICE:  [SCP] SCP] :arisc startup notify messaxi-arisc driver is starting
+NOT= 0x41000000
+NOTICE:  BL3-1: Ne[    0.000000] AW BSP version: 75:36
+(Tina/Buildroot port)
+zero3w lo[   98.868189] systemd-shutdown[[   99.366593] sunxi:vin:[WARN]:]: video0 device have been closestarting!
+[69]BOOT0 commit : {4[86]vaild para:4  select dram pamc driver ver 2025-10-16 17:10
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc*
+34
+[136]DRAM_VCC set to 560 mv
+ncy is 1200 Mhz
+ncy is 800 Mhz
+ncy is 400 Mhz
+uency is 2400 Mhz
+ra1 = a0fa, para2 = 10001001, dr[4667]error: dtb not found for s0000, uboot_base = 0x4a000000, oBL31: U-BOOT 32bit detected
+ : 21:40:11, Dec 30 2024
+NOTICEice opteed_fast
+amp fw boot befig-dirty (Sep 26 2026 - 02:25:07
+[04.730]Model: sun60iw2
+I2C:  [04.799]Relocation Offset is: 6d5.129]PMU: AXP8191
+[05.131]PMU:s_read fail
+[05.140][AXP8191] oatus: 0x4 = 0x1
+[05.149]CPU=1015]gic: sec monitor mode
+,storage type = 1
+[05.204][mmc]03-28 10:03:00
+[05.213][mmc]: g[05.220][mmc]: can't find node "or>
+[05.229][mmc]: Using defaul0530
+3000003f
+[05.257]sunxi flash in ** No device specified **
+[05.301]NOT support bridge yet
+connected
+[05.311]bad framebuffet sunxi drm device fail!
+ed >= 8 cells, got 4 cells)
+ of Gen1
+Hit any key to stop autoboot:  1Scanning mmc 0:1...
+1642 bytes read in 6 ms (266.6 K mmc 0
+33966152 bytes read in 4842 ms ( MiB/s)
+## Booting kernel from Image Type:   ARM Linux Kernel I
+   Load Address: 41000000
+   EOK
+## Flattened Device Tree blo[14.797]Starting kernel ...
+
+[
+[14.805][mmc]: mmc 2 not find, by_device fail!
+[15.440]Failed NOTICE:  [SCP] :wait arisc ready0170020e421772d892d569dad5ef8b0fSCP] :arisc startup notify messaICE:  BL3-1: Next image address [    0.000000] AW BSP version: 7
+Welcome to Orange Pi Zero 3W ......
+
+
+[66]HELLO! BOOT0 is nd voltage auto mode
+10-16 17:10
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc*
+34
+[131]DRAM_VCC set to 560 mv
+ncy is 1200 Mhz
+ncy is 800 Mhz
+ncy is 400 Mhz
+uency is 2400 Mhz
+ra1 = a0fa, para2 = 10001001, dr[4662]error: dtb not found for s0000, uboot_base = 0x4a000000, oBL31: U-BOOT 32bit detected
+ : 21:40:11, Dec 30 2024
+NOTICEice opteed_fast
+amp fw boot befig-dirty (Sep 26 2026 - 02:25:07
+[04.725]Model: sun60iw2
+I2C:  [04.794]Relocation Offset is: 6d5.124]PMU: AXP8191
+[05.126]PMU:s_read fail
+[05.135][AXP8191] oatus: 0x4 = 0x0
+[05.144]CPU=1010]gic: sec monitor mode
+,storage type = 1
+[05.199][mmc]03-28 10:03:00
+[05.208][mmc]: g[05.216][mmc]: can't find node "or>
+[05.224][mmc]: Using defaul0530
+3000003f
+[05.252]sunxi flash in ** No device specified **
+[05.296]NOT support bridge yet
+connected
+[05.306]bad framebuffet sunxi drm device fail!
+ed >= 8 cells, got 4 cells)
+ of Gen1
+Hit any key to stop autoboot:  1Scanning mmc 0:1...
+1642 bytes read in 7 ms (228.5 K mmc 0
+33966152 bytes read in 4781 ms ( MiB/s)
+## Booting kernel from Image Type:   ARM Linux Kernel I
+   Load Address: 41000000
+   EOK
+## Flattened Device Tree blo[14.736]Starting kernel ...
+
+[
+[14.744][mmc]: mmc 2 not find, by_device fail!
+[15.381]Failed NOTICE:  [SCP] :wait arisc ready0170020e421772d892d569dad5ef8b0fSCP] :arisc startup notify messaICE:  BL3-1: Next image address [    0.000000] AW BSP version: 7
+Welcome to Orange Pi Zero 3W ......
+
+
+[208]HELLO! BOOT0 is starting!
+[211]BOOT0 commit : {4721ad08}
+[214]board gpio withstand voltage auto mode
+[229]vaild para:4  select dram para0
+[mmc]: mmc driver ver 2025-10-16 17:10
+[mmc]: Wrong media type 0x0
+[mmc]: ***Try SD card 0***
+[mmc]: HSSDR52/SDR25 4 bit
+[mmc]: 50000000 Hz
+[mmc]: 61120 MB
+[mmc]: ***SD/MMC 0 init OK!!!***
+[265]boot param - magic error 
+[268]DRAM BOOT DRIVE INFO: V0.6034
+[273]DRAM_VCC set to 560 mv
+[276]DRAM CLK =2400 MHZ
+[278]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[425]Training result is = 7
+[428]DRAM Pstate 1 training, frequency is 1200 Mhz
+[605]Training result is = 7
+[608]DRAM Pstate 2 training, frequency is 800 Mhz
+[951]Training result is = 7
+[954]DRAM Pstate 3 training, frequency is 400 Mhz
+[4706]Training result is = 7
+[4709]DRAM Pstate 0 training, frequency is 2400 Mhz
+[4718]Actual DRAM SIZE =4096 M
+[4721]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[4735]DRAM simple test OK.
+[4800]error: dtb not found for scp
+[4803]mmc not para
+[4805]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+NOTICE:  BL31: OP-TEE 32bit detected
+NOTICE:  BL31: U-BOOT 32bit detected
+NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+NOTICE:  BL31: No DTB found.
+ERROR:   Error initializing runtime service opteed_fast
+amp fw boot before!!!
+amp fw boot after!!!
+
+
+U-Boot 2018.07-orangepi-config-dirty (Sep 26 2026 - 02:25:07 +0800) Allwinner Technology
+
+[04.860]CPU:   Allwinner Family
+[04.863]Model: sun60iw2
+I2C:   ready
+[04.924]DRAM:  4 GiB
+[04.932]Relocation Offset is: 6dd91000
+[05.259]secure enable bit: 0
+[05.262]PMU: AXP8191
+[05.264]PMU: AXP8191 VER_A
+[05.269]bmu_axp515_probe pmic_bus_read fail
+[05.273][AXP8191] onoff status: 0x50 = 0x1, 0x51 = 0x0
+[05.278][AXP8191] charge status: 0x4 = 0x0
+[05.282]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[05.288]gic: sec monitor mode
+SPI ALL:   ready
+[05.332]flash init start
+[05.334]workmode = 0,storage type = 1
+[05.337][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[05.346][mmc]: get sdc_type fail and use default host:tm1.
+[05.354][mmc]: can't find node "mmc0",will add new node
+[05.358][mmc]: fdt err returned <no error>
+[05.362][mmc]: Using default timing para
+[05.366][mmc]: SUNXI SDMMC Controller Version:0x50530
+[05.384][mmc]: card_caps:0x3000000a
+[05.387][mmc]: host_caps:0x3000003f
+[05.390]sunxi flash init ok
+get value error
+[05.394]Loading Environment from EXT4... ** No device specified **
+Failed (-5)
+No ethernet found.
+[05.434]NOT support bridge yet
+[05.437]Warn: no find panel or bridge
+[05.441]hdmi0@5520000 disconnected
+[05.444]bad framebuffer width 0
+test
+[05.447]drm_framebuffer_alloc fail!
+[05.450]Get sunxi drm device fail!
+[05.456]battery temp is -1
+[05.463](not enough data: expected >= 8 cells, got 4 cells)
+Link up timeout
+Speed change timeout
+PCIe speed of Gen1
+[ufs]info:Driver version 0.0.24 2024.12.30 16:00
+Hit any key to stop autoboot:  1  0 
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot/boot.scr
+1642 bytes read in 7 ms (228.5 KiB/s)
+## Executing script at 43100000
+Zero 3W boot script from mmc 0
+** File not found /boot/uInitrd **
+33966152 bytes read in 4681 ms (6.9 MiB/s)
+213666 bytes read in 16 ms (12.7 MiB/s)
+## Booting kernel from Legacy Image at 41000000 ...
+   Image Name:   Linux kernel
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    33966088 Bytes = 32.4 MiB
+   Load Address: 41000000
+   Entry Point:  41000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 44000000
+   Booting using the fdt blob at 0x44000000
+[14.775]Starting kernel ...
+
+[14.777]total: 14777 ms
+
+[14.780][mmc]: MMC Device 2 not found
+[14.783][mmc]: mmc 2 not find, so not exit
+[15.415]get_sunxi_drm_connector_by_device fail!
+[15.420]Failed to found available display route
+NOTICE:  [SCP] :wait arisc ready....
+NOTICE:  [SCP] :arisc version: [0170020e421772d892d569dad5ef8b0faffc120a-dirty]
+NOTICE:  [SCP] :arisc startup ready
+NOTICE:  [SCP] :arisc startup notify message feedback
+NOTICE:  [SCP] :sunxi-arisc driver is starting
+NOTICE:  BL3-1: Next image address = 0x41000000
+NOTICE:  BL3-1: Next image spsr = 0x3c5
+[    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+
+Welcome to Orange Pi Zero 3W (Tina/Buildroot port)
+zero3w login: 

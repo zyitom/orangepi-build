@@ -1,0 +1,699 @@
+€[0022.87] query syn msg
+[0022.87] MESSAGE FROM AC327
+[0022.87] state:2
+[0022.88] type:26
+[0022.88] attr:2
+[0022.88] count: 0x1
+[0022.89] set wakeup src req
+[0022.89] wakeup_root_irq: 200
+[0022.90] WRN:ignore wake source 200 (r_pio level IRQ)
+[0022.91] send feedback message
+[0022.91] feedback hard syn message : 26
+[0022.92] query asyn msg
+[0022.92] MESSAGE FROM AC327
+[0022.93] state:2
+[0022.93] type:26
+[0022.94] attr:2
+[0022.94] count: 0x1
+[0022.94] set wakeup src req
+[0022.95] wakeup_root_irq: 196
+[0022.95] install isr 18
+[0022.96] intno:24 interrupt enable
+[0022.96] send feedback message
+[0022.97] feedback hard syn message : 26
+[0023.23] query syn msg
+[0023.23] MESSAGE FROM AC327
+[0023.23] state:2
+[0023.23] type:22
+[0023.24] attr:0
+[0023.24] count: 0x5
+[0023.24] cpu op req
+[0023.25] mpidr:81000000, entrypoint:48000228; cpu_state:3, cluster_state:3, system_state:3
+[0023.30] WRN:no standby_param: FFFFFFFB fdt:44000000
+[0023.95] iosc_freq: 13365000
+[0023.95] [usb_standby_port_support] 0x4101800:0x0 [0]
+[0023.95] [usb_standby_port_support] 0x4200800:0x0 [0]
+[0023.96] SMC: Save region 0
+[0023.97] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0023.98] reset
+[0023.98] restore bus status to 0x3a
+[0023.99] init twi succeeded
+[0023.99] cpu off 
+[0024.01] the first time ddr standby
+[0024.13] dram save done
+[0024.13] clk_suspend
+[0024.13] twi clk change request
+[0024.13] uart source clock change requestlğ[0024.16] õáòô ¢µ¡¤²¡´¥€£¨¡¾·µ´·¶±…„­˜˜™š—LSjõM1AùAuAeYAåÉã¾æclë ½€’˜˜˜˜–¹YXÛ5±­uEY}aiiµaadh.1¶İ ´·¹³´·±´°·VÖË««Hh‚’¢rŠÂjmÕÍ‰ıåÍı½íåíáÉİÉ»@ætandâùß´¹°¥€š¸…‚¯˜˜˜š–˜œWHİ.,&'$&	©Í‰ÅéA1AÕíÉiAaYAéÉÉuAaY@àŞrt: °ø°Š«˜˜šš–˜œWÈ+¦‚ÂİÁÅAIUAiAaña·``24®±¸€«‘­˜¼›˜LL¦“‚ÂÅÁá5)íAAIqYeq½AíÁÓéAîÂkeuğŠ[0°²”™œ¯WV«iÉiEeiµa`2´®±˜­«¹¹±¯Z®ë%•ÍÕõÕµAåéÃİÈbùß´¹°µ˜¼˜C¡+&†“)ÂêÕÍÉaqAaY@usâ±º€”»¹±˜–»²²PXFH\KÑiAaña¶0°²”™™­­˜WHLSS³K‚ÂÅÁa5)­aaei]br] ›‘½˜¼›˜˜˜™ML'$&/&Hh‚’¢ò’ÂjÁÁÕAıÙµaaeh.2°İ ´·¹³´µ±´Xë«I•ÅÕÕÍñµaaeh\21İ µ¡²´»·»¹¬Òëkë)‹ësW%•ÅÕÕíñÍ[0024.23] uart buadrate change done
+[0024.23] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0024.24] twi clk change done
+[0024.25] dram up enter
+[0024.25] DRAM BOOT DRIVE INFO: V0.6035
+[0024.26] DRAM CLK =2400 MHZ
+[0024.26] DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[0024.34] the first time ddr standby
+[0024.53] not the first time ddr standby
+[0024.53] DRAM DFS VERSION INFO: V0.603
+[0024.53] the counter for dfi_freq is = 22 
+[0024.54] the dat_idx2 for dfi_freq is = 1 
+[0024.55] the counter for ccu is = 40 
+[0024.55] Actual DRAM SIZE =4096 M
+[0024.56] DRAM SIZE =4096 MBytes, para1 = A0FA, para2 = 10001001, dram_tpr13 = 65
+[0024.57] dram up done
+[0024.58] cpu on 
+[0024.62] SMC: non-secure chip
+[0024.62] wait ac327 resume...
+[0000.00] debugger system ok
+[0000.00] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0000.00] reset
+[0000.00] init twi succeeded
+[0000.00] twi driver ok
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00] bmu is not exist
+[0000.00] pmu & bmu driver ok
+[0000.00] hwmsgbox driver ok
+[0000.00] cpucfg driver ok
+[0000.00] message manager ok
+[0000.00] timer driver ok
+[0000.00] last wake record: 0
+[0000.00] standby service ok
+[0000.00] install isr 15
+[0000.00] intno:21 interrupt enable
+[0000.00] setup timer server succeeded
+[0000.00] time ticks ok
+[0000.01] watchdog ok
+[0000.01] feedback startup result [0]
+[0000.02] send syn message
+[0000.04] send notify succeed
+[0000.09] dram para[0] 0x0
+[0000.09] dram para[1] 0x0
+[0000.09] dram para[2] 0x0
+[0000.10] dram para[3] 0x0
+[0000.10] dram para[4] 0x0
+[0000.11] dram para[5] 0x0
+[0000.11] dram para[6] 0x0
+[0000.12] dram para[7] 0x0
+[0000.12] dram para[8] 0x0
+[0000.13] dram para[9] 0x0
+[0000.13] dram para[10] 0x0
+[0000.14] dram para[11] 0x0
+[0000.14] dram para[12] 0x0
+[0000.15] dram para[13] 0x0
+[0000.15] dram para[14] 0x0
+[0000.16] dram para[15] 0x0
+[0000.16] dram para[16] 0x0
+[0000.17] dram para[17] 0x0
+[0000.17] dram para[18] 0x0
+[0000.18] dram para[19] 0x0
+[0000.18] dram para[20] 0x0
+[0000.19] dram para[21] 0x0
+[0000.19] dram para[22] 0x0
+[0000.20] dram para[23] 0x0
+[0000.20] dram para[24] 0x0
+[0000.21] dram para[25] 0x0
+[0000.21] dram para[26] 0x0
+[0000.22] dram para[27] 0x0
+[0000.22] dram para[28] 0x0
+[0000.23] dram para[29] 0x0
+[0000.23] dram para[30] 0x0
+[0000.24] dram para[31] 0x0
+[0000.24] dram para[32] 0x0
+[0000.25] dram para[33] 0x0
+[0000.25] dram para[34] 0x0
+[0000.26] dram para[35] 0x0
+[0000.26] dram para[36] 0x0
+[0000.27] dram para[37] 0x0
+[0000.27] dram para[38] 0x0
+[0000.28] dram para[39] 0x0
+[0000.28] dram para[40] 0x0
+[0000.29] dram para[41] 0x0
+[0000.29] dram para[42] 0x0
+[0000.30] dram para[43] 0x0
+[0000.30] dram para[44] 0x0
+[0000.31] dram para[45] 0x0
+[0000.31] dram para[46] 0x0
+[0000.32] dram para[47] 0x0
+[0000.32] dram para[48] 0x0
+[0000.33] dram para[49] 0x0
+[0000.33] dram para[50] 0x0
+[0000.34] dram para[51] 0x0
+[0000.34] dram para[52] 0x0
+[0000.35] dram para[53] 0x0
+[0000.35] dram para[54] 0x0
+[0000.36] dram para[55] 0x0
+[0000.36] dram para[56] 0x0
+[0000.37] dram para[57] 0x0
+[0000.37] dram para[58] 0x0
+[0000.38] dram para[59] 0x0
+[0000.38] dram para[60] 0x0
+[0000.39] dram para[61] 0x0
+[0000.39] dram para[62] 0x0
+[0000.40] dram para[63] 0x0
+[0000.40] dram para[64] 0x0
+[0000.41] dram para[65] 0x0
+[0000.41] dram para[66] 0x0
+[0000.42] dram para[67] 0x0
+[0000.42] dram para[68] 0x0
+[0000.43] dram para[69] 0x0
+[0000.43] dram para[70] 0x0
+[0000.44] dram para[71] 0x0
+[0000.44] dram para[72] 0x0
+[0000.45] dram para[73] 0x0
+[0000.45] dram para[74] 0x0
+[0000.46] dram para[75] 0x0
+[0000.46] dram para[76] 0x0
+[0000.47] dram para[77] 0x0
+[0000.47] dram para[78] 0x0
+[0000.48] dram para[79] 0x0
+[0000.48] dram para[80] 0x0
+[0000.49] dram para[81] 0x0
+[0000.49] dram para[82] 0x0
+[0000.50] dram para[83] 0x0
+[0000.50] dram para[84] 0x0
+[0000.51] dram para[85] 0x0
+[0000.51] dram para[86] 0x0
+[0000.52] dram para[87] 0x0
+[0000.52] dram para[88] 0x0
+[0000.53] dram para[89] 0x0
+[0000.53] dram para[90] 0x0
+[0000.54] dram para[91] 0x0
+[0000.54] dram para[92] 0x0
+[0000.55] dram para[93] 0x0
+[0000.55] dram para[94] 0x0
+[0000.56] dram para[95] 0x0
+[0000.56] dram para[96] 0x0
+[0000.57] dram para[97] 0x0
+[0000.57] dram para[98] 0x0
+[0000.58] dram para[99] 0x0
+[0000.58] dram para[100] 0x0
+[0000.59] dram para[101] 0x0
+[0000.59] dram para[102] 0x0
+[0000.60] dram para[103] 0x0
+[0000.60] dram para[104] 0x0
+[0000.61] dram para[105] 0x0
+[0000.61] dram para[106] 0x0
+[0000.62] dram para[107] 0x0
+[0000.63] dram para[108] 0x0
+[0000.63] dram para[109] 0x0
+[0000.64] dram para[110] 0x0
+[0000.64] dram para[111] 0x0
+[0000.65] dram para[112] 0x0
+[0000.65] dram para[113] 0x0
+[0000.66] dram para[114] 0x0
+[0000.66] dram para[115] 0x0
+[0000.67] dram para[116] 0x0
+[0000.67] dram para[117] 0x0
+[0000.68] dram para[118] 0x0
+[0000.68] dram para[119] 0x0
+[0000.69] dram para[120] 0x0
+[0000.69] dram para[121] 0x0
+[0000.70] dram para[122] 0x0
+[0000.70] dram para[123] 0x0
+[0000.71] dram para[124] 0x0
+[0000.71] dram para[125] 0x0
+[0000.72] dram para[126] 0x0
+[0000.72] dram para[127] 0x0
+[0000.73] dram para[128] 0x0
+[0000.73] dram para[129] 0x0
+[0000.74] dram para[130] 0x0
+[0000.74] dram para[131] 0x0
+[0000.75] dram para[132] 0x0
+[0000.76] dram para[133] 0x0
+[0000.76] dram para[134] 0x0
+[0000.77] dram para[135] 0x0
+[0000.77] dram para[136] 0x0
+[0000.78] dram para[137] 0x0
+[0000.78] dram para[138] 0x0
+[0000.79] dram para[139] 0x0
+[0000.79] dram para[140] 0x0
+[0000.80] dram para[141] 0x0
+[0000.80] dram para[142] 0x0
+[0000.81] dram para[143] 0x0
+[0000.81] dram para[144] 0x0
+[0000.82] dram para[145] 0x0
+[0000.82] dram para[146] 0x0
+[0000.83] dram para[147] 0x0
+[0000.83] dram para[148] 0x0
+[0000.84] dram para[149] 0x0
+[0000.84] dram para[150] 0x0
+[0000.85] dram para[151] 0x0
+[0000.85] dram para[152] 0x0
+[0000.86] dram para[153] 0x0
+[0000.86] dram para[154] 0x0
+[0000.87] dram para[155] 0x0
+[0000.87] dram para[156] 0x0
+[0000.88] dram para[157] 0x0
+[0000.89] dram para[158] 0x0
+[0000.89] dram para[159] 0x0
+[0000.90] WRN:dram para all zero -- using built-in zero3w values
+[0000.91] startup feedback ok
+[0000.91] ar100 hdmi init done
+[0000.92] dma driver ok
+[0000.92] ar100 firmware version : 0170020e421772d892d569dad5ef8b0faffc120a-dirty
+[0000.93] daemon service setup...
+[0001.70] query syn msg
+[0001.70] MESSAGE FROM AC327
+[0001.70] state:2
+[0001.70] type:26
+[0001.70] attr:2
+[0001.71] count: 0x1
+[0001.71] set wakeup src req
+[0001.72] wakeup_root_irq: 198
+[0001.72] install isr 1A
+[0001.73] intno:26 interrupt enable
+[0001.73] send feedback message
+[0001.74] feedback hard syn message : 26
+[0005.00] ------------------------------
+[0005.00] system tick:500
+[0005.00] debug_mask:3
+[0005.00] uart_buadrate:57600
+[0005.01] stack free:608byte
+[0010.00] ------------------------------
+[0010.00] system tick:500
+[0010.00] debug_mask:3
+[0010.00] uart_buadrate:57600
+[0010.01] stack free:608byte
+[0015.00] ------------------------------
+[0015.00] system tick:500
+[0015.00] debug_mask:3
+[0015.00] uart_buadrate:57600
+[0015.01] stack free:608byte
+[0020.00] ------------------------------
+[0020.00] system tick:500
+[0020.00] debug_mask:3
+[0020.00] uart_buadrate:57600
+[0020.01] stack free:608byte
+[0025.00] ------------------------------
+[0025.00] system tick:500
+[0025.00] debug_mask:3
+[0025.00] uart_buadrate:57600
+[0025.01] stack free:608byte
+[0030.00] ------------------------------
+[0030.00] system tick:500
+[0030.00] debug_mask:3
+[0030.00] uart_buadrate:57600
+[0030.01] stack free:608byte
+[0035.00] ------------------------------
+[0035.00] system tick:500
+[0035.00] debug_mask:3
+[0035.00] uart_buadrate:57600
+[0035.01] stack free:608byte
+[0040.00] ------------------------------
+[0040.00] system tick:500
+[0040.00] debug_mask:3
+[0040.00] uart_buadrate:57600
+[0040.01] stack free:608byte
+[0045.00] ------------------------------
+[0045.00] system tick:500
+[0045.00] debug_mask:3
+[0045.00] uart_buadrate:57600
+[0045.01] stack free:608byte
+[0050.00] ------------------------------
+[0050.00] system tick:500
+[0050.00] debug_mask:3
+[0050.00] uart_buadrate:57600
+[0050.01] stack free:608byte
+[0055.00] ------------------------------
+[0055.00] system tick:500
+[0055.00] debug_mask:3
+[0055.00] uart_buadrate:57600
+[0055.01] stack free:608byte
+f˜æøæxæ€˜€f€À˜æ˜ø†€˜à˜~ÀÌfæ˜æ˜f€æ`f0 3Âf˜æ˜ ˜ ™€æxxæ“€˜€f à˜æ˜øŸğ˜à˜~ ˜øófàófxÃ?ÆxfÌğğ˜æ˜ø?ø˜à˜~3 ÌfşğfxÃ?ÃxóÌ30xğ˜æ˜ø†€˜à˜~ÀÌÀó~ÃüãfğæfæàÏææ@Ìÿ€ÃàÀàÀà¼ ãfÃfàÏæfÏğ ˜ş xğàÀÀà˜030xğ˜æ˜ø?øÌ˜~3 øfÃæøfãóf€˜€f à˜æ˜øŸğæ˜~ ÃfÃæøóæ?f àfóæø`Ìø~3ğ~3~? Ìæ àğæxÌÀfæfÃ ˜~ÀÃfÃ†àfóæxóxf<ÀÌøfüæøófÃfçÀÌæ€˜€f ÀàÀ† ‡ ˜~ÀÌÎÀÌÿ€˜æ<€?ÀÌş€˜à<€ÃfÃfğæfæà ˜ş ãÀàÀàÀ€ÃfáfÀşfàÏææ`Ìÿ€ÃàÀàÀÀ˜30fÃ ˜~ÀÌ†˜†˜†~fÃfs~xğÌ30pğàÀŸÀà˜~ ˜øóæ Ÿ ˜øfxÃ`<æ€˜€f àÀà?Àà˜~3 ˜à˜æxÏÌxÏà˜˜à˜30ğğàà?àÀ˜~3 ˜3Ã3†fæ˜†fó~†xğÌ30xğàà?àÀ˜~3 ˜øf€ÀàÀ† Ã ˜~ÀÌæ~›¿~<œş€ÀÃ†øfæ†~f<Ÿ ˜æ€˜€f ÀàÀŸÀà˜~ ˜àğfùæà†xóx0x?†x?f? ˜æ€˜€f àÀà?àÀ˜~3 ˜fxóüòøfÀæx3x ˜fÀ†¼~<fœ? ˜æ€˜€f€ÀÀà ˜˜†Ÿ`?àà ˜˜æø†ø`Ìğ˜æ˜030xğàà?àÀ˜~3 ˜˜†`?øş˜Ã˜à ˜˜†`?f?fóøóÀÌÆ†<àfœæ€˜€f€ÀàÀ† Ç ˜~ÀÌøfÃ~3~ Ÿ ÌfäfÏfxÃü`æøfÃ†ø†~3xÃü`æøf~óğóàfãfÃx3xƒx3À?àÃ˜~3 ˜øfÃ†` ˜øfü† ˜fÃæøæøfÀæx3x™€˜€f ÀàÀŸÀæ˜~ ˜øfÃ†`< ?æ`Ÿ†x†`Ìøf~óğóàfÃfÃãfü àÀà?à˜ø˜~3 †øfÀf ÀğøxÌÌxğàà?˜àÀ˜~3 ††øfÀfçÀğfÀ†øfÀæ{Ì?`ğøğÌæxğàÀ†æf aÏfàfÏ`ğfÀ†øfÀæfóÌ?ÀğøğÌÌğğààŸ˜à˜à˜~3 †øfÀfÏ`ğfà†øfàæ†3f a€ğxÌÌğğøfÀf àfà†øfàæfxğ˜~3 ÀğğÌìğğàÀŸ˜àæ˜~ †øfàfÏ`ğfà†øfàæfğÌğ˜~3 ÀøğÌæxğàÀ†`æf aÏfàfÏ`ğfÀ†øfÀæfğxÌ?ÀàøxÌÌxğàà?˜à˜æ˜~3 ††øfÀfçÀğfÀf a€ğxÌÌxğàà?˜à˜™f aÏfÀfçÀğfÀ†øfÀæfxÌ³f a€ğğÌÌğğàà?˜à˜æf aÏfÀf Àfà†øfàæfxü˜~3 ÀøğÌæpğàÀŸ˜àø˜~ Œ†øfàfÏ`ğfà†øfÀæfğÌü˜~3 ÀøpÌÀ† ‡æf aÏfàfÏ`ğfà†øfÀæ†xÌxÌ?`ğøpÌæxğàÀ†‡ ‡æf aÏfàfÏÀğfÀ†øfÀæ†xóÌ~ÀğøxÌÌğğàà?xÌğÌ~`Ã†øfÀf àfÀ†øfàæ†xfóÌ~ÀğøğÌÌğğàà¿Ã˜à˜~3 àfÀ†øfàæ†xÌüØ~ÀğøğÌÌğğàà¿Ã˜xÌ?`Ã†øfÀfÏ`ğfà†øfàææxğÌ~`ğøğÌæxğàÀ†`æf aÏfàfÏ`ğfÀ†øfÀææxlğÌ~`ğøxÌÌxğàÀ?ãÌ˜~3 ††øfÀfçÀğfÀ†øfÀææxÌÌxğàÀ?áÏ˜~3 ††øfÀfçÀğfÀ†øfÀææx†3f a€ğxÌÌğğàà?xÌæf aÏfÀf àfà†øfàææxÌæf a€ğğÌìğğàÀŸÃ˜3f aÏfàfÏ`ğfà†øfàææxüÌ~`ğøğÌæx˜~ †øfàfÏ`ğfà†øfÀæóxf?`ğøğÌæxğàÀ†‡ ‡æf aÏfàfÏÀàfÀ†øfÀæóÌxÌ?ÀğøxÌÌğààà?˜xğÈ~ÀÃ†øfÀf àfÀ†øfÀæ{ó˜~ÀğøğÌÌğğàà?˜xÌğÌ~`Ã†øfÀfæyü˜~3 àğğÌÌğğàà?˜xÌxf?`Ã†øfÀfÏ`ğfà†øfàæ3?3f a€øğÌæpğàÀ†æf aÏfàfÏ`ğfà†øfÀæfóğ˜~ ÀøpÌæxğàÀ?˜xóÌ~ÀÃ†øfàfïÀğfÀ†øfÀæfóÌğ˜~ÀxğàÀ?˜x†“f aÏfÀfïÀğfÀ†øfÀæfsÌó˜~ÀğøxÌÌğğàà?˜xæf aÏfÀf àfÀ†øfàæfÃ™f a€ğğÌÌğğàÀŸ˜xÌ3f aÏfÀfÏ`ğfà†øfàæfóÌæf a€øğÌæxğàÀ†øfàfÏ`ğfà†øfàæ†3<3f a€øğÌæxğàÀ††˜~ÀÃ†øfàfÏ`ğfÀ†øfÀæ†a<3f a€ğxÌÌxğàà?æÀ˜~3 ††øfÀfçÀğfÀ†øfÀæ†æf a€ğxÌÌğğàà?æÀ˜~3 †øfÀf àfàf a€ğxÌÌğğàà?æÃ˜~3 †øfÀf Àfà†øfàæ†?3f a€øğÌäpğàÀŸÌ˜xÌ?`Ã†øfàfÏ`ğfà†øfÀæ†3?3f a€øpÌæxğàÀ†`‡æf aÏfàfÏÀàfÀ†øfÀææ ‡æf a€ğxÌÀ†`‡fæf aÏfàfÏÀğfÀ†øfÀææ`æf a€ğxÌÌğğàà?æÏ˜~3 †øfÀf àfÀ†øfàææ3›f a€ğğÌÌğğàà¿Ìç˜~3 †øfÀfÏ`ğfà†øfàææÃæf a€øğÌæpğàÀ†`~æf ğfà†øfàæüà˜~3 ÀøğÌæxğàÀ†`†˜~ÀÂ†øfàfÏ`ğfÀ†øfÀæüÌğ˜~ ÀğxÌÌxğàÀ?ä˜ø˜~3 ††øfÀfçÀğfÀ†øfÀæ|xÌ?ÀğøxÌÌğğàà?˜æÀ˜~3 †øfÀf àfà†øfàæ~xÌÌğğàà?˜æÃ˜~3 †øfÀf àfà†øfàæ~Ìæf a€ğğÌìğğàÀŸ˜æxÌ?`Ã†øfàfÏ`ğfà†øfàæüü˜~3 ÀøğÌæxğàÀ†f‡æf aÏfàfÏ`ğfÀ†øfÀæüÌü˜~ ÀğxÌÌxğæf aÏfàfÏÀàfÀ†øfÀæfüÌxÌ?ÀğøxÌÌğààà?˜æ˜æ˜~3 †øfÀf àfÀ†øfÀæf~ó˜~3 àğğÌÌğğàà?˜æï˜~3 †øfÀf Àfà†øfàæf~Ìó˜~3 ÀøğÌæpğàÀ†fxæf aÏfàfæf~Ìü˜~3 ÀøğÌæpğàÀ†f€˜~ÀÆ†øfàfÏ`ğfà†øfÀæfğğà˜~3 àğğÌìğğàÀŸ˜æ˜ø˜~3 †øfàfÏ`ğfà†øfàæfğğ˜à˜~ÀğøxÌÌğğàà?˜æ˜ø˜~3 †øfÀf Àfà†øfàæfxğÀøğÌäpğàÀŸÏ˜à˜~ Œ†øfàfÏ`ğfà†øfÀæfğğ›f a€ğğÌÌğğàà¿Ïã˜~3 †øfÀfÏ`ğfà†øfàæfxğ˜3f a€ğxÌÌğğàà?ó<3f aÏfÀf àfà†øfàæfxğø˜~ ÀğìğğàÀŸÏ˜æ˜~ †øfàfÏ`ğfà†øfàæfğÌğxÌ?ÀğøğÌÌğğàà?3æf aÏfÀf Àfà†øfàæfxÌğ˜xÌ?ÀğøxÌÌğğàà?Ãæf aÏfÀf àfÀ†øfàæfxÌğæ˜~ ÀğxÌÌx¿Ïø˜~3 †øfÀfÏ`ğfà†øfàæfğÌàø˜~ÀğøxÌÌğğàà??3f aÏfÀf àfà†øfàæfxÌğ˜ø˜~ÀğøxÌÌxğàà?3?2f aÏfÀf àfÀ†øfÀæfxxğÌ~`ğøpÌæxğàÀ?ï˜aÏfÀfÏ`ğfà†øfàæfxxóÌ~ÀğøxÌÌğğàà?˜3<3f aÏfÀf àfÀ†øfàæfxxlóÌ~ÀàøxÌÌxğàÀ?˜Ã<6f aÏfÀfçÀğfÀ†øfÀæfpx3f a€øpÌæxğàÀ†~‡æf aÏàfà†øfàæfxÌxğÌ~ÀğøxÌÌğààà?˜æf aÏfÀf àfÀ†øfàæfxÌxLğÌ~`ğøpÌÌxğàÀ?˜fæf aÏfÀfïÀğfÀ†øfÀæfpÌxxf?`ğøğÌæxğàÀ†~xæf aÏfàfÏ`ğfÀfxÌx„3f a€ğxÌÌxğàà?˜?6f aÏfÀfçÀğfÀ†øfÀæfxÌxÌ3f a€øpÌæxğàÀ†~‡€˜~ÀÃ†øfàfÏÀğfÀ†øfÀæfğÌxüÌ~`ğøğÌæpğàÀ†~†˜~ÀÆ†øfàfÏ`ğfÀ†øfÀæfğÌx`ğøxÌÌxğàÀ?ø˜à˜~3 ††øfÀfçÀğfÀ†øfÀæfpó˜xf?`ğøğÌæxğàÀ†€˜à˜~ÀÃ†øfàfÏ`ğfÀ†øfÀæfğóæ˜~3 ÀøğÌæpğàÀŸğxÌ?ÀÆ†øfàfÏ`ğfà†øfÀæfğó˜æ˜~3 àğa€ğxÌÌğğàà?ø˜xf?`Ã†øfÀf àfà†øfàæfxó˜3f a€ğxÌÌxğàà?ø˜xd?ÀÃ†øfÀf àfÀ†øfÀæfxóø˜~3 ÀøpÌæxğàÀ†€Ì˜~ÀÃ†øfàfÏÀğfÀ†øfÀæfğó˜ğøxÌÌğğàà?øÏ˜~3 †øfÀf ğfà†øfÀæfğÌó™f a€ğğÌÌğğàÀŸğø˜~3 †øfÀfÏ`ğfà†øfàæfğÌæ˜³f a€ğxÌÌğğàà?ø˜ø˜~3 †øfÀf àfà†øfàæfxÌóø˜~ÀğøxÌÌğààà?ø˜ø˜~3 †øfÀf àfÀøófùğ`xf<fœ`<< ˜æ€˜€f àÀà?˜ø˜à˜~3 ˜€†øfğğà Ãf† ˜˜††`? æøf<æ€˜€f àÀà?˜øÃ˜~3 f< †øfì†~3xÃü`ææ€˜€f àÀà?˜øÃ˜~3 ˜€†øfğğà€fÌ~›~üÃ†ø†ø†æ€˜€ àÀ˜àŸ˜<3f ?˜3<3f a€~~aüÃ~†xÌÌğğà˜à?˜3<3f aàæfŸø`Ÿ˜€ÀøfğÌæxğà˜à†~æf afÃ~0ò~3ğóæfãfóøÀÌø†øæà@øfãfğf€˜€f àÀ˜àŸ˜c<3f a~<f<fğæfæş`?şfÃÏfğ†~ÀÌfÃæøæøfàæxf<æ€˜€f àÀ˜à?˜æf aÏ3f¼`<œ< 0fà†øÃ`Ìøfş† ˜fxóüóøfàæx³x0Æ~Àxæ€˜€ àÀ˜æŸÀà˜~ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜030xğà˜æ?àÀ˜~3 ˜øfüæøùfÃf fü~3xæ€˜€ à˜àà?àÀ˜~3 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜030xğ˜àÀ† àæàææ@xÃü3x“xÃ?Â3<ÃÃğ3şùfÃf€˜€ à˜à˜æŸÀà˜~3 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜030xğ˜à˜æ?àÀ˜~3 ˜øfüæøûfÃf Ïfü~3xæ€˜€[0020.00] ------------------------------
+[0020.00] s16byte
+
+[0022.23] MESSAGE FROM AC327
+[0022.23] state:2
+[0022.23] type:26
+[0022.23] attr:2
+[0022:ignore wake source 200 (r_pio level IRQ)
+[0022.26] send feedback message
+[0022.27] feedbatate:2
+[0022.29] type:26
+[0022.29] attr:2
+[0022.29] count: 0x1
+[0022.30] set wakeup src nable
+[0022.32] send feedback message
+[0022.32] feedback hard syn message : 26
+g
+[0022.55] MESSAGE FROM AC327
+[0022.55] state:2
+[0022.55] type:22
+[0022.55] attr:0
+[00tate:3, cluster_state:3, system_state:3
+[0023.25] iosc_freq: 13398000
+[0023.25] [usb_standby_po.27] SMC: Save region 0
+[0023.27] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0023 off 
+[0023.31] the first time ddr standby
+
+[0023.43] twi clk change request
+[0023.43] uart source clock change requestlëËkë¨¨‚’šr¢²jµõÍ±¹AuAeQAáÍå½åÅÙ×Az@d`0000, òåáìŸ£¬«€€‘–Ÿœ›™‡„­˜˜™&‰ºêÑİ¥ñíAÍÑÅÙÍÉAÉßÜÊ °¸Š«˜˜š™—šœWH+¦‚ÂİÁÅÁIUAiAaña·``23®´¸½«™­˜¼›˜LL¦“‚ÂÅÁá5)íAAimYaq½AïÃÒt ÷á«¥µ°…†0°²“”˜­»±µ².®,'df‡SHh‚’š²âêzmÕÍÉ½Õíİ½åËæumåİ ³´±¶°°½¯º^\YH'&/&Hh‚’šòâÊjÕÍÉAiAaYAëçÄ1º ©‚jÁÁÕıÙµaad3®µ‘½¼»µ±¶-¤,MŒë«	•ÅÕÕíé·`02³®•‘­¹±¹º®«É•AÍÑİÅÕAÇĞançå ²¥±µµ»º‡ó.54] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0023.55] twi clk change done
+[00230023.57] DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[0023.83] er for dfi_freq is = 22 
+[0023.84] the dat_idx2 for dfi_freq is = 1 
+[0023.85] the counter 1 = A0FA, para2 = 10001001, dram_tpr13 = 65
+[0023.88] dram up done
+[0023.88] cpu on 
+C: non-secure chip
+[0023.93] wait ac327 resume...
+  ÿ
+[0000.00] reset
+[0000.00] init twi succeeded
+[0000.00] twi driver ok
+0000.00] 1,52,3,0,-1
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000 cpucfg driver ok
+[0000.00] message manager ok
+[0000.00] timer driver ok
+[0000.00] last wterrupt enable
+[0000.00] setup timer server succeeded
+[0000.00] time ticks ok
+[0000.01] wa[0000.04] send notify succeed
+9] dram para[1] 0x0
+[0000.09] dram para[2] 0x0
+[0000.10] dram para[3] 0x0
+[0000.10] dram x0
+[0000.12] dram para[8] 0x0
+[0000.13] dram para[9] 0x0
+[0000.13] dram para[10] 0x0
+[00 dram para[14] 0x0
+[0000.16] dram para[15] 0x0
+[0000.16] dram para[16] 0x0
+[0000.17] dram[20] 0x0
+[0000.19] dram para[21] 0x0
+[0000.19] dram para[22] 0x0
+[0000.20] dram para[23] 00000.22] dram para[27] 0x0
+[0000.22] dram para[28] 0x0
+[0000.23] dram para[29] 0x0
+[0000.2am para[33] 0x0
+[0000.25] dram para[34] 0x0
+[0000.26] dram para[35] 0x0
+[0000.26] dram par 0x0
+[0000.28] dram para[40] 0x0
+[0000.29] dram para[41] 0x0
+[0000.29] dram para[42] 0x0
+.31] dram para[46] 0x0
+[0000.32] dram para[47] 0x0
+[0000.32] dram para[48] 0x0
+[0000.33] ara[52] 0x0
+[0000.35] dram para[53] 0x0
+[0000.35] dram para[54] 0x0
+[0000.36] dram para[5
+[0000.38] dram para[59] 0x0
+[0000.38] dram para[60] 0x0
+[0000.39] dram para[61] 0x0
+[00 dram para[65] 0x0
+[0000.41] dram para[66] 0x0
+[0000.42] dram para[67] 0x0
+[0000.42] dram71] 0x0
+[0000.44] dram para[72] 0x0
+[0000.45] dram para[73] 0x0
+[0000.45] dram para[74] 0000.47] dram para[78] 0x0
+[0000.48] dram para[79] 0x0
+[0000.48] dram para[80] 0x0
+[0000.4am para[84] 0x0
+[0000.51] dram para[85] 0x0
+[0000.51] dram para[86] 0x0
+[0000.52] dram par 0x0
+[0000.54] dram para[91] 0x0
+[0000.54] dram para[92] 0x0
+[0000.55] dram para[93] 0x0
+.57] dram para[97] 0x0
+[0000.57] dram para[98] 0x0
+[0000.58] dram para[99] 0x0
+[0000.58] dm para[103] 0x0
+[0000.60] dram para[104] 0x0
+[0000.61] dram para[105] 0x0
+[0000.61] dram pa[109] 0x0
+[0000.64] dram para[110] 0x0
+[0000.64] dram para[111] 0x0
+[0000.65] dram para[1] 0x0
+[0000.67] dram para[116] 0x0
+[0000.67] dram para[117] 0x0
+[0000.68] dram para[118] 
+[0000.70] dram para[122] 0x0
+[0000.70] dram para[123] 0x0
+[0000.71] dram para[124] 0x0
+00.73] dram para[128] 0x0
+[0000.73] dram para[129] 0x0
+[0000.74] dram para[130] 0x0
+[0000] dram para[134] 0x0
+[0000.77] dram para[135] 0x0
+[0000.77] dram para[136] 0x0
+[0000.78] m para[140] 0x0
+[0000.80] dram para[141] 0x0
+[0000.80] dram para[142] 0x0
+[0000.81] dram a[146] 0x0
+[0000.83] dram para[147] 0x0
+[0000.83] dram para[148] 0x0
+[0000.84] dram para[2] 0x0
+[0000.86] dram para[153] 0x0
+[0000.86] dram para[154] 0x0
+[0000.87] dram para[155] 0
+[0000.89] dram para[159] 0x0
+[0000.90] WRN:dram para all zero -- using built-in zero3w va
+[0000.92] ar100 firmware version : 0170020e421772d892d569dad5ef8b0faffc120a-dirty
+[0000.93[0001.72] query asyn msg
+[0001.72] MESSAGE FR1.73] set wakeup src req
+[0001.73] wakeup_root_irq: 198
+[0001.74] install isr 1A
+[0001.74]sage : 26
+_mask:3
+[0005.00] uart_buadrate:57600
+[0005.01] stack free:608byte
+g_mask:3
+[0010.00] uart_buadrate:57600
+[0010.01] stack free:608byte
+ug_mask:3
+[0015.00] uart_buadrate:57600
+[0015.01] stack free:608byte
+ug_mask:3
+[0020.00] uart_buadrate:57600
+[0020.01] stack free:608byte
+bug_mask:3
+[0025.00] uart_buadrate:57600
+[0025.01] stack free:608byte
+bug_mask:3
+[0030.00] uart_buadrate:57600
+[0030.01] stack free:608byte
+ebug_mask:3
+[0035.00] uart_buadrate:57600
+[0035.01] stack free:608byte
+debug_mask:3
+[0040.00] uart_buadrate:57600
+[0040.01] stack free:608byte
+debug_mask:3
+[0045.00] uart_buadrate:57600
+[0045.01] stack free:608byte
+ debug_mask:3
+[0050.00] uart_buadrate:57600
+[0050.01] stack free:608byte
+] debug_mask:3
+[0055.00] uart_buadrate:57600
+[0055.01] stack free:608byte
+] debug_mask:3
+[0060.00] uart_buadrate:57600
+[0060.01] stack free:608byte
+0] debug_mask:3
+[0065.00] uart_buadrate:57600
+[0065.01] stack free:608byte
+00] debug_mask:3
+[0070.00] uart_buadrate:57600
+[0070.01] stack free:608byte
+00] debug_mask:3
+[0075.00] uart_buadrate:57600
+[0075.01] stack free:608byte
+.00] debug_mask:3
+[0080.00] uart_buadrate:57600
+[0080.01] stack free:608byte
+5.00] debug_mask:3
+[0085.00] uart_buadrate:57600
+[0085.01] stack free:608byte
+0.00] debug_mask:3
+[0090.00] uart_buadrate:57600
+[0090.01] stack free:608byte
+95.00] debug_mask:3
+[0095.00] uart_buadrate:57600
+[0095.01] stack free:608byte
+100.00] debug_mask:3
+[0100.00] uart_buadrate:57600
+[0100.01] stack free:608byte
+[0100.02] 1, req_sclk = 200000, real_clk = 200000
+[0100.05] reset
+[0100.05] restore bus status to 0xlk = 200000, real_clk = 200000
+[0000.00] reset
+[0000.00] init twi succeeded
+[0000.00] twiRR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00] ERR:e5:20
+[0000.00] stop senmer driver ok
+[0000.00] last wake record: 0
+[0000.00] standby service ok
+[0000.00] instalend syn message
+[0000.04] send notify succeed
+am para[3] 0x0
+[0000.10] dram para[4] 0x0
+[0000.11] dram para[5] 0x0
+[0000.11] dram para[15] dram para[13] 0x0
+[0000.15] dram para[14] 0x0
+[0000.16] dram para[15] 0x0
+[0000.16] dr 0x0
+[0000.20] dram para[23] 0x0
+[0000.20] dram para[24] 0x0
+[0000.21] dram para[25] 0x0dram para[32] 0x0
+[0000.25] dram para[33] 0x0
+[0000.25] dram para[34] 0x0
+[0000.26] dram 0
+[0000.29] dram para[42] 0x0
+[0000.30] dram para[43] 0x0
+[0000.30] dram para[44] 0x0
+[00 para[51] 0x0
+[0000.34] dram para[52] 0x0
+[0000.35] dram para[53] 0x0
+[0000.35] dram para0000.39] dram para[61] 0x0
+[0000.39] dram para[62] 0x0
+[0000.40] dram para[63] 0x0
+[0000.ra[70] 0x0
+[0000.44] dram para[71] 0x0
+[0000.44] dram para[72] 0x0
+[0000.45] dram para[73].48] dram para[80] 0x0
+[0000.49] dram para[81] 0x0
+[0000.49] dram para[82] 0x0
+[0000.50] 9] 0x0
+[0000.53] dram para[90] 0x0
+[0000.54] dram para[91] 0x0
+[0000.54] dram para[92] 0x0] dram para[99] 0x0
+[0000.58] dram para[100] 0x0
+[0000.59] dram para[101] 0x0
+[0000.59] drra[108] 0x0
+[0000.63] dram para[109] 0x0
+[0000.64] dram para[110] 0x0
+[0000.64] dram para 0x0
+[0000.68] dram para[118] 0x0
+[0000.68] dram para[119] 0x0
+[0000.69] dram para[120] 0x000.72] dram para[127] 0x0
+[0000.73] dram para[128] 0x0
+[0000.73] dram para[129] 0x0
+[000 dram para[136] 0x0
+[0000.78] dram para[137] 0x0
+[0000.78] dram para[138] 0x0
+[0000.79] dara[145] 0x0
+[0000.82] dram para[146] 0x0
+[0000.83] dram para[147] 0x0
+[0000.83] dram para 0x0
+[0000.87] dram para[155] 0x0
+[0000.87] dram para[156] 0x0
+[0000.88] dram para[157] 0t done
+[0000.92] dma driver ok
+[0000.92] ar100 firmware version : 0170020e421772d892d569da] type:26
+[0001.71] attr:2
+[0001.71] count: 0x1
+[0001.72] set wakeup src req
+[0001.72] w[0005.00] ------------------------------
+[0005.00] [0010.00] ------------------------------
+[0010.00][0015.00] ------------------------------
+[0015.00][0020.00] ------------------------------
+[0020.00ee:608byte
+.68] query asyn msg
+[0022.68] MESSAGE FROM AC327
+[0022.68] state:2
+[0022.68] type:26
+[00e
+[0022.72] feedback hard syn message : 26
+[0022.72] query asyn msg
+[0022.73] MESSAGE FROintno:24 interrupt enable
+[0022.77] send feedback message
+[0022.78] feedback hard syn messa0023.02] query asyn msg
+[0023.02] MESSAGE FROM AC327
+[0023.02] state:2
+[0023.02] type:22[0023.08] WRN:no standby_param: FFFFFFFB fdt:44000000
+x4200800:0x0 [0]
+[0023.74] SMC: Save region 0
+[0023.74] m = 5, n = 1, req_sclk = 200000, r[0023.90] dram save doneğ[0023.9³İ õáò´ ¢µ¡¤²¡´¥³¸±¶·µº °¸Š«˜˜˜™—NMWÈ+¦‚ÂİÁÅÁIUAiAañaµaaeg\r5] [1İ °¸·°±’•˜š˜¼™˜œC¡+&¦¦¦)ªêİ…¥ÑAıÅİÅíáÿ[0000.00] debugger system ok
+[0000.00] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[000.00] 1,52,3,0,-1
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00 record: 0
+[0000.00] standby service ok
+[0000.00] install isr 15
+[0000.00] intno:21 inter[0000.04] send notify succeed
+a[4] 0x0
+[0000.11] dram para[5] 0x0
+[0000.11] dram para[6] 0x0
+[0000.12] dram para[7] 0x0ram para[14] 0x0
+[0000.16] dram para[15] 0x0
+[0000.16] dram para[16] 0x0
+[0000.17] dram pa
+[0000.20] dram para[24] 0x0
+[0000.21] dram para[25] 0x0
+[0000.21] dram para[26] 0x0
+[000para[33] 0x0
+[0000.25] dram para[34] 0x0
+[0000.26] dram para[35] 0x0
+[0000.26] dram para[000.30] dram para[43] 0x0
+[0000.30] dram para[44] 0x0
+[0000.31] dram para[45] 0x0
+[0000.31[52] 0x0
+[0000.35] dram para[53] 0x0
+[0000.35] dram para[54] 0x0
+[0000.36] dram para[55] 39] dram para[62] 0x0
+[0000.40] dram para[63] 0x0
+[0000.40] dram para[64] 0x0
+[0000.41] d] 0x0
+[0000.44] dram para[72] 0x0
+[0000.45] dram para[73] 0x0
+[0000.45] dram para[74] 0x0dram para[81] 0x0
+[0000.49] dram para[82] 0x0
+[0000.50] dram para[83] 0x0
+[0000.50] dram 0
+[0000.54] dram para[91] 0x0
+[0000.54] dram para[92] 0x0
+[0000.55] dram para[93] 0x0
+[0m para[100] 0x0
+[0000.59] dram para[101] 0x0
+[0000.59] dram para[102] 0x0
+[0000.60] dram p09] 0x0
+[0000.64] dram para[110] 0x0
+[0000.64] dram para[111] 0x0
+[0000.65] dram para[112
+[0000.68] dram para[119] 0x0
+[0000.69] dram para[120] 0x0
+[0000.69] dram para[121] 0x0
+[.73] dram para[128] 0x0
+[0000.73] dram para[129] 0x0
+[0000.74] dram para[130] 0x0
+[0000.74m para[137] 0x0
+[0000.78] dram para[138] 0x0
+[0000.79] dram para[139] 0x0
+[0000.79] dram 146] 0x0
+[0000.83] dram para[147] 0x0
+[0000.83] dram para[148] 0x0
+[0000.84] dram para[149
+[0000.87] dram para[156] 0x0
+[0000.88] dram para[157] 0x0
+[0000.89] dram para[158] 0x0
+0000.92] ar100 firmware version : 0170020e421772d892d569dad5ef8b0faffc120a-dirty
+[0000.93] [0001.70] type:26
+[0001.70] attr:2
+[0001.70] count: 0x1
+[0001.71] set wakeup src req
+[000[0005.00] ------------------------------
+[0005.00] system tick:500
+[0005.00] debug_mask:3
+[0010.00] uart_buadrate:57600
+[0010.01] stack free:608byte
+[0020.00] ------------------------------
+[0020.00] system tick:500
+[0020.00] debug_mask:3
+[0025.00] uart_buadrate:57600
+[0025.01] stack free:608byte

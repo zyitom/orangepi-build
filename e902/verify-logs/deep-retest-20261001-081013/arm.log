@@ -1,0 +1,191 @@
+# /dev/ttyUSB1 @115200, host start 2026-10-01 08:11:30
+[+   6.208] [   25.557896] PM: suspend entry (deep)
+[+   6.208] [   25.558069] Filesystems sync: 0.000 seconds
+[+   6.208] [   25.559348] Freezing user space processes
+[+   6.208] [   25.560989] Freezing user space processes completed (elapsed 0.001 seconds)
+[+   6.208] [   25.560999] OOM killer disabled.
+[+   6.208] [   25.561002] Freezing remaining freezable tasks
+[+   6.208] [   25.562446] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[+   6.208] [   25.589733] platform soc@3000000:i2s0_mach: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: soc@3000000
+[+   6.208] [   25.589758] platform soc@3000000:i2s0_mach: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.208] [   25.589770] platform a020000.dmcfreq: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: platform
+[+   6.208] [   25.589778] platform a020000.dmcfreq: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.208] [   25.589797] rfkill rfkill3: PM: calling rfkill_suspend+0x0/0x40 @ 451, parent: hci0
+[+   6.208] [   25.589807] rfkill rfkill3: PM: rfkill_suspend+0x0/0x40 returned 0 after 1 usecs
+[+   6.208] [   25.589827] pvrsrvkm 1800000.gpu: PM: calling pvr_pm_suspend+0x0/0x58 [pvrsrvkm] @ 451, parent: soc@3000000
+[+   6.208] [   25.589969] pvrsrvkm 1800000.gpu: PM: pvr_pm_suspend+0x0/0x58 [pvrsrvkm] returned 0 after 15 usecs
+[+   6.208] [   25.590116] vipcore 3600000.npu: PM: calling vipdrv_system_suspend+0x0/0x30 [vipcore] @ 451, parent: soc@3000000
+[+   6.208] [   25.590149] vipcore 3600000.npu: PM: vipdrv_system_suspend+0x0/0x30 [vipcore] returned 0 after 1 usecs
+[+   6.208] [   25.590194] platform 2527015.pwm0: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: soc@3000000
+[+   6.408] [   25.590205] platform 2527015.pwm0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590217] pwm-fan soc@3000000:pwm-fan: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: soc@3000000
+[+   6.408] [   25.590226] pwm-fan soc@3000000:pwm-fan: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590242] sunxi-vin-core 5832000.vinc: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590252] sunxi-vin-core 5832000.vinc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590262] sunxi-vin-core 5830000.vinc: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590270] sunxi-vin-core 5830000.vinc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590280] vin_sensor_helper 5812000.sensor: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590288] vin_sensor_helper 5812000.sensor: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590298] vin_scaler 5800800.vind:scaler@16: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590306] vin_scaler 5800800.vind:scaler@16: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590316] vin_scaler 5910800.scaler: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590324] vin_scaler 5910800.scaler: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590333] vin_scaler 5910000.scaler: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590341] vin_scaler 5910000.scaler: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590351] vin_isp 5900000.isp: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590359] vin_isp 5900000.isp: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.408] [   25.590369] vin_tdm 5908000.tdm: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.408] [   25.590377] vin_tdm 5908000.tdm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590387] vin_mipi 5810300.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590395] vin_mipi 5810300.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590405] vin_mipi 5810200.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590413] vin_mipi 5810200.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590423] vin_mipi 5810100.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590431] vin_mipi 5810100.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590441] vin_csi 5822000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590449] vin_csi 5822000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590459] vin_csi 5821000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590466] vin_csi 5821000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590476] vin_csi 5820000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 451, parent: 5800800.vind
+[+   6.609] [   25.590484] vin_csi 5820000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.590502] sunxi-vin-media 5800800.vind: PM: calling vin_suspend+0x0/0x18 [vin_v4l2] @ 451, parent: soc@3000000
+[+   6.609] [   25.590544] sunxi-vin-media 5800800.vind: PM: vin_suspend+0x0/0x18 [vin_v4l2] returned 0 after 0 usecs
+[+   6.609] [   25.590586] input input9: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2524000.lradc
+[+   6.609] [   25.590597] input input9: PM: input_dev_suspend+0x0/0x90 returned 0 after 1 usecs
+[+   6.609] [   25.590613] input input8: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2521000.gpadc
+[+   6.609] [   25.590622] input input8: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.609] [   25.590634] input input7: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2521000.gpadc
+[+   6.609] [   25.590642] input input7: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.609] [   25.590653] input input6: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2521000.gpadc
+[+   6.809] [   25.590661] input input6: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.809] [   25.590673] input input5: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2521000.gpadc
+[+   6.809] [   25.590681] input input5: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.809] [   25.590692] input input4: PM: calling input_dev_suspend+0x0/0x90 @ 451, parent: 2521000.gpadc
+[+   6.809] [   25.590700] input input4: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.809] [   25.590711] input input3: PM: calling input_dev_suspend+0x0/0x90 ......
+[+ 269.137] 
+[+ 269.137] 
+[+ 269.137] [66]HELLO! BOOT0 is starting!
+[+ 269.137] [69]BOOT0 commit : {4721ad08}
+[+ 269.137] [72]board gpio withstand voltage auto mode
+[+ 269.137] [86]vaild para:4  select dram para0
+[+ 269.137] [90]rtc[3] value = 0xa301
+[+ 269.137] [92]rtc[7] value = 0x2
+[+ 269.137] [mmc]: mmc driver ver 2025-10-16 17:10
+[+ 269.337] [mmc]: Wrong media type 0x0
+[+ 269.337] [mmc]: ***Try SD card 0***
+[+ 269.337] [mmc]: HSSDR52/SDR25 4 bit
+[+ 269.337] [mmc]: 50000000 Hz
+[+ 269.337] [mmc]: 61120 MB
+[+ 269.337] [mmc]: ***SD/MMC 0 init OK!!!***
+[+ 269.337] [128]boot param - magic error 
+[+ 269.337] [131]DRAM BOOT DRIVE INFO: V0.6034
+[+ 269.337] [136]DRAM_VCC set to 560 mv
+[+ 269.337] [138]DRAM CLK =2400 MHZ
+[+ 269.337] [141]DRAM Type =9 (8:LPDDR4,9:LPDDR5)
+[+ 269.337] [287]Training result is = 7
+[+ 269.337] [290]DRAM Pstate 1 training, frequency is 1200 Mhz
+[+ 269.538] [468]Training result is = 7
+[+ 269.538] [471]DRAM Pstate 2 training, frequency is 800 Mhz
+[+ 269.938] [814]Training result is = 7
+[+ 269.938] [817]DRAM Pstate 3 training, frequency is 400 Mhz
+[+ 273.743] [4568]Training result is = 7
+[+ 273.743] [4570]DRAM Pstate 0 training, frequency is 2400 Mhz
+[+ 273.743] [4580]Actual DRAM SIZE =4096 M
+[+ 273.743] [4582]DRAM SIZE =4096 MBytes, para1 = a0fa, para2 = 10001001, dram_tpr13 = 65
+[+ 273.743] [4596]DRAM simple test OK.
+[+ 273.743] [4661]error: dtb not found for scp
+[+ 273.743] [4665]mmc not para
+[+ 273.743] [4667]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+[+ 273.743] NOTICE:  BL31: OP-TEE 32bit detected
+[+ 273.743] NOTICE:  BL31: U-BOOT 32bit detected
+[+ 273.743] NOTICE:  BL31: v2.5(debug):7dddb263a-dirty
+[+ 273.743] NOTICE:  BL31: Built : 21:40:11, Dec 30 2024
+[+ 273.743] NOTICE:  BL31: No DTB found.
+[+ 273.743] ERROR:   Error initializing runtime service opteed_fast
+[+ 273.743] amp fw boot before!!!
+[+ 273.743] amp fw boot after!!!
+[+ 273.943] 
+[+ 273.943] 
+[+ 273.943] U-Boot 2018.07-orangepi-config-dirty (Sep 26 2026 - 02:25:07 +0800) Allwinner Technology
+[+ 273.943] 
+[+ 273.943] [04.721]CPU:   Allwinner Family
+[+ 273.943] [04.724]Model: sun60iw2
+[+ 273.943] I2C:   ready
+[+ 273.943] [04.785]DRAM:  4 GiB
+[+ 273.943] [04.793]Relocation Offset is: 6dd91000
+[+ 274.343] [05.120]secure enable bit: 0
+[+ 274.343] [05.123]PMU: AXP8191
+[+ 274.343] [05.125]PMU: AXP8191 VER_A
+[+ 274.343] [05.130]bmu_axp515_probe pmic_bus_read fail
+[+ 274.343] [05.134][AXP8191] onoff status: 0x50 = 0x4, 0x51 = 0x0
+[+ 274.343] [05.139][AXP8191] charge status: 0x4 = 0x1
+[+ 274.343] [05.143]CPU=1014 MHz,PLL6=1200 Mhz,AHB=200 Mhz, APB1=24Mhz  MBus=600Mhz
+[+ 274.343] [05.149]gic: sec monitor mode
+[+ 274.343] SPI ALL:   ready
+[+ 274.343] [05.193]flash init start
+[+ 274.343] [05.195]workmode = 0,storage type = 1
+[+ 274.343] [05.198][mmc]: mmc driver ver uboot2018:2024-10-18 9:01:00 -- uboot2018:2025-03-28 10:03:00
+[+ 274.343] [05.207][mmc]: get sdc_type fail and use default host:tm1.
+[+ 274.343] [05.215][mmc]: can't find node "mmc0",will add new node
+[+ 274.343] [05.219][mmc]: fdt err returned <no error>
+[+ 274.343] [05.223][mmc]: Using default timing para
+[+ 274.343] [05.227][mmc]: SUNXI SDMMC Controller Version:0x50530
+[+ 274.343] [05.245][mmc]: card_caps:0x3000000a
+[+ 274.343] [05.248][mmc]: host_caps:0x3000003f
+[+ 274.343] [05.251]sunxi flash init ok
+[+ 274.343] get value error
+[+ 274.343] [05.255]Loading Environment from EXT4... ** No device specified **
+[+ 274.343] Failed (-5)
+[+ 274.343] No ethernet found.
+[+ 274.343] [05.295]NOT support bridge yet
+[+ 274.343] [05.298]Warn: no find panel or bridge
+[+ 274.343] [05.302]hdmi0@5520000 disconnected
+[+ 274.343] [05.305]bad framebuffer width 0
+[+ 274.544] test
+[+ 274.544] [05.308]drm_framebuffer_alloc fail!
+[+ 274.544] [05.311]Get sunxi drm device fail!
+[+ 274.544] [05.317]battery temp is -1
+[+ 274.544] [05.324](not enough data: expected >= 8 cells, got 4 cells)
+[+ 276.746] Link up timeout
+[+ 276.746] Speed change timeout
+[+ 276.746] PCIe speed of Gen1
+[+ 276.746] [ufs]info:Driver version 0.0.24 2024.12.30 16:00
+[+ 277.547] Hit any key to stop autoboot:  1  0 
+[+ 278.548] mmc0 is current device
+[+ 278.749] Scanning mmc 0:1...
+[+ 278.749] Found U-Boot script /boot/boot.scr
+[+ 278.749] 1642 bytes read in 6 ms (266.6 KiB/s)
+[+ 278.749] ## Executing script at 43100000
+[+ 278.749] Zero 3W boot script from mmc 0
+[+ 278.749] ** File not found /boot/uInitrd **
+[+ 283.554] 33966152 bytes read in 4727 ms (6.9 MiB/s)
+[+ 283.554] 213666 bytes read in 15 ms (13.6 MiB/s)
+[+ 283.554] ## Booting kernel from Legacy Image at 41000000 ...
+[+ 283.554]    Image Name:   Linux kernel
+[+ 283.554]    Image Type:   ARM Linux Kernel Image (uncompressed)
+[+ 283.554]    Data Size:    33966088 Bytes = 32.4 MiB
+[+ 283.554]    Load Address: 41000000
+[+ 283.554]    Entry Point:  41000000
+[+ 283.554]    Verifying Checksum ... OK
+[+ 283.755] ## Flattened Device Tree blob at 44000000
+[+ 283.755]    Booting using the fdt blob at 0x44000000
+[+ 283.755] [14.681]Starting kernel ...
+[+ 283.755] 
+[+ 283.755] [14.684]total: 14684 ms
+[+ 283.755] 
+[+ 283.755] [14.686][mmc]: MMC Device 2 not found
+[+ 283.755] [14.690][mmc]: mmc 2 not find, so not exit
+[+ 284.556] [15.319]get_sunxi_drm_connector_by_device fail!
+[+ 284.556] [15.324]Failed to found available display route
+[+ 284.556] NOTICE:  [SCP] :wait arisc ready....
+[+ 284.756] NOTICE:  [SCP] :arisc version: [0170020e421772d892d569dad5ef8b0faffc120a-dirty]
+[+ 284.756] NOTICE:  [SCP] :arisc startup ready
+[+ 284.756] NOTICE:  [SCP] :arisc startup notify message feedback
+[+ 284.756] NOTICE:  [SCP] :sunxi-arisc driver is starting
+[+ 284.756] NOTICE:  BL3-1: Next image address = 0x41000000
+[+ 284.756] NOTICE:  BL3-1: Next image spsr = 0x3c5
+[+ 286.358] [    0.000000] AW BSP version: 7b992010f2-dirty, 2025-04-29 09:35:36
+[+ 295.970] 
+[+ 295.970] Welcome to Orange Pi Zero 3W (Tina/Buildroot port)
+[+ 295.970] zero3w login: 

@@ -1,0 +1,201 @@
+# /dev/ttyUSB0 @57600, host start 2026-10-01 03:02:15
+[+   0.201] 
+[+   5.007] [0025.00] ------------------------------
+[+   5.007] [0025.00] system tick:500
+[+   5.007] [0025.00] debug_mask:3
+[+   5.007] [0025.00] uart_buadrate:57600
+[+   5.007] [0025.01] stack free:608byte
+[+   5.808] [0025.94] query asyn msg
+[+   5.808] [0025.94] MESSAGE FROM AC327
+[+   5.808] [0025.94] state:2
+[+   5.808] [0025.95] type:26
+[+   5.808] [0025.95] attr:2
+[+   5.808] [0025.95] count: 0x1
+[+   5.808] [0025.96] set wakeup src req
+[+   5.808] [0025.96] wakeup_root_irq: 200
+[+   5.808] [0025.97] WRN:ignore wake source 200 (r_pio level IRQ)
+[+   5.808] [0025.98] send feedback message
+[+   5.808] [0025.98] feedback hard syn message : 26
+[+   5.808] [0025.99] query asyn msg
+[+   6.008] [0025.99] MESSAGE FROM AC327
+[+   6.008] [0026.00] state:2
+[+   6.008] [0026.00] type:26
+[+   6.008] [0026.01] attr:2
+[+   6.008] [0026.01] count: 0x1
+[+   6.008] [0026.01] set wakeup src req
+[+   6.008] [0026.02] wakeup_root_irq: 160
+[+   6.008] [0026.02] install isr 10
+[+   6.008] [0026.03] intno:16 interrupt enable
+[+   6.008] [0026.03] send feedback message
+[+   6.008] [0026.04] feedback hard syn message : 26
+[+   6.008] [0026.05] query asyn msg
+[+   6.008] [0026.05] MESSAGE FROM AC327
+[+   6.008] [0026.06] state:2
+[+   6.008] [0026.06] type:26
+[+   6.008] [0026.06] attr:2
+[+   6.008] [0026.07] count: 0x1
+[+   6.008] [0026.07] set wakeup src req
+[+   6.008] [0026.08] wakeup_root_irq: 159
+[+   6.008] [0026.08] install isr 10
+[+   6.008] [0026.09] intno:16 interrupt enable
+[+   6.008] [0026.09] send feedback message
+[+   6.008] [0026.10] feedback hard syn message : 26
+[+   6.008] [0026.11] query asyn msg
+[+   6.008] [0026.11] MESSAGE FROM AC327
+[+   6.008] [0026.12] state:2
+[+   6.008] [0026.12] type:26
+[+   6.008] [0026.12] attr:2
+[+   6.008] [0026.13] count: 0x1
+[+   6.008] [0026.13] set wakeup src req
+[+   6.008] [0026.13] wakeup_root_irq: 196
+[+   6.008] [0026.14] install isr 18
+[+   6.008] [0026.14] intno:24 interrupt enable
+[+   6.008] [0026.15] send feedback message
+[+   6.008] [0026.16] feedback hard syn message : 26
+[+   9.812] [0030.00] ------------------------------
+[+   9.812] [0030.00] system tick:500
+[+   9.812] [0030.00] debug_mask:3
+[+  10.013] [0030.00] uart_buadrate:57600
+[+  10.013] [0030.01] stack free:608byte
+[+  12.415] [0032.50] query asyn msg
+[+  12.415] [0032.50] MESSAGE FROM AC327
+[+  12.415] [0032.50] state:2
+[+  12.415] [0032.50] type:22
+[+  12.415] [0032.50] attr:0
+[+  12.415] [0032.51] count: 0x5
+[+  12.415] [0032.51] cpu op req
+[+  12.415] [0032.52] mpidr:81000000, entrypoint:48000228; cpu_state:3, cluster_state:3, system_state:3
+[+  12.415] [0032.57] WRN:no standby_param: FFFFFFFB fdt:44000000
+[+  13.016] [0033.22] iosc_freq: 13365000
+[+  13.216] [0033.22] [usb_standby_port_support] 0x4101800:0x0 [0]
+[+  13.216] [0033.22] [usb_standby_port_support] 0x4200800:0x80008B0D [80000000]
+[+  13.216] [0033.23] SMC: Save region 0
+[+  13.216] [0033.24] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[+  13.216] [0033.25] reset
+[+  13.216] [0033.25] restore bus status to 0x3a
+[+  13.216] [0033.26] init twi succeeded
+[+  13.216] [0033.26] cpu off 
+[+  13.216] [0033.28] the first time ddr standby
+[+  13.216] [0033.40] dram save done
+[+  13.416] [0033.40] clk_suspend
+[+  13.416] [0033.40] twi clk change request
+[+  13.416] [0033.41] uart source clock change requestlð[0033.44] õáò´ ¢µ±´º±¼±±´°·³YHYË««Hh‚ššr¢¢êµõÍ±¹õE1ÉÕÅ½ÍÍñÍAuAiaaaaaYAåÉÁÙ¿ÇÙ×Az@bl7062
+[+  13.416] [°°³³®””½´·±³´·±´±·³YHYË««Hh‚ššr¢²jmÕÍ‰ýåÍý½íåíáÍÙÉ¹AçéÃÜÈÄò¾type º°ø²°°°Š›°““Ž”–­µ³²˜š˜”¹»°™œ™–º.,'¤&	É‘‘éÁ±Á½ÉÑiAaáiµaaee]ilº@¶`] 0x²°°³³˜š˜¸£˜˜˜˜˜˜˜C¡+&¦¦&‰²êmÅuAáIAAMMAaiAañaaaaaaaa·``f3.46] [°Ý °ø²°°³“£š€¸‘‘˜˜™™…†¯˜˜™™—š›WH«¦‚ÂÉÁÁÍÍÁiAAáeeaaaa·aaff.46] [°Ý °¸²°““”š˜¸˜˜˜˜˜˜˜˜†…­˜˜¦&‰²êmÅuÁáÉÁAMMQAiAaáa½aaee]im»@¶0] °ø·°±’•š¸˜…†¯˜˜™™–š›®«¦‚ÂÝÁÅÁÉÕÁéÁáa5)­AAMmYqyµA½a½Aañeaaff`8: °ø´°°…‚¯˜˜™™—š›WH«¦‚ÂÉÁAMMAaiAañaµaaee]im»A¶`º 0ø²°°³“£š¸™™˜˜˜˜†…+&¦¦&‰²êmÅuAáIAAmmayAañaµaagf\h6] waiô ·¡«µµ¸…†[00³³Ž”–­»±µY]'$&§SHè‚ššr¢²jmÕÍÉ½ÅíÝ½áÉåëÚÊ] óô¡®´²¹¯º¼¸YH'&¯&&VHh‚šÚ²ÂÒrÕÍ‰AiAaQAíåÅcu@b, õó¢º€‘œ¾°²œ˜–¸KÑéAáI5	­aaee]io»@¶0] °ø²““£š˜¼˜†…+&¦¦¦‰ºêmÅõAAáiaaeea…u@`x11°°°Š«˜››–šœ®+¦‚ÂÉÁÁMMAaiAaña·a`33®´˜½«™­˜¼™˜˜¦&&§£Hh‚ššr¢ÊjmÁõAá]aeaimauAaðp
+[+  26.232] Û°°““–˜¯«¦‚ÂÝAEAiuaqAañ`ŠÛ°“›–™˜¯­˜WHL&&¦¦&“‚ÂáÁÁÁAAAA	½aaee]iaº@[1] °¸’“›œ˜ž˜¼œ˜˜˜˜˜˜˜C¡+&¦¦¦©ŠjmÁuAáiaaeea‡t@0ø±±˜…†­˜˜¦&©’êmEõAaáiaaeg`†: °ø±‘‘™…†­˜˜™&©’êmAõAAáiaaeeaquA`ð400°°°Š«˜˜›™–š™WH«¦‚ÂÉAAMMaaiAañ…aaa``00Š›°““ž›­¸¸»··C¡+&¦¦¦©¢êÑÝåAÍÑÝAÅÑÃÝÎÊ råñµ¥³´‚«˜˜™™—ššWHÝX.Ò×«É•±½ÍíAÍÑÅÙÍÍAåÉáëËçèÈ[0033.57] uart buadrate change done
+[+  26.433] [0033.57] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[+  26.433] [0033.58] twi clk change done
+[+  26.433] [0033.59] wake src 196 after 13 s real (rtc 68549 -> 68562), 0 ticks
+[+  26.433] [0033.59] dram up enter
+[+  26.433] [0033.60] DRAM BOOT DRIVE INFO: V0.6035
+[+  26.433] [0033.61] DRAM CLK =2400 MHZ
+[+  26.433] [0033.61] DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[+  26.433] [0033.69] the first time ddr standby
+[+  26.633] [0033.88] not the first time ddr standby
+[+  26.633] [0033.88] DRAM DFS VERSION INFO: V0.603
+[+  26.633] [0033.88] the counter for dfi_freq is = 22 
+[+  26.633] [0033.89] the dat_idx2 for dfi_freq is = 1 
+[+  26.833] [0033.90] the counter for ccu is = 40 
+[+  26.833] [0033.90] Actual DRAM SIZE =4096 M
+[+  26.833] [0033.91] DRAM SIZE =4096 MBytes, para1 = A0FA, para2 = 10001001, dram_tpr13 = 65
+[+  26.833] [0033.92] dram up done
+[+  26.833] [0033.94] dram sum bl31 899B65D3 -> 0 CHANGED, kernel 4FBDBA83 -> 0 CHANGED
+[+  26.833] [0033.94] cpu on 
+[+  26.833] [0033.99] SMC: non-secure chip
+[+  26.833] [0033.99] cpu0 start at 48000228
+[+  26.833] [0033.99] wait ac327 resume...
+[+  26.833] [0033.99] hb 0: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  26.833] [0034.00] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  31.238] [0038.45] hb 5: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  31.238] [0038.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  36.244] [0043.45] hb 10: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  36.244] [0043.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  41.250] [0048.45] hb 15: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  41.250] [0048.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  46.257] [0053.45] hb 20: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  46.257] [0053.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  51.263] [0058.44] hb 25: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  51.263] [0058.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  56.269] [0063.44] hb 30: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  56.269] [0063.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  61.275] [0068.44] hb 35: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  61.275] [0068.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  66.281] [0073.44] hb 40: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  66.281] [0073.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  71.287] [0078.44] hb 45: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  71.287] [0078.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  76.294] [0083.44] hb 50: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  76.294] [0083.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  81.300] [0088.44] hb 55: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  81.300] [0088.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  86.306] [0093.44] hb 60: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  86.306] [0093.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  91.312] [0098.44] hb 65: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  91.312] [0098.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+  96.318] [0103.44] hb 70: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+  96.318] [0103.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 101.324] [0108.44] hb 75: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 101.324] [0108.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 106.331] [0113.44] hb 80: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 106.331] [0113.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 111.337] [0118.44] hb 85: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 111.337] [0118.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 116.343] [0123.44] hb 90: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 116.343] [0123.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 121.349] [0128.44] hb 95: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 121.349] [0128.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 126.356] [0133.44] hb 100: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 126.356] [0133.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 131.362] [0138.44] hb 105: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 131.362] [0138.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 136.368] [0143.44] hb 110: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 136.368] [0143.45] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 141.374] [0148.44] hb 115: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 141.374] [0148.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 146.180] [0153.44] hb 120: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 146.381] [0153.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 151.186] [0158.44] hb 125: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 151.387] [0158.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 156.193] [0163.44] hb 130: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 156.393] [0163.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 161.199] [0168.44] hb 135: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 161.199] [0168.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 166.205] [0173.44] hb 140: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 166.205] [0173.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 171.211] [0178.44] hb 145: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 171.211] [0178.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 176.217] [0183.44] hb 150: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 176.217] [0183.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 181.223] [0188.44] hb 155: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 181.223] [0188.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 186.229] [0193.44] hb 160: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 186.229] [0193.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 191.235] [0198.44] hb 165: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 191.235] [0198.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 196.242] [0203.44] hb 170: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 196.242] [0203.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 201.248] [0208.43] hb 175: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 201.248] [0208.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 206.254] [0213.43] hb 180: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 206.254] [0213.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 211.260] [0218.43] hb 185: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 211.260] [0218.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 216.266] [0223.43] hb 190: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 216.266] [0223.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 221.272] [0228.43] hb 195: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 221.272] [0228.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 226.278] [0233.43] hb 200: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 226.278] [0233.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 231.284] [0238.43] hb 205: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 231.284] [0238.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 236.291] [0243.43] hb 210: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 236.291] [0243.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 241.297] [0248.43] hb 215: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 241.297] [0248.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 246.303] [0253.43] hb 220: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 246.303] [0253.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 251.309] [0258.43] hb 225: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 251.309] [0258.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 256.316] [0263.43] hb 230: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 256.316] [0263.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60
+[+ 261.322] [0268.43] hb 235: ppu cl 1040108 c0 108 c1 100 pwrmode 1 rvbar 48000228 cpua 3000000 pll1 F8804500
+[+ 261.322] [0268.44] hb: a2r st 0 0 0 0 irq 0 uart0 lsr 60

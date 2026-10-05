@@ -1,0 +1,65 @@
+1]: Failed to set timeout to 10m[   59.151131] sunxi:vin:[WARN]:
+[   59.151134] sunxi:vin:[WARNd!
+starting!
+[69]BOOT0 commit : {4nd voltage auto mode
+ra0
+[90]rtc[3] value = 0xa301
+mc driver ver 2025-10-16 17:10
+c]: ***Try SD card 0***
+]: 50000000 Hz
+[mmc]: 61120 MB*
+[131]DRAM BOOT DRIVE INFO: V0.60
+[138]DRAM CLK =2400 MHZ
+[141]D
+0]DRAM Pstate 1 training, freque[468]Training result is = 7
+[47ncy is 800 Mhz
+6]DRAM Pstate 3 training, freque[4568]Training result is = 7
+[4uency is 2400 Mhz
+[4583]DRAM SIZE =4096 MBytes, paam_tpr13 = 65
+[4662]error: dtb not found for smp to ATF: monitor_base = 0x4800ptee_base = 0x0
+NOTICE:  BL31: BL31: U-BOOT 32bit detected
+263a-dirty
+NOTICE:  BL31: Built:  BL31: No DTB found.
+ERROR:  ice opteed_fast
+amp fw boot bef
+
+U-Boot 2018.07-orangepi-conf +0800) Allwinner Technology
+
+
+[04.725]Model: sun60iw2
+I2C:  ready
+[04.786]DRAM:  4 GiB
+d91000
+5.124]PMU: AXP8191
+[05.126]PMU:[05.131]bmu_axp515_probe pmic_bunoff status: 0x50 = 0x0, 0x51 = atus: 0x4 = 0x1
+[05.144]CPU=101 APB1=24Mhz  MBus=600Mhz
+[05.15SPI ALL:   ready
+[05.194]flash ,storage type = 1
+[05.199][mmc]10-18 9:01:00 -- uboot2018:2025-et sdc_type fail and use default[05.215][mmc]: can't find node "][mmc]: fdt err returned <no errt timing para
+[05.228][mmc]: SU0530
+00a
+[05.249][mmc]: host_caps:0xit ok
+get value error
+[05.256] ** No device specified **
+
+[05.299]Warn: no find panel or bconnected
+[05.306]bad framebuffamebuffer_alloc fail!
+[05.312]G[05.318]battery temp is -1
+ed >= 8 cells, got 4 cells)
+Speed change timeout
+PCIe speed[ufs]info:Driver version 0.0.24 Hit any key to stop autoboot:  1 0 
+mmc0 is current device
+Found U-Boot script /boot/boot.s1642 bytes read in 6 ms (266.6 K100000
+Zero 3W boot script from** File not found /boot/uInitrd 33966152 bytes read in 4820 ms (213666 bytes read in 15 ms (13.6Legacy Image at 41000000 ...
+  Image Type:   ARM Linux Kernel Ie:    33966088 Bytes = 32.4 MiBntry Point:  41000000
+   VerifyOK
+## Flattened Device Tree blothe fdt blob at 0x44000000
+14.778]total: 14778 ms
+
+[14.78
+[14.784][mmc]: mmc 2 not find, [15.416]get_sunxi_drm_connector_to found available display routeNOTICE:  [SCP] :wait arisc readyNOTICE:  [SCP] :arisc version: [affc120a-dirty]
+NOTICE:  [SCP] SCP] :arisc startup notify messaxi-arisc driver is starting
+NOT= 0x41000000
+NOTICE:  BL3-1: Ne[    0.000000] AW BSP version: 75:36
+(Tina/Buildroot port)
+zero3w lo

@@ -1,0 +1,84 @@
+query syn msg
+[0100.02] MESSAGE FROM AC327
+[0100.02] state:2
+[0100.02] type:24
+[0100.03]3a
+[0100.06] init twi succeeded
+[0100.07] stop send
+[0100.07]ğ driver ok
+d
+[0000.00] 1,52,3,0,-1
+[0000.00] bmu is not exist
+[0000.00] pmu & bmu driver ok
+[0000.0l isr 15
+[0000.00] intno:21 interrupt enable
+[0000.00] setup timer server succeeded
+[0000.[006] 0x0
+[0000.12] dram para[7] 0x0
+[0000.12] dram para[8] 0x0
+[0000.13] dram para[9] 0x0
+[am para[16] 0x0
+[0000.17] dram para[17] 0x0
+[0000.17] dram para[18] 0x0
+[0000.18] dram pa
+[0000.21] dram para[26] 0x0
+[0000.22] dram para[27] 0x0
+[0000.22] dram para[28] 0x0
+[000para[35] 0x0
+[0000.26] dram para[36] 0x0
+[0000.27] dram para[37] 0x0
+[0000.27] dram para[300.31] dram para[45] 0x0
+[0000.31] dram para[46] 0x0
+[0000.32] dram para[47] 0x0
+[0000.32[54] 0x0
+[0000.36] dram para[55] 0x0
+[0000.36] dram para[56] 0x0
+[0000.37] dram para[57] 040] dram para[64] 0x0
+[0000.41] dram para[65] 0x0
+[0000.41] dram para[66] 0x0
+[0000.42] dr 0x0
+[0000.45] dram para[74] 0x0
+[0000.46] dram para[75] 0x0
+[0000.46] dram para[76] 0x0dram para[83] 0x0
+[0000.50] dram para[84] 0x0
+[0000.51] dram para[85] 0x0
+[0000.51] dram p
+[0000.55] dram para[93] 0x0
+[0000.55] dram para[94] 0x0
+[0000.56] dram para[95] 0x0
+[00am para[102] 0x0
+[0000.60] dram para[103] 0x0
+[0000.60] dram para[104] 0x0
+[0000.61] dram[111] 0x0
+[0000.65] dram para[112] 0x0
+[0000.65] dram para[113] 0x0
+[0000.66] dram para[110
+[0000.69] dram para[121] 0x0
+[0000.70] dram para[122] 0x0
+[0000.70] dram para[123] 0x00.74] dram para[130] 0x0
+[0000.74] dram para[131] 0x0
+[0000.75] dram para[132] 0x0
+[0000.ram para[139] 0x0
+[0000.79] dram para[140] 0x0
+[0000.80] dram para[141] 0x0
+[0000.80] dram[148] 0x0
+[0000.84] dram para[149] 0x0
+[0000.84] dram para[150] 0x0
+[0000.85] dram para[1x0
+[0000.89] dram para[158] 0x0
+[0000.89] dram para[159] 0x0
+[0000.90] WRN:dram para all zd5ef8b0faffc120a-dirty
+[0000.93] daemon service setup...
+akeup_root_irq: 198
+[0001.73] install isr 1A
+[0001.73] intno:26 interrupt enable
+[0001.74]system tick:500
+[0005.00] debug_mask:3
+[0005.00] uart_buadrate:57600
+[0005.01] stack free system tick:500
+[0010.00] debug_mask:3
+[0010.00] uart_buadrate:57600
+[0010.01] stack free system tick:500
+[0015.00] debug_mask:3
+[0015.00] uart_buadrate:57600
+[0015.01] stack fre

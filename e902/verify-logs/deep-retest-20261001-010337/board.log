@@ -1,0 +1,39 @@
+mem_sleep current: s2idle
+wake-enabled 1 = disabled IPI
+wake-enabled 10 = disabled 
+wake-enabled 100 = disabled sunxi-gpadc
+wake-enabled 101 = disabled sunxikbd
+wake-enabled 102 = disabled cedar_dev
+wake-enabled 103 = disabled cedar_dev_ve2
+wake-enabled 104 = disabled 5908000.tdm
+wake-enabled 105 = disabled 5910000.scaler
+wake-enabled 106 = disabled 5910800.scaler
+wake-enabled 107 = disabled 5900000.isp
+wake-enabled 108 = disabled 5830000.vinc
+wake-enabled 109 = disabled 5832000.vinc
+wake-enabled 11 = disabled arch_timer
+wake-enabled 110 = disabled 5400000.deinterlace
+wake-enabled 111 = disabled 5440000.g2d
+wake-enabled 112 = disabled vipcore_0
+wake-enabled 113 = disabled 
+wake-enabled 114 = disabled 
+wake-enabled 12 = disabled 
+wake-enabled 13 = disabled timer@3009000
+wake-enabled 14 = disabled (null)
+wake-enabled 15 = disabled (null)
+wake-enabled 16 = disabled (null)
+wake-enabled 17 = disabled (null)
+wake-enabled 18 = disabled (null)
+wake-enabled 19 = disabled (null)
+wake-enabled 2 = disabled IPI
+wake-enabled 20 = disabled (null)
+wake-enabled 21 = disabled (null)
+wake-enabled 22 = disabled (null)
+usb-device Bus 003 Device 001: ID 1d6b:0002
+usb-device Bus 001 Device 001: ID 1d6b:0002
+usb-device Bus 004 Device 001: ID 1d6b:0001
+usb-device Bus 002 Device 001: ID 1d6b:0003
+alarm armed for 1790787899, now 1790787879
+unbound: 4200000.ehci1-controller 4200400.ohci1-controller
+Terminated
+client_loop: send disconnect: Broken pipe

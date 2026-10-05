@@ -1,0 +1,40 @@
+in: Invalid argument
+
+[   99.366598] sunxi:vin:[WARN......
+
+
+[66]HELLO! BOOT0 is nd voltage auto mode
+[92]rtc[7] value = 0x2
+[mmc]: mc]: ***Try SD card 0***
+
+[mmc]: ***SD/MMC 0 init OK!!!**[131]DRAM BOOT DRIVE INFO: V0.60RAM Type =9 (8:LPDDR4,9:LPDDR5)0]DRAM Pstate 1 training, freque0]DRAM Pstate 2 training, freque6]DRAM Pstate 3 training, freque576]DRAM Pstate 0 training, freq[4589]DRAM SIZE =4096 MBytes, pa[4603]DRAM simple test OK.
+mp to ATF: monitor_base = 0x4800OP-TEE 32bit detected
+NOTICE:  263a-dirty
+NOTICE:  BL31: Built Error initializing runtime serv
+
+U-Boot 2018.07-orangepi-conf[04.727]CPU:   Allwinner Familyready
+[04.791]DRAM:  4 GiB
+[05.126]secure enable bit: 0
+[0[05.136]bmu_axp515_probe pmic_bu0x0
+[05.145][AXP8191] charge st APB1=24Mhz  MBus=600Mhz
+[05.15init start
+[05.201]workmode = 010-18 9:01:00 -- uboot2018:2025- host:tm1.
+][mmc]: fdt err returned <no errNXI SDMMC Controller Version:0x500a
+[05.254][mmc]: host_caps:0xLoading Environment from EXT4...
+ridge
+[05.308]hdmi0@5520000 disamebuffer_alloc fail!
+[05.317]G[05.330](not enough data: expectSpeed change timeout
+PCIe speed2024.12.30 16:00
+ 0 
+mmc0 is current device
+cr
+100000
+Zero 3W boot script from**
+213666 bytes read in 16 ms (12.7 Image Name:   Linux kernel
+   e:    33966088 Bytes = 32.4 MiBing Checksum ... the fdt blob at 0x44000000
+2][mmc]: MMC Device 2 not found[15.435]get_sunxi_drm_connector_
+NOTICE:  [SCP] :arisc version: [:arisc startup ready
+NOTICE:  [xi-arisc driver is starting
+NOTxt image spsr = 0x3c5
+5:36
+gin: 

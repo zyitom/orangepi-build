@@ -1,0 +1,228 @@
+
+[0185.00] ------------------------------
+[0185.00] system tick:500
+[0185.00] debug_mask:3
+[0185.00] uart_buadrate:57600
+[0185.01] stack free:608byte
+[0186.51] query asyn msg
+[0186.51] MESSAGE FROM AC327
+[0186.51] state:2
+[0186.51] type:24
+[0186.51] attr:0
+[0186.52] count: 0x1
+[0186.52] sys op req
+[0186.52] state:1
+[0186.53] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0186.54] reset
+[0186.54] restore bus status to 0x3a
+[0186.55] init twi succeeded
+[0186.55] stop send
+[0186.56]à[0000.00] debugger system ok
+[0000.00] m = 5, n = 1, req_sclk = 200000, real_clk = 200000
+[0000.00] reset
+[0000.00] init twi succeeded
+[0000.00] twi driver ok
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00] ERR:e5:20
+[0000.00] stop send
+[0000.00] 1,52,3,0,-1
+[0000.00] bmu is not exist
+[0000.00] pmu & bmu driver ok
+[0000.00] hwmsgbox driver ok
+[0000.00] cpucfg driver ok
+[0000.00] message manager ok
+[0000.00] timer driver ok
+[0000.00] standby service ok
+[0000.00] install isr 15
+[0000.00] intno:21 interrupt enable
+[0000.00] setup timer server succeeded
+[0000.00] time ticks ok
+[0000.01] watchdog ok
+[0000.01] feedback startup result [0]
+[0000.02] send syn message
+[0000.04] send notify succeed
+[0000.09] dram para[0] 0x0
+[0000.09] dram para[1] 0x0
+[0000.09] dram para[2] 0x0
+[0000.10] dram para[3] 0x0
+[0000.10] dram para[4] 0x0
+[0000.11] dram para[5] 0x0
+[0000.11] dram para[6] 0x0
+[0000.12] dram para[7] 0x0
+[0000.12] dram para[8] 0x0
+[0000.13] dram para[9] 0x0
+[0000.13] dram para[10] 0x0
+[0000.14] dram para[11] 0x0
+[0000.14] dram para[12] 0x0
+[0000.15] dram para[13] 0x0
+[0000.15] dram para[14] 0x0
+[0000.16] dram para[15] 0x0
+[0000.16] dram para[16] 0x0
+[0000.17] dram para[17] 0x0
+[0000.17] dram para[18] 0x0
+[0000.18] dram para[19] 0x0
+[0000.18] dram para[20] 0x0
+[0000.19] dram para[21] 0x0
+[0000.19] dram para[22] 0x0
+[0000.20] dram para[23] 0x0
+[0000.20] dram para[24] 0x0
+[0000.21] dram para[25] 0x0
+[0000.21] dram para[26] 0x0
+[0000.22] dram para[27] 0x0
+[0000.22] dram para[28] 0x0
+[0000.23] dram para[29] 0x0
+[0000.23] dram para[30] 0x0
+[0000.24] dram para[31] 0x0
+[0000.24] dram para[32] 0x0
+[0000.25] dram para[33] 0x0
+[0000.25] dram para[34] 0x0
+[0000.26] dram para[35] 0x0
+[0000.26] dram para[36] 0x0
+[0000.27] dram para[37] 0x0
+[0000.27] dram para[38] 0x0
+[0000.28] dram para[39] 0x0
+[0000.28] dram para[40] 0x0
+[0000.29] dram para[41] 0x0
+[0000.29] dram para[42] 0x0
+[0000.30] dram para[43] 0x0
+[0000.30] dram para[44] 0x0
+[0000.31] dram para[45] 0x0
+[0000.31] dram para[46] 0x0
+[0000.32] dram para[47] 0x0
+[0000.32] dram para[48] 0x0
+[0000.33] dram para[49] 0x0
+[0000.33] dram para[50] 0x0
+[0000.34] dram para[51] 0x0
+[0000.34] dram para[52] 0x0
+[0000.35] dram para[53] 0x0
+[0000.35] dram para[54] 0x0
+[0000.36] dram para[55] 0x0
+[0000.36] dram para[56] 0x0
+[0000.37] dram para[57] 0x0
+[0000.37] dram para[58] 0x0
+[0000.38] dram para[59] 0x0
+[0000.38] dram para[60] 0x0
+[0000.39] dram para[61] 0x0
+[0000.39] dram para[62] 0x0
+[0000.40] dram para[63] 0x0
+[0000.40] dram para[64] 0x0
+[0000.41] dram para[65] 0x0
+[0000.41] dram para[66] 0x0
+[0000.42] dram para[67] 0x0
+[0000.42] dram para[68] 0x0
+[0000.43] dram para[69] 0x0
+[0000.43] dram para[70] 0x0
+[0000.44] dram para[71] 0x0
+[0000.44] dram para[72] 0x0
+[0000.45] dram para[73] 0x0
+[0000.45] dram para[74] 0x0
+[0000.46] dram para[75] 0x0
+[0000.46] dram para[76] 0x0
+[0000.47] dram para[77] 0x0
+[0000.47] dram para[78] 0x0
+[0000.48] dram para[79] 0x0
+[0000.48] dram para[80] 0x0
+[0000.49] dram para[81] 0x0
+[0000.49] dram para[82] 0x0
+[0000.50] dram para[83] 0x0
+[0000.50] dram para[84] 0x0
+[0000.51] dram para[85] 0x0
+[0000.51] dram para[86] 0x0
+[0000.52] dram para[87] 0x0
+[0000.52] dram para[88] 0x0
+[0000.53] dram para[89] 0x0
+[0000.53] dram para[90] 0x0
+[0000.54] dram para[91] 0x0
+[0000.54] dram para[92] 0x0
+[0000.55] dram para[93] 0x0
+[0000.55] dram para[94] 0x0
+[0000.56] dram para[95] 0x0
+[0000.56] dram para[96] 0x0
+[0000.57] dram para[97] 0x0
+[0000.57] dram para[98] 0x0
+[0000.58] dram para[99] 0x0
+[0000.58] dram para[100] 0x0
+[0000.59] dram para[101] 0x0
+[0000.59] dram para[102] 0x0
+[0000.60] dram para[103] 0x0
+[0000.60] dram para[104] 0x0
+[0000.61] dram para[105] 0x0
+[0000.61] dram para[106] 0x0
+[0000.62] dram para[107] 0x0
+[0000.63] dram para[108] 0x0
+[0000.63] dram para[109] 0x0
+[0000.64] dram para[110] 0x0
+[0000.64] dram para[111] 0x0
+[0000.65] dram para[112] 0x0
+[0000.65] dram para[113] 0x0
+[0000.66] dram para[114] 0x0
+[0000.66] dram para[115] 0x0
+[0000.67] dram para[116] 0x0
+[0000.67] dram para[117] 0x0
+[0000.68] dram para[118] 0x0
+[0000.68] dram para[119] 0x0
+[0000.69] dram para[120] 0x0
+[0000.69] dram para[121] 0x0
+[0000.70] dram para[122] 0x0
+[0000.70] dram para[123] 0x0
+[0000.71] dram para[124] 0x0
+[0000.71] dram para[125] 0x0
+[0000.72] dram para[126] 0x0
+[0000.72] dram para[127] 0x0
+[0000.73] dram para[128] 0x0
+[0000.73] dram para[129] 0x0
+[0000.74] dram para[130] 0x0
+[0000.74] dram para[131] 0x0
+[0000.75] dram para[132] 0x0
+[0000.76] dram para[133] 0x0
+[0000.76] dram para[134] 0x0
+[0000.77] dram para[135] 0x0
+[0000.77] dram para[136] 0x0
+[0000.78] dram para[137] 0x0
+[0000.78] dram para[138] 0x0
+[0000.79] dram para[139] 0x0
+[0000.79] dram para[140] 0x0
+[0000.80] dram para[141] 0x0
+[0000.80] dram para[142] 0x0
+[0000.81] dram para[143] 0x0
+[0000.81] dram para[144] 0x0
+[0000.82] dram para[145] 0x0
+[0000.82] dram para[146] 0x0
+[0000.83] dram para[147] 0x0
+[0000.83] dram para[148] 0x0
+[0000.84] dram para[149] 0x0
+[0000.84] dram para[150] 0x0
+[0000.85] dram para[151] 0x0
+[0000.85] dram para[152] 0x0
+[0000.86] dram para[153] 0x0
+[0000.86] dram para[154] 0x0
+[0000.87] dram para[155] 0x0
+[0000.87] dram para[156] 0x0
+[0000.88] dram para[157] 0x0
+[0000.89] dram para[158] 0x0
+[0000.89] dram para[159] 0x0
+[0000.90] WRN:dram para all zero -- using built-in zero3w values
+[0000.91] startup feedback ok
+[0000.91] ar100 hdmi init done
+[0000.92] dma driver ok
+[0000.92] ar100 firmware version : 0170020e421772d892d569dad5ef8b0faffc120a-dirty
+[0000.93] daemon service setup...
+[0001.70] query asyn msg
+[0001.70] MESSAGE FROM AC327
+[0001.70] state:2
+[0001.70] type:26
+[0001.71] attr:2
+[0001.71] count: 0x1
+[0001.71] set wakeup src req
+[0001.72] wakeup_root_irq: 198
+[0001.72] install isr 1A
+[0001.73] intno:26 interrupt enable
+[0001.73] send feedback message
+[0001.74] feedback hard syn message : 26
+[0005.00] ------------------------------
+[0005.00] system tick:500
+[0005.00] debug_mask:3
+[0005.00] uart_buadrate:57600
+[0005.01] stack free:608byte

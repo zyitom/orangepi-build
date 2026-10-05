@@ -1,0 +1,678 @@
+# /dev/ttyUSB1 @115200, host start 2026-10-01 03:02:15
+[+   5.607] [   25.156929] PM: suspend entry (deep)
+[+   5.607] [   25.157034] Filesystems sync: 0.000 seconds
+[+   5.607] [   25.158263] Freezing user space processes
+[+   5.607] [   25.166299] Freezing user space processes completed (elapsed 0.008 seconds)
+[+   5.808] [   25.166310] OOM killer disabled.
+[+   5.808] [   25.166313] Freezing remaining freezable tasks
+[+   5.808] [   25.167813] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[+   5.808] [   25.198444] platform soc@3000000:i2s0_mach: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   5.808] [   25.198467] platform soc@3000000:i2s0_mach: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   5.808] [   25.198478] platform a020000.dmcfreq: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   5.808] [   25.198487] platform a020000.dmcfreq: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   5.808] [   25.198506] rfkill rfkill3: PM: calling rfkill_suspend+0x0/0x40 @ 452, parent: hci0
+[+   5.808] [   25.198517] rfkill rfkill3: PM: rfkill_suspend+0x0/0x40 returned 0 after 1 usecs
+[+   5.808] [   25.198536] pvrsrvkm 1800000.gpu: PM: calling pvr_pm_suspend+0x0/0x58 [pvrsrvkm] @ 452, parent: soc@3000000
+[+   5.808] [   25.198674] pvrsrvkm 1800000.gpu: PM: pvr_pm_suspend+0x0/0x58 [pvrsrvkm] returned 0 after 14 usecs
+[+   5.808] [   25.198836] vipcore 3600000.npu: PM: calling vipdrv_system_suspend+0x0/0x30 [vipcore] @ 452, parent: soc@3000000
+[+   5.808] [   25.198871] vipcore 3600000.npu: PM: vipdrv_system_suspend+0x0/0x30 [vipcore] returned 0 after 1 usecs
+[+   5.808] [   25.198907] platform 2527015.pwm0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   5.808] [   25.198917] platform 2527015.pwm0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   5.808] [   25.198930] pwm-fan soc@3000000:pwm-fan: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   5.808] [   25.198939] pwm-fan soc@3000000:pwm-fan: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   5.808] [   25.198952] sunxi-vin-core 5832000.vinc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   5.808] [   25.198961] sunxi-vin-core 5832000.vinc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   5.808] [   25.198972] sunxi-vin-core 5830000.vinc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.198980] sunxi-vin-core 5830000.vinc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.198990] vin_sensor_helper 5812000.sensor: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.198998] vin_sensor_helper 5812000.sensor: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199008] vin_scaler 5800800.vind:scaler@16: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199016] vin_scaler 5800800.vind:scaler@16: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199026] vin_scaler 5910800.scaler: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199034] vin_scaler 5910800.scaler: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199044] vin_scaler 5910000.scaler: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199051] vin_scaler 5910000.scaler: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199061] vin_isp 5900000.isp: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199069] vin_isp 5900000.isp: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199079] vin_tdm 5908000.tdm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199087] vin_tdm 5908000.tdm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199096] vin_mipi 5810300.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199104] vin_mipi 5810300.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199114] vin_mipi 5810200.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199122] vin_mipi 5810200.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199132] vin_mipi 5810100.mipi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.008] [   25.199140] vin_mipi 5810100.mipi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.008] [   25.199150] vin_csi 5822000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.208] [   25.199158] vin_csi 5822000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.208] [   25.199167] vin_csi 5821000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.208] [   25.199175] vin_csi 5821000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.208] [   25.199185] vin_csi 5820000.csi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5800800.vind
+[+   6.208] [   25.199193] vin_csi 5820000.csi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.208] [   25.199213] sunxi-vin-media 5800800.vind: PM: calling vin_suspend+0x0/0x18 [vin_v4l2] @ 452, parent: soc@3000000
+[+   6.208] [   25.199255] sunxi-vin-media 5800800.vind: PM: vin_suspend+0x0/0x18 [vin_v4l2] returned 0 after 0 usecs
+[+   6.208] [   25.199301] input input9: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199312] input input9: PM: input_dev_suspend+0x0/0x90 returned 0 after 1 usecs
+[+   6.208] [   25.199323] input input8: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199331] input input8: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199343] input input7: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199350] input input7: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199362] input input6: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199369] input input6: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199383] input input5: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199390] input input5: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199402] input input4: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2524000.lradc
+[+   6.208] [   25.199410] input input4: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199421] input input3: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.208] [   25.199428] input input3: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.208] [   25.199439] input input2: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.408] [   25.199447] input input2: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.408] [   25.199459] input input1: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: 2521000.gpadc
+[+   6.408] [   25.199466] input input1: PM: input_dev_suspend+0x0/0x90 returned 0 after 0 usecs
+[+   6.408] [   25.199487] rfkill rfkill2: PM: calling rfkill_suspend+0x0/0x40 @ 452, parent: phy0
+[+   6.408] [   25.199496] rfkill rfkill2: PM: rfkill_suspend+0x0/0x40 returned 0 after 1 usecs
+[+   6.408] [   25.199514] ieee80211 phy0: PM: calling wiphy_suspend+0x0/0x388 @ 167, parent: mmc2:390b:1
+[+   6.408] [   25.199522] sunxi_usb_udc 4100000.udc-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   6.408] [   25.199529] >>> rwnx_cfg80211_disconnect()
+[+   6.408] [   25.199532] rwnx_cfg80211_disconnect drv_vif_index:0 disconnect reason:3 
+[+   6.408] [   25.199534] rwnx_set_conn_state drv_conn_state:000000009a9485aa RWNX_DRV_STATUS_CONNECTED --> RWNX_DRV_STATUS_DISCONNECTING 
+[+   6.408] [   25.199538] >>> rwnx_send_sm_disconnect_req()
+[+   6.408] [   25.199566] sunxi_usb_udc 4100000.udc-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 32 usecs
+[+   6.408] [   25.199589] aicbsp_sdio mmc2:390b:2: PM: calling pm_generic_suspend+0x0/0x58 @ 166, parent: mmc2:390b
+[+   6.408] [   25.199598] aicbsp: aicbsp_sdio_suspend, func->num = 2
+[+   6.408] [   25.199600] aicbsp_sdio mmc2:390b:2: PM: pm_generic_suspend+0x0/0x58 returned 0 after 2 usecs
+[+   6.408] [   25.200044] >>> rwnx_rx_me_tx_credits_update_ind()
+[+   6.408] [   25.200053] >>> rwnx_rx_me_tx_credits_update_ind()
+[+   6.408] [   25.200386] rwnx_rx_sm_disconnect_ind reason code:0 
+[+   6.408] [   25.200390] >>> rwnx_cfg80211_unlink_bss()
+[+   6.408] [   25.200388] ieee80211 phy0: PM: wiphy_suspend+0x0/0x388 returned 0 after 862 usecs
+[+   6.408] [   25.200401] rwnx_cfg80211_unlink_bss(): cfg80211_unlink OpenWrt!!
+[+   6.408] [   25.200405] aicwf_sdio mmc2:390b:1: PM: calling pm_generic_suspend+0x0/0x58 @ 452, parent: mmc2:390b
+[+   6.408] [   25.200434] >>> rwnx_cfg80211_del_key()
+[+   6.408] [   25.200435] >>> rwnx_send_key_del()
+[+   6.408] [   25.200437] deinit:macaddr:24,f8,e3,17,ff,b6
+[+   6.408] [   25.200443] reord_mac:24,f8,e3,17,ff,b6
+[+   6.609] [   25.200446] reord_deinit_sta
+[+   6.609] [   25.200465] rwnx_set_conn_state drv_conn_state:000000009a9485aa RWNX_DRV_STATUS_DISCONNECTING --> RWNX_DRV_STATUS_DISCONNECTED 
+[+   6.609] [   25.200563] >>> rwnx_cfg80211_del_key()
+[+   6.609] [   25.200564] >>> rwnx_send_key_del()
+[+   6.609] [   25.200686] >>> rwnx_cfg80211_del_key()
+[+   6.609] [   25.200687] >>> rwnx_send_key_del()
+[+   6.609] [   25.200805] >>> rwnx_cfg80211_del_key()
+[+   6.609] [   25.200806] >>> rwnx_send_key_del()
+[+   6.609] [   25.200922] >>> rwnx_cfg80211_del_key()
+[+   6.609] [   25.200922] >>> rwnx_send_key_del()
+[+   6.609] [   25.201038] >>> rwnx_cfg80211_del_key()
+[+   6.609] [   25.201039] >>> rwnx_send_key_del()
+[+   6.609] [   25.219470] >>> rwnx_send_me_chan_config_req()
+[+   6.609] [   25.230472] aicwf_sdio mmc2:390b:1: PM: pm_generic_suspend+0x0/0x58 returned 0 after 30049 usecs
+[+   6.609] [   25.230508] rfkill rfkill1: PM: calling rfkill_suspend+0x0/0x40 @ 452, parent: aic-bsp
+[+   6.609] [   25.230521] rfkill rfkill1: PM: rfkill_suspend+0x0/0x40 returned 0 after 2 usecs
+[+   6.609] [   25.230515] mmc mmc2:390b: PM: calling mmc_bus_suspend+0x0/0x88 @ 166, parent: mmc2
+[+   6.609] [   25.230532] aic-bsp aic-bsp: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   6.609] [   25.230536] mmc mmc2:390b: PM: mmc_bus_suspend+0x0/0x88 returned 0 after 4 usecs
+[+   6.609] [   25.230542] aic-bsp aic-bsp: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.609] [   25.230589] sound pcmC0D0c: PM: calling do_pcm_suspend+0x0/0x48 @ 452, parent: card0
+[+   6.609] [   25.230591] usb usb4: PM: calling usb_dev_suspend+0x0/0x30 @ 166, parent: 4200400.ohci1-controller
+[+   6.609] [   25.230600] sound pcmC0D0c: PM: do_pcm_suspend+0x0/0x48 returned 0 after 0 usecs
+[+   6.609] [   25.230611] sound pcmC0D0p: PM: calling do_pcm_suspend+0x0/0x48 @ 452, parent: card0
+[+   6.609] [   25.230618] sound pcmC0D0p: PM: do_pcm_suspend+0x0/0x48 returned 0 after 0 usecs
+[+   6.609] [   25.230639] sunxi-snd-mach soc@3000000:i2s3_mach: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   6.609] [   25.230689] usb usb3: PM: calling usb_dev_suspend+0x0/0x30 @ 164, parent: 4200000.ehci1-controller
+[+   6.609] [   25.230701] sunxi-snd-mach soc@3000000:i2s3_mach: PM: platform_pm_suspend+0x0/0x80 returned 0 after 53 usecs
+[+   6.809] [   25.230730] pci 0000:00:00.0: PM: calling pci_pm_suspend+0x0/0x248 @ 165, parent: pci0000:00
+[+   6.809] [   25.230740] pci 0000:00:00.0: PM: pci_pm_suspend+0x0/0x248 returned 0 after 1 usecs
+[+   6.809] [   25.230766] sunxi-pcie 6000000.pcie: PM: calling sunxi_pcie_plat_suspend+0x0/0xa8 @ 452, parent: soc@3000000
+[+   6.809] [   25.231128] sunxi-pcie 6000000.pcie: PM: sunxi_pcie_plat_suspend+0x0/0xa8 returned 0 after 348 usecs
+[+   6.809] [   25.231156] platform sunxi-snd-codec-av.42.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 5740000.edp0
+[+   6.809] [   25.231166] platform sunxi-snd-codec-av.42.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.809] [   25.231182] sunxi-drm soc@3000000:sunxi-drm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   6.809] [   25.231272] [drm] sunxi_de_atomic_flush de 0 not enable, skip
+[+   6.809] [   25.231277] [drm] sunxi_de_atomic_flush de 1 not enable, skip
+[+   6.809] [   25.231290] sunxi-drm soc@3000000:sunxi-drm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 99 usecs
+[+   6.809] [   25.231308] drm_edp 5740000.edp0: PM: calling sunxi_drm_edp_suspend+0x0/0x48 @ 452, parent: soc@3000000
+[+   6.809] [   25.231346] drm_edp 5740000.edp0: PM: sunxi_drm_edp_suspend+0x0/0x48 returned 0 after 28 usecs
+[+   6.809] [   25.231374] sunxi-snd-codec-hdmi soc@3000000:hdmi_codec: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   6.809] [   25.231384] sunxi-snd-codec-hdmi soc@3000000:hdmi_codec: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   6.809] [   25.231397] allwinner,sunxi-hdmi 5520000.hdmi0: PM: calling _sunxi_drv_hdmi_suspend+0x0/0x120 @ 452, parent: soc@3000000
+[+   6.809] [   25.231449] [drm] sunxi-hdmi: [warn] hdmi drv hpd thread is stop!!!
+[+   6.809] [   25.231473] [drm] sunxi-hdmi: hdmi drv has been disable!
+[+   6.809] [   25.231501] [drm] sunxi-hdmi: hdmi drv disable resource done
+[+   6.809] [   25.231504] [drm] sunxi-hdmi: hdmi drv pm suspend done
+[+   6.809] [   25.231507] allwinner,sunxi-hdmi 5520000.hdmi0: PM: _sunxi_drv_hdmi_suspend+0x0/0x120 returned 0 after 99 usecs
+[+   6.809] [   25.231566] typec_fusb302 14-0022: PM: calling fusb302_pm_suspend+0x0/0x60 @ 161, parent: i2c-14
+[+   7.009] [   25.231577] sunxi-twi 251c000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.009] [   25.231581] typec_fusb302 14-0022: PM: fusb302_pm_suspend+0x0/0x60 returned 0 after 1 usecs
+[+   7.009] [   25.231588] sunxi-twi 251c000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.009] [   25.231624] sunxi-twi 251b000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.009] [   25.231632] sunxi-twi 251b000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.009] [   25.231665] sunxi-twi 2519000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.009] [   25.231674] sunxi-twi 2519000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.009] [   25.231691] rfkill rfkill0: PM: calling rfkill_suspend+0x0/0x40 @ 452, parent: soc@3000000:rfkill
+[+   7.009] [   25.231700] rfkill rfkill0: PM: rfkill_suspend+0x0/0x40 returned 0 after 1 usecs
+[+   7.009] [   25.231710] sunxi-rfkill soc@3000000:rfkill: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.009] [   25.231718] sunxi-rfkill soc@3000000:rfkill: suspend entry
+[+   7.009] [   25.231722] sunxi-rfkill soc@3000000:rfkill: PM: platform_pm_suspend+0x0/0x80 returned 0 after 3 usecs
+[+   7.009] [   25.231746] cpufreq-dt cpufreq-dt: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.009] [   25.231754] cpufreq-dt cpufreq-dt: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.009] [   25.231765] sun50i-cpufreq-nvmem sun50i-cpufreq-nvmem: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.009] [   25.231773] sun50i-cpufreq-nvmem sun50i-cpufreq-nvmem: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.009] [   25.231787] input input0: PM: calling input_dev_suspend+0x0/0x90 @ 452, parent: axp2101-pek.0
+[+   7.009] [   25.231797] input input0: PM: input_dev_suspend+0x0/0x90 returned 0 after 1 usecs
+[+   7.009] [   25.231838] usb usb2: PM: calling usb_dev_suspend+0x0/0x30 @ 159, parent: xhci-hcd.41.auto
+[+   7.009] [   25.231847] usb usb1: PM: calling usb_dev_suspend+0x0/0x30 @ 165, parent: xhci-hcd.41.auto
+[+   7.209] [   25.231867] switcher 10.phy_switcher: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.209] [   25.231876] switcher 10.phy_switcher: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.209] [   25.231910] mmcblk mmc1:59b4: PM: calling mmc_bus_suspend+0x0/0x88 @ 158, parent: mmc1
+[+   7.209] [   25.231914] usb usb1: PM: usb_dev_suspend+0x0/0x30 returned 0 after 61 usecs
+[+   7.209] [   25.246523] sunxi:sunxi_mmc_host-4020000.sdmmc:[INFO]: sdc set ios:clk 0Hz bm PP pm OFF vdd 0 width 1 timing LEGACY(SDR12) dt B
+[+   7.209] [   25.248057] mmcblk mmc1:59b4: PM: mmc_bus_suspend+0x0/0x88 returned 0 after 16132 usecs
+[+   7.209] [   25.250713] usb usb3: PM: usb_dev_suspend+0x0/0x30 returned 0 after 20010 usecs
+[+   7.209] [   25.250762] sunxi-ehci 4200000.ehci1-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 163, parent: soc@3000000
+[+   7.209] [   25.250777] sunxi:ehci_sunxi:[INFO]: [ehci1-controller] usb suspend
+[+   7.209] [   25.250786] sunxi-ehci 4200000.ehci1-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 9 usecs
+[+   7.209] [   25.258550] usb usb2: PM: usb_dev_suspend+0x0/0x30 returned 0 after 26699 usecs
+[+   7.209] [   25.258614] xhci-hcd xhci-hcd.41.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 161, parent: 6a00000.xhci2-controller
+[+   7.209] [   25.258642] xhci-hcd xhci-hcd.41.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 14 usecs
+[+   7.209] [   25.258664] dwc3 6a00000.xhci2-controller: PM: calling dwc3_suspend+0x0/0x58 @ 452, parent: 12.usbc2
+[+   7.209] [   25.260124] sunxi-cadence-combophy 6c00000.serdes: combophy0 set power OFF
+[+   7.209] [   25.260147] dwc3 6a00000.xhci2-controller: PM: dwc3_suspend+0x0/0x58 returned 0 after 1470 usecs
+[+   7.209] [   25.260180] sunxi-cadence-combophy 6c00000.serdes: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.209] [   25.260190] sunxi-cadence-combophy 6c00000.serdes: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.209] [   25.260234] scsi host0: PM: calling scsi_bus_suspend+0x0/0xd8 @ 159, parent: 4520000.ufs
+[+   7.209] [   25.260247] scsi host0: PM: scsi_bus_suspend+0x0/0xd8 returned 0 after 0 usecs
+[+   7.209] [   25.260248] sunxi-mmc 4020000.sdmmc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.410] [   25.260265] sunxi-ufs-pltfm 4520000.ufs: PM: calling platform_pm_suspend+0x0/0x80 @ 161, parent: soc@3000000
+[+   7.410] [   25.260267] sunxi-mmc 4020000.sdmmc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 9 usecs
+[+   7.410] [   25.260277] sunxi-ufs-pltfm 4520000.ufs: PM: platform_pm_suspend+0x0/0x80 returned 0 after 1 usecs
+[+   7.410] [   25.260325] alarmtimer alarmtimer.40.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: rtc0
+[+   7.410] [   25.260336] alarmtimer alarmtimer.40.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 2 usecs
+[+   7.410] [   25.260348] rtc rtc0: PM: calling rtc_suspend+0x0/0x150 @ 452, parent: 7090000.rtc
+[+   7.410] [   25.260387] rtc rtc0: PM: rtc_suspend+0x0/0x150 returned 0 after 30 usecs
+[+   7.410] [   25.260402] port uart-ng1:0.0: PM: calling pm_runtime_force_suspend+0x0/0x160 @ 452, parent: uart-ng1:0
+[+   7.410] [   25.260411] port uart-ng1:0.0: PM: pm_runtime_force_suspend+0x0/0x160 returned 0 after 1 usecs
+[+   7.410] [   25.260425] uart-ng uart-ng1: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.410] [   25.260433] sunxi:uart-ng-uart-ng1:[INFO]: uart1 suspend
+[+   7.410] [   25.260495] uart-ng uart-ng1: PM: platform_pm_suspend+0x0/0x80 returned 0 after 62 usecs
+[+   7.410] [   25.260512] port uart-ng0:0.0: PM: calling pm_runtime_force_suspend+0x0/0x160 @ 452, parent: uart-ng0:0
+[+   7.410] [   25.260520] port uart-ng0:0.0: PM: pm_runtime_force_suspend+0x0/0x160 returned 0 after 0 usecs
+[+   7.410] [   25.260533] uart-ng uart-ng0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   7.410] [   25.260541] sunxi:uart-ng-uart-ng0:[INFO]: uart0 suspend
+[+   7.410] [   25.260545] uart-ng uart-ng0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 4 usecs
+[+   7.410] [   25.260564] snd-soc-dummy snd-soc-dummy: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.410] [   25.260572] snd-soc-dummy snd-soc-dummy: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.410] [   25.260587] leds status_led: PM: calling led_suspend+0x0/0x70 @ 452, parent: leds
+[+   7.410] [   25.260600] leds status_led: PM: led_suspend+0x0/0x70 returned 0 after 5 usecs
+[+   7.410] [   25.260621] psci-cpuidle psci-cpuidle: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.610] [   25.260629] psci-cpuidle psci-cpuidle: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260647] platform Fixed MDIO bus.0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   7.610] [   25.260655] platform Fixed MDIO bus.0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260701] reg-virt-consumer reg-virt-consumer.39.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260709] reg-virt-consumer reg-virt-consumer.39.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260722] reg-virt-consumer reg-virt-consumer.38.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260730] reg-virt-consumer reg-virt-consumer.38.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260744] reg-virt-consumer reg-virt-consumer.36.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260752] reg-virt-consumer reg-virt-consumer.36.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260764] reg-virt-consumer reg-virt-consumer.37.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260772] reg-virt-consumer reg-virt-consumer.37.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260783] reg-virt-consumer reg-virt-consumer.35.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260791] reg-virt-consumer reg-virt-consumer.35.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260803] reg-virt-consumer reg-virt-consumer.33.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260811] reg-virt-consumer reg-virt-consumer.33.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.610] [   25.260825] reg-virt-consumer reg-virt-consumer.31.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.610] [   25.260832] reg-virt-consumer reg-virt-consumer.31.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260844] reg-virt-consumer reg-virt-consumer.34.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260852] reg-virt-consumer reg-virt-consumer.34.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260864] reg-virt-consumer reg-virt-consumer.30.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260872] reg-virt-consumer reg-virt-consumer.30.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260885] reg-virt-consumer reg-virt-consumer.32.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260893] reg-virt-consumer reg-virt-consumer.32.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260905] reg-virt-consumer reg-virt-consumer.29.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260912] reg-virt-consumer reg-virt-consumer.29.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260924] reg-virt-consumer reg-virt-consumer.28.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260932] reg-virt-consumer reg-virt-consumer.28.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260944] reg-virt-consumer reg-virt-consumer.25.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260951] reg-virt-consumer reg-virt-consumer.25.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260963] reg-virt-consumer reg-virt-consumer.24.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260971] reg-virt-consumer reg-virt-consumer.24.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.260985] reg-virt-consumer reg-virt-consumer.27.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   7.810] [   25.260993] reg-virt-consumer reg-virt-consumer.27.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   7.810] [   25.261005] reg-virt-consumer reg-virt-consumer.26.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261013] reg-virt-consumer reg-virt-consumer.26.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261025] reg-virt-consumer reg-virt-consumer.23.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261033] reg-virt-consumer reg-virt-consumer.23.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261048] reg-virt-consumer reg-virt-consumer.22.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261056] reg-virt-consumer reg-virt-consumer.22.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261069] reg-virt-consumer reg-virt-consumer.21.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261077] reg-virt-consumer reg-virt-consumer.21.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261089] reg-virt-consumer reg-virt-consumer.20.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261097] reg-virt-consumer reg-virt-consumer.20.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261108] reg-virt-consumer reg-virt-consumer.18.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261116] reg-virt-consumer reg-virt-consumer.18.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261127] reg-virt-consumer reg-virt-consumer.19.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261135] reg-virt-consumer reg-virt-consumer.19.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261147] reg-virt-consumer reg-virt-consumer.17.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261155] reg-virt-consumer reg-virt-consumer.17.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.010] [   25.261167] reg-virt-consumer reg-virt-consumer.16.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.010] [   25.261175] reg-virt-consumer reg-virt-consumer.16.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261187] reg-virt-consumer reg-virt-consumer.15.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261195] reg-virt-consumer reg-virt-consumer.15.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261207] reg-virt-consumer reg-virt-consumer.13.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261215] reg-virt-consumer reg-virt-consumer.13.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261227] reg-virt-consumer reg-virt-consumer.14.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261235] reg-virt-consumer reg-virt-consumer.14.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261247] reg-virt-consumer reg-virt-consumer.12.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261255] reg-virt-consumer reg-virt-consumer.12.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261268] reg-virt-consumer reg-virt-consumer.11.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261276] reg-virt-consumer reg-virt-consumer.11.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261288] reg-virt-consumer reg-virt-consumer.10.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261297] reg-virt-consumer reg-virt-consumer.10.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261309] reg-virt-consumer reg-virt-consumer.9.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261317] reg-virt-consumer reg-virt-consumer.9.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261329] reg-virt-consumer reg-virt-consumer.8.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.211] [   25.261337] reg-virt-consumer reg-virt-consumer.8.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.211] [   25.261349] reg-virt-consumer reg-virt-consumer.7.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261358] reg-virt-consumer reg-virt-consumer.7.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261369] reg-virt-consumer reg-virt-consumer.6.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261377] reg-virt-consumer reg-virt-consumer.6.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261389] reg-virt-consumer reg-virt-consumer.5.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261398] reg-virt-consumer reg-virt-consumer.5.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261410] reg-virt-consumer reg-virt-consumer.4.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261418] reg-virt-consumer reg-virt-consumer.4.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261429] reg-virt-consumer reg-virt-consumer.3.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261437] reg-virt-consumer reg-virt-consumer.3.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261451] reg-virt-consumer reg-virt-consumer.2.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261460] reg-virt-consumer reg-virt-consumer.2.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261472] reg-virt-consumer reg-virt-consumer.1.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261480] reg-virt-consumer reg-virt-consumer.1.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261491] reg-virt-consumer reg-virt-consumer.0.auto: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   8.411] [   25.261499] reg-virt-consumer reg-virt-consumer.0.auto: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.411] [   25.261549] platform regulatory.0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   8.411] [   25.261557] platform regulatory.0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   8.611] [   25.261694] pwm pwmchip20: PM: calling pwm_class_suspend+0x0/0x140 @ 452, parent: 7023000.pwm
+[+   8.611] [   25.261706] pwm pwmchip20: PM: pwm_class_suspend+0x0/0x140 returned 0 after 2 usecs
+[+   8.611] [   25.261718] pwm pwmchip10: PM: calling pwm_class_suspend+0x0/0x140 @ 452, parent: 2528000.pwm
+[+   8.611] [   25.261727] pwm pwmchip10: PM: pwm_class_suspend+0x0/0x140 returned 0 after 1 usecs
+[+   8.611] [   25.261739] pwm pwmchip0: PM: calling pwm_class_suspend+0x0/0x140 @ 452, parent: 2527000.pwm
+[+   8.611] [   25.261749] pwm pwmchip0: PM: pwm_class_suspend+0x0/0x140 returned 0 after 1 usecs
+[+   8.611] [   25.261762] regulator regulator.42: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261772] regulator regulator.42: PM: regulator_suspend+0x0/0x128 returned 0 after 1 usecs
+[+   8.611] [   25.261784] regulator regulator.41: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261792] regulator regulator.41: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.611] [   25.261803] regulator regulator.40: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261811] regulator regulator.40: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.611] [   25.261822] regulator regulator.39: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261830] regulator regulator.39: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.611] [   25.261840] regulator regulator.38: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261849] regulator regulator.38: PM: regulator_suspend+0x0/0x128 returned 0 after 1 usecs
+[+   8.611] [   25.261859] regulator regulator.37: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261867] regulator regulator.37: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.611] [   25.261878] regulator regulator.36: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.611] [   25.261886] regulator regulator.36: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.611] [   25.261897] regulator regulator.35: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261905] regulator regulator.35: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.261915] regulator regulator.34: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261923] regulator regulator.34: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.261933] regulator regulator.33: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261942] regulator regulator.33: PM: regulator_suspend+0x0/0x128 returned 0 after 1 usecs
+[+   8.811] [   25.261952] regulator regulator.32: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261960] regulator regulator.32: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.261971] regulator regulator.31: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261979] regulator regulator.31: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.261989] regulator regulator.30: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.261997] regulator regulator.30: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.262007] regulator regulator.29: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.262015] regulator regulator.29: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.262026] regulator regulator.28: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.262033] regulator regulator.28: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.262044] regulator regulator.27: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.262052] regulator regulator.27: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.262062] regulator regulator.26: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   8.811] [   25.262070] regulator regulator.26: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   8.811] [   25.262080] regulator regulator.25: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262088] regulator regulator.25: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262098] regulator regulator.24: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262106] regulator regulator.24: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262116] regulator regulator.23: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262124] regulator regulator.23: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262134] regulator regulator.22: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262142] regulator regulator.22: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262152] regulator regulator.21: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262160] regulator regulator.21: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262171] regulator regulator.20: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262179] regulator regulator.20: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262189] regulator regulator.19: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262197] regulator regulator.19: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262207] regulator regulator.18: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262215] regulator regulator.18: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262225] regulator regulator.17: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262234] regulator regulator.17: PM: regulator_suspend+0x0/0x128 returned 0 after 1 usecs
+[+   9.012] [   25.262244] regulator regulator.16: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262252] regulator regulator.16: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.012] [   25.262262] regulator regulator.15: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.012] [   25.262270] regulator regulator.15: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262280] regulator regulator.14: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262288] regulator regulator.14: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262298] regulator regulator.13: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262306] regulator regulator.13: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262316] regulator regulator.12: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262324] regulator regulator.12: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262334] regulator regulator.11: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262342] regulator regulator.11: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262353] regulator regulator.10: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262361] regulator regulator.10: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262372] regulator regulator.9: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262380] regulator regulator.9: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262390] regulator regulator.8: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262398] regulator regulator.8: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262447] regulator regulator.7: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262458] regulator regulator.7: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262470] regulator regulator.6: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262478] regulator regulator.6: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262489] regulator regulator.5: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.212] [   25.262497] regulator regulator.5: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.212] [   25.262509] regulator regulator.4: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.412] [   25.262517] regulator regulator.4: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.412] [   25.262527] regulator regulator.3: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: 13-0036
+[+   9.412] [   25.262535] regulator regulator.3: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.412] [   25.262545] platform 8860000.dsufreq: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   9.412] [   25.262554] platform 8860000.dsufreq: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.412] [   25.262566] otg manager 10.usbc0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.412] [   25.262575] otg manager 10.usbc0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.412] [   25.262587] platform 3006000.sid: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.412] [   25.262595] platform 3006000.sid: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.412] [   25.262608] platform axp8191-temp-ctrl.0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   9.412] [   25.262616] platform axp8191-temp-ctrl.0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.412] [   25.262628] axp2101-pek axp2101-pek.0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   9.412] [   25.264799] axp2101-pek axp2101-pek.0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 2162 usecs
+[+   9.412] [   25.264814] axp2101-regulator axp2101-regulator.0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 13-0036
+[+   9.412] [   25.264823] axp2101-regulator axp2101-regulator.0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.412] [   25.264913] regulator regulator.2: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: usb0-vbus
+[+   9.412] [   25.264922] regulator regulator.2: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.412] [   25.264933] regulator regulator.1: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: vdd-sys
+[+   9.412] [   25.264942] regulator regulator.1: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+   9.613] [   25.264976] leds-gpio leds: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   9.613] [   25.264984] leds-gpio leds: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.264995] reg-fixed-voltage usb0-vbus: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+   9.613] [   25.265004] reg-fixed-voltage usb0-vbus: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265015] sunxi-snd-plat-i2s 2535000.i2s3_plat: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265024] sunxi-snd-plat-i2s 2535000.i2s3_plat: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265035] platform soc@3000000:gpu-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265043] platform soc@3000000:gpu-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265054] sunxi-mmc 4021000.sdmmc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265104] sunxi-mmc 4021000.sdmmc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 42 usecs
+[+   9.613] [   25.265117] sunxi-mmc 4022000.sdmmc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265127] sunxi-mmc 4022000.sdmmc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265138] tcon 5731000.tcon4: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265147] tcon 5731000.tcon4: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265157] tcon 5730000.tcon3: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265165] tcon 5730000.tcon3: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265188] sunxi-btlpm soc@3000000:btlpm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265196] sunxi-btlpm soc@3000000:btlpm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.613] [   25.265207] sunxi-addr-mgt soc@3000000:addr_mgt: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.613] [   25.265216] sunxi-addr-mgt soc@3000000:addr_mgt: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265228] platform soc@3000000:pd_vo1_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265236] platform soc@3000000:pd_vo1_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265247] platform soc@3000000:pd_vo_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265255] platform soc@3000000:pd_vo_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265266] platform soc@3000000:pd_de_sys_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265274] platform soc@3000000:pd_de_sys_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265286] platform soc@3000000:pd_usb2_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265294] platform soc@3000000:pd_usb2_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265305] platform soc@3000000:pd_pcie_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265313] platform soc@3000000:pd_pcie_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265324] platform soc@3000000:pd_gpu_top_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265332] platform soc@3000000:pd_gpu_top_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265343] platform soc@3000000:pd_npu_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265351] platform soc@3000000:pd_npu_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265362] platform soc@3000000:pd_ve_enc_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+   9.813] [   25.265371] platform soc@3000000:pd_ve_enc_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+   9.813] [   25.265382] platform soc@3000000:pd_ve_dec_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265390] platform soc@3000000:pd_ve_dec_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.013] [   25.265401] platform soc@3000000:pd_vi_test@0: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265409] platform soc@3000000:pd_vi_test@0: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.013] [   25.265421] g2d 5440000.g2d: PM: calling g2d_suspend+0x0/0x80 [g2d_sunxi] @ 452, parent: soc@3000000
+[+  10.013] [   25.265447] sunxi:g2d_sunxi:[INFO]: [G2D]: g2d_suspend succesfully
+[+  10.013] [   25.265449] g2d 5440000.g2d: PM: g2d_suspend+0x0/0x80 [g2d_sunxi] returned 0 after 2 usecs
+[+  10.013] [   25.265471] deinterlace 5400000.deinterlace: PM: calling di_suspend+0x0/0xf8 [deinterlace] @ 452, parent: soc@3000000
+[+  10.013] [   25.265495] deinterlace 5400000.deinterlace: PM: di_suspend+0x0/0xf8 [deinterlace] returned 0 after 0 usecs
+[+  10.013] [   25.265516] sunxi-plat-phy 6b00000.phy: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265525] sunxi-plat-phy 6b00000.phy: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.013] [   25.265536] sunxi-plat-dwc3 12.usbc2: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265547] sunxi-plat-dwc3 12.usbc2: PM: platform_pm_suspend+0x0/0x80 returned 0 after 2 usecs
+[+  10.013] [   25.265558] sunxi-ohci 4101400.ohci0-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265567] sunxi:ohci_sunxi:[ERR]: ERR: hcd is null
+[+  10.013] [   25.265570] sunxi-ohci 4101400.ohci0-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 3 usecs
+[+  10.013] [   25.265581] sunxi-ehci 4101000.ehci0-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265589] sunxi:ehci_sunxi:[ERR]: ERR: hcd is null
+[+  10.013] [   25.265592] sunxi-ehci 4101000.ehci0-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 2 usecs
+[+  10.013] [   25.265603] ce 4603000.ce: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.013] [   25.265622] ce 4603000.ce: PM: platform_pm_suspend+0x0/0x80 returned 0 after 10 usecs
+[+  10.013] [   25.265633] sunxi-msgbox 3004000.msgbox: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265644] sunxi-msgbox 3004000.msgbox: PM: platform_pm_suspend+0x0/0x80 returned 0 after 2 usecs
+[+  10.213] [   25.265654] sunxi-hwspinlock 3005000.hwspinlock: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265663] sunxi-hwspinlock 3005000.hwspinlock: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265681] sunxi-gpadc 2521000.gpadc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265698] sunxi:gpadc-2521000.gpadc:[INFO]: sunxi gpadc suspend
+[+  10.213] [   25.265701] sunxi-gpadc 2521000.gpadc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 11 usecs
+[+  10.213] [   25.265714] sunxi-lradc 2524000.lradc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265730] sunxi-lradc 2524000.lradc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 7 usecs
+[+  10.213] [   25.265741] sunxi_pwm 7023000.pwm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265750] sunxi_pwm 7023000.pwm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265762] sunxi_pwm 2528000.pwm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265770] sunxi_pwm 2528000.pwm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265780] sunxi_pwm 2527000.pwm: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265788] sunxi_pwm 2527000.pwm: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265824] sunxi-twi 7085000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265833] sunxi-twi 7085000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265866] sunxi-twi 7084000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.213] [   25.265875] sunxi-twi 7084000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.213] [   25.265968] sunxi-twi 7083000.twi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.265977] sunxi-twi 7083000.twi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.265989] platform 0.pinctrl_test: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.265997] platform 0.pinctrl_test: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266013] NSI_PMU 2020000.nsi-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266022] NSI_PMU 2020000.nsi-controller: suspend okay
+[+  10.413] [   25.266025] NSI_PMU 2020000.nsi-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 3 usecs
+[+  10.413] [   25.266036] sunxi-thermal 2522000.ths: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266048] sunxi-thermal 2522000.ths: PM: platform_pm_suspend+0x0/0x80 returned 0 after 4 usecs
+[+  10.413] [   25.266059] platform 3000000.sram_ctrl: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266067] platform 3000000.sram_ctrl: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266085] sun6i-dma 4601000.dma-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266094] sun6i-dma 4601000.dma-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266105] sunxi-wdt 2050000.watchdog: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266114] sunxi-wdt 2050000.watchdog: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266132] sun60iw2-r-pinctrl 7025000.pinctrl: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266140] sun60iw2-r-pinctrl 7025000.pinctrl: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266152] amp-timestamp 8010000.amp-timestamp: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266160] amp-timestamp 8010000.amp-timestamp: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.413] [   25.266178] sun60iw2-pinctrl 2000000.pinctrl: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.413] [   25.266187] sun60iw2-pinctrl 2000000.pinctrl: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266198] sunxi-rtc 7090000.rtc: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266207] sunxi-rtc 7090000.rtc: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266218] platform 3009000.timer: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266226] platform 3009000.timer: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266237] dump_reg 44000.dump_reg: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266246] dump_reg 44000.dump_reg: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266262] sunxi-pck600-domain 7060000.pck-600:power-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: 7060000.pck-600
+[+  10.614] [   25.266270] sunxi-pck600-domain 7060000.pck-600:power-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266284] sun60iw2-ccu-r 7010000.r_ccu: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266292] sun60iw2-ccu-r 7010000.r_ccu: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266303] sun60iw2-cpupll 8870000.cpupll_ccu: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266311] sun60iw2-cpupll 8870000.cpupll_ccu: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266323] sun60iw2-ccu-rtc 7090000.rtc_ccu: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266332] sun60iw2-ccu-rtc 7090000.rtc_ccu: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.614] [   25.266343] sunxi-cedar soc@3000000:ve1@1c0e000: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: soc@3000000
+[+  10.614] [   25.266352] sunxi-cedar soc@3000000:ve1@1c0e000: PM: platform_pm_suspend+0x0/0x80 returned 0 after 1 usecs
+[+  10.614] [   25.310623] usb usb4: PM: usb_dev_suspend+0x0/0x30 returned 0 after 80019 usecs
+[+  10.614] [   25.310646] sunxi-ohci 4200400.ohci1-controller: PM: calling platform_pm_suspend+0x0/0x80 @ 167, parent: soc@3000000
+[+  10.814] [   25.310662] sunxi:ohci_sunxi:[INFO]: [ohci1-controller] usb suspend
+[+  10.814] [   25.310675] sunxi-ohci 4200400.ohci1-controller: PM: platform_pm_suspend+0x0/0x80 returned 0 after 13 usecs
+[+  10.814] [   25.310743] simple-pm-bus soc@3000000: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310758] simple-pm-bus soc@3000000: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310771] platform 2002000.clk_ddr: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310779] platform 2002000.clk_ddr: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310790] platform dram: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310798] platform dram: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310809] platform 7060000.pck-600: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310817] platform 7060000.pck-600: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310830] sunxi-iommu-v2 3900000.iommu: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310850] sunxi-iommu-v2 3900000.iommu: PM: platform_pm_suspend+0x0/0x80 returned 0 after 11 usecs
+[+  10.814] [   25.310862] sunxi_irq_nmi 7010320.intc-nmi: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310870] sunxi_irq_nmi 7010320.intc-nmi: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310881] platform timer_arch: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310888] platform timer_arch: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310899] psci-cpuidle-domain psci: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310908] psci-cpuidle-domain psci: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310918] armv8-pmu arm_pmu: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  10.814] [   25.310926] armv8-pmu arm_pmu: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  10.814] [   25.310937] reg-fixed-voltage vdd-sys: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.310946] reg-fixed-voltage vdd-sys: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.310957] platform ve-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.310964] platform ve-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.310975] platform npu-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.310983] platform npu-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.310994] platform dsu-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311002] platform dsu-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311013] platform cluster1-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311021] platform cluster1-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311031] platform cluster0-opp-table: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311039] platform cluster0-opp-table: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311049] platform firmware:optee: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311057] platform firmware:optee: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311067] platform firmware:android: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311075] platform firmware:android: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311092] regulator regulator.0: PM: calling regulator_suspend+0x0/0x128 @ 452, parent: reg-dummy
+[+  11.014] [   25.311101] regulator regulator.0: PM: regulator_suspend+0x0/0x128 returned 0 after 0 usecs
+[+  11.014] [   25.311112] reg-dummy reg-dummy: PM: calling platform_pm_suspend+0x0/0x80 @ 452, parent: platform
+[+  11.014] [   25.311120] reg-dummy reg-dummy: PM: platform_pm_suspend+0x0/0x80 returned 0 after 0 usecs
+[+  11.014] [   25.311149] PM: suspend of devices complete after 142.570 msecs
+[+  11.214] [   25.311154] PM: start suspend of devices complete after 143.331 msecs
+[+  11.214] [   25.311451] pci 0000:00:00.0: PM: calling pci_pm_suspend_late+0x0/0x60 @ 161, parent: pci0000:00
+[+  11.214] [   25.311465] pci 0000:00:00.0: PM: pci_pm_suspend_late+0x0/0x60 returned 0 after 1 usecs
+[+  11.214] [   25.311581] sunxi-twi 251c000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.214] [   25.311599] sunxi:twi-251c000.twi:[INFO]: suspend late
+[+  11.214] [   25.311603] sunxi-twi 251c000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 8 usecs
+[+  11.214] [   25.311636] sunxi-twi 251b000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.214] [   25.311648] sunxi:twi-251b000.twi:[INFO]: suspend late
+[+  11.214] [   25.311651] sunxi-twi 251b000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 6 usecs
+[+  11.214] [   25.311682] sunxi-twi 2519000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.214] [   25.312086] sunxi:twi-2519000.twi:[INFO]: suspend late
+[+  11.214] [   25.312090] sunxi-twi 2519000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 399 usecs
+[+  11.214] [   25.312866] sunxi_pwm 7023000.pwm: PM: calling sunxi_pwm_suspend+0x0/0x210 @ 452, parent: soc@3000000
+[+  11.214] [   25.312902] sunxi_pwm 7023000.pwm: PM: sunxi_pwm_suspend+0x0/0x210 returned 0 after 24 usecs
+[+  11.214] [   25.312912] sunxi_pwm 2528000.pwm: PM: calling sunxi_pwm_suspend+0x0/0x210 @ 452, parent: soc@3000000
+[+  11.214] [   25.312935] sunxi_pwm 2528000.pwm: PM: sunxi_pwm_suspend+0x0/0x210 returned 0 after 16 usecs
+[+  11.214] [   25.312945] sunxi_pwm 2527000.pwm: PM: calling sunxi_pwm_suspend+0x0/0x210 @ 452, parent: soc@3000000
+[+  11.214] [   25.312968] sunxi_pwm 2527000.pwm: PM: sunxi_pwm_suspend+0x0/0x210 returned 0 after 16 usecs
+[+  11.214] [   25.313035] sunxi-twi 7085000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.214] [   25.313045] sunxi:twi-7085000.twi:[INFO]: suspend late no_suspend
+[+  11.214] [   25.313048] sunxi-twi 7085000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 4 usecs
+[+  11.214] [   25.313114] sunxi-twi 7084000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.415] [   25.313124] sunxi:twi-7084000.twi:[INFO]: suspend late no_suspend
+[+  11.415] [   25.313127] sunxi-twi 7084000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 4 usecs
+[+  11.415] [   25.313242] sunxi-twi 7083000.twi: PM: calling sunxi_twi_suspend_late+0x0/0x288 @ 452, parent: soc@3000000
+[+  11.415] [   25.313250] sunxi:twi-7083000.twi:[INFO]: suspend late no_suspend
+[+  11.415] [   25.313253] sunxi-twi 7083000.twi: PM: sunxi_twi_suspend_late+0x0/0x288 returned 0 after 3 usecs
+[+  11.415] [   25.313306] dump_reg 44000.dump_reg: PM: calling standby_dump_dev_suspend_late+0x0/0x90 @ 452, parent: soc@3000000
+[+  11.415] [   25.313316] dump_reg 44000.dump_reg: PM: standby_dump_dev_suspend_late+0x0/0x90 returned 0 after 0 usecs
+[+  11.415] [   25.313406] PM: late suspend of devices complete after 2.248 msecs
+[+  11.415] [   25.525356] pvrsrvkm 1800000.gpu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.415] [   25.525366] pvrsrvkm 1800000.gpu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 2 usecs
+[+  11.415] [   25.525388] vipcore 3600000.npu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.415] [   25.525393] vipcore 3600000.npu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.415] [   25.525413] sunxi-vin-media 5800800.vind: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.415] [   25.525417] sunxi-vin-media 5800800.vind: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.415] [   25.525433] sunxi-cedar 1c10000.ve2: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.415] [   25.525437] sunxi-cedar 1c10000.ve2: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.415] [   25.525441] sunxi-cedar 1c0e000.ve: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.415] [   25.525444] sunxi-cedar 1c0e000.ve: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.415] [   25.525650] pci 0000:00:00.0: PM: calling pci_pm_suspend_noirq+0x0/0x258 @ 159, parent: pci0000:00
+[+  11.415] [   25.525680] pci 0000:00:00.0: PM: pci_pm_suspend_noirq+0x0/0x258 returned 0 after 15 usecs
+[+  11.615] [   25.525741] sunxi-pcie 6000000.pcie: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.615] [   25.525747] sunxi-pcie 6000000.pcie: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.615] [   25.525758] drm_edp 5740000.edp0: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.615] [   25.525761] drm_edp 5740000.edp0: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.615] [   25.525818] allwinner,sunxi-hdmi 5520000.hdmi0: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  11.615] [   25.525822] allwinner,sunxi-hdmi 5520000.hdmi0: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.615] [   25.525900] sunxi-twi 251c000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  11.615] [   25.525904] sunxi-twi 251c000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  11.615] [   25.525923] sunxi-twi 251b000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  11.615] [   25.525927] sunxi-twi 251b000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  11.615] [   25.525944] sunxi-twi 2519000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  11.615] [   25.525947] sunxi-twi 2519000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  11.615] [   25.526000] dwc3 6a00000.xhci2-controller: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 12.usbc2
+[+  11.615] [   25.526010] dwc3 6a00000.xhci2-controller: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 6 usecs
+[+  11.615] [   25.526020] sunxi-cadence-combophy 6c00000.serdes: PM: calling sunxi_cadence_phy_suspend_noirq+0x0/0xb0 @ 452, parent: soc@3000000
+[+  11.615] [   25.526029] sunxi-cadence-combophy 6c00000.serdes: PM: sunxi_cadence_phy_suspend_noirq+0x0/0xb0 returned 0 after 3 usecs
+[+  11.615] [   25.526116] nsi_master csi: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.615] [   25.526131] nsi_master csi: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.615] [   25.526139] nsi_master isp: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526146] nsi_master isp: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526153] nsi_master ve2: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526160] nsi_master ve2: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526168] nsi_master ve1: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526175] nsi_master ve1: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526183] nsi_master ve0: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526190] nsi_master ve0: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526197] nsi_master g2d: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526204] nsi_master g2d: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526211] nsi_master di: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526219] nsi_master di: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526226] nsi_master eink: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526233] nsi_master eink: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526240] nsi_master de: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526246] nsi_master de: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  11.815] [   25.526254] nsi_master gpu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526267] nsi_master gpu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 6 usecs
+[+  11.815] [   25.526275] nsi_master usb_pcie: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526285] nsi_master usb_pcie: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 3 usecs
+[+  11.815] [   25.526292] nsi_master npu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 2020000.nsi-controller
+[+  11.815] [   25.526303] nsi_master npu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 4 usecs
+[+  12.016] [   25.526638] iommu_master eink_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526649] iommu_master eink_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526657] iommu_master g2d_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526663] iommu_master g2d_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526671] iommu_master di_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526678] iommu_master di_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526686] iommu_master de0_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526692] iommu_master de0_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526700] iommu_master ve_dec1_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526706] iommu_master ve_dec1_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526713] iommu_master ve_dec0_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526720] iommu_master ve_dec0_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526728] iommu_master ve_enc_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526735] iommu_master ve_enc_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526743] iommu_master isp_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526749] iommu_master isp_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526757] iommu_master csi_iommu: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: 3900000.iommu
+[+  12.016] [   25.526763] iommu_master csi_iommu: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.016] [   25.526826] tcon-top 5510000.vo1: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  12.216] [   25.526838] tcon-top 5510000.vo1: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 5 usecs
+[+  12.216] [   25.526847] tcon-top 5500000.vo0: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  12.216] [   25.526857] tcon-top 5500000.vo0: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 3 usecs
+[+  12.216] [   25.526865] sunxi-display-engine 5000000.de: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  12.216] [   25.526872] sunxi-display-engine 5000000.de: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.216] [   25.526896] g2d 5440000.g2d: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  12.216] [   25.526903] g2d 5440000.g2d: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.216] [   25.526911] deinterlace 5400000.deinterlace: PM: calling genpd_suspend_noirq+0x0/0x40 @ 452, parent: soc@3000000
+[+  12.216] [   25.526918] deinterlace 5400000.deinterlace: PM: genpd_suspend_noirq+0x0/0x40 returned 0 after 0 usecs
+[+  12.216] [   25.527002] sunxi-twi 7085000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  12.216] [   25.527007] sunxi-twi 7085000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  12.216] [   25.527029] sunxi-twi 7084000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  12.216] [   25.527032] sunxi-twi 7084000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  12.216] [   25.527105] sunxi-twi 7083000.twi: PM: calling sunxi_twi_suspend_noirq+0x0/0x18 @ 452, parent: soc@3000000
+[+  12.216] [   25.527108] sunxi-twi 7083000.twi: PM: sunxi_twi_suspend_noirq+0x0/0x18 returned 0 after 0 usecs
+[+  12.216] [   25.527127] sun60iw2-pinctrl 2000000.pinctrl: PM: calling sun60iw2_pinctrl_suspend_noirq+0x0/0x78 @ 452, parent: soc@3000000
+[+  12.216] [   25.527162] sun60iw2-pinctrl 2000000.pinctrl: PM: sun60iw2_pinctrl_suspend_noirq+0x0/0x78 returned 0 after 29 usecs
+[+  12.216] [   25.527168] dump_reg 44000.dump_reg: PM: calling standby_dump_dev_suspend_noirq+0x0/0x90 @ 452, parent: soc@3000000
+[+  12.216] [   25.527172] dump_reg 44000.dump_reg: PM: standby_dump_dev_suspend_noirq+0x0/0x90 returned 0 after 0 usecs
+[+  12.416] [   25.527187] simple-pm-bus soc@3000000: PM: calling pm_runtime_force_suspend+0x0/0x160 @ 452, parent: platform
+[+  12.416] [   25.527192] simple-pm-bus soc@3000000: PM: pm_runtime_force_suspend+0x0/0x160 returned 0 after 0 usecs
+[+  12.416] [   25.527212] PM: noirq suspend of devices complete after 1.871 msecs
+[+  12.416] [   25.554424] Disabling non-boot CPUs ...
+[+  12.416] [   25.604015] psci: CPU1 killed (polled 0 ms)
+[+  12.416] [   25.643953] psci: CPU2 killed (polled 0 ms)
+[+  12.416] [   25.679930] psci: CPU3 killed (polled 0 ms)
+[+  12.416] [   25.711876] psci: CPU4 killed (polled 0 ms)
+[+  12.416] [   25.747796] psci: CPU5 killed (polled 0 ms)
+[+  12.416] [   31.845575] psci: CPU6 killed (polled 0 ms)
