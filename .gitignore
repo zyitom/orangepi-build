@@ -26,6 +26,8 @@ toolchains
 # our board config, kernel config override and kernel patch series are tracked
 !/userpatches/config-a733.conf
 !/userpatches/linux-sun60iw2-current-a733.config
+!/userpatches/linux-rockchip-rk3588-current.config
+!/userpatches/config-opi5-rt-full.conf
 !/userpatches/customize-image.sh
 !/userpatches/kernel/
 !/userpatches/kernel/**/*.patch

@@ -62,8 +62,16 @@ elif [[ $BOARDFAMILY == "rockchip-rk3588" ]]; then
 
 	BOOT_SCENARIO="${BOOT_SCENARIO:=spl-blobs}"
 
-	DDR_BLOB="${DDR_BLOB:=rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.24_support_dmi_behavior_mode_1.bin}"
-	BL31_BLOB='rk35/rk3588_bl31_v1.56.elf'
+	# 2026-10-17 opi5 boot-failure fix: every locally built u-boot reset
+	# instantly after the SPL handoff on the Orange Pi 5 (vendor SPL + fork
+	# FIT = boot loop, see HANDOFF-OPI5-RT.md). The vendor's working Nov-2023
+	# binary was built from this fork with bl31 v1.42 + ddr v1.13; the fork had
+	# since moved to bl31 v1.56 / ddr v1.24 (upstream a95129b). Pinned back to
+	# the vendor-era blobs; u-boot source is pinned to the matching commit in
+	# the family conf (BOOTBRANCH commit:3d9c7c63). Only move these forward
+	# after a build is verified to boot on real hardware.
+	DDR_BLOB="${DDR_BLOB:=rk35/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.13.bin}"
+	BL31_BLOB='rk35/rk3588_bl31_v1.42.elf'
 
 	# The 6.18 (next) branch uses mainline TF-A, taken into the tree as a
 	# prebuilt bl31.elf.  legacy/current keep the Rockchip blob from rkbin.
