@@ -1,0 +1,13 @@
+# Rockchip 6.1 BSP kernel (orangepi-6.1-rk35xx) only exposes dma-heap
+# nodes: system, system-uncached, reserved. The vendor librockchip-mpp
+# 1.5.0-2 (Xunlong jammy packages) was built for newer kernels whose
+# dma-heap subsystem also registers the *-dma32 / cma-uncached heaps and
+# opens "system-uncached-dma32" by default. Without the alias every
+# root-run decoder fails its ION allocator setup; as root this used to
+# end in a SIGSEGV inside mpp_buffer_create (see
+# rt-check/patch-mpp-jammy-segv.py). Aliases are functionally equivalent
+# here: the board has no DMA32 zone distinction and all RAM sits below
+# 4 GiB behind the codec IOMMUs.
+SUBSYSTEM=="dma_heap", KERNEL=="system-uncached", SYMLINK+="dma_heap/system-uncached-dma32"
+SUBSYSTEM=="dma_heap", KERNEL=="system", SYMLINK+="dma_heap/system-dma32"
+SUBSYSTEM=="dma_heap", KERNEL=="reserved", SYMLINK+="dma_heap/cma-uncached"

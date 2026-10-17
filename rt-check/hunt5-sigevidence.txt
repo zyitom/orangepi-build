@@ -1,0 +1,69 @@
+== hunt4 start 2026-10-18 02:15:26
+== HUNG at iter 0 pid 29564 02:15:34
+== stderr of crashed run:
+Caught SIGSEGV
+Spinning.  Please run 'gdb gst-launch-1.0 29564' to continue debugging, Ctrl-C to quit, or Ctrl-\ to dump core.
+== gcore:
+[New LWP 29570]
+[New LWP 29571]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+0x0000007f86e8fce0 in poll () from /lib/aarch64-linux-gnu/libc.so.6
+warning: target file /proc/29564/cmdline contained unexpected null characters
+Saved corefile /tmp/crash-29564.core
+[Inferior 1 (process 29564) detached]
+== live siginfo + regs:
+[New LWP 29570]
+[New LWP 29571]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+0x0000007f86e8fce0 in poll () from /lib/aarch64-linux-gnu/libc.so.6
+#0  0x0000007f86e8fce0 in poll () at /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000007f8708c04c in  () at /lib/aarch64-linux-gnu/libglib-2.0.so.0
+#2  0x0000007f87035564 in g_main_loop_run () at /lib/aarch64-linux-gnu/libglib-2.0.so.0
+#3  0x000000555b3a3eac in  ()
+#4  0x0000007f86dd7400 in  () at /lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000007f86dd74d8 in __libc_start_main () at /lib/aarch64-linux-gnu/libc.so.6
+#6  0x000000555b3a42f0 in _start ()
+====SIGINFO====
+$1 = {si_signo = 19, si_errno = 0, si_code = 128, _sifields = {_pad = {0 <repeats 28 times>}, _kill = {si_pid = 0, si_uid = 0}, _timer = {si_tid = 0, si_overrun = 0, si_sigval = {sival_int = 0, sival_ptr = 0x0}}, _rt = {si_pid = 0, si_uid = 0, si_sigval = {sival_int = 0, sival_ptr = 0x0}}, _sigchld = {si_pid = 0, si_uid = 0, si_status = 0, si_utime = 0, si_stime = 0}, _sigfault = {si_addr = 0x0}, _sigpoll = {si_band = 0, si_fd = 0}, _sigsys = {_call_addr = 0x0, _syscall = 0, _arch = 0}}}
+====REGS-AT-FAULT====
+#5  0x0000007f86dd74d8 in __libc_start_main () from /lib/aarch64-linux-gnu/libc.so.6
+pc             0x7f86dd74d8        0x7f86dd74d8 <__libc_start_main+152>
+sp             0x7fe55dca70        0x7fe55dca70
+lr             0x7f86dd74d8        547723506904
+x0             0x557029b3a0        366954001312
+x1             0x2                 2
+x2             0x0                 0
+x3             0x0                 0
+x4             0x0                 0
+x5             0x0                 0
+x6             0x1                 1
+x7             0x55702c5d28        366954175784
+x8             0x49                73
+x29            0x7fe55dca70        549308975728
+====FAULT-CODE====
+   0x7f86dd74b8 <__libc_start_main+120>:	ldr	x22, [x22, #3984]
+   0x7f86dd74bc <__libc_start_main+124>:	ldr	x0, [x22]
+   0x7f86dd74c0 <__libc_start_main+128>:	bl	0x7f86dd7010 <_dl_audit_preinit@plt>
+   0x7f86dd74c4 <__libc_start_main+132>:	cbnz	w25, 0x7f86dd7568 <__libc_start_main+296>
+   0x7f86dd74c8 <__libc_start_main+136>:	mov	x2, x19
+   0x7f86dd74cc <__libc_start_main+140>:	mov	w1, w20
+   0x7f86dd74d0 <__libc_start_main+144>:	mov	x0, x23
+   0x7f86dd74d4 <__libc_start_main+148>:	bl	0x7f86dd7390
+=> 0x7f86dd74d8 <__libc_start_main+152>:	adrp	x22, 0x7f86f50000 <sys_siglist+424>
+   0x7f86dd74dc <__libc_start_main+156>:	ldr	x0, [x22, #3984]
+   0x7f86dd74e0 <__libc_start_main+160>:	ldr	x21, [x0]
+   0x7f86dd74e4 <__libc_start_main+164>:	ldr	x0, [x21, #160]
+   0x7f86dd74e8 <__libc_start_main+168>:	cbz	x0, 0x7f86dd7508 <__libc_start_main+200>
+   0x7f86dd74ec <__libc_start_main+172>:	ldr	x4, [x0, #8]
+   0x7f86dd74f0 <__libc_start_main+176>:	mov	x2, x26
+   0x7f86dd74f4 <__libc_start_main+180>:	ldr	x3, [x21]
+[Inferior 1 (process 29564) detached]
+== librockchip_mpp mappings:
+7f7c5a0000-7f7c769000 r-xp 00000000 b3:01 11046                          /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.0
+7f7c769000-7f7c779000 ---p 001c9000 b3:01 11046                          /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.0
+7f7c779000-7f7c77d000 r--p 001c9000 b3:01 11046                          /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.0
+7f7c77d000-7f7c78c000 rw-p 001cd000 b3:01 11046                          /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.0
+== process 29564 left spinning for manual inspection
+== hunt4 stop 2026-10-18 02:15:36 iters=0

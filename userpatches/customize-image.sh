@@ -52,17 +52,41 @@ Main() {
 				apt-get -y -qq install $p >/dev/null 2>&1 || \
 					echo "customize-image: $p install failed"
 			done
-			# rtla（timerlat/osnoise）：userpatches/overlay/rtla/rtla 是从
-			# kernel 6.6 的 tools/tracing/rtla 交叉编的，不依赖内核版本，
-			# 只要 tracefs 和 libtraceevent/libtracefs（trace-cmd 会带上）。
-			if [ -f /tmp/overlay/rtla/rtla ]; then
-				install -m 755 /tmp/overlay/rtla/rtla /usr/local/bin/rtla && \
-					echo "customize-image: rtla installed from overlay"
-			fi
+		# rtla（timerlat/osnoise）：userpatches/overlay/rtla/rtla 是从
+		# kernel 6.6 的 tools/tracing/rtla 交叉编的，不依赖内核版本，
+		# 只要 tracefs 和 libtraceevent/libtracefs（trace-cmd 会带上）。
+		if [ -f /tmp/overlay/rtla/rtla ]; then
+			install -m 755 /tmp/overlay/rtla/rtla /usr/local/bin/rtla && \
+				echo "customize-image: rtla installed from overlay"
+		fi
+		# mpp 库 SIGSEGV 哨兵：Xunlong jammy vendor mpp 1.5.0-2（2023-02 构建）的
+		# MppBufferService::get_group 在分配器创建失败时只打一条默认级别被压制的
+		# 断言就返回半初始化的组，首次 mpp_buffer_create 解引用空指针，gst 管线
+		# 以"挂起"假象永久卡死（详见 rt-check/patch-mpp-jammy-segv.py）。
+		# 缓存里的 librockchip-mpp1 deb 已用该脚本重打包；这里校验实际装进镜像
+		# 的库确实不含缺陷（noble 的 PPA 版 2024-07 已含上游修复，同样通过）。
+		if grep -q "p->allocator" /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.0 2>/dev/null; then
+			echo "customize-image: WARNING librockchip_mpp.so.0 still has the get_group NULL-allocator SIGSEGV bug (see rt-check/patch-mpp-jammy-segv.py)"
+		else
+			echo "customize-image: librockchip_mpp.so.0 OK (get_group NULL-allocator bug absent)"
+		fi
+		# dma-heap 节点别名：BSP 6.1 内核只建 system/system-uncached/reserved 三个
+		# 堆，而 vendor mpp 1.5.0-2 的默认堆名是 system-uncached-dma32（新内核才
+		# 有）。root 进程（is_valid 探测通过）会走 dma-heap 并因 ENOENT 静默失败，
+		# 首次 mpp_buffer_create 即 SEGV；udev 规则补齐别名后 root/用户路径都正常。
+		# 本板 4GB RAM 全在 4GB 以下且编解码器前有 IOMMU，-dma32 语义可安全等同。
+		if [ -f /tmp/overlay/dma-heap/60-dma-heap-aliases.rules ]; then
+			install -m 644 /tmp/overlay/dma-heap/60-dma-heap-aliases.rules \
+				/etc/udev/rules.d/60-dma-heap-aliases.rules && \
+				echo "customize-image: dma-heap alias rules installed"
+		else
+			echo "customize-image: dma-heap alias rules missing in overlay"
+		fi
 			# Ubuntu noble 移除了 pam_lastlog.so，但 /etc/pam.d/login 还在引用，
 			# 每次控制台登录报 "PAM unable to dlopen"。
 			sed -i '/pam_lastlog/d' /etc/pam.d/login 2>/dev/null || true
 			if [ "$BOARD" = orangepizero3w ]; then Zero3wTweaks; fi
+			if [ "$LINUXFAMILY" = "rockchip-rk3588" ]; then RockchipRk3588Noble; fi
 			;;
 	esac
 } # Main
@@ -85,6 +109,75 @@ Zero3wTweaks() {
 		systemctl enable zero3w-btaddr.service >/dev/null 2>&1
 	else
 		echo "customize-image: aic-btaddr build failed"
+	fi
+}
+
+# Orange Pi 5 (rk3588) noble：GPU / NPU / 硬编解码用户态。官方 RK3588 没有
+# noble 支持（rk35xx_packages 分支无 noble 目录），这里复刻 ubuntu-rockchip 在
+# noble + Rockchip 6.1 内核上验证过的栈，全部来自 Launchpad PPA，构建时需要
+# 网络。PPA 会留在镜像的 apt 源里，板上 apt upgrade 继续跟上游：
+#   GPU    ppa:jjriek/panfork-mesa（mesa 23.0.5 panfork，dist-upgrade 接管发行版
+#          mesa）+ libmali-g610-x11 blob + mesa-opencl-icd（G610 上的 OpenCL）
+#   编解码 ppa:jjriek/rockchip-multimedia（mpp / rga / gst-rkmpp / 带 rkmpp 的
+#          ffmpeg / rkaiq 摄像头 ISP）
+#   NPU    rknpu2 v1.5.2 运行时（userpatches/overlay/rknpu2/，与官方
+#          rk35xx_packages 分支同版本；内核 CONFIG_ROCKCHIP_RKNPU=y 已内置），
+#          rknn_server 起 systemd 服务
+RockchipRk3588Noble() {
+	# add-apt-repository 要连 keyserver.ubuntu.com:11371（HKP）拉密钥，墙内必挂
+	# （第一版构建时两个 PPA 都因此失败）。改成宿主机预先取好密钥放进
+	# overlay/apt-keys/jjriek-ppa.gpg —— 两个 PPA 同一把签名密钥，指纹
+	# 3CC0D9D1F3F0354B50D24F51F02122ECF25FB4D7，已用它离线验证过两个仓库的
+	# InRelease 签名。仓库本身走 http 的 ppa.launchpadcontent.net，可达。
+	if [ -f /tmp/overlay/apt-keys/jjriek-ppa.gpg ]; then
+		install -D -m 644 /tmp/overlay/apt-keys/jjriek-ppa.gpg /etc/apt/keyrings/jjriek-ppa.gpg
+		for ppa in panfork-mesa rockchip-multimedia; do
+			echo "deb [signed-by=/etc/apt/keyrings/jjriek-ppa.gpg] http://ppa.launchpadcontent.net/jjriek/$ppa/ubuntu noble main" \
+				> /etc/apt/sources.list.d/jjriek-$ppa.list
+		done
+	else
+		echo "customize-image: jjriek-ppa.gpg missing in overlay"
+	fi
+	apt-get -qq update >/dev/null 2>&1
+
+	# 无值守装包：BSP 预置的 /etc/pulse/client.conf 与 libpulse0 包撞车时 dpkg
+	# 会弹 conffile 提问，EOF 直接判失败并连锁拖死 ffmpeg 整串——必须带
+	# force-confdef/force-confold（构建系统 OMV 那段同款做法）。
+	local APT="env DEBIAN_FRONTEND=noninteractive apt-get -y -qq -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold"
+
+	# GPU：先装固件；dist-upgrade 让 panfork mesa 覆盖发行版 mesa；再装 blob 和 OpenCL
+	$APT install mali-g610-firmware >/dev/null 2>&1 || \
+		echo "customize-image: mali-g610-firmware install failed"
+	$APT dist-upgrade >/dev/null 2>&1 || \
+		echo "customize-image: dist-upgrade (panfork mesa) failed"
+	$APT install libmali-g610-x11 mesa-opencl-icd >/dev/null 2>&1 || \
+		echo "customize-image: libmali/opencl install failed"
+	echo "PAN_MESA_DEBUG=gofaster" >> /etc/environment
+
+	# 硬编解码 + 摄像头 ISP（-dev 包方便板上直接编自己的用户态）
+	$APT install librga2 librga-dev librockchip-mpp1 librockchip-mpp-dev \
+		rockchip-mpp-demos libv4l-rkmpp libv4l-dev gstreamer1.0-rockchip1 ffmpeg \
+		camera-engine-rkaiq-rk3588 >/dev/null 2>&1 || \
+		echo "customize-image: multimedia install failed"
+
+	# NPU 运行时：官方 tar 解到根（librknnrt.so / rknn_server / demo 模型）
+	if tar -xf /tmp/overlay/rknpu2/rknpu2-v1.5.2.tar -C / 2>/dev/null; then
+		cat > /etc/systemd/system/rknn-server.service <<-__EOF__
+		[Unit]
+		Description=RKNN NPU runtime server
+		After=multi-user.target
+
+		[Service]
+		Type=simple
+		ExecStart=/usr/bin/rknn_server
+		Restart=always
+
+		[Install]
+		WantedBy=multi-user.target
+		__EOF__
+		systemctl enable rknn-server.service >/dev/null 2>&1
+	else
+		echo "customize-image: rknpu2 overlay tar missing"
 	fi
 }
 
