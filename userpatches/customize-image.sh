@@ -82,6 +82,16 @@ Main() {
 		else
 			echo "customize-image: dma-heap alias rules missing in overlay"
 		fi
+		# GLX 硬件渲染（jammy 桌面）：vendor 的 panfork mesa（kbase 后端，与 blob 共用
+		# 内核驱动）让 GLX 应用走 G610；发行版自带 mesa 没有 G610 驱动，GLX 只能
+		# llvmpipe 软渲染。装的是 Xunlong jammy GNOME 镜像同款 debs（overlay 拷入）。
+		# EGL 保持 mali blob 为默认（glvnd 按 ICM 文件名排序 50-mali 在前），
+		# panfork 只接管 GLX——与板上实测一致（glxinfo: Mali-G610, Accelerated: yes）。
+		if [ "$RELEASE" = jammy ] && ls /tmp/overlay/mesa-jammy/*.deb >/dev/null 2>&1; then
+			dpkg -i /tmp/overlay/mesa-jammy/*.deb >/dev/null 2>&1 && \
+				echo "customize-image: panfork mesa installed for GLX hw rendering" || \
+				echo "customize-image: panfork mesa install failed"
+		fi
 			# Ubuntu noble 移除了 pam_lastlog.so，但 /etc/pam.d/login 还在引用，
 			# 每次控制台登录报 "PAM unable to dlopen"。
 			sed -i '/pam_lastlog/d' /etc/pam.d/login 2>/dev/null || true

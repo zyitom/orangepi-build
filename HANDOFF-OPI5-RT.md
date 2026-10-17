@@ -54,11 +54,15 @@
 ## ★ 2026-10-17 上板实测结论(全功能 jammy 桌面镜像,烧录在 64GB SD 卡)
 - **存储**:SD 直写 32.3MB/s / 读 69MB/s。**温控**:满载后 74-83°C(RK3588 降频阈值 95°C
   之内,但建议加散热;桌面长跑注意 gpu-thermal 73°C)。
-- **GPU/EGL 修复(本次完成)**:镜像里 glvnd 的 EGL vendor 配置原本只有 mesa(`50_mesa.json`)
-  → EGL/GLES 全部走了软件渲染。已补 `50-mali.json`(library_path = libmali.so.1),并固化进
-  `external/packages/bsp/rk3588/usr/share/glvnd/egl_vendor.d/50-mali.json`(family_tweaks_s 的
-  rsync 会自动进以后所有镜像)。EGL/GLES 应用(chromium/mpv/kodi)由此路由到 mali;
-  **GLX 仍是软件渲染属正常**(mali blob 无 GLX,官方镜像同款)。
+- **GPU/EGL/GLX 修复(2026-10-18 全部完成)**:镜像里 glvnd 的 EGL vendor 配置原本只有
+  mesa(`50_mesa.json`)→ EGL/GLES 全部走了软件渲染。已补 `50-mali.json`(library_path =
+  libmali.so.1)并固化进 `external/packages/bsp/rk3588/usr/share/glvnd/egl_vendor.d/`
+  (family_tweaks_s 的 rsync 会自动进以后所有镜像),EGL/GLES 应用由此路由到 mali。
+  **GLX 原本也是 llvmpipe——原因不是 blob 无 GLX 而是发行版 mesa 没有 G610 驱动;
+  已装 vendor 自带的 panfork mesa(kbase 后端,jammy GNOME 镜像同款 debs,现在
+  `userpatches/overlay/mesa-jammy/`,customize-image.sh 对 jammy 桌面自动安装)**,
+  实测 `glxinfo -B`:Mali-G610 (Panfrost),Accelerated: yes,跨重启稳定。GLX 由
+  panfork 接管,EGL 默认仍是 mali blob(glvnd 按 ICM 文件名 50-mali < 50_mesa 排序)。
 - **调试通道(2026-10-18 建立,首选)**:板子 eth0 直连主机 enp44s0,板子 NM 配置名 `direct`
   (10.0.0.2/30),主机配置 `static-172`(已改为 10.0.0.1/30 + autoconnect no;旧值 172.16.0.10/24
   曾因 /24 路由抢占 172.16.0.0/21 导致插线即断所有会话——已修)。SSH:`ssh orangepi@10.0.0.2`
@@ -78,9 +82,12 @@
 - **遗留**:
   1. ~~`rtla` GLIBC_2.38 缺失~~ 已解决:板上从源码重编通过(timerlat top 正常),且
      板上编出的 jammy 版二进制已拷回 `userpatches/overlay/rtla/rtla`,以后镜像直接带对的。
-  2. GLX 应用走 llvmpipe:确认 vendor 官方镜像同样如此后可结案。
+  2. ~~GLX 应用走 llvmpipe~~ **已修复(2026-10-18)**:panfork mesa,见上面 GPU/EGL/GLX 条。
   3. ~~段错误未复现但根因未定位~~ **已定位并修复(2026-10-18)**:就是上面的
      mppvideodec SIGSEGV,不是偶发未知项。
+- **编解码矩阵(2026-10-18,修复后 root+用户双路径全部通过)**:H264/H265/AV1 硬解 ✓、
+  H264/H265 硬编(VEPU)✓。AV1 用的是部分文件冒烟(libx265/libaom 生成慢),完整 AV1
+  素材未测;JPEG enc/dec 未测(独立核,风险低)。
 
 ---
 
@@ -287,7 +294,11 @@ trace-cmd record -e osnoise 2>/dev/null   # OSNOISE/TIMERLAT tracer 已编入
   soc/clk/drm/media/phy/rknpu/serial/wifi/staging 共 1463 个 .c)。发现并已修复 1 处:
   RKNPU hrtimer 回调在 RT 硬中断上下文用可睡眠 spinlock → `0001-rknpu-rt-rawlock.patch`
   把 `rknpu_dev->irq_lock` 转成 raw_spinlock_t。剩余 6 条都是不参与本板构建的主线驱动
-  (pic32/imx/sh-sci/8250_bcm7271),已知误报,忽略即可。压大负载前建议再跑一遍扫描。
+  (pic32/imx/sh-sci/8250_bcm7271),已知误报,忽略即可。**2026-10-18 对打好 RT 补丁的
+  当前树复扫:结果与首扫完全一致,无新增隐患**(8250_core 的 backup timeout 在 RT 下
+  hrtimer 回调运行于任务上下文,合法)。压大负载前建议再跑一遍扫描。
+- **eth0 MAC 跨重启稳定(2026-10-18 实测)**:vendor storage 无 MAC 时内核回退的
+  00:00:a4:0a:65:eb 是确定性派生,重启前后一致,无需处理。
 - `config-opi5-noble.conf` 里"实时内核 legacy 分支专用"的旧注释已更新(那是 fork 自带的
   5.10-rt 分支机制);current 分支的 RT 走本简报的 userpatch 机制。
 - deb 包名/版本与原非 RT 内核相同(`linux-image-current-rockchip-rk3588_1.2.4_arm64.deb`),
