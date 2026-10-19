@@ -1,0 +1,62 @@
+--- /tmp/v6199/hwif.c	2026-10-18 15:38:25.024181311 +0800
++++ /home/zyi/Desktop/orangepi5-build/ethercat-igh/../kernel/orange-pi-6.1-rk35xx/drivers/net/ethernet/stmicro/stmmac/hwif.c	2026-10-16 23:28:02.620594363 +0800
+@@ -35,6 +35,7 @@
+ 	return (reg & GENMASK(15, 8)) >> 8;
+ }
+ 
++#ifdef CONFIG_STMMAC_FULL
+ static void stmmac_dwmac_mode_quirk(struct stmmac_priv *priv)
+ {
+ 	struct mac_device_info *mac = priv->hw;
+@@ -86,6 +87,7 @@
+ 	priv->hw->xlgmac = true;
+ 	return 0;
+ }
++#endif
+ 
+ static const struct stmmac_hwif_entry {
+ 	bool gmac;
+@@ -105,6 +107,7 @@
+ 	int (*quirks)(struct stmmac_priv *priv);
+ } stmmac_hw[] = {
+ 	/* NOTE: New HW versions shall go to the end of this table */
++#ifdef CONFIG_STMMAC_FULL
+ 	{
+ 		.gmac = false,
+ 		.gmac4 = false,
+@@ -177,7 +180,9 @@
+ 		.mmc = &dwmac_mmc_ops,
+ 		.setup = dwmac4_setup,
+ 		.quirks = NULL,
+-	}, {
++	},
++#endif /* CONFIG_STMMAC_FULL */
++	{
+ 		.gmac = false,
+ 		.gmac4 = true,
+ 		.xgmac = false,
+@@ -191,11 +196,15 @@
+ 		.mac = &dwmac410_ops,
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.mode = &dwmac4_ring_mode_ops,
++#ifdef CONFIG_STMMAC_FULL
+ 		.tc = &dwmac510_tc_ops,
++#endif
+ 		.mmc = &dwmac_mmc_ops,
+ 		.setup = dwmac4_setup,
+ 		.quirks = NULL,
+-	}, {
++	},
++#ifdef CONFIG_STMMAC_FULL
++	{
+ 		.gmac = false,
+ 		.gmac4 = true,
+ 		.xgmac = false,
+@@ -252,6 +261,7 @@
+ 		.setup = dwxlgmac2_setup,
+ 		.quirks = stmmac_dwxlgmac_quirks,
+ 	},
++#endif
+ };
+ 
+ int stmmac_hwif_init(struct stmmac_priv *priv)

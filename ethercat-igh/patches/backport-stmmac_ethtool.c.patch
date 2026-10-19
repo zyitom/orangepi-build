@@ -1,0 +1,14 @@
+--- /tmp/v6199/stmmac_ethtool.c	2026-10-18 15:39:12.334631923 +0800
++++ /home/zyi/Desktop/orangepi5-build/ethercat-igh/../kernel/orange-pi-6.1-rk35xx/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c	2026-10-16 23:28:02.621594388 +0800
+@@ -413,6 +413,11 @@
+ 		return 0;
+ 	}
+ 
++	if (priv->plat->tx_queues_to_use > 1 && cmd->base.duplex == DUPLEX_HALF) {
++		netdev_warn(priv->dev, "Half-Duplex can only work with single queue\n");
++		return -EINVAL;
++	}
++
+ 	return phylink_ethtool_ksettings_set(priv->phylink, cmd);
+ }
+ 

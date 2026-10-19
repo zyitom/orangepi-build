@@ -1,0 +1,21 @@
+--- /tmp/v6199/common.h	2026-10-18 15:38:26.793403224 +0800
++++ /home/zyi/Desktop/orangepi5-build/ethercat-igh/../kernel/orange-pi-6.1-rk35xx/drivers/net/ethernet/stmicro/stmmac/common.h	2026-10-16 23:28:02.618594314 +0800
+@@ -49,10 +49,18 @@
+  */
+ #define DMA_MIN_TX_SIZE		64
+ #define DMA_MAX_TX_SIZE		1024
++#if IS_ENABLED(CONFIG_STMMAC_UIO)
++#define DMA_DEFAULT_TX_SIZE	1024
++#else
+ #define DMA_DEFAULT_TX_SIZE	512
++#endif
+ #define DMA_MIN_RX_SIZE		64
+ #define DMA_MAX_RX_SIZE		1024
++#if IS_ENABLED(CONFIG_STMMAC_UIO)
++#define DMA_DEFAULT_RX_SIZE	1024
++#else
+ #define DMA_DEFAULT_RX_SIZE	512
++#endif
+ #define STMMAC_GET_ENTRY(x, size)	((x + 1) & (size - 1))
+ 
+ #undef FRAME_FILTER_DEBUG

@@ -90,4 +90,7 @@ __pycache__/
 /*.log
 /ethercat-igh/src/
 /ethercat-igh/*.tar.gz
+# IgH vendor backport patches (gen-port.sh regenerates them; *.patch above
+# would otherwise hide them)
+!/ethercat-igh/patches/*.patch
 /rt-check/*.patch.xz
