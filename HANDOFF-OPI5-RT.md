@@ -288,6 +288,48 @@ cyclictest -m -Sp99 -i1000 -h400 -D30m    # 压负载前后对比
 trace-cmd record -e osnoise 2>/dev/null   # OSNOISE/TIMERLAT tracer 已编入
 ```
 
+## ★ 原生 IgH EtherCAT(2026-10-18 完成并上板验证)
+
+- **唯一网口(fe1c0000.ethernet, RK3588S 内置 GMAC1+YT8531)已可跑原生 IgH
+  主站(非 generic)**:IgH stable-1.6(1.6.13) 的 ethercat 化 stmmac core +
+  BSP dwmac-rk 胶水移植,单模块 `ec_dwmac_rockchip.ko`(零 EXPORT,内核同名
+  导出不可遮蔽)。实测:Accepting device → IDLE 线程 → ecm0 Link UP 1Gbps →
+  ~500 datagrams/s 原生 DMA 路径;`ecat-native stop` 无缝回滚。
+- **使用**:`sudo ecat-native start|stop|status`(SSH 会断,串口兜底);
+  主站必须先带 `main_devices=00:00:a4:0a:65:eb` 加载(=m 内核同)。
+- **移植/构建/踩坑全记录**:`ethercat-igh/README.md`(三个坑:官方头把
+  STMMAC_RESOURCE_NAME 改名成 ec_stmmaceth 导致 CSR 时钟取不到;master_count
+  来自 main_devices 参数;sysfs unbind 不触发 reprobe)。生成器
+  `ethercat-igh/gen-port.sh` 可重复;板上源码 ~/ecat-build/src。
+- **底层优化第二轮+CAN-FD bring-up(2026-10-18)**:尾部自旋(抖动 mean 131ns)、
+  CAN 使能(can0/can1 内环回+FD 验证;两个 BSP 坑:can-2.0 compatible=经典模式
+  需改 canfd-1.0、udev 冷插拔无参拉起 ec 模块)——正式 DTS 补丁已入 userpatches
+  (0003);ecat-native start 改清场式+中断亲和。详见 ethercat-igh/README.md。
+- **sync monitor 竞态修复+DC 漂移闭环(2026-10-18)**:queue 时序修复后漂移连续
+  测量(mean 219ns/max 2.7µs,59761 样本),UNMATCHED=0;回归 12/12 保持。xbot
+  IghBackend 的 monitor 入队时序同样要改(app 侧一行挪位)。
+- **特性覆盖矩阵完成(2026-10-18)**:IgH 库层(SDO 下载/运行期邮箱读写/CA/
+  分段容器)、驱动层、工具层全测;EoE/SoE/VoE 设备不声明不适用;BOOT/固件真传/
+  多从站拓扑留整机。xbot IghBackend 序列源码核对一致,联调仅需 YAML 补
+  0x1c32:01=2。详见 ethercat-igh/README.md 覆盖矩阵节。
+- **全功能回归 12/12 PASS(2026-10-18,含 DC)**:DC+OP 30s 零丢帧(抖动 mean
+  2.0µs)、满载下同样通过、OP 中 kill -9 干净恢复、FoE 邮箱握手正常。DC 集成
+  四坑(0x1c32:01 写 2、0x1c32:02 只读、每周期 application_time+双 sync 调用、
+  环境调优硬要求)全部踩过并记录在 ethercat-igh/README.md。回归脚本
+  regression.sh 可重跑(板上 /tmp,接意优从站)。
+- **真实从站已验证(2026-10-18 意优 PHU20)**:SII/邮箱/SDO Info/PDO 全对,
+  >94 万 datagram 零丢帧;最小 ecrt 应用(`ethercat-igh/ecat_test.c`,500µs 周期,
+  controlword 恒 0 不上电)1s 进 OP,60000 周期 wkc=3 满分零丢帧。注意:IDLE
+  主站直接请求 OP 会被拒(SAFEOP+ERROR),必须应用配好 PDO 再 OP;DC 模式下
+  驱动器要求先建 DC 同步。详见 ethercat-igh/README.md 真实从站一节。
+- **内核配置**:userpatches 已把 STMMAC 四项改 =m,**=m 内核 deb 已编出并逐项
+  验证**(2026-10-18:deb 内 4 个 .ko/modules.dep/内嵌 config 全对;DWMAC_ROCKCHIP_TOOL
+  是 bool 随 dwmac-rk.ko 编入即可,DWMAC_GENERIC 依赖 STMMAC_PLATFORM 须显式 =m)。
+  板上安装由 `finish_install.py`+15 分钟定时任务在板子恢复后自动完成(当日串口
+  二进制传输诱发 fiq_debugger 卡死,板子待断电重启,事故与安全传输协议记录见
+  ethercat-igh/README.md 串口节)。ec 设备 MAC 恒为基址 :eb,
+  stock rebind 会在一次开机内递增,勿读 eth0 现值配主站。
+
 ## 风险与注意
 
 - **BSP 驱动 RT 隐患已扫描一轮**:`rt-check/rt_scan_rk3588.py`(由 rt_scan.py 适配,扫

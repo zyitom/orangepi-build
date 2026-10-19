@@ -81,3 +81,10 @@ external/packages/bsp/overlays_cix/opt/make_bios_image/bios_flash/bios*.bin
 __pycache__/
 # per-machine private settings (WiFi credentials, host sudo password)
 /tina-zero3w/local.env
+
+# OPI5 RT local artifacts (2026-10): build/serial logs, re-downloadable RT
+# patches, and the 109M IgH EtherCAT master sources (re-clone if needed).
+# rt-check/ evidence logs (hunt*.log) stay tracked — HANDOFF cites them.
+/*.log
+/ethercat-igh/
+/rt-check/*.patch.xz

@@ -1,0 +1,23 @@
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
+@@ -262,7 +262,9 @@
+ };
+ 
+ &can1 {
+-	status = "disabled";
++	status = "okay";
++	/* BSP 的 "rockchip,can-2.0" 映射为经典 CAN 模式；FD/loopback 需要 canfd-1.0 */
++	compatible = "rockchip,canfd-1.0";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&can1m1_pins>;
+ 	assigned-clocks = <&cru CLK_CAN1>;
+@@ -274,7 +276,8 @@
+    pin12: GPIO0_D5
+ */
+ &can2 {
+-	status = "disabled";
++	status = "okay";
++	compatible = "rockchip,canfd-1.0";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&can2m1_pins>;
+ 	assigned-clocks = <&cru CLK_CAN2>;

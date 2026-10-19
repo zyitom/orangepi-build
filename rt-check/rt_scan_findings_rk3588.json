@@ -1,0 +1,56 @@
+[
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/pic32_uart.c",
+  "func": "pic32_uart_tx_interrupt",
+  "line": 415,
+  "ctx": "hardirq",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hardirq context",
+  "detail": "IRQF_NO_THREAD/PERCPU or chained handler"
+ },
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/8250/8250_bcm7271.c",
+  "func": "brcmuart_hrtimer_func",
+  "line": 862,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/8250/8250_core.c",
+  "func": "serial8250_backup_timeout",
+  "line": 264,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/imx.c",
+  "func": "imx_trigger_start_tx",
+  "line": 2232,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/imx.c",
+  "func": "imx_trigger_stop_tx",
+  "line": 2245,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ },
+ {
+  "file": "/tmp/rt-work/kernel/drivers/tty/serial/sh-sci.c",
+  "func": "sci_dma_rx_timer_fn",
+  "line": 1473,
+  "ctx": "hrtimer",
+  "what": "spin_lock_irqsave(",
+  "why": "non-raw spinlock in hrtimer context",
+  "detail": ".function callback (hrtimer?)"
+ }
+]
